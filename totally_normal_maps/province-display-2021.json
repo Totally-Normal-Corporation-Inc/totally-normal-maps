@@ -1,0 +1,17 @@
+{
+  "authority": "Statistics Canada",
+  "family": "Province and Territory Generalized Cartographic Boundary File",
+  "release": "2021 Census",
+  "reference_date": "2021-01-01",
+  "retrieved_at": "2026-09-16",
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lecu000e21a_e.zip",
+  "reference_url": "https://www150.statcan.gc.ca/n1/pub/92-159-g/92-159-g2021001-eng.htm",
+  "licence": "https://www.statcan.gc.ca/en/terms-conditions/open-licence",
+  "sha256": "87c3b0ef722ec5613ba7d3111e0c7b06ed25fcf8cb473e003dcca025bebee695",
+  "member": "lpr_000e21a_e.shp",
+  "crs": "EPSG:3347",
+  "expected_count": 13,
+  "display_tolerance_metres": 1000,
+  "minimum_display_area_m2": 2000000,
+  "scope": "Country overview display only. Province layer from the ecumene bundle, not the population mask. Never used to assign municipalities or replace their 2025 boundaries."
+}

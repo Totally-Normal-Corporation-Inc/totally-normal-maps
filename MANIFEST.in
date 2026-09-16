@@ -1,0 +1,15 @@
+include README.md LICENSE NOTICE.md SECURITY.md AGENTS.md
+include requirements.lock requirements-s3.lock requirements-dev.lock
+include Dockerfile
+recursive-include docs *.md
+recursive-include tools *.py
+recursive-include tests *.py
+recursive-include totally_normal_maps *.py
+include totally_normal_maps/statcan-2025.json totally_normal_maps/province-display-2021.json
+include totally_normal_maps/regions-2026-09.json totally_normal_maps/city-areas-quebec-2026-09.json totally_normal_maps/points.json
+include totally_normal_maps/web/index.html totally_normal_maps/web/preview.js totally_normal_maps/web/preview.css
+include totally_normal_maps/vendor/leaflet/leaflet.js totally_normal_maps/vendor/leaflet/leaflet.css totally_normal_maps/vendor/leaflet/LICENSE
+recursive-include totally_normal_maps/vendor/leaflet/images *.png
+global-exclude __pycache__ *.pyc *.pyo .env .env.* credentials* secrets* *.pem *.key *.p12 *.pfx *.sqlite3 *.db *.zip *.gpkg *.sql *.dump *.log *.tfstate*
+prune .local
+prune .venv

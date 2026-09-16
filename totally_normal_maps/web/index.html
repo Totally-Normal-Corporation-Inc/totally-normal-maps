@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Canada · Geography review</title>
+  <link rel="stylesheet" href="leaflet.css">
+  <link rel="stylesheet" href="preview.css">
+  <script src="leaflet.js" defer></script>
+  <script src="preview.js" defer></script>
+</head>
+<body>
+  <header>
+    <div><p class="eyebrow">Totally Normal Maps / Geography preview</p><h1>Canada, area by area</h1><p>Explore provinces, regions, municipalities and city areas.</p></div>
+    <span class="badge">Geography only</span>
+  </header>
+  <section class="summary" aria-label="Dataset summary">
+    <div><strong id="area-count">—</strong><span>Municipal-level areas</span></div>
+    <div><strong id="region-count">—</strong><span id="region-count-label">Regions added</span></div>
+    <div><strong id="city-area-count">—</strong><span>City areas added</span></div>
+    <div><strong id="issue-count">—</strong><span>Areas needing review</span></div>
+    <div><strong id="reference-date">—</strong><span>Municipal boundary reference</span></div>
+  </section>
+  <main>
+    <aside aria-label="Find an area">
+      <div class="gx-fgrid gx-fgrid--2">
+        <div class="gx-w-lg gx-fspan-all"><label for="province">Jump to a province / territory</label><select id="province" class="gx-w-lg"><option value="">Canada</option></select></div>
+        <div class="gx-w-lg gx-fspan-all"><label for="search">Search this level</label><input id="search" type="search" placeholder="Find a province or territory" autocomplete="off"></div>
+        <div class="gx-check-row gx-fspan-all"><label><input id="issues-only" type="checkbox"> Geometry issues only</label></div>
+      </div>
+      <p id="coverage-note" role="status"></p>
+      <p id="result-count" role="status">Loading catalogue…</p>
+      <div id="results" aria-label="Matching areas"></div>
+      <button id="more" type="button" hidden>Show more areas</button>
+      <details class="reading-guide"><summary>What this map tells us</summary>
+        <p>Click a province to see its regions, then a region to see its municipalities. Provinces without regions open directly to municipalities. Use the breadcrumb trail or Back up to return.</p>
+        <p>Municipalities without a regional grouping appear alongside the regions in their province. Municipal-level areas also include rural and northern statistical equivalents; their official type codes are retained.</p>
+        <p>Open a city with areas to see its arrondissements or sectors. Québec's official arrondissements and Gatineau's five sectors are included. Other cities stop at their municipal boundary. Electoral districts and informal neighbourhoods are not included.</p>
+        <p>City-area sources can differ from the national city outline. Both are retained for review. MacNider covers only part of Métis-sur-Mer; no area is invented for the remainder.</p>
+        <p>Regions use the local division appropriate to each province or territory. County and district groupings describe geography; they do not imply that every community belongs to that government.</p>
+        <p>The country overview can use a separate cartographic province reference, identified in the attribution. Regional outlines combine member municipal boundaries from the same national release. Québec's grouping is cross-checked against its administrative regions. Full boundaries are kept separately from the simplified display.</p>
+        <p>Orange outlines include unapproved source repairs. A region inherits this review requirement from its members.</p>
+        <p>This catalogue describes geographical coverage. Missing layers and boundaries under review remain explicitly marked.</p>
+      </details>
+      <details class="reading-guide"><summary>Regional coverage decisions</summary><div id="coverage-decisions"></div></details>
+      <details class="reading-guide"><summary>City-area coverage</summary><div id="city-area-decisions"></div></details>
+    </aside>
+    <section class="map-panel" aria-label="Canada boundary map">
+      <nav id="breadcrumbs" aria-label="Map location"></nav>
+      <div class="map-toolbar"><span id="map-status" role="status">Preparing map…</span><button id="back" type="button" hidden>Back up</button></div>
+      <div id="map" aria-label="Interactive province, regional, municipality and city-area boundaries"></div>
+      <div id="selection" aria-live="polite"><h2>Select an area</h2><p>Choose a result or a boundary to inspect its official identity.</p></div>
+    </section>
+  </main>
+  <footer>
+    <span id="attribution">Dataset attribution is loading.</span>
+    <a id="licence" href="https://www.statcan.gc.ca/en/terms-conditions/open-licence" target="_blank" rel="noreferrer">Source licence</a>
+    <a id="quebec-licence" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" hidden>Québec source licence</a>
+  </footer>
+  <noscript>This local map needs JavaScript. The run directory also contains a report.json for review.</noscript>
+</body>
+</html>

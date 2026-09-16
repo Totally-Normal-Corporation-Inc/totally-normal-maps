@@ -1,0 +1,3956 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-16",
+  "state": "draft_for_local_review",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "expected_region_count": 121,
+  "outline_method": "Union of member StatCan 2025 CSD boundaries; full source precision retained, with unapproved member repairs propagated as unapproved regional candidates.",
+  "quebec_source": {
+    "authority": "Ministère des Ressources naturelles et des Forêts, Gouvernement du Québec",
+    "family": "Découpages administratifs, Région administrative (SDA_WMS/0)",
+    "release": "V2026-08",
+    "retrieved_on": "2026-09-16",
+    "reference_date": null,
+    "reference_date_note": "Per-feature version V2026-08; exact boundary reference day is not supplied by this service.",
+    "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/0/query?where=1%3D1&outFields=RES_CO_REG%2CRES_NM_REG%2CRES_CO_VER&outSR=4326&returnGeometry=true&f=geojson",
+    "metadata_url": "https://www.donneesquebec.ca/recherche/fr/dataset/decoupages-administratifs",
+    "licence": "https://creativecommons.org/licenses/by/4.0/",
+    "sha256": "c8d68716d2bff0d68cce417eca90e3aa475c6853abff2b6e39f8f92e514ac7a3",
+    "expected_count": 18,
+    "expected_region_count": 17,
+    "crs": "EPSG:4326",
+    "excluded_feature_name": "Côte-Nord (Tracé de 1927)",
+    "exclusion_note": "Separate additional source feature with code 09, retained in the source archive but not treated as an eighteenth region or added to the national outlines."
+  },
+  "quebec_crosswalk_evidence": [
+    {
+      "cd": "2442",
+      "cd_name": "Le Val-Saint-François",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9998297769565742,
+      "runner_up_fraction": 0.00015062030805769385
+    },
+    {
+      "cd": "2439",
+      "cd_name": "Arthabaska",
+      "region": "17",
+      "region_name": "Centre-du-Québec",
+      "overlap_fraction": 0.998612049174829,
+      "runner_up_fraction": 0.0009956806234825378
+    },
+    {
+      "cd": "2429",
+      "cd_name": "Beauce-Sartigan",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9991757725686803,
+      "runner_up_fraction": 0.0005124142857395699
+    },
+    {
+      "cd": "2412",
+      "cd_name": "Rivière-du-Loup",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9999999999999988,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2458",
+      "cd_name": "Longueuil",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9971111849631028,
+      "runner_up_fraction": 0.002888815036898403
+    },
+    {
+      "cd": "2437",
+      "cd_name": "Francheville",
+      "region": "04",
+      "region_name": "Mauricie",
+      "overlap_fraction": 0.9936486412178118,
+      "runner_up_fraction": 0.006009323169018976
+    },
+    {
+      "cd": "2446",
+      "cd_name": "Brome-Missisquoi",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9966948899104678,
+      "runner_up_fraction": 0.0032850957220824702
+    },
+    {
+      "cd": "2404",
+      "cd_name": "La Haute-Gaspésie",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9997528328626726,
+      "runner_up_fraction": 0.00024716713732643577
+    },
+    {
+      "cd": "2449",
+      "cd_name": "Drummond",
+      "region": "17",
+      "region_name": "Centre-du-Québec",
+      "overlap_fraction": 0.9993183576085943,
+      "runner_up_fraction": 0.00036830667253554656
+    },
+    {
+      "cd": "2461",
+      "cd_name": "Joliette",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 1.0000000000000002,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2487",
+      "cd_name": "Abitibi-Ouest",
+      "region": "08",
+      "region_name": "Abitibi-Témiscamingue",
+      "overlap_fraction": 0.9998546965999756,
+      "runner_up_fraction": 0.00011401852183709047
+    },
+    {
+      "cd": "2473",
+      "cd_name": "Thérèse-De Blainville",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.997963743536828,
+      "runner_up_fraction": 0.0012439508270445515
+    },
+    {
+      "cd": "2456",
+      "cd_name": "Le Haut-Richelieu",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9994363021743241,
+      "runner_up_fraction": 0.0004979878022162536
+    },
+    {
+      "cd": "2406",
+      "cd_name": "Avignon",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9928566287933241,
+      "runner_up_fraction": 0.0016206838293760543
+    },
+    {
+      "cd": "2498",
+      "cd_name": "Minganie--Le Golfe-du-Saint-Laurent",
+      "region": "09",
+      "region_name": "Côte-Nord",
+      "overlap_fraction": 0.998524448899066,
+      "runner_up_fraction": 0.0013818743107095622
+    },
+    {
+      "cd": "2499",
+      "cd_name": "Nord-du-Québec",
+      "region": "10",
+      "region_name": "Nord-du-Québec",
+      "overlap_fraction": 0.9946411948969736,
+      "runner_up_fraction": 0.0005440666148435628
+    },
+    {
+      "cd": "2460",
+      "cd_name": "L'Assomption",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 0.9965025933112253,
+      "runner_up_fraction": 0.003199852448269909
+    },
+    {
+      "cd": "2447",
+      "cd_name": "La Haute-Yamaska",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9992771205887528,
+      "runner_up_fraction": 0.000722879411245873
+    },
+    {
+      "cd": "2459",
+      "cd_name": "Marguerite-D'Youville",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9971836867672818,
+      "runner_up_fraction": 0.002308624282336982
+    },
+    {
+      "cd": "2452",
+      "cd_name": "D'Autray",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 0.9963015431678345,
+      "runner_up_fraction": 0.002886501901815264
+    },
+    {
+      "cd": "2457",
+      "cd_name": "La Vallée-du-Richelieu",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 1.0000000000000016,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2405",
+      "cd_name": "Bonaventure",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9975279179299565,
+      "runner_up_fraction": 0.00020577691089013452
+    },
+    {
+      "cd": "2441",
+      "cd_name": "Le Haut-Saint-François",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9998472131189793,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2435",
+      "cd_name": "Mékinac",
+      "region": "04",
+      "region_name": "Mauricie",
+      "overlap_fraction": 0.9962223031765371,
+      "runner_up_fraction": 0.0019447792096533138
+    },
+    {
+      "cd": "2451",
+      "cd_name": "Maskinongé",
+      "region": "04",
+      "region_name": "Mauricie",
+      "overlap_fraction": 0.9966006657499544,
+      "runner_up_fraction": 0.0018622020409754234
+    },
+    {
+      "cd": "2444",
+      "cd_name": "Coaticook",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9996227691522677,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2401",
+      "cd_name": "Communauté maritime des Îles-de-la-Madeleine",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9999999999999997,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2402",
+      "cd_name": "Le Rocher-Percé",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9840703343070147,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2440",
+      "cd_name": "Les Sources",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9987927784350358,
+      "runner_up_fraction": 0.001207221564962886
+    },
+    {
+      "cd": "2445",
+      "cd_name": "Memphrémagog",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.9999425836708072,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2450",
+      "cd_name": "Nicolet-Yamaska",
+      "region": "17",
+      "region_name": "Centre-du-Québec",
+      "overlap_fraction": 0.9947971986033585,
+      "runner_up_fraction": 0.0026706907058902606
+    },
+    {
+      "cd": "2436",
+      "cd_name": "Shawinigan",
+      "region": "04",
+      "region_name": "Mauricie",
+      "overlap_fraction": 1.0000000000000009,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2489",
+      "cd_name": "La Vallée-de-l'Or",
+      "region": "08",
+      "region_name": "Abitibi-Témiscamingue",
+      "overlap_fraction": 0.9994344316049442,
+      "runner_up_fraction": 0.0005641640050461832
+    },
+    {
+      "cd": "2462",
+      "cd_name": "Matawinie",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 0.9967719432188487,
+      "runner_up_fraction": 0.0017397573881470165
+    },
+    {
+      "cd": "2434",
+      "cd_name": "Portneuf",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9899033510357632,
+      "runner_up_fraction": 0.00966488387332039
+    },
+    {
+      "cd": "2448",
+      "cd_name": "Acton",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9981230726284812,
+      "runner_up_fraction": 0.0015424297602135023
+    },
+    {
+      "cd": "2493",
+      "cd_name": "Lac-Saint-Jean-Est",
+      "region": "02",
+      "region_name": "Saguenay–Lac-Saint-Jean",
+      "overlap_fraction": 0.9999064866882473,
+      "runner_up_fraction": 9.246357818858682e-05
+    },
+    {
+      "cd": "2494",
+      "cd_name": "Le Saguenay-et-son-Fjord",
+      "region": "02",
+      "region_name": "Saguenay–Lac-Saint-Jean",
+      "overlap_fraction": 0.9995848675236676,
+      "runner_up_fraction": 0.00029449432417057793
+    },
+    {
+      "cd": "2403",
+      "cd_name": "La Côte-de-Gaspé",
+      "region": "11",
+      "region_name": "Gaspésie–Îles-de-la-Madeleine",
+      "overlap_fraction": 0.9999999999999994,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2491",
+      "cd_name": "Le Domaine-du-Roy",
+      "region": "02",
+      "region_name": "Saguenay–Lac-Saint-Jean",
+      "overlap_fraction": 0.9960303014211411,
+      "runner_up_fraction": 0.003619465587218975
+    },
+    {
+      "cd": "2492",
+      "cd_name": "Maria-Chapdelaine",
+      "region": "02",
+      "region_name": "Saguenay–Lac-Saint-Jean",
+      "overlap_fraction": 0.9978012350449896,
+      "runner_up_fraction": 0.002198764955007383
+    },
+    {
+      "cd": "2407",
+      "cd_name": "La Matapédia",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9985324384713782,
+      "runner_up_fraction": 0.0014675615286210075
+    },
+    {
+      "cd": "2455",
+      "cd_name": "Rouville",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9994095529016196,
+      "runner_up_fraction": 0.0005904470983798666
+    },
+    {
+      "cd": "2433",
+      "cd_name": "Lotbinière",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9976507829216944,
+      "runner_up_fraction": 0.0017169875287831272
+    },
+    {
+      "cd": "2417",
+      "cd_name": "L'Islet",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9948516576077479,
+      "runner_up_fraction": 0.004853636368242023
+    },
+    {
+      "cd": "2418",
+      "cd_name": "Montmagny",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9890684045678576,
+      "runner_up_fraction": 0.010924713384766771
+    },
+    {
+      "cd": "2421",
+      "cd_name": "La Côte-de-Beaupré",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9996125100232605,
+      "runner_up_fraction": 0.00016354154053489678
+    },
+    {
+      "cd": "2419",
+      "cd_name": "Bellechasse",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9991145440081265,
+      "runner_up_fraction": 0.0008854559918735264
+    },
+    {
+      "cd": "2420",
+      "cd_name": "L'Île-d'Orléans",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9893023064414066,
+      "runner_up_fraction": 0.010697693558593464
+    },
+    {
+      "cd": "2453",
+      "cd_name": "Pierre-De Saurel",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9961868848769423,
+      "runner_up_fraction": 0.0022725897515919837
+    },
+    {
+      "cd": "2411",
+      "cd_name": "Les Basques",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 1.000000000000002,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2428",
+      "cd_name": "Les Etchemins",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9998756001528338,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2422",
+      "cd_name": "La Jacques-Cartier",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9983404976258142,
+      "runner_up_fraction": 0.0016595023741865088
+    },
+    {
+      "cd": "2454",
+      "cd_name": "Les Maskoutains",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9995129646520119,
+      "runner_up_fraction": 0.0004066437138669278
+    },
+    {
+      "cd": "2431",
+      "cd_name": "Les Appalaches",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9991115453439537,
+      "runner_up_fraction": 0.0005669201702424664
+    },
+    {
+      "cd": "2432",
+      "cd_name": "L'Érable",
+      "region": "17",
+      "region_name": "Centre-du-Québec",
+      "overlap_fraction": 0.9990026828893585,
+      "runner_up_fraction": 0.0009973171106410137
+    },
+    {
+      "cd": "2438",
+      "cd_name": "Bécancour",
+      "region": "17",
+      "region_name": "Centre-du-Québec",
+      "overlap_fraction": 0.9977163215717701,
+      "runner_up_fraction": 0.002070691106611635
+    },
+    {
+      "cd": "2443",
+      "cd_name": "Sherbrooke",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 1.0000000000000007,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2410",
+      "cd_name": "Rimouski-Neigette",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9988739878676729,
+      "runner_up_fraction": 0.0008163551689316678
+    },
+    {
+      "cd": "2427",
+      "cd_name": "Beauce-Centre",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 1.0000000000000009,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2495",
+      "cd_name": "La Haute-Côte-Nord",
+      "region": "09",
+      "region_name": "Côte-Nord",
+      "overlap_fraction": 0.9891024919485685,
+      "runner_up_fraction": 0.005624450873305673
+    },
+    {
+      "cd": "2409",
+      "cd_name": "La Mitis",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9988881333807437,
+      "runner_up_fraction": 0.0009804576710934934
+    },
+    {
+      "cd": "2426",
+      "cd_name": "La Nouvelle-Beauce",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9999999999999997,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2413",
+      "cd_name": "Témiscouata",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9996792517031431,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2430",
+      "cd_name": "Le Granit",
+      "region": "05",
+      "region_name": "Estrie",
+      "overlap_fraction": 0.997226993188888,
+      "runner_up_fraction": 0.0017209082623451189
+    },
+    {
+      "cd": "2414",
+      "cd_name": "Kamouraska",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.9982391856365951,
+      "runner_up_fraction": 0.0012728525917786728
+    },
+    {
+      "cd": "2416",
+      "cd_name": "Charlevoix",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9948842627761996,
+      "runner_up_fraction": 0.004348836026834458
+    },
+    {
+      "cd": "2415",
+      "cd_name": "Charlevoix-Est",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9492746671583533,
+      "runner_up_fraction": 0.045564320985584376
+    },
+    {
+      "cd": "2408",
+      "cd_name": "La Matanie",
+      "region": "01",
+      "region_name": "Bas-Saint-Laurent",
+      "overlap_fraction": 0.948266082946622,
+      "runner_up_fraction": 0.0513270538437504
+    },
+    {
+      "cd": "2425",
+      "cd_name": "Lévis",
+      "region": "12",
+      "region_name": "Chaudière-Appalaches",
+      "overlap_fraction": 0.9907563371922186,
+      "runner_up_fraction": 0.00924366280778025
+    },
+    {
+      "cd": "2480",
+      "cd_name": "Papineau",
+      "region": "07",
+      "region_name": "Outaouais",
+      "overlap_fraction": 0.9977006758475776,
+      "runner_up_fraction": 0.0016834627257015984
+    },
+    {
+      "cd": "2476",
+      "cd_name": "Argenteuil",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.997208890304635,
+      "runner_up_fraction": 0.00038381243181937055
+    },
+    {
+      "cd": "2467",
+      "cd_name": "Roussillon",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9994898822011855,
+      "runner_up_fraction": 0.0005101177988156891
+    },
+    {
+      "cd": "2482",
+      "cd_name": "Les Collines-de-l'Outaouais",
+      "region": "07",
+      "region_name": "Outaouais",
+      "overlap_fraction": 0.9983475093009313,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2488",
+      "cd_name": "Abitibi",
+      "region": "08",
+      "region_name": "Abitibi-Témiscamingue",
+      "overlap_fraction": 0.9999118676237146,
+      "runner_up_fraction": 8.813237628494e-05
+    },
+    {
+      "cd": "2475",
+      "cd_name": "La Rivière-du-Nord",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.9986603829589621,
+      "runner_up_fraction": 0.0013396170410393052
+    },
+    {
+      "cd": "2483",
+      "cd_name": "La Vallée-de-la-Gatineau",
+      "region": "07",
+      "region_name": "Outaouais",
+      "overlap_fraction": 0.9990761277582952,
+      "runner_up_fraction": 0.0005910943393845326
+    },
+    {
+      "cd": "2474",
+      "cd_name": "Mirabel",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 1.0000000000000004,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2477",
+      "cd_name": "Les Pays-d'en-Haut",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.9993150924231957,
+      "runner_up_fraction": 0.0006849075768043337
+    },
+    {
+      "cd": "2479",
+      "cd_name": "Antoine-Labelle",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.9971127685095549,
+      "runner_up_fraction": 0.0014490692479482065
+    },
+    {
+      "cd": "2485",
+      "cd_name": "Témiscamingue",
+      "region": "08",
+      "region_name": "Abitibi-Témiscamingue",
+      "overlap_fraction": 0.9992650825594246,
+      "runner_up_fraction": 1.2754489124381897e-05
+    },
+    {
+      "cd": "2496",
+      "cd_name": "Manicouagan",
+      "region": "09",
+      "region_name": "Côte-Nord",
+      "overlap_fraction": 0.9989572102960206,
+      "runner_up_fraction": 0.0005967937270815091
+    },
+    {
+      "cd": "2478",
+      "cd_name": "Les Laurentides",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.9986997569856729,
+      "runner_up_fraction": 0.0007298423715091596
+    },
+    {
+      "cd": "2497",
+      "cd_name": "Sept-Rivières--Caniapiscau",
+      "region": "09",
+      "region_name": "Côte-Nord",
+      "overlap_fraction": 0.9990841654327758,
+      "runner_up_fraction": 0.00033376511148076676
+    },
+    {
+      "cd": "2486",
+      "cd_name": "Rouyn-Noranda",
+      "region": "08",
+      "region_name": "Abitibi-Témiscamingue",
+      "overlap_fraction": 0.9999824060234597,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2423",
+      "cd_name": "Québec",
+      "region": "03",
+      "region_name": "Capitale-Nationale",
+      "overlap_fraction": 0.9982256510445527,
+      "runner_up_fraction": 0.0017743489554476542
+    },
+    {
+      "cd": "2490",
+      "cd_name": "La Tuque",
+      "region": "04",
+      "region_name": "Mauricie",
+      "overlap_fraction": 0.9969225673922633,
+      "runner_up_fraction": 0.0008042916718424341
+    },
+    {
+      "cd": "2484",
+      "cd_name": "Pontiac",
+      "region": "07",
+      "region_name": "Outaouais",
+      "overlap_fraction": 0.998476255721197,
+      "runner_up_fraction": 0.0005807107856976548
+    },
+    {
+      "cd": "2469",
+      "cd_name": "Le Haut-Saint-Laurent",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9989881502013704,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2470",
+      "cd_name": "Beauharnois-Salaberry",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9999999999999996,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2466",
+      "cd_name": "Montréal",
+      "region": "06",
+      "region_name": "Montréal",
+      "overlap_fraction": 0.9825518339128475,
+      "runner_up_fraction": 0.014495462405393117
+    },
+    {
+      "cd": "2471",
+      "cd_name": "Vaudreuil-Soulanges",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9936367512426368,
+      "runner_up_fraction": 0.004211824647620389
+    },
+    {
+      "cd": "2463",
+      "cd_name": "Montcalm",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 0.9993970417453375,
+      "runner_up_fraction": 0.0006029582546636922
+    },
+    {
+      "cd": "2481",
+      "cd_name": "Gatineau",
+      "region": "07",
+      "region_name": "Outaouais",
+      "overlap_fraction": 0.9908672630561554,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2472",
+      "cd_name": "Deux-Montagnes",
+      "region": "15",
+      "region_name": "Laurentides",
+      "overlap_fraction": 0.9791093960307021,
+      "runner_up_fraction": 0.010291155465055745
+    },
+    {
+      "cd": "2464",
+      "cd_name": "Les Moulins",
+      "region": "14",
+      "region_name": "Lanaudière",
+      "overlap_fraction": 0.997707316939799,
+      "runner_up_fraction": 0.0011811881713418317
+    },
+    {
+      "cd": "2468",
+      "cd_name": "Les Jardins-de-Napierville",
+      "region": "16",
+      "region_name": "Montérégie",
+      "overlap_fraction": 0.9994385022551826,
+      "runner_up_fraction": 0
+    },
+    {
+      "cd": "2465",
+      "cd_name": "Laval",
+      "region": "13",
+      "region_name": "Laval",
+      "overlap_fraction": 0.9963233521856615,
+      "runner_up_fraction": 0.0016898728849845258
+    }
+  ],
+  "quebec_crosswalk_status": "Geometric cross-check, not an independently approved official crosswalk. Review before production.",
+  "jurisdictions": [
+    {
+      "province": "10",
+      "code": "NL",
+      "status": "deferred",
+      "reason": "Numbered census divisions are a poor browsing choice. Tourism regions are promising, but a current reproducible boundary set and membership mapping still need qualification.",
+      "reference_url": "https://www.gov.nl.ca/tcar/tourism-product-development2/",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "1001",
+        "1002",
+        "1003",
+        "1004",
+        "1005",
+        "1006",
+        "1007",
+        "1008",
+        "1009",
+        "1010",
+        "1011"
+      ]
+    },
+    {
+      "province": "11",
+      "code": "PE",
+      "status": "included",
+      "reason": "Three geographic counties; these browsing areas do not imply county governments.",
+      "reference_url": "https://www.princeedwardisland.ca/en/information/executive-council-office/provincial-flag",
+      "expected_region_count": 3,
+      "excluded_cd_ids": []
+    },
+    {
+      "province": "12",
+      "code": "NS",
+      "status": "included",
+      "reason": "Eighteen geographic counties. Halifax, Queens and Cape Breton county geography remains distinct from the similarly named regional municipalities.",
+      "reference_url": "https://novascotia.ca/finance/statistics/news.asp?id=21657",
+      "expected_region_count": 18,
+      "excluded_cd_ids": []
+    },
+    {
+      "province": "13",
+      "code": "NB",
+      "status": "included",
+      "reason": "Twelve regional service commission geographies from the post-reform 2025 source.",
+      "reference_url": "https://www150.statcan.gc.ca/n1/pub/92-162-g/2025001/tbl/tbl4.3-eng.htm",
+      "expected_region_count": 12,
+      "excluded_cd_ids": []
+    },
+    {
+      "province": "24",
+      "code": "QC",
+      "status": "included",
+      "reason": "Seventeen régions administratives; a draft crosswalk groups the existing municipal outlines. MRCs are retained as source divisions, not substituted for administrative regions.",
+      "reference_url": "https://www.quebec.ca/gouvernement/portrait-quebec/cartes-donnees-quebec/decoupage-administratif",
+      "expected_region_count": 17,
+      "excluded_cd_ids": []
+    },
+    {
+      "province": "35",
+      "code": "ON",
+      "status": "partial",
+      "reason": "Forty named county, regional municipality and territorial district geographies. Nine generic census divisions are left without a region, including single-tier city equivalents. Separated cities and reserves in geographic counties do not become county-government members.",
+      "reference_url": "https://www.ontario.ca/document/ontario-municipal-councillors-guide/5-municipal-organization",
+      "expected_region_count": 40,
+      "excluded_cd_ids": [
+        "3506",
+        "3513",
+        "3516",
+        "3520",
+        "3525",
+        "3528",
+        "3529",
+        "3536",
+        "3553"
+      ]
+    },
+    {
+      "province": "46",
+      "code": "MB",
+      "status": "deferred",
+      "reason": "Economic, tourism and other regional schemes differ. Familiar areas such as Interlake and Parkland are candidates; a preferred complete boundary set needs qualification before importing.",
+      "reference_url": "https://www.travelmanitoba.com/trip-essentials/know-before-you-go/",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "4601",
+        "4602",
+        "4603",
+        "4604",
+        "4605",
+        "4606",
+        "4607",
+        "4608",
+        "4609",
+        "4610",
+        "4611",
+        "4612",
+        "4613",
+        "4614",
+        "4615",
+        "4616",
+        "4617",
+        "4618",
+        "4619",
+        "4620",
+        "4621",
+        "4622",
+        "4623"
+      ]
+    },
+    {
+      "province": "47",
+      "code": "SK",
+      "status": "deferred",
+      "reason": "Tourism travel zones and statistical divisions serve different purposes. A preferred complete geographic partition and reusable source need qualification.",
+      "reference_url": "https://www.tourismsaskatchewan.com/places-to-go/travel-zones/learn-about-travel-zones",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "4701",
+        "4702",
+        "4703",
+        "4704",
+        "4705",
+        "4706",
+        "4707",
+        "4708",
+        "4709",
+        "4710",
+        "4711",
+        "4712",
+        "4713",
+        "4714",
+        "4715",
+        "4716",
+        "4717",
+        "4718"
+      ]
+    },
+    {
+      "province": "48",
+      "code": "AB",
+      "status": "deferred",
+      "reason": "Seven land-use regions are watershed-based planning units; numbered census divisions are another system. Defer choosing these as consumer regions until their usefulness for city/event browsing is reviewed.",
+      "reference_url": "https://landuse.alberta.ca/RegionalPlans/Pages/default.aspx",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "4801",
+        "4802",
+        "4803",
+        "4804",
+        "4805",
+        "4806",
+        "4807",
+        "4808",
+        "4809",
+        "4810",
+        "4811",
+        "4812",
+        "4813",
+        "4814",
+        "4815",
+        "4816",
+        "4817",
+        "4818",
+        "4819"
+      ]
+    },
+    {
+      "province": "59",
+      "code": "BC",
+      "status": "partial",
+      "reason": "Twenty-seven regional district geographies plus Stikine, explicitly typed as an unincorporated region. Northern Rockies remains at municipal level; its census division is not added as a duplicate regional district. These are geographic groupings, including separately governed Indigenous areas.",
+      "reference_url": "https://www2.gov.bc.ca/gov/content/governments/local-governments/improvement-districts-governance-bodies/stikine",
+      "expected_region_count": 28,
+      "excluded_cd_ids": [
+        "5959"
+      ]
+    },
+    {
+      "province": "60",
+      "code": "YT",
+      "status": "deferred",
+      "reason": "The census division duplicates the whole territory. Tourism regions exist, but their boundary source and grouping need qualification.",
+      "reference_url": "https://www.travelyukon.com/en/trade/maps",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "6001"
+      ]
+    },
+    {
+      "province": "61",
+      "code": "NT",
+      "status": "deferred",
+      "reason": "Named departmental regions differ from the six numbered census divisions. Defer until a specific current regional scheme and matching polygons are established.",
+      "reference_url": "https://www.gov.nt.ca/careers/en/regional-centres",
+      "expected_region_count": 0,
+      "excluded_cd_ids": [
+        "6101",
+        "6102",
+        "6103",
+        "6104",
+        "6105",
+        "6106"
+      ]
+    },
+    {
+      "province": "62",
+      "code": "NU",
+      "status": "included",
+      "reason": "Qikiqtaaluk, Kivalliq and Kitikmeot geographic regions. This does not model Inuit land ownership or governance.",
+      "reference_url": "https://nni.gov.nu.ca/business/search",
+      "expected_region_count": 3,
+      "excluded_cd_ids": []
+    }
+  ],
+  "regions": [
+    {
+      "id": "ca-pe-cd-1101",
+      "province": "11",
+      "name": "Kings",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1101"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 19,
+      "member_identity_sha256": "5e768d7d817845eafce39a8a5c1ff16e420d4176de6b2f38953b20be69b7aaef",
+      "source_divisions": [
+        {
+          "id": "1101",
+          "name": "Kings",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-pe-cd-1102",
+      "province": "11",
+      "name": "Queens",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1102"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 40,
+      "member_identity_sha256": "9bb56f978ddae4cb9fa846ace696b3fd2aad8d65483f640c2fdda0fc11078de3",
+      "source_divisions": [
+        {
+          "id": "1102",
+          "name": "Queens",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-pe-cd-1103",
+      "province": "11",
+      "name": "Prince",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1103"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 37,
+      "member_identity_sha256": "ab5d28817d31d51b7fb279d1956a56ece58ebb0e055434ed59a0d36523934a25",
+      "source_divisions": [
+        {
+          "id": "1103",
+          "name": "Prince",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1201",
+      "province": "12",
+      "name": "Shelburne",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1201"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 5,
+      "member_identity_sha256": "3671559ddffbdda5ce4d03b03fc636f4b0bf34bc10408bac9ae5bac31a182435",
+      "source_divisions": [
+        {
+          "id": "1201",
+          "name": "Shelburne",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1202",
+      "province": "12",
+      "name": "Yarmouth",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1202"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "41ac4062a5faabb100bddfae8bdd6e0bc0556909897e5bbeade326de516dc33d",
+      "source_divisions": [
+        {
+          "id": "1202",
+          "name": "Yarmouth",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1203",
+      "province": "12",
+      "name": "Digby",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1203"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "e77ff3dc9566652d6baa74e40876f7dae63dd51081cc89224932860b8b7b8acb",
+      "source_divisions": [
+        {
+          "id": "1203",
+          "name": "Digby",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1204",
+      "province": "12",
+      "name": "Queens",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1204"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "ecf54a50936a9ced93bbd67454abdef46ff148adaa398692a7502960cd1bbe95",
+      "source_divisions": [
+        {
+          "id": "1204",
+          "name": "Queens",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1205",
+      "province": "12",
+      "name": "Annapolis",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1205"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "7c6ed6ff4c156c302b67ebc27a734e8970841ff1e9a61241150f187e1d9a3e1a",
+      "source_divisions": [
+        {
+          "id": "1205",
+          "name": "Annapolis",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1206",
+      "province": "12",
+      "name": "Lunenburg",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1206"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "81c9bf580987019c0c08b02000ecc0df9ee1626798a01df316fe95ccc8a15441",
+      "source_divisions": [
+        {
+          "id": "1206",
+          "name": "Lunenburg",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1207",
+      "province": "12",
+      "name": "Kings",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1207"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "d6459614201bbb79f93119218ec2eeb26559c195e43ec0c2d91428b878071033",
+      "source_divisions": [
+        {
+          "id": "1207",
+          "name": "Kings",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1208",
+      "province": "12",
+      "name": "Hants",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1208"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 3,
+      "member_identity_sha256": "af797d80b9ec8c0075e945891e92a1809f6a42dc8a5035d8b8ab19802df7d7a5",
+      "source_divisions": [
+        {
+          "id": "1208",
+          "name": "Hants",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1209",
+      "province": "12",
+      "name": "Halifax",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1209"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 5,
+      "member_identity_sha256": "643c5a7d4e85e1ca470a44248b966afc86474718da63af17788582e519d90f3b",
+      "source_divisions": [
+        {
+          "id": "1209",
+          "name": "Halifax",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1210",
+      "province": "12",
+      "name": "Colchester",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1210"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 6,
+      "member_identity_sha256": "9b6b34ac4b3c6cb9a04fb6455b917137b423c35303e998747bf6755882bb43c0",
+      "source_divisions": [
+        {
+          "id": "1210",
+          "name": "Colchester",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1211",
+      "province": "12",
+      "name": "Cumberland",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1211"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 6,
+      "member_identity_sha256": "94edaacae0bc36985cdeb41700703f0bbc85dd3128cdb84bbf83ba8692c8fac2",
+      "source_divisions": [
+        {
+          "id": "1211",
+          "name": "Cumberland",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1212",
+      "province": "12",
+      "name": "Pictou",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1212"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 10,
+      "member_identity_sha256": "d28a35f6f10b4e2a4eb3f587ca5db9d3574adc237b13a73babcc6a070b73fc10",
+      "source_divisions": [
+        {
+          "id": "1212",
+          "name": "Pictou",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1213",
+      "province": "12",
+      "name": "Guysborough",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1213"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 3,
+      "member_identity_sha256": "4d7fe4f0c1d0a47335a0d988a73f60758061307a197a9b8c572fabb8b0067c9e",
+      "source_divisions": [
+        {
+          "id": "1213",
+          "name": "Guysborough",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1214",
+      "province": "12",
+      "name": "Antigonish",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1214"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "32e5a57eb5c54292985e36f3430691f2f7b50f1686bfb5fd9b907402d3964216",
+      "source_divisions": [
+        {
+          "id": "1214",
+          "name": "Antigonish",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1215",
+      "province": "12",
+      "name": "Inverness",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1215"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 6,
+      "member_identity_sha256": "0b270d05f5604cfde6892c38d294bba828a7a07ea837bd9f56a38a37e0107a5f",
+      "source_divisions": [
+        {
+          "id": "1215",
+          "name": "Inverness",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1216",
+      "province": "12",
+      "name": "Richmond",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1216"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "71773e53521b9cd8bdbe05a570a44fe947807da5f8545695fb77efc5d33037e3",
+      "source_divisions": [
+        {
+          "id": "1216",
+          "name": "Richmond",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1217",
+      "province": "12",
+      "name": "Cape Breton",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1217"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "0cceca8a2b02067bde59d1f33514f919f8c1126608cc6d8563eacb1fa1dbdbdc",
+      "source_divisions": [
+        {
+          "id": "1217",
+          "name": "Cape Breton",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-ns-cd-1218",
+      "province": "12",
+      "name": "Victoria",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "1218"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 3,
+      "member_identity_sha256": "f859b445904b187ebc1954f4f3375a1fcf8711d8c3d885267b30d80a0ff1dca6",
+      "source_divisions": [
+        {
+          "id": "1218",
+          "name": "Victoria",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1321",
+      "province": "13",
+      "name": "Northwest / Nord-Ouest",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1321"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "38ab39f5797fb5c7ac5f3b6b5848beab23819ea337344a6184a18f5cdf71504b",
+      "source_divisions": [
+        {
+          "id": "1321",
+          "name": "Northwest / Nord-Ouest",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1322",
+      "province": "13",
+      "name": "Restigouche",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1322"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "d9847edee6d2726efb9b195fab08972ed92a375b01c30111b2b443bbe522b393",
+      "source_divisions": [
+        {
+          "id": "1322",
+          "name": "Restigouche",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1323",
+      "province": "13",
+      "name": "Chaleur",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1323"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 5,
+      "member_identity_sha256": "d278696d7c95c27b1c551cb6adbf2ff826b167c61558eba9d92d3a4a16be481a",
+      "source_divisions": [
+        {
+          "id": "1323",
+          "name": "Chaleur",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1324",
+      "province": "13",
+      "name": "Acadian Peninsula / Péninsule acadienne",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1324"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "6548d07411a8c873016d6d0d8c81efbbca12e6f537f77a22a383b71a9d43448e",
+      "source_divisions": [
+        {
+          "id": "1324",
+          "name": "Acadian Peninsula / Péninsule acadienne",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1325",
+      "province": "13",
+      "name": "Greater Miramichi / Grand-Miramichi",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1325"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 13,
+      "member_identity_sha256": "75fb73377938e581843f0fa10df1fd025577631f2f2540c39ebdb01787d3882e",
+      "source_divisions": [
+        {
+          "id": "1325",
+          "name": "Greater Miramichi / Grand-Miramichi",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1326",
+      "province": "13",
+      "name": "Kent",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1326"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 10,
+      "member_identity_sha256": "915d1346a4bd9c3de846310d682e9ddcc8b8333f808ed23f41b52290e53bbd86",
+      "source_divisions": [
+        {
+          "id": "1326",
+          "name": "Kent",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1327",
+      "province": "13",
+      "name": "Southeast / Sud-Est",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1327"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 14,
+      "member_identity_sha256": "9752a607154f8a3275eccb409400c6bba32968a167f45374480c6d9fee50240f",
+      "source_divisions": [
+        {
+          "id": "1327",
+          "name": "Southeast / Sud-Est",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1328",
+      "province": "13",
+      "name": "Kings",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1328"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "91bf499cd9dbc76f1c01739ceb8236ecc3b351590117f66d8b74327254e5f5c1",
+      "source_divisions": [
+        {
+          "id": "1328",
+          "name": "Kings",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1329",
+      "province": "13",
+      "name": "Fundy",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1329"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "39b3867ea1560cecbb50143c5f8279e3f66bdf5901cea17d91dfefcc83785ee5",
+      "source_divisions": [
+        {
+          "id": "1329",
+          "name": "Fundy",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1330",
+      "province": "13",
+      "name": "Southwest / Sud-Ouest",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1330"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "bac410c3318b5a07bbf8612e15753a6d62b2f17550b585c65279f4724a22b850",
+      "source_divisions": [
+        {
+          "id": "1330",
+          "name": "Southwest / Sud-Ouest",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1331",
+      "province": "13",
+      "name": "Capital Region / Région-de-la-Capitale",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1331"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 17,
+      "member_identity_sha256": "5474540679f042d0af185a6e1ba8e44ea20dabf0bc2a20280e23cd85f24e67aa",
+      "source_divisions": [
+        {
+          "id": "1331",
+          "name": "Capital Region / Région-de-la-Capitale",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-nb-cd-1332",
+      "province": "13",
+      "name": "Western Valley / Vallée-de-l'Ouest",
+      "kind": "Regional service commission geography",
+      "source_type": "RCR",
+      "cd_ids": [
+        "1332"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "d85b2beb075c18486a33d60dad8cbfa80a01e8f5d314c0dcbcb195559e316b7a",
+      "source_divisions": [
+        {
+          "id": "1332",
+          "name": "Western Valley / Vallée-de-l'Ouest",
+          "type": "RCR"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-01",
+      "province": "24",
+      "name": "Bas-Saint-Laurent",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "01",
+      "cd_ids": [
+        "2407",
+        "2408",
+        "2409",
+        "2410",
+        "2411",
+        "2412",
+        "2413",
+        "2414"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 127,
+      "member_identity_sha256": "84d708bc6be12b98add44f027e158540a44c9512357cccd541417a77f717d41b",
+      "source_divisions": [
+        {
+          "id": "2407",
+          "name": "La Matapédia",
+          "type": "MRC"
+        },
+        {
+          "id": "2408",
+          "name": "La Matanie",
+          "type": "MRC"
+        },
+        {
+          "id": "2409",
+          "name": "La Mitis",
+          "type": "MRC"
+        },
+        {
+          "id": "2410",
+          "name": "Rimouski-Neigette",
+          "type": "MRC"
+        },
+        {
+          "id": "2411",
+          "name": "Les Basques",
+          "type": "MRC"
+        },
+        {
+          "id": "2412",
+          "name": "Rivière-du-Loup",
+          "type": "MRC"
+        },
+        {
+          "id": "2413",
+          "name": "Témiscouata",
+          "type": "MRC"
+        },
+        {
+          "id": "2414",
+          "name": "Kamouraska",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-02",
+      "province": "24",
+      "name": "Saguenay–Lac-Saint-Jean",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "02",
+      "cd_ids": [
+        "2491",
+        "2492",
+        "2493",
+        "2494"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 61,
+      "member_identity_sha256": "c6ff96d4ecf2efc597a56998cd04887481905139748ea54e345b77359559016f",
+      "source_divisions": [
+        {
+          "id": "2491",
+          "name": "Le Domaine-du-Roy",
+          "type": "MRC"
+        },
+        {
+          "id": "2492",
+          "name": "Maria-Chapdelaine",
+          "type": "MRC"
+        },
+        {
+          "id": "2493",
+          "name": "Lac-Saint-Jean-Est",
+          "type": "MRC"
+        },
+        {
+          "id": "2494",
+          "name": "Le Saguenay-et-son-Fjord",
+          "type": "CDR"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-03",
+      "province": "24",
+      "name": "Capitale-Nationale",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "03",
+      "cd_ids": [
+        "2415",
+        "2416",
+        "2420",
+        "2421",
+        "2422",
+        "2423",
+        "2434"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 69,
+      "member_identity_sha256": "50c70d6f72f428ebc5b9a99a0883b2a68bda733df86bd2da4b26c107a7c61d9d",
+      "source_divisions": [
+        {
+          "id": "2415",
+          "name": "Charlevoix-Est",
+          "type": "MRC"
+        },
+        {
+          "id": "2416",
+          "name": "Charlevoix",
+          "type": "MRC"
+        },
+        {
+          "id": "2420",
+          "name": "L'Île-d'Orléans",
+          "type": "MRC"
+        },
+        {
+          "id": "2421",
+          "name": "La Côte-de-Beaupré",
+          "type": "MRC"
+        },
+        {
+          "id": "2422",
+          "name": "La Jacques-Cartier",
+          "type": "MRC"
+        },
+        {
+          "id": "2423",
+          "name": "Québec",
+          "type": "TÉ"
+        },
+        {
+          "id": "2434",
+          "name": "Portneuf",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-04",
+      "province": "24",
+      "name": "Mauricie",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "04",
+      "cd_ids": [
+        "2435",
+        "2436",
+        "2437",
+        "2451",
+        "2490"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 48,
+      "member_identity_sha256": "03ab3a487f7a8715fb09787a76b07c893f9f9d5045f26052b981c27478fb1535",
+      "source_divisions": [
+        {
+          "id": "2435",
+          "name": "Mékinac",
+          "type": "MRC"
+        },
+        {
+          "id": "2436",
+          "name": "Shawinigan",
+          "type": "TÉ"
+        },
+        {
+          "id": "2437",
+          "name": "Francheville",
+          "type": "CDR"
+        },
+        {
+          "id": "2451",
+          "name": "Maskinongé",
+          "type": "MRC"
+        },
+        {
+          "id": "2490",
+          "name": "La Tuque",
+          "type": "TÉ"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-05",
+      "province": "24",
+      "name": "Estrie",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "05",
+      "cd_ids": [
+        "2430",
+        "2440",
+        "2441",
+        "2442",
+        "2443",
+        "2444",
+        "2445",
+        "2446",
+        "2447"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 117,
+      "member_identity_sha256": "0a36105320784926a680c87535ed469c6849f384e0148f9caeb17a27a70f5490",
+      "source_divisions": [
+        {
+          "id": "2430",
+          "name": "Le Granit",
+          "type": "MRC"
+        },
+        {
+          "id": "2440",
+          "name": "Les Sources",
+          "type": "MRC"
+        },
+        {
+          "id": "2441",
+          "name": "Le Haut-Saint-François",
+          "type": "MRC"
+        },
+        {
+          "id": "2442",
+          "name": "Le Val-Saint-François",
+          "type": "MRC"
+        },
+        {
+          "id": "2443",
+          "name": "Sherbrooke",
+          "type": "TÉ"
+        },
+        {
+          "id": "2444",
+          "name": "Coaticook",
+          "type": "MRC"
+        },
+        {
+          "id": "2445",
+          "name": "Memphrémagog",
+          "type": "MRC"
+        },
+        {
+          "id": "2446",
+          "name": "Brome-Missisquoi",
+          "type": "MRC"
+        },
+        {
+          "id": "2447",
+          "name": "La Haute-Yamaska",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-06",
+      "province": "24",
+      "name": "Montréal",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "06",
+      "cd_ids": [
+        "2466"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 16,
+      "member_identity_sha256": "d24b48c93863b2dd962c8edbf1dac6374d4ff18585dacc9eb4efe0a2868276db",
+      "source_divisions": [
+        {
+          "id": "2466",
+          "name": "Montréal",
+          "type": "TÉ"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-07",
+      "province": "24",
+      "name": "Outaouais",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "07",
+      "cd_ids": [
+        "2480",
+        "2481",
+        "2482",
+        "2483",
+        "2484"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 75,
+      "member_identity_sha256": "5c134de0278c2b4585a7820d0a7e05c7b63801e1e444605f0e1d1ada99eb0cad",
+      "source_divisions": [
+        {
+          "id": "2480",
+          "name": "Papineau",
+          "type": "MRC"
+        },
+        {
+          "id": "2481",
+          "name": "Gatineau",
+          "type": "TÉ"
+        },
+        {
+          "id": "2482",
+          "name": "Les Collines-de-l'Outaouais",
+          "type": "MRC"
+        },
+        {
+          "id": "2483",
+          "name": "La Vallée-de-la-Gatineau",
+          "type": "MRC"
+        },
+        {
+          "id": "2484",
+          "name": "Pontiac",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-08",
+      "province": "24",
+      "name": "Abitibi-Témiscamingue",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "08",
+      "cd_ids": [
+        "2485",
+        "2486",
+        "2487",
+        "2488",
+        "2489"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 79,
+      "member_identity_sha256": "15c44ce1be965f4a95431285dd8b9e81c781f68af9dd2467845f370bb89cb499",
+      "source_divisions": [
+        {
+          "id": "2485",
+          "name": "Témiscamingue",
+          "type": "MRC"
+        },
+        {
+          "id": "2486",
+          "name": "Rouyn-Noranda",
+          "type": "TÉ"
+        },
+        {
+          "id": "2487",
+          "name": "Abitibi-Ouest",
+          "type": "MRC"
+        },
+        {
+          "id": "2488",
+          "name": "Abitibi",
+          "type": "MRC"
+        },
+        {
+          "id": "2489",
+          "name": "La Vallée-de-l'Or",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-09",
+      "province": "24",
+      "name": "Côte-Nord",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "09",
+      "cd_ids": [
+        "2495",
+        "2496",
+        "2497",
+        "2498"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 54,
+      "member_identity_sha256": "72aa6eae25e724e5e95e46a89f504fb0de865baef0c813b9e1a2e281c9b83efd",
+      "source_divisions": [
+        {
+          "id": "2495",
+          "name": "La Haute-Côte-Nord",
+          "type": "MRC"
+        },
+        {
+          "id": "2496",
+          "name": "Manicouagan",
+          "type": "MRC"
+        },
+        {
+          "id": "2497",
+          "name": "Sept-Rivières--Caniapiscau",
+          "type": "CDR"
+        },
+        {
+          "id": "2498",
+          "name": "Minganie--Le Golfe-du-Saint-Laurent",
+          "type": "CDR"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-10",
+      "province": "24",
+      "name": "Nord-du-Québec",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "10",
+      "cd_ids": [
+        "2499"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 52,
+      "member_identity_sha256": "30b51efe81551f54feb355bc60dc9343355ed869610f5d6b16b7d1362758d936",
+      "source_divisions": [
+        {
+          "id": "2499",
+          "name": "Nord-du-Québec",
+          "type": "CDR"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-11",
+      "province": "24",
+      "name": "Gaspésie–Îles-de-la-Madeleine",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "11",
+      "cd_ids": [
+        "2401",
+        "2402",
+        "2403",
+        "2404",
+        "2405",
+        "2406"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 54,
+      "member_identity_sha256": "b9f953b68884e274c3b6137d6ccbf71a02f85a264f3b5c36476d5b423ff5983a",
+      "source_divisions": [
+        {
+          "id": "2401",
+          "name": "Communauté maritime des Îles-de-la-Madeleine",
+          "type": "TÉ"
+        },
+        {
+          "id": "2402",
+          "name": "Le Rocher-Percé",
+          "type": "MRC"
+        },
+        {
+          "id": "2403",
+          "name": "La Côte-de-Gaspé",
+          "type": "MRC"
+        },
+        {
+          "id": "2404",
+          "name": "La Haute-Gaspésie",
+          "type": "MRC"
+        },
+        {
+          "id": "2405",
+          "name": "Bonaventure",
+          "type": "MRC"
+        },
+        {
+          "id": "2406",
+          "name": "Avignon",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-12",
+      "province": "24",
+      "name": "Chaudière-Appalaches",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "12",
+      "cd_ids": [
+        "2417",
+        "2418",
+        "2419",
+        "2425",
+        "2426",
+        "2427",
+        "2428",
+        "2429",
+        "2431",
+        "2433"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 136,
+      "member_identity_sha256": "2312682db4fa1e427f165faa054838242d74547a6fe47f2404f78b5c1dda0be6",
+      "source_divisions": [
+        {
+          "id": "2417",
+          "name": "L'Islet",
+          "type": "MRC"
+        },
+        {
+          "id": "2418",
+          "name": "Montmagny",
+          "type": "MRC"
+        },
+        {
+          "id": "2419",
+          "name": "Bellechasse",
+          "type": "MRC"
+        },
+        {
+          "id": "2425",
+          "name": "Lévis",
+          "type": "TÉ"
+        },
+        {
+          "id": "2426",
+          "name": "La Nouvelle-Beauce",
+          "type": "MRC"
+        },
+        {
+          "id": "2427",
+          "name": "Beauce-Centre",
+          "type": "MRC"
+        },
+        {
+          "id": "2428",
+          "name": "Les Etchemins",
+          "type": "MRC"
+        },
+        {
+          "id": "2429",
+          "name": "Beauce-Sartigan",
+          "type": "MRC"
+        },
+        {
+          "id": "2431",
+          "name": "Les Appalaches",
+          "type": "MRC"
+        },
+        {
+          "id": "2433",
+          "name": "Lotbinière",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-13",
+      "province": "24",
+      "name": "Laval",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "13",
+      "cd_ids": [
+        "2465"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 1,
+      "member_identity_sha256": "eff9e4bdf28139f20044c3fc597a3cb3aab0f484cae340aa0417ef86d61b9ed7",
+      "source_divisions": [
+        {
+          "id": "2465",
+          "name": "Laval",
+          "type": "TÉ"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-14",
+      "province": "24",
+      "name": "Lanaudière",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "14",
+      "cd_ids": [
+        "2452",
+        "2460",
+        "2461",
+        "2462",
+        "2463",
+        "2464"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 70,
+      "member_identity_sha256": "c6d2e3871dfad19871ff249652596acc7dc104194f6396ef2b56c2f36138d2a4",
+      "source_divisions": [
+        {
+          "id": "2452",
+          "name": "D'Autray",
+          "type": "MRC"
+        },
+        {
+          "id": "2460",
+          "name": "L'Assomption",
+          "type": "MRC"
+        },
+        {
+          "id": "2461",
+          "name": "Joliette",
+          "type": "MRC"
+        },
+        {
+          "id": "2462",
+          "name": "Matawinie",
+          "type": "MRC"
+        },
+        {
+          "id": "2463",
+          "name": "Montcalm",
+          "type": "MRC"
+        },
+        {
+          "id": "2464",
+          "name": "Les Moulins",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-15",
+      "province": "24",
+      "name": "Laurentides",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "15",
+      "cd_ids": [
+        "2472",
+        "2473",
+        "2474",
+        "2475",
+        "2476",
+        "2477",
+        "2478",
+        "2479"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 89,
+      "member_identity_sha256": "eb72e692373c50b238df816700778fafb03a215fdae150417590e15124f8d19c",
+      "source_divisions": [
+        {
+          "id": "2472",
+          "name": "Deux-Montagnes",
+          "type": "MRC"
+        },
+        {
+          "id": "2473",
+          "name": "Thérèse-De Blainville",
+          "type": "MRC"
+        },
+        {
+          "id": "2474",
+          "name": "Mirabel",
+          "type": "TÉ"
+        },
+        {
+          "id": "2475",
+          "name": "La Rivière-du-Nord",
+          "type": "MRC"
+        },
+        {
+          "id": "2476",
+          "name": "Argenteuil",
+          "type": "MRC"
+        },
+        {
+          "id": "2477",
+          "name": "Les Pays-d'en-Haut",
+          "type": "MRC"
+        },
+        {
+          "id": "2478",
+          "name": "Les Laurentides",
+          "type": "MRC"
+        },
+        {
+          "id": "2479",
+          "name": "Antoine-Labelle",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-16",
+      "province": "24",
+      "name": "Montérégie",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "16",
+      "cd_ids": [
+        "2448",
+        "2453",
+        "2454",
+        "2455",
+        "2456",
+        "2457",
+        "2458",
+        "2459",
+        "2467",
+        "2468",
+        "2469",
+        "2470",
+        "2471"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 150,
+      "member_identity_sha256": "d9d712b47702023453dd4dec377b48439bd0d6644064cfe3fd0c9042c51334d2",
+      "source_divisions": [
+        {
+          "id": "2448",
+          "name": "Acton",
+          "type": "MRC"
+        },
+        {
+          "id": "2453",
+          "name": "Pierre-De Saurel",
+          "type": "MRC"
+        },
+        {
+          "id": "2454",
+          "name": "Les Maskoutains",
+          "type": "MRC"
+        },
+        {
+          "id": "2455",
+          "name": "Rouville",
+          "type": "MRC"
+        },
+        {
+          "id": "2456",
+          "name": "Le Haut-Richelieu",
+          "type": "MRC"
+        },
+        {
+          "id": "2457",
+          "name": "La Vallée-du-Richelieu",
+          "type": "MRC"
+        },
+        {
+          "id": "2458",
+          "name": "Longueuil",
+          "type": "TÉ"
+        },
+        {
+          "id": "2459",
+          "name": "Marguerite-D'Youville",
+          "type": "MRC"
+        },
+        {
+          "id": "2467",
+          "name": "Roussillon",
+          "type": "MRC"
+        },
+        {
+          "id": "2468",
+          "name": "Les Jardins-de-Napierville",
+          "type": "MRC"
+        },
+        {
+          "id": "2469",
+          "name": "Le Haut-Saint-Laurent",
+          "type": "MRC"
+        },
+        {
+          "id": "2470",
+          "name": "Beauharnois-Salaberry",
+          "type": "MRC"
+        },
+        {
+          "id": "2471",
+          "name": "Vaudreuil-Soulanges",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-ra-17",
+      "province": "24",
+      "name": "Centre-du-Québec",
+      "kind": "Région administrative",
+      "source_type": "RA",
+      "source_region_code": "17",
+      "cd_ids": [
+        "2432",
+        "2438",
+        "2439",
+        "2449",
+        "2450"
+      ],
+      "relationship_basis": "Draft CD-to-region crosswalk checked against Québec SDA V2026-08; outlines dissolved from StatCan 2025 CSDs",
+      "expected_member_count": 80,
+      "member_identity_sha256": "f39ea5bd8b8e9a8522ff0fd71ec33a9675dcda0d5a44209c8c2eaf72224f2889",
+      "source_divisions": [
+        {
+          "id": "2432",
+          "name": "L'Érable",
+          "type": "MRC"
+        },
+        {
+          "id": "2438",
+          "name": "Bécancour",
+          "type": "MRC"
+        },
+        {
+          "id": "2439",
+          "name": "Arthabaska",
+          "type": "MRC"
+        },
+        {
+          "id": "2449",
+          "name": "Drummond",
+          "type": "MRC"
+        },
+        {
+          "id": "2450",
+          "name": "Nicolet-Yamaska",
+          "type": "MRC"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3501",
+      "province": "35",
+      "name": "Stormont, Dundas and Glengarry",
+      "kind": "Geographic united counties",
+      "source_type": "UC",
+      "cd_ids": [
+        "3501"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "a0e0b1e7d7de67716a6979c5b7cbd5eccb7357d33f2b081c1718e34be11c26db",
+      "source_divisions": [
+        {
+          "id": "3501",
+          "name": "Stormont, Dundas and Glengarry",
+          "type": "UC"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3502",
+      "province": "35",
+      "name": "Prescott and Russell",
+      "kind": "Geographic united counties",
+      "source_type": "UC",
+      "cd_ids": [
+        "3502"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "57f56a89862c6894b501ec2f90b75941b5ddf578a7ef2f472f04c3b61be2385b",
+      "source_divisions": [
+        {
+          "id": "3502",
+          "name": "Prescott and Russell",
+          "type": "UC"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3507",
+      "province": "35",
+      "name": "Leeds and Grenville",
+      "kind": "Geographic united counties",
+      "source_type": "UC",
+      "cd_ids": [
+        "3507"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 13,
+      "member_identity_sha256": "f6eb1ca29b528b921b6809b20c55120dc1ce38ee8eda7f48f90c894d8525bf22",
+      "source_divisions": [
+        {
+          "id": "3507",
+          "name": "Leeds and Grenville",
+          "type": "UC"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3509",
+      "province": "35",
+      "name": "Lanark",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3509"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "d3b5aaa52f7959b9f3f835c6d4cb51dfdcd8c335be8704b25488a72a7c7d45c0",
+      "source_divisions": [
+        {
+          "id": "3509",
+          "name": "Lanark",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3510",
+      "province": "35",
+      "name": "Frontenac",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3510"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 5,
+      "member_identity_sha256": "0638da72288c775f575a8e67848946de50f79ff0b85ced02b80a41b4aea8b50e",
+      "source_divisions": [
+        {
+          "id": "3510",
+          "name": "Frontenac",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3511",
+      "province": "35",
+      "name": "Lennox and Addington",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3511"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "6a2dd165fcac41620d00ecb5241dc6707d78662df7514cf847b9551dd20be287",
+      "source_divisions": [
+        {
+          "id": "3511",
+          "name": "Lennox and Addington",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3512",
+      "province": "35",
+      "name": "Hastings",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3512"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 17,
+      "member_identity_sha256": "8b4e15e103b58ba2042f511b55526df217fca912994c50729914c836d918d08b",
+      "source_divisions": [
+        {
+          "id": "3512",
+          "name": "Hastings",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3514",
+      "province": "35",
+      "name": "Northumberland",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3514"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "dda373a4137a6404c31fb6a4b8668b0e4459b95f33cd32c0cd37acb4c1e6efb8",
+      "source_divisions": [
+        {
+          "id": "3514",
+          "name": "Northumberland",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3515",
+      "province": "35",
+      "name": "Peterborough",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3515"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 11,
+      "member_identity_sha256": "b5d097f5df71eca7636500452a92d67db7cf7f62b0a47a1e6cf14f5e9efe8358",
+      "source_divisions": [
+        {
+          "id": "3515",
+          "name": "Peterborough",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3518",
+      "province": "35",
+      "name": "Durham",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3518"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "0aaa56df65be35fbc15e5c32581087a805aaf085e33adc6f85eb94ca81d83abd",
+      "source_divisions": [
+        {
+          "id": "3518",
+          "name": "Durham",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3519",
+      "province": "35",
+      "name": "York",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3519"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 10,
+      "member_identity_sha256": "f3cd0bc9b24cdd5d1cf7d865ad47ed55a72502fcdf1efc518c851107baf0ca29",
+      "source_divisions": [
+        {
+          "id": "3519",
+          "name": "York",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3521",
+      "province": "35",
+      "name": "Peel",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3521"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 3,
+      "member_identity_sha256": "72529bbfa008585ae45284c3871567e57059bed1c8c686a643fa554d4e526663",
+      "source_divisions": [
+        {
+          "id": "3521",
+          "name": "Peel",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3522",
+      "province": "35",
+      "name": "Dufferin",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3522"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "473baed9025ab1b96b9eaff573b2fc7add456b38951f7e78e5ca7f452790db88",
+      "source_divisions": [
+        {
+          "id": "3522",
+          "name": "Dufferin",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3523",
+      "province": "35",
+      "name": "Wellington",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3523"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "f2efef929846d3fcf2dce6e2c88a7ac5108a6111afa40ae9ba4302a772959244",
+      "source_divisions": [
+        {
+          "id": "3523",
+          "name": "Wellington",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3524",
+      "province": "35",
+      "name": "Halton",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3524"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "8f33bafa448fa4225b7e540813b24bbbb5004e9661260399ee7fd3b7b55fe77d",
+      "source_divisions": [
+        {
+          "id": "3524",
+          "name": "Halton",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3526",
+      "province": "35",
+      "name": "Niagara",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3526"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 12,
+      "member_identity_sha256": "18215215345fb9aa4c667985e86869e119fdbb43bc6c1c0478c8151ad7b16164",
+      "source_divisions": [
+        {
+          "id": "3526",
+          "name": "Niagara",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3530",
+      "province": "35",
+      "name": "Waterloo",
+      "kind": "Regional municipality geography",
+      "source_type": "RM",
+      "cd_ids": [
+        "3530"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "3105516ac2f75faed30cea1a6fd65c78908cd5bda6c78b1ef972bfd60c6ad42e",
+      "source_divisions": [
+        {
+          "id": "3530",
+          "name": "Waterloo",
+          "type": "RM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3531",
+      "province": "35",
+      "name": "Perth",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3531"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 6,
+      "member_identity_sha256": "5e0e951135ca9a366eba0530ecd00f0336f55e336648d1a362ec69b1db322cc9",
+      "source_divisions": [
+        {
+          "id": "3531",
+          "name": "Perth",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3532",
+      "province": "35",
+      "name": "Oxford",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3532"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "af21d22b42c99d188609f185bb0e59cee5e5f58ee7a32d1c0a6efc82f8c4b283",
+      "source_divisions": [
+        {
+          "id": "3532",
+          "name": "Oxford",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3534",
+      "province": "35",
+      "name": "Elgin",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3534"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "18dc3560a95ce285ad03da1448616aadd12e7abc7ffe649e8450c5566c3693b3",
+      "source_divisions": [
+        {
+          "id": "3534",
+          "name": "Elgin",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3537",
+      "province": "35",
+      "name": "Essex",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3537"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 10,
+      "member_identity_sha256": "8db16379cc40bd6c8130ddb2939405dadb3a7fd90bfc65d9c6426df0b27414e3",
+      "source_divisions": [
+        {
+          "id": "3537",
+          "name": "Essex",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3538",
+      "province": "35",
+      "name": "Lambton",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3538"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 14,
+      "member_identity_sha256": "52caeed8f7939dccd259c6c9feca33b11ade45a34af44530c919c6cf6b3ee48b",
+      "source_divisions": [
+        {
+          "id": "3538",
+          "name": "Lambton",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3539",
+      "province": "35",
+      "name": "Middlesex",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3539"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 12,
+      "member_identity_sha256": "102e5db617e66e53c4dc66c39c180d60bce0c4e5847fef35e8ff54ec8280e6e0",
+      "source_divisions": [
+        {
+          "id": "3539",
+          "name": "Middlesex",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3540",
+      "province": "35",
+      "name": "Huron",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3540"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "717a9b7ca3cf48a3825ddeb3549e798cca3663075fdce7c9bcc68b335f516e42",
+      "source_divisions": [
+        {
+          "id": "3540",
+          "name": "Huron",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3541",
+      "province": "35",
+      "name": "Bruce",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3541"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 11,
+      "member_identity_sha256": "83eca3486889b92a1a04fa6fa5e56ce56877893fadc1d92ed655c5acb6bea3a0",
+      "source_divisions": [
+        {
+          "id": "3541",
+          "name": "Bruce",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3542",
+      "province": "35",
+      "name": "Grey",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3542"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "543f69a24a32946e6da1db88412ecfa32818bd0b12bf568bdc65e0b637f774a2",
+      "source_divisions": [
+        {
+          "id": "3542",
+          "name": "Grey",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3543",
+      "province": "35",
+      "name": "Simcoe",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3543"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 21,
+      "member_identity_sha256": "8fa9d6a2bd8a48ec88f4662de3e0db9f26273a92efca9d7c813f805e93225b93",
+      "source_divisions": [
+        {
+          "id": "3543",
+          "name": "Simcoe",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3544",
+      "province": "35",
+      "name": "Muskoka",
+      "kind": "District municipality geography",
+      "source_type": "DM",
+      "cd_ids": [
+        "3544"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "92d3b893df097937f2087eecc01e36be4f22e227745194ff742ac2e4055ecb24",
+      "source_divisions": [
+        {
+          "id": "3544",
+          "name": "Muskoka",
+          "type": "DM"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3546",
+      "province": "35",
+      "name": "Haliburton",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3546"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 4,
+      "member_identity_sha256": "ff9304faf569f4237460a39a3990dda00a3a6beddcec232523f6f7777ad2e4f3",
+      "source_divisions": [
+        {
+          "id": "3546",
+          "name": "Haliburton",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3547",
+      "province": "35",
+      "name": "Renfrew",
+      "kind": "Geographic county",
+      "source_type": "CTY",
+      "cd_ids": [
+        "3547"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 19,
+      "member_identity_sha256": "ad3c1c9d6119df2f77ae368bdbc588aae68e9be658ddb6b4ad53686f52b14872",
+      "source_divisions": [
+        {
+          "id": "3547",
+          "name": "Renfrew",
+          "type": "CTY"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3548",
+      "province": "35",
+      "name": "Nipissing",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3548"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 15,
+      "member_identity_sha256": "7a61b14ce89a765b0ae4e4b88b5c49a4de955c48d308e08c6bccdcb7cd8b4300",
+      "source_divisions": [
+        {
+          "id": "3548",
+          "name": "Nipissing",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3549",
+      "province": "35",
+      "name": "Parry Sound",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3549"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 31,
+      "member_identity_sha256": "01269f3d56e6d1b6a9d9ebddb7c5d759918bbe61789e8795e5b2ccb3ee02f162",
+      "source_divisions": [
+        {
+          "id": "3549",
+          "name": "Parry Sound",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3551",
+      "province": "35",
+      "name": "Manitoulin",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3551"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 17,
+      "member_identity_sha256": "c6439017051d62c2fac67c3d79c208c5fa1c26fabb7be4863f38238f24115a0e",
+      "source_divisions": [
+        {
+          "id": "3551",
+          "name": "Manitoulin",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3552",
+      "province": "35",
+      "name": "Sudbury",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3552"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 17,
+      "member_identity_sha256": "2006b026690ff066d9f89b94fee70b5c6366bf11a13ea9b971be4be14be208ed",
+      "source_divisions": [
+        {
+          "id": "3552",
+          "name": "Sudbury",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3554",
+      "province": "35",
+      "name": "Timiskaming",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3554"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 26,
+      "member_identity_sha256": "7d98048d13c7bb9783d6366e7c40ad51f618ae88916e6c929c4197ff61e7ae7b",
+      "source_divisions": [
+        {
+          "id": "3554",
+          "name": "Timiskaming",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3556",
+      "province": "35",
+      "name": "Cochrane",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3556"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 23,
+      "member_identity_sha256": "a56e5c092a67cc1cfaf2ad168d1cf1013219e00e6062996691c1681750e08b3f",
+      "source_divisions": [
+        {
+          "id": "3556",
+          "name": "Cochrane",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3557",
+      "province": "35",
+      "name": "Algoma",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3557"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 33,
+      "member_identity_sha256": "da28ffe59c4ef9f888ce49b3bbcf3fba1b6f967a203192b874ffa6dc03c3269d",
+      "source_divisions": [
+        {
+          "id": "3557",
+          "name": "Algoma",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3558",
+      "province": "35",
+      "name": "Thunder Bay",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3558"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 34,
+      "member_identity_sha256": "3c3d024fb9c50122ffb6d0ff1c6cee9b17b1fec44e1e38ae256fcbf0f9a1cca1",
+      "source_divisions": [
+        {
+          "id": "3558",
+          "name": "Thunder Bay",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3559",
+      "province": "35",
+      "name": "Rainy River",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3559"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 25,
+      "member_identity_sha256": "596e6837ba88b1506758c2bd1c14b7359ace856828a51ca0dafa1c813bfc7788",
+      "source_divisions": [
+        {
+          "id": "3559",
+          "name": "Rainy River",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-on-cd-3560",
+      "province": "35",
+      "name": "Kenora",
+      "kind": "Territorial district",
+      "source_type": "DIS",
+      "cd_ids": [
+        "3560"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 57,
+      "member_identity_sha256": "e282ef252b8241ca68b6074e6619ee056e4fedf794897f2e6ff47212caf37f98",
+      "source_divisions": [
+        {
+          "id": "3560",
+          "name": "Kenora",
+          "type": "DIS"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5901",
+      "province": "59",
+      "name": "East Kootenay",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5901"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 21,
+      "member_identity_sha256": "c604ab7ddcb5660608c80054cb566485ae29acdbfe3b80452eb37670a25264c5",
+      "source_divisions": [
+        {
+          "id": "5901",
+          "name": "East Kootenay",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5903",
+      "province": "59",
+      "name": "Central Kootenay",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5903"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 23,
+      "member_identity_sha256": "be445b8193ebf6d3859484aeb655c26b596d9af08938ffef70fec57385b28698",
+      "source_divisions": [
+        {
+          "id": "5903",
+          "name": "Central Kootenay",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5905",
+      "province": "59",
+      "name": "Kootenay Boundary",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5905"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 13,
+      "member_identity_sha256": "055d3310c26b81e0615be6b586bde86030f82e706d9bb1b3d4e55a8a9b3d08af",
+      "source_divisions": [
+        {
+          "id": "5905",
+          "name": "Kootenay Boundary",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5907",
+      "province": "59",
+      "name": "Okanagan-Similkameen",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5907"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 24,
+      "member_identity_sha256": "b868f8f7a9e5c9add2b5a51f4f3aa9a419a9af0b6cf16ec4b7b591838a4478db",
+      "source_divisions": [
+        {
+          "id": "5907",
+          "name": "Okanagan-Similkameen",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5909",
+      "province": "59",
+      "name": "Fraser Valley",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5909"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 68,
+      "member_identity_sha256": "fa83024c87063824c10e1acc2d0f27081e8ac19b1d088c119acb5687fc277809",
+      "source_divisions": [
+        {
+          "id": "5909",
+          "name": "Fraser Valley",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5915",
+      "province": "59",
+      "name": "Greater Vancouver",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5915"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 39,
+      "member_identity_sha256": "f79677b3874381b391550bbafdd1ad7a800bf12c17938c77c3a5117e892cd1d9",
+      "source_divisions": [
+        {
+          "id": "5915",
+          "name": "Greater Vancouver",
+          "type": "RD"
+        }
+      ],
+      "aliases": [
+        "Metro Vancouver"
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5917",
+      "province": "59",
+      "name": "Capital",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5917"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 27,
+      "member_identity_sha256": "6a58e2be85fa903300abc7001d92c614d299af62c59ca1639a7abb1a10931919",
+      "source_divisions": [
+        {
+          "id": "5917",
+          "name": "Capital",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5919",
+      "province": "59",
+      "name": "Cowichan Valley",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5919"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 30,
+      "member_identity_sha256": "6eefe06a8f16ab4ebcef9ae18c89bfaaeea8f99ad661015e928d7cdbc877ffcc",
+      "source_divisions": [
+        {
+          "id": "5919",
+          "name": "Cowichan Valley",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5921",
+      "province": "59",
+      "name": "Nanaimo",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5921"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 15,
+      "member_identity_sha256": "d6cb3ee8cae54ac0653d7f706024a7f6a7e4eb5dc0b560b94cb90e0718c184e4",
+      "source_divisions": [
+        {
+          "id": "5921",
+          "name": "Nanaimo",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5923",
+      "province": "59",
+      "name": "Alberni-Clayoquot",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5923"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 26,
+      "member_identity_sha256": "27b3039121fefbd98436de588a2485eea86a1b7e6cbd7d22f13f7f8f9a7eff31",
+      "source_divisions": [
+        {
+          "id": "5923",
+          "name": "Alberni-Clayoquot",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5924",
+      "province": "59",
+      "name": "Strathcona",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5924"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 24,
+      "member_identity_sha256": "e3b939f0a986dac396a9dfb02d16ed860306bfb7cf988aff93ee2c8177faf147",
+      "source_divisions": [
+        {
+          "id": "5924",
+          "name": "Strathcona",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5926",
+      "province": "59",
+      "name": "Comox Valley",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5926"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "2c863c14c77cf58c803f0920b6a688e83b2d1642744f26ba563630cdc5d4ed9a",
+      "source_divisions": [
+        {
+          "id": "5926",
+          "name": "Comox Valley",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5927",
+      "province": "59",
+      "name": "qathet",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5927"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "a9013ecb642be82646230f52aeb568597660796f5632f68dc4d38113bd2efe16",
+      "source_divisions": [
+        {
+          "id": "5927",
+          "name": "qathet",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5929",
+      "province": "59",
+      "name": "Sunshine Coast",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5929"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "3e7c73dd7b72096c35a451fe744f7d9b54cd3c5756a96cfba36e2f3ec7e83e1f",
+      "source_divisions": [
+        {
+          "id": "5929",
+          "name": "Sunshine Coast",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5931",
+      "province": "59",
+      "name": "Squamish-Lillooet",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5931"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 40,
+      "member_identity_sha256": "23bcd5796651a48d33301b83ee0b34af5fbef8cfdce11731f910188cb78bd6ea",
+      "source_divisions": [
+        {
+          "id": "5931",
+          "name": "Squamish-Lillooet",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5933",
+      "province": "59",
+      "name": "Thompson-Nicola",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5933"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 96,
+      "member_identity_sha256": "caf242cd49c16cc24eb26d55875607c5b554298d7eb0934b2d0acb11e3bf6dce",
+      "source_divisions": [
+        {
+          "id": "5933",
+          "name": "Thompson-Nicola",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5935",
+      "province": "59",
+      "name": "Central Okanagan",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5935"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 9,
+      "member_identity_sha256": "4962b7c770dfe9dba50db77472bae12459ad3826cf076a03175554054e7ed94c",
+      "source_divisions": [
+        {
+          "id": "5935",
+          "name": "Central Okanagan",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5937",
+      "province": "59",
+      "name": "North Okanagan",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5937"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 15,
+      "member_identity_sha256": "4d5b9f75632a3e461d330c61bc8b807d3854225940d9267a29a02f8c3ba78443",
+      "source_divisions": [
+        {
+          "id": "5937",
+          "name": "North Okanagan",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5939",
+      "province": "59",
+      "name": "Columbia Shuswap",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5939"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 20,
+      "member_identity_sha256": "03f7dfbd811d57df83368ff358526cfa6c8ee54b9141dbfdd45c7cec781a9c4e",
+      "source_divisions": [
+        {
+          "id": "5939",
+          "name": "Columbia Shuswap",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5941",
+      "province": "59",
+      "name": "Cariboo",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5941"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 71,
+      "member_identity_sha256": "52f3f0a00fffabf834c007ec413e29bd14e1512ab1dd65168b9ff18bc4df14bc",
+      "source_divisions": [
+        {
+          "id": "5941",
+          "name": "Cariboo",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5943",
+      "province": "59",
+      "name": "Mount Waddington",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5943"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 21,
+      "member_identity_sha256": "e6977e49676deea32a4924b637af0692ade8bea30fc061df2387a5653abe77a4",
+      "source_divisions": [
+        {
+          "id": "5943",
+          "name": "Mount Waddington",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5945",
+      "province": "59",
+      "name": "Central Coast",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5945"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "905c6296a16747e7e127cdec148d156c59c6db24eaed67d83aad007834bdce91",
+      "source_divisions": [
+        {
+          "id": "5945",
+          "name": "Central Coast",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5947",
+      "province": "59",
+      "name": "North Coast",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5947"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 17,
+      "member_identity_sha256": "1021fda38c7022212ca2bd89b72ec4b47e4abd169306eaf047f492dee65ac2e6",
+      "source_divisions": [
+        {
+          "id": "5947",
+          "name": "North Coast",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5949",
+      "province": "59",
+      "name": "Kitimat-Stikine",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5949"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 36,
+      "member_identity_sha256": "e323afcc574ad690f0e2ee8491a9ae2ae0094566eae9430a1bb361272749c5b2",
+      "source_divisions": [
+        {
+          "id": "5949",
+          "name": "Kitimat-Stikine",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5951",
+      "province": "59",
+      "name": "Bulkley-Nechako",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5951"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 51,
+      "member_identity_sha256": "a16a1765995a03cda860d784ad856b96be6bfe4e39c08eeceb0ad5a21c941b4e",
+      "source_divisions": [
+        {
+          "id": "5951",
+          "name": "Bulkley-Nechako",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5953",
+      "province": "59",
+      "name": "Fraser-Fort George",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5953"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 14,
+      "member_identity_sha256": "bf4541ea20a9c89f00a7145d6abf052128812e45ac3e732147772ddcdc8b8672",
+      "source_divisions": [
+        {
+          "id": "5953",
+          "name": "Fraser-Fort George",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5955",
+      "province": "59",
+      "name": "Peace River",
+      "kind": "Regional district geography",
+      "source_type": "RD",
+      "cd_ids": [
+        "5955"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 21,
+      "member_identity_sha256": "d44aebe68ebe0b7ab1f49b44300c707491f3186ea31a4c54d22cce05fbb65bb8",
+      "source_divisions": [
+        {
+          "id": "5955",
+          "name": "Peace River",
+          "type": "RD"
+        }
+      ]
+    },
+    {
+      "id": "ca-bc-cd-5957",
+      "province": "59",
+      "name": "Stikine",
+      "kind": "Unincorporated region",
+      "source_type": "REG",
+      "cd_ids": [
+        "5957"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 7,
+      "member_identity_sha256": "900c8cc514e05a01094e81ab4f3082eb55970128e8f04f088ed0f58db3cf25b9",
+      "source_divisions": [
+        {
+          "id": "5957",
+          "name": "Stikine",
+          "type": "REG"
+        }
+      ]
+    },
+    {
+      "id": "ca-nu-cd-6204",
+      "province": "62",
+      "name": "Qikiqtaaluk",
+      "kind": "Region",
+      "source_type": "REG",
+      "cd_ids": [
+        "6204"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 15,
+      "member_identity_sha256": "971f699d2f76d5c4e0712d7cbb687e02073f8e06f2f7177007aa439bdf95cf51",
+      "source_divisions": [
+        {
+          "id": "6204",
+          "name": "Qikiqtaaluk",
+          "type": "REG"
+        }
+      ]
+    },
+    {
+      "id": "ca-nu-cd-6205",
+      "province": "62",
+      "name": "Kivalliq",
+      "kind": "Region",
+      "source_type": "REG",
+      "cd_ids": [
+        "6205"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "332507841aa929fd22257cf6cb2002de55b821a15c0b24462d7472a968af706d",
+      "source_divisions": [
+        {
+          "id": "6205",
+          "name": "Kivalliq",
+          "type": "REG"
+        }
+      ]
+    },
+    {
+      "id": "ca-nu-cd-6208",
+      "province": "62",
+      "name": "Kitikmeot",
+      "kind": "Region",
+      "source_type": "REG",
+      "cd_ids": [
+        "6208"
+      ],
+      "relationship_basis": "StatCan 2025 census-division membership; geographic grouping, not a claim of municipal jurisdiction",
+      "expected_member_count": 8,
+      "member_identity_sha256": "80e12eb7c40de48f864b4f3aede6c16064e91e8b5a80cf40186ba7ff8feabbea",
+      "source_divisions": [
+        {
+          "id": "6208",
+          "name": "Kitikmeot",
+          "type": "REG"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,831 @@
+{
+  "schema_version": 1,
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "expected_count": 46,
+  "sources": {
+    "quebec": {
+      "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/3/query?where=1%3D1&outFields=ARS_CO_ARR%2CARS_NM_ARR%2CARS_NM_MUN%2CARS_CO_VER&orderByFields=ARS_CO_ARR&outSR=4326&returnGeometry=true&f=geojson",
+      "sha256": "fd2f81105830ca64b2403b95f086e878b9c64b60e1a217d11085a191a5d0ae28",
+      "crs": "EPSG:4326",
+      "expected_count": 41,
+      "authority": "Québec MRNF",
+      "release": "V2026-08",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "retrieved_on": "2026-09-16",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs"
+    },
+    "gatineau": {
+      "url": "https://www.donneesquebec.ca/recherche/dataset/6251438a-654e-4f2a-95c0-06917235e122/resource/17eac0ac-7008-4955-b123-cb4d17e04d63/download/decoupage_administratif.json",
+      "sha256": "428d75f23f7db3ea86e7adfa65e3edfb03e85a3eef5cd1eca8c6b3e3f194c3b3",
+      "crs": "EPSG:4326",
+      "expected_count": 5,
+      "authority": "Ville de Gatineau",
+      "release": "File updated 2025-04-24; effective boundary date unspecified",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "retrieved_on": "2026-09-16",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/vgat_296280560"
+    }
+  },
+  "municipalities": [
+    {
+      "parent_csd_id": "2409048",
+      "name": "Métis-sur-Mer",
+      "expected_count": 1,
+      "coverage_policy": "partial"
+    },
+    {
+      "parent_csd_id": "2423027",
+      "name": "Québec",
+      "expected_count": 6,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2425213",
+      "name": "Lévis",
+      "expected_count": 3,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2443027",
+      "name": "Sherbrooke",
+      "expected_count": 4,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2458227",
+      "name": "Longueuil",
+      "expected_count": 3,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2466023",
+      "name": "Montréal",
+      "expected_count": 19,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2476052",
+      "name": "Grenville-sur-la-Rouge",
+      "expected_count": 2,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2481017",
+      "name": "Gatineau",
+      "expected_count": 5,
+      "coverage_policy": "citywide"
+    },
+    {
+      "parent_csd_id": "2494068",
+      "name": "Saguenay",
+      "expected_count": 3,
+      "coverage_policy": "citywide"
+    }
+  ],
+  "areas": [
+    {
+      "id": "ca-qc-2481017-sector-10",
+      "source": "gatineau",
+      "source_id": "10",
+      "parent_csd_id": "2481017",
+      "parent_name": "Gatineau",
+      "name": "Masson-Angers",
+      "kind": "sector",
+      "type": "Secteur",
+      "expected_properties": {
+        "MUNID": 81017,
+        "CODEID": "10",
+        "NOM": "Masson-Angers",
+        "TYPE": "Ex ville",
+        "ENTITEID": "{96AAFDBC-9949-41EF-8D00-ECE15E302886}"
+      }
+    },
+    {
+      "id": "ca-qc-2481017-sector-15",
+      "source": "gatineau",
+      "source_id": "15",
+      "parent_csd_id": "2481017",
+      "parent_name": "Gatineau",
+      "name": "Gatineau",
+      "kind": "sector",
+      "type": "Secteur",
+      "expected_properties": {
+        "MUNID": 81017,
+        "CODEID": "15",
+        "NOM": "Gatineau",
+        "TYPE": "Ex ville",
+        "ENTITEID": "{07DBC407-0068-4AEE-8F5E-51A985940380}"
+      }
+    },
+    {
+      "id": "ca-qc-2481017-sector-20",
+      "source": "gatineau",
+      "source_id": "20",
+      "parent_csd_id": "2481017",
+      "parent_name": "Gatineau",
+      "name": "Hull",
+      "kind": "sector",
+      "type": "Secteur",
+      "expected_properties": {
+        "MUNID": 81017,
+        "CODEID": "20",
+        "NOM": "Hull",
+        "TYPE": "Ex ville",
+        "ENTITEID": "{36908290-4C89-41DB-A00A-C29EB4CFB9A8}"
+      }
+    },
+    {
+      "id": "ca-qc-2481017-sector-25",
+      "source": "gatineau",
+      "source_id": "25",
+      "parent_csd_id": "2481017",
+      "parent_name": "Gatineau",
+      "name": "Aylmer",
+      "kind": "sector",
+      "type": "Secteur",
+      "expected_properties": {
+        "MUNID": 81017,
+        "CODEID": "25",
+        "NOM": "Aylmer",
+        "TYPE": "Ex ville",
+        "ENTITEID": "{5C1FA124-6734-44C6-AB31-23B28DC0EF91}"
+      }
+    },
+    {
+      "id": "ca-qc-2481017-sector-5",
+      "source": "gatineau",
+      "source_id": "5",
+      "parent_csd_id": "2481017",
+      "parent_name": "Gatineau",
+      "name": "Buckingham",
+      "kind": "sector",
+      "type": "Secteur",
+      "expected_properties": {
+        "MUNID": 81017,
+        "CODEID": "5",
+        "NOM": "Buckingham",
+        "TYPE": "Ex ville",
+        "ENTITEID": "{0DE4611D-2A9E-4B26-A1B6-72A9C3DD3DBD}"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rea01",
+      "source": "quebec",
+      "source_id": "REA01",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Desjardins",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REA01",
+        "ARS_NM_ARR": "Desjardins",
+        "ARS_NM_MUN": "Lévis",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rea02",
+      "source": "quebec",
+      "source_id": "REA02",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Les Chutes-de-la-Chaudière-Est",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REA02",
+        "ARS_NM_ARR": "Les Chutes-de-la-Chaudière-Est",
+        "ARS_NM_MUN": "Lévis",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rea03",
+      "source": "quebec",
+      "source_id": "REA03",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Les Chutes-de-la-Chaudière-Ouest",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REA03",
+        "ARS_NM_ARR": "Les Chutes-de-la-Chaudière-Ouest",
+        "ARS_NM_MUN": "Lévis",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reb01",
+      "source": "quebec",
+      "source_id": "REB01",
+      "parent_csd_id": "2443027",
+      "parent_name": "Sherbrooke",
+      "name": "Brompton--Rock Forest--Saint-Élie--Deauville",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REB01",
+        "ARS_NM_ARR": "Brompton--Rock Forest--Saint-Élie--Deauville",
+        "ARS_NM_MUN": "Sherbrooke",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reb02",
+      "source": "quebec",
+      "source_id": "REB02",
+      "parent_csd_id": "2443027",
+      "parent_name": "Sherbrooke",
+      "name": "Fleurimont",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REB02",
+        "ARS_NM_ARR": "Fleurimont",
+        "ARS_NM_MUN": "Sherbrooke",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reb03",
+      "source": "quebec",
+      "source_id": "REB03",
+      "parent_csd_id": "2443027",
+      "parent_name": "Sherbrooke",
+      "name": "Lennoxville",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REB03",
+        "ARS_NM_ARR": "Lennoxville",
+        "ARS_NM_MUN": "Sherbrooke",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reb04",
+      "source": "quebec",
+      "source_id": "REB04",
+      "parent_csd_id": "2443027",
+      "parent_name": "Sherbrooke",
+      "name": "des Nations",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REB04",
+        "ARS_NM_ARR": "des Nations",
+        "ARS_NM_MUN": "Sherbrooke",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rec01",
+      "source": "quebec",
+      "source_id": "REC01",
+      "parent_csd_id": "2409048",
+      "parent_name": "Métis-sur-Mer",
+      "name": "MacNider",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REC01",
+        "ARS_NM_ARR": "MacNider",
+        "ARS_NM_MUN": "Métis-sur-Mer",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reg01",
+      "source": "quebec",
+      "source_id": "REG01",
+      "parent_csd_id": "2476052",
+      "parent_name": "Grenville-sur-la-Rouge",
+      "name": "Calumet",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REG01",
+        "ARS_NM_ARR": "Calumet",
+        "ARS_NM_MUN": "Grenville-sur-la-Rouge",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-reg02",
+      "source": "quebec",
+      "source_id": "REG02",
+      "parent_csd_id": "2476052",
+      "parent_name": "Grenville-sur-la-Rouge",
+      "name": "Grenville",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REG02",
+        "ARS_NM_ARR": "Grenville",
+        "ARS_NM_MUN": "Grenville-sur-la-Rouge",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rel01",
+      "source": "quebec",
+      "source_id": "REL01",
+      "parent_csd_id": "2458227",
+      "parent_name": "Longueuil",
+      "name": "Le Vieux-Longueuil",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REL01",
+        "ARS_NM_ARR": "Le Vieux-Longueuil",
+        "ARS_NM_MUN": "Longueuil",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rel03",
+      "source": "quebec",
+      "source_id": "REL03",
+      "parent_csd_id": "2458227",
+      "parent_name": "Longueuil",
+      "name": "Greenfield Park",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REL03",
+        "ARS_NM_ARR": "Greenfield Park",
+        "ARS_NM_MUN": "Longueuil",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rel06",
+      "source": "quebec",
+      "source_id": "REL06",
+      "parent_csd_id": "2458227",
+      "parent_name": "Longueuil",
+      "name": "Saint-Hubert",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REL06",
+        "ARS_NM_ARR": "Saint-Hubert",
+        "ARS_NM_MUN": "Longueuil",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem05",
+      "source": "quebec",
+      "source_id": "REM05",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Outremont",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM05",
+        "ARS_NM_ARR": "Outremont",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem09",
+      "source": "quebec",
+      "source_id": "REM09",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Anjou",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM09",
+        "ARS_NM_ARR": "Anjou",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem12",
+      "source": "quebec",
+      "source_id": "REM12",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Verdun",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM12",
+        "ARS_NM_ARR": "Verdun",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem14",
+      "source": "quebec",
+      "source_id": "REM14",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Saint-Léonard",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM14",
+        "ARS_NM_ARR": "Saint-Léonard",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem15",
+      "source": "quebec",
+      "source_id": "REM15",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Saint-Laurent",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM15",
+        "ARS_NM_ARR": "Saint-Laurent",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem16",
+      "source": "quebec",
+      "source_id": "REM16",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Montréal-Nord",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM16",
+        "ARS_NM_ARR": "Montréal-Nord",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem17",
+      "source": "quebec",
+      "source_id": "REM17",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "LaSalle",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM17",
+        "ARS_NM_ARR": "LaSalle",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem19",
+      "source": "quebec",
+      "source_id": "REM19",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Ville-Marie",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM19",
+        "ARS_NM_ARR": "Ville-Marie",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem20",
+      "source": "quebec",
+      "source_id": "REM20",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Le Sud-Ouest",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM20",
+        "ARS_NM_ARR": "Le Sud-Ouest",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem21",
+      "source": "quebec",
+      "source_id": "REM21",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Le Plateau-Mont-Royal",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM21",
+        "ARS_NM_ARR": "Le Plateau-Mont-Royal",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem22",
+      "source": "quebec",
+      "source_id": "REM22",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Mercier - Hochelaga-Maisonneuve",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM22",
+        "ARS_NM_ARR": "Mercier - Hochelaga-Maisonneuve",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem23",
+      "source": "quebec",
+      "source_id": "REM23",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Ahuntsic-Cartierville",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM23",
+        "ARS_NM_ARR": "Ahuntsic-Cartierville",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem24",
+      "source": "quebec",
+      "source_id": "REM24",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Rosemont - La Petite-Patrie",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM24",
+        "ARS_NM_ARR": "Rosemont - La Petite-Patrie",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem25",
+      "source": "quebec",
+      "source_id": "REM25",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Villeray - Saint-Michel - Parc-Extension",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM25",
+        "ARS_NM_ARR": "Villeray - Saint-Michel - Parc-Extension",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem27",
+      "source": "quebec",
+      "source_id": "REM27",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Lachine",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM27",
+        "ARS_NM_ARR": "Lachine",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem31",
+      "source": "quebec",
+      "source_id": "REM31",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Pierrefonds - Roxboro",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM31",
+        "ARS_NM_ARR": "Pierrefonds - Roxboro",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem32",
+      "source": "quebec",
+      "source_id": "REM32",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "LÎle-Bizard - Sainte-Geneviève",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM32",
+        "ARS_NM_ARR": "LÎle-Bizard - Sainte-Geneviève",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem33",
+      "source": "quebec",
+      "source_id": "REM33",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM33",
+        "ARS_NM_ARR": "Rivière-des-Prairies - Pointe-aux-Trembles",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-rem34",
+      "source": "quebec",
+      "source_id": "REM34",
+      "parent_csd_id": "2466023",
+      "parent_name": "Montréal",
+      "name": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REM34",
+        "ARS_NM_ARR": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+        "ARS_NM_MUN": "Montréal",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req01",
+      "source": "quebec",
+      "source_id": "REQ01",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "La Cité-Limoilou",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ01",
+        "ARS_NM_ARR": "La Cité-Limoilou",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req02",
+      "source": "quebec",
+      "source_id": "REQ02",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Les Rivières",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ02",
+        "ARS_NM_ARR": "Les Rivières",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req03",
+      "source": "quebec",
+      "source_id": "REQ03",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Sainte-Foy - Sillery - Cap-Rouge",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ03",
+        "ARS_NM_ARR": "Sainte-Foy - Sillery - Cap-Rouge",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req04",
+      "source": "quebec",
+      "source_id": "REQ04",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Charlesbourg",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ04",
+        "ARS_NM_ARR": "Charlesbourg",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req05",
+      "source": "quebec",
+      "source_id": "REQ05",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Beauport",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ05",
+        "ARS_NM_ARR": "Beauport",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-req06",
+      "source": "quebec",
+      "source_id": "REQ06",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "La Haute-Saint-Charles",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "REQ06",
+        "ARS_NM_ARR": "La Haute-Saint-Charles",
+        "ARS_NM_MUN": "Québec",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-res01",
+      "source": "quebec",
+      "source_id": "RES01",
+      "parent_csd_id": "2494068",
+      "parent_name": "Saguenay",
+      "name": "Chicoutimi",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "RES01",
+        "ARS_NM_ARR": "Chicoutimi",
+        "ARS_NM_MUN": "Saguenay",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-res02",
+      "source": "quebec",
+      "source_id": "RES02",
+      "parent_csd_id": "2494068",
+      "parent_name": "Saguenay",
+      "name": "Jonquière",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "RES02",
+        "ARS_NM_ARR": "Jonquière",
+        "ARS_NM_MUN": "Saguenay",
+        "ARS_CO_VER": "V2026-08"
+      }
+    },
+    {
+      "id": "ca-qc-arr-res03",
+      "source": "quebec",
+      "source_id": "RES03",
+      "parent_csd_id": "2494068",
+      "parent_name": "Saguenay",
+      "name": "La Baie",
+      "kind": "arrondissement",
+      "type": "Arrondissement",
+      "expected_properties": {
+        "ARS_CO_ARR": "RES03",
+        "ARS_NM_ARR": "La Baie",
+        "ARS_NM_MUN": "Saguenay",
+        "ARS_CO_VER": "V2026-08"
+      }
+    }
+  ],
+  "scope_note": "Official Québec arrondissements plus Gatineau sectors; no other neighbourhood or electoral layers.",
+  "sector_terminology_url": "https://www.gatineau.ca/portail/default.aspx?p=guide_marque%2Fnos_normes%2Fnormes_redaction%2Fterminologie%2Fsecteurs"
+}

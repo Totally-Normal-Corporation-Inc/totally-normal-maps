@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "totally-normal-maps"
+version = "0.1.0"
+description = "Versioned reference geography, boundary browsing, and coordinate lookups"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+dependencies = [
+  "shapely==2.1.2", "pyproj==3.7.2", "pyogrio==0.13.0",
+  "fastapi==0.141.1", "uvicorn==0.53.0",
+]
+
+[project.optional-dependencies]
+postgis = ["psycopg2-binary==2.9.11"]
+s3 = ["boto3==1.43.95"]
+dev = ["httpx==0.28.1", "build==1.6.1", "pip-audit==2.10.1", "detect-secrets==1.5.0"]
+browser = ["playwright>=1.58,<2"]
+
+[project.scripts]
+maps = "totally_normal_maps.__main__:entrypoint"
+
+[tool.setuptools.packages.find]
+include = ["totally_normal_maps*"]
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.package-data]
+totally_normal_maps = ["statcan-2025.json", "province-display-2021.json", "regions-2026-09.json", "city-areas-quebec-2026-09.json", "points.json", "web/index.html", "web/preview.js", "web/preview.css", "vendor/leaflet/leaflet.js", "vendor/leaflet/leaflet.css", "vendor/leaflet/LICENSE", "vendor/leaflet/images/*.png"]

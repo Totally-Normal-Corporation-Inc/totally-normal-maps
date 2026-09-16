@@ -1,0 +1,31 @@
+{
+  "authority": "Statistics Canada",
+  "family": "Census Subdivision Boundary File (digital)",
+  "release": "2025",
+  "reference_date": "2025-01-01",
+  "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+  "licence": "https://www.statcan.gc.ca/en/terms-conditions/open-licence",
+  "guide": "https://www150.statcan.gc.ca/n1/pub/92-162-g/92-162-g2025001-eng.pdf",
+  "sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "member": "lcsd000a25p_e.gpkg",
+  "layer": "lcsd000a25p_e",
+  "crs": "EPSG:3347",
+  "expected_count": 5054,
+  "identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "province_counts": {
+    "10": 372,
+    "11": 96,
+    "12": 96,
+    "13": 109,
+    "24": 1278,
+    "35": 578,
+    "46": 241,
+    "47": 995,
+    "48": 419,
+    "59": 765,
+    "60": 33,
+    "61": 41,
+    "62": 31
+  },
+  "identity_manifest_note": "Identity digest and jurisdiction counts derived from the checksum-pinned official ZIP; the guide independently documents the national count. This does not independently verify gaps or overlaps."
+}

@@ -1,0 +1,20 @@
+[
+  {"label": "Gatineau municipality", "lon": -75.65, "lat": 45.48, "expected_ids": ["2481017"]},
+  {"label": "Ottawa across provincial border", "lon": -75.6972, "lat": 45.4215, "expected_ids": ["3506008"]},
+  {"label": "Montréal", "lon": -73.5673, "lat": 45.5019, "expected_ids": ["2466023"]},
+  {"label": "Toronto", "lon": -79.3832, "lat": 43.6532, "expected_ids": ["3520005"]},
+  {"label": "Vancouver", "lon": -123.1207, "lat": 49.2827, "expected_ids": ["5915022"]},
+  {"label": "Calgary", "lon": -114.0719, "lat": 51.0447, "expected_ids": ["4806016"]},
+  {"label": "Regina", "lon": -104.6189, "lat": 50.4452, "expected_ids": ["4706027"]},
+  {"label": "Winnipeg", "lon": -97.1384, "lat": 49.8951, "expected_ids": ["4611040"]},
+  {"label": "Fredericton", "lon": -66.6431, "lat": 45.9636, "expected_ids": ["1331069"]},
+  {"label": "Halifax", "lon": -63.5752, "lat": 44.6488, "expected_ids": ["1209034"]},
+  {"label": "Charlottetown", "lon": -63.1311, "lat": 46.2382, "expected_ids": ["1102075"]},
+  {"label": "St. John's", "lon": -52.7126, "lat": 47.5615, "expected_ids": ["1001519"]},
+  {"label": "Whitehorse", "lon": -135.0568, "lat": 60.7212, "expected_ids": ["6001009"]},
+  {"label": "Yellowknife", "lon": -114.3718, "lat": 62.454, "expected_ids": ["6106023"]},
+  {"label": "Iqaluit", "lon": -68.5197, "lat": 63.7467, "expected_ids": ["6204003"]},
+  {"label": "New York outside Canada", "lon": -74.006, "lat": 40.7128, "expected_ids": []},
+  {"label": "Ocean outside Canada", "lon": -40, "lat": 50, "expected_ids": []},
+  {"label": "Swapped Ottawa coordinates", "lon": 45.4215, "lat": -75.6972, "expected_ids": []}
+]
