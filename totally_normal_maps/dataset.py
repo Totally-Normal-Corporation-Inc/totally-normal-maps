@@ -65,7 +65,8 @@ class Dataset:
                             'source_type': record.get('type'), 'parent_id': parent, 'province_id': province_id,
                             'assignment_status': record['assignment_status'], 'aliases': record.get('aliases', []),
                             'issues': record.get('issues', []), 'bbox': record.get('bbox')}
-                    for key in ('parent_overlap', 'relationship_basis'):
+                    for key in ('parent_overlap', 'relationship_basis', 'coverage_policy',
+                                'coverage_note', 'boundary_basis', 'evidence'):
                         if key in record:
                             item[key] = record[key]
                     self.add(item)
@@ -125,6 +126,9 @@ class Dataset:
                             'Unapproved repair candidates never contribute direct matches.',
                             'Province and country matches are inferred through the hierarchy.',
                             'Missing city areas do not imply that a city has no subdivisions.']}
+        self.summary['limitations'].append(
+            'Some regions contain selected communities only. Their boundaries are community footprints; '
+            'a missing region match does not mean the location has no regional identity.')
         if 'province_display_source' in self.report:
             self.summary['sources'].append(self.report['province_display_source'])
         if 'regions' in self.report:

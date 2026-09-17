@@ -29,8 +29,8 @@ pinned. Features have 4,132,456 source vertices in total.
   layer, simplified for display. It never drives coordinate classification.
 
 See [regional decisions](canada-regions.md) for all provinces and territories,
-including deferred jurisdictions. The 121 groupings cover 2,931 municipal areas;
-2,123 remain directly under their provinces. See [Québec city areas](quebec-city-areas.md)
+including deferred jurisdictions. The 144 groupings cover 3,385 municipal areas;
+1,669 remain directly under their provinces. See [Québec city areas](quebec-city-areas.md)
 for the 46 areas in nine municipalities, partial coverage and boundary discrepancies.
 
 ## Historical local comparison
@@ -52,7 +52,8 @@ measure new hardware and datasets; do not extrapolate the numbers to global cove
 1. Review repairs, including holes, components and source-level geographic effects.
 2. Check gaps/overlaps against appropriate same-vintage reference data.
 3. Adjudicate cross-source city/parent differences where required by consumers.
-4. Qualify regional schemes deferred in NL, MB, SK, AB, YT and NT.
+4. Extend the explicitly partial memberships in NL, AB, YT and NT with qualified
+   evidence. Saskatchewan intentionally remains without a regional layer.
 5. Expand city-area coverage with explicit scope and source attribution.
 6. Measure API load, memory, startup and replica behaviour in the actual hosting
    environment before choosing capacity or committing to availability targets.

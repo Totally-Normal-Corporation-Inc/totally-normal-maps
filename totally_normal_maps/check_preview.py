@@ -156,13 +156,40 @@ def check_preview(url, output):
             ("11", "3 regions", 3), ("12", "18 regions", 18), ("13", "12 regions", 12),
             ("24", "17 regions", 17), ("35", "40 regions · 17 municipalities", 57),
             ("59", "28 regions · 5 municipalities", 33), ("62", "3 regions", 3),
-            ("10", "372 municipalities", 100), ("46", "241 municipalities", 100),
-            ("47", "995 municipalities", 100), ("48", "419 municipalities", 100),
-            ("60", "33 municipalities", 33), ("61", "41 municipalities", 41),
+            ("10", "5 regions · 230 municipalities", 100), ("46", "8 regions", 8),
+            ("47", "995 municipalities", 100), ("48", "2 regions · 392 municipalities", 100),
+            ("60", "3 regions · 22 municipalities", 25), ("61", "5 regions · 8 municipalities", 13),
         ]:
             page.locator("#province").select_option(code)
             status(label)
             rows(count)
+        # New groups stay reachable alongside direct municipalities. Partial
+        # community footprints must be disclosed before and after drilling down.
+        for code, uid, city, count, partial in [
+            ('46', 'ca-mb-gr-interlake', None, 28, False),
+            ('61', 'ca-nt-gr-north-slave', '6105020', 7, True),
+            ('10', 'ca-nl-gr-central', '1006009', 5, True),
+            ('60', 'ca-yt-gr-southern-lakes', '6001048', 5, True),
+            ('48', 'ca-ab-gr-peace-country', '4819012', 15, True),
+            ('48', 'ca-ab-gr-central-alberta', '4808011', 12, True),
+        ]:
+            page.locator('#province').select_option(code)
+            entry = page.locator(f'#results [data-area-id="{uid}"]')
+            if partial:
+                expect(entry).to_contain_text('Partial coverage')
+            entry.click()
+            status(f'{count} municipalities'); rows(count)
+            if partial:
+                expect(page.locator('#coverage-note')).to_contain_text('not the complete region')
+                expect(page.locator('#selection')).to_contain_text('footprint')
+            if city:
+                page.locator(f'#results [data-area-id="{city}"]').click()
+                expect(page.locator('#selection')).to_contain_text('Region:')
+            page.screenshot(path=str(output / f'regions-{code}.png'), full_page=True)
+        page.locator('#province').select_option('61')
+        page.locator('#search').fill('Sahtu')
+        rows(1)
+        expect(page.locator('#results')).to_contain_text('Sahtú')
         page.locator("#province").select_option("35")
         status("40 regions · 17 municipalities")
         page.locator('#results [data-area-id="3506008"]').click()
@@ -173,7 +200,7 @@ def check_preview(url, output):
         page.locator("#issues-only").check()
         expect(page.locator("#map-status")).to_have_text(re.compile(r"^7 regions"))
         page.locator("#province").select_option("48")
-        status("419 municipalities")
+        status("2 regions · 392 municipalities")
         expect(page.locator("#issues-only")).not_to_be_checked()
         page.locator("#more").click()
         rows(200)

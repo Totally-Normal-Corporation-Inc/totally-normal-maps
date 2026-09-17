@@ -6,25 +6,27 @@ Research snapshot: 2026-09-16. Dataset remains subject to review.
 
 | Jurisdiction | Added | Choice and limits |
 |---|---:|---|
-| Newfoundland and Labrador | Deferred | Numbered census divisions are unsuitable as the default browsing labels. Tourism regions are promising; a current reproducible polygon set and membership mapping need qualification. [Provincial tourism regions](https://www.gov.nl.ca/tcar/tourism-product-development2/) |
+| Newfoundland and Labrador | 5 | Avalon Peninsula and Labrador use full divisions; Central, Eastern and Western contain 18 evidenced community CSDs. 230 CSDs remain ungrouped. The latter three outlines are selected footprints. [Regional expansion evidence](regional-expansion.md#2-newfoundland-and-labrador-and-yukon) |
 | Prince Edward Island | 3 | Kings, Queens and Prince geographic counties. No county-government relationship is asserted. [Provincial reference](https://www.princeedwardisland.ca/en/information/executive-council-office/provincial-flag) |
 | Nova Scotia | 18 | Geographic counties. County geography stays separate from similarly named regional municipalities such as Halifax. [Provincial county statistics](https://novascotia.ca/finance/statistics/news.asp?id=21657) |
 | New Brunswick | 12 | Post-reform regional service commission geographies, already present in the 2025 StatCan source. This avoids the obsolete 15-county division layer. [2025 source type table](https://www150.statcan.gc.ca/n1/pub/92-162-g/2025001/tbl/tbl4.3-eng.htm) |
 | Québec | 17 | Régions administratives. A pinned CD-to-region crosswalk is cross-checked against provincial polygons; MRCs are not substituted for regions. [Official divisions](https://www.quebec.ca/gouvernement/portrait-quebec/cartes-donnees-quebec/decoupage-administratif) |
 | Ontario | 40 | Named geographic counties/united counties, regional municipalities, Muskoka district municipality geography, and northern territorial districts. The nine generic CDR entries are excluded, leaving 17 CSDs ungrouped (including Ottawa and Toronto). A geographic county may contain a city that is administratively separate. [Ontario municipal structure](https://www.ontario.ca/document/ontario-municipal-councillors-guide/5-municipal-organization) |
-| Manitoba | Deferred | Economic, tourism and service regions differ. Familiar names such as Interlake and Parkland are candidates, but a preferred complete boundary set has not been qualified. This does not mean Manitoba lacks regions. [Travel Manitoba regional examples](https://www.travelmanitoba.com/trip-essentials/know-before-you-go/) |
-| Saskatchewan | Deferred | Tourism travel zones and numbered statistical divisions serve different purposes. A preferred complete geographic partition and reusable boundary source need qualification. [Tourism Saskatchewan travel zones](https://www.tourismsaskatchewan.com/places-to-go/travel-zones/learn-about-travel-zones) |
-| Alberta | Deferred | The seven land-use regions follow major watersheds; numbered census divisions provide another scheme. Review the fit for geographic browsing before choosing either as the default. [Provincial land-use regions](https://landuse.alberta.ca/RegionalPlans/Pages/default.aspx) |
+| Manitoba | 8 | Eastman, Interlake, Parkland, Westman, Central Plains, Pembina Valley, Northern Manitoba and Winnipeg. 241 CSDs grouped using a reviewed census-division crosswalk. [Regional expansion evidence](regional-expansion.md#1-manitoba-and-northwest-territories) |
+| Saskatchewan | Deferred | Intentional province-to-city navigation. Local regional identities exist, but no default layer is qualified; tourism marketing zones are not substituted. [Decision and reopening criteria](regional-expansion.md#4-saskatchewan) |
+| Alberta | 2 | Peace Country (Alberta) and Central Alberta contain 27 selected CSDs; 392 remain ungrouped. Membership evidence does not establish exhaustive cultural boundaries. [Regional expansion evidence](regional-expansion.md#3-alberta) |
 | British Columbia | 28 | 27 regional district geographies plus Stikine, explicitly labelled an unincorporated region. Northern Rockies remains municipal; its census division is not duplicated as a regional district (5 CSDs remain ungrouped). These spatial groupings do not assert jurisdiction over Indigenous communities. [Provincial Stikine explanation](https://www2.gov.bc.ca/gov/content/governments/local-governments/improvement-districts-governance-bodies/stikine) |
-| Yukon | Deferred | The single census division duplicates the territory. Tourism regions exist, but a reusable boundary source and grouping have not been qualified. [Territorial tourism maps](https://www.travelyukon.com/en/trade/maps) |
-| Northwest Territories | Deferred | Named departmental regions and the six numbered census divisions do not provide one interchangeable hierarchy. Select a current scheme with matching polygons first. [Regional centres](https://www.gov.nt.ca/careers/en/regional-centres), [departmental regional map](https://www.gov.nt.ca/ecc/en/content/enr-administrative-regions-map) |
+| Yukon | 3 | Klondike, Kluane and Southern Lakes contain 11 selected CSDs; 22 remain ungrouped. Community footprints, not the different wilderness-tourism polygon scheme. [Regional expansion evidence](regional-expansion.md#2-newfoundland-and-labrador-and-yukon) |
+| Northwest Territories | 5 | Beaufort Delta, Sahtú, Dehcho, North Slave and South Slave follow MACA community lists: 33 CSDs grouped, 8 unlisted/unorganized CSDs ungrouped. [Regional expansion evidence](regional-expansion.md#1-manitoba-and-northwest-territories) |
 | Nunavut | 3 | Qikiqtaaluk, Kivalliq and Kitikmeot geographic regions. No Inuit land-ownership/governance layer is inferred. [Territorial regional business search](https://nni.gov.nu.ca/business/search) |
 
 Counts, exact source divisions, source types, member counts and member-ID
 checksums are pinned in
 [`regions-2026-09.json`](../../totally_normal_maps/regions-2026-09.json).
-Every source census division must be assigned exactly once or explicitly
-recorded as excluded. A new source release must be qualified with a new plan.
+Schema 2 supports whole-division groupings and explicit CSD membership. Every CSD
+must be assigned exactly once or recorded in `excluded_csd_ids`; fully excluded
+and partially assigned divisions are also recorded. Schema 1 remains readable.
+A new source release must be qualified with a new plan.
 
 ## Boundary and identity approach
 
@@ -49,6 +51,11 @@ combining data from different publishers.
   assignment geometry** and a separate unapproved regional candidate. A
   missing member geometry prevents a partial regional outline being published.
 - Display geometry is simplified separately, at 200 metres by default.
+- Named additions use stable `ca-{province}-gr-{slug}` IDs. For
+  `coverage_policy: selected_members`, the dissolved polygon is only the selected
+  communities’ footprint. Holes and intervening unassigned land are retained.
+  Coverage notes and evidence appear in API metadata and boundary properties; the
+  map labels these groups as partial before drill-down.
 
 ### Québec crosswalk evidence
 

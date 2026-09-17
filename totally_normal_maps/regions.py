@@ -30,8 +30,17 @@ PLAN = ROOT / "regions-2026-09.json"
 MAX_REGION_SOURCE_BYTES = 64 * 1024 * 1024
 
 
+def member_ids(definition, members):
+    """One selection path for validation, geometry and the hierarchy table."""
+    if "csd_ids" in definition:
+        return definition["csd_ids"]
+    return [uid for uid, row in members.items()
+            if row["properties"]["CDUID"] in definition["cd_ids"]]
+
+
 def validate_plan(plan, report, members):
-    if plan.get("schema_version") != 1:
+    version = plan.get("schema_version")
+    if version not in {1, 2}:
         raise CatalogueError("Unsupported regional plan version.")
     if (plan.get("base_source_sha256") != report["source"]["sha256"] or
             plan.get("base_identity_sha256") != report["identity_sha256"]):
@@ -51,7 +60,8 @@ def validate_plan(plan, report, members):
     ids, assigned = set(), set()
     for region in regions:
         uid, province = region["id"], region["province"]
-        if (province not in PROVINCES or not re.fullmatch(r"ca-[a-z]{2}-(cd-\d{4}|ra-\d{2})", uid)
+        if (province not in PROVINCES or not isinstance(uid, str) or len(uid) > 80
+                or not re.fullmatch(r"ca-[a-z]{2}-(cd-\d{4}|ra-\d{2}|gr-[a-z]+(?:-[a-z]+)*)", uid)
                 or not uid.startswith(f"ca-{PROVINCES[province][0].lower()}-")):
             raise CatalogueError("Invalid regional identity or province.")
         if uid in ids:
@@ -60,19 +70,50 @@ def validate_plan(plan, report, members):
         for field in ("name", "kind", "source_type", "relationship_basis"):
             if not isinstance(region.get(field), str) or not 1 <= len(region[field]) <= 500:
                 raise CatalogueError("Missing or oversized regional label.")
-        cds = region["cd_ids"]
-        if not cds or len(set(cds)) != len(cds) or assigned.intersection(cds):
-            raise CatalogueError("Duplicate or empty regional census-division membership.")
-        for cd in cds:
-            if cd not in divisions or divisions[cd][0] != province:
-                raise CatalogueError("Missing or cross-province regional membership.")
-        expected = [{"id": cd, "name": divisions[cd][1], "type": divisions[cd][2]} for cd in cds]
-        if region["source_divisions"] != expected:
-            raise CatalogueError("Regional census-division attributes changed.")
-        assigned.update(cds)
-        member_ids = [uid for uid, row in members.items() if row["properties"]["CDUID"] in cds]
-        if (len(member_ids) != region["expected_member_count"] or
-                identity_digest(member_ids) != region["member_identity_sha256"]):
+        explicit = "csd_ids" in region
+        if explicit and (version != 2 or "cd_ids" in region):
+            raise CatalogueError("Explicit membership requires version 2 and exactly one selection method.")
+        if not explicit:
+            cds = region.get("cd_ids")
+            if (not isinstance(cds, list) or not cds or len(cds) > len(divisions)
+                    or any(not isinstance(cd, str) for cd in cds) or len(set(cds)) != len(cds)):
+                raise CatalogueError("Duplicate or empty regional census-division membership.")
+            for cd in cds:
+                if cd not in divisions or divisions[cd][0] != province:
+                    raise CatalogueError("Missing or cross-province regional membership.")
+            expected = [{"id": cd, "name": divisions[cd][1], "type": divisions[cd][2]} for cd in cds]
+            if region["source_divisions"] != expected:
+                raise CatalogueError("Regional census-division attributes changed.")
+        selected = member_ids(region, members)
+        if (not isinstance(selected, list) or not selected or len(selected) > len(members)
+                or any(not isinstance(uid, str) for uid in selected) or len(set(selected)) != len(selected)
+                or assigned.intersection(selected)):
+            raise CatalogueError("Duplicate or empty regional municipality membership.")
+        if any(uid not in members or members[uid]["properties"]["PRUID"] != province for uid in selected):
+            raise CatalogueError("Missing or cross-province regional membership.")
+        if explicit:
+            expected = [{"id": uid, "name": members[uid]["properties"]["CSDNAME"],
+                         "type": members[uid]["properties"]["CSDTYPE"]} for uid in selected]
+            if region.get("source_members") != expected:
+                raise CatalogueError("Regional municipality attributes changed.")
+            if region.get("coverage_policy") != "selected_members":
+                raise CatalogueError("Explicit community groupings must disclose selected-member coverage.")
+        if '-gr-' in uid:
+            if (version != 2 or region.get("coverage_policy") != ("selected_members" if explicit else "whole_divisions")
+                    or not isinstance(region.get("coverage_note"), str) or not 1 <= len(region["coverage_note"]) <= 2000
+                    or region.get("boundary_basis") != "member_csd_union"):
+                raise CatalogueError("Named groupings require boundary and coverage disclosures.")
+            refs = region.get("evidence", [])
+            if not isinstance(refs, list) or not refs or len(refs) > 20:
+                raise CatalogueError("Named groupings require bounded source evidence.")
+            for ref in refs:
+                if (not isinstance(ref, dict) or not all(isinstance(ref.get(k), str) and 0 < len(ref[k]) <= 2000
+                        for k in ("url", "authority", "claim", "reviewed_on"))
+                        or not ref["url"].startswith("https://")):
+                    raise CatalogueError("Invalid regional evidence reference.")
+        assigned.update(selected)
+        if (len(selected) != region["expected_member_count"] or
+                identity_digest(selected) != region["member_identity_sha256"]):
             raise CatalogueError("Regional member identity manifest mismatch.")
     jurisdictions = plan["jurisdictions"]
     if len(jurisdictions) != 13 or {j["province"] for j in jurisdictions} != set(PROVINCES):
@@ -82,14 +123,20 @@ def validate_plan(plan, report, members):
         count = sum(r["province"] == pr for r in regions)
         if count != entry["expected_region_count"]:
             raise CatalogueError("Regional jurisdiction count mismatch.")
-        skipped = sorted(cd for cd, p in divisions.items() if p[0] == pr and cd not in assigned)
+        unassigned = sorted(uid for uid, row in members.items() if row["properties"]["PRUID"] == pr and uid not in assigned)
+        assigned_cds = {members[uid]["properties"]["CDUID"] for uid in assigned}
+        skipped = sorted(cd for cd, p in divisions.items() if p[0] == pr and cd not in assigned_cds)
         if skipped != entry["excluded_cd_ids"]:
             raise CatalogueError("An unassigned census division is missing from the decision ledger.")
+        if version == 2:
+            partial = sorted({members[uid]["properties"]["CDUID"] for uid in unassigned} & assigned_cds)
+            if entry.get("excluded_csd_ids") != unassigned or entry.get("partially_assigned_cd_ids") != partial:
+                raise CatalogueError("Every unassigned municipality and split division must be recorded.")
         if entry["status"] not in {"included", "partial", "deferred"} or not entry["reason"]:
             raise CatalogueError("Regional decisions need explicit statuses and reasons.")
-        if ((entry["status"] == "included" and (not count or skipped)) or
+        if ((entry["status"] == "included" and (not count or unassigned)) or
                 (entry["status"] == "deferred" and count) or
-                (entry["status"] == "partial" and (not count or not skipped))):
+                (entry["status"] == "partial" and (not count or not unassigned))):
             raise CatalogueError("Regional coverage status contradicts the selected divisions.")
 
 
@@ -160,7 +207,7 @@ def check_quebec_crosswalk(plan, source, members, started):
 
 
 def dissolve_region(definition, members, tolerance):
-    rows = [row for row in members.values() if row["properties"]["CDUID"] in definition["cd_ids"]]
+    rows = [members[uid] for uid in member_ids(definition, members)]
     row = {**definition, "code": PROVINCES[definition["province"]][0], "type": definition["kind"],
            "level": "region", "member_count": len(rows), "issues": [], "assignment_status": "unavailable"}
     pending = [r["id"] for r in rows if r["geometry"] is None]
@@ -246,10 +293,9 @@ def build_regions(run, destination, *, quebec_source=None, plan_path=None, toler
                 db.execute("INSERT INTO region VALUES (?, ?, ?, ?, ?)", (record["id"], record["province"],
                            json.dumps(record, ensure_ascii=False), full.wkb if full is not None else None,
                            candidate.wkb if candidate is not None else None))
-                for uid, row in members.items():
-                    if row["properties"]["CDUID"] in definition["cd_ids"]:
-                        memberships[uid] = record["id"]
-                        db.execute("INSERT INTO csd_region VALUES (?, ?, ?)", (uid, record["id"], definition["relationship_basis"]))
+                for uid in member_ids(definition, members):
+                    memberships[uid] = record["id"]
+                    db.execute("INSERT INTO csd_region VALUES (?, ?, ?)", (uid, record["id"], definition["relationship_basis"]))
                 if display is not None:
                     displays[record["province"]].append({"type": "Feature", "properties": {
                         key: record[key] for key in ("id", "name", "type", "code", "issues", "assignment_status")},

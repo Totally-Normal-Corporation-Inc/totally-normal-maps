@@ -88,3 +88,33 @@ Before each commit, stage the intended files and run the two `--staged` checks i
 README.md. Before distributing packages, build from the reviewed commit and run the
 artifact check. Findings and dependency advisories must be reassessed after changes;
 this report applies to this review checkpoint, not all future revisions.
+
+## Regional expansion checkpoint — September 16, 2026
+
+The subsequent regional expansion adds 23 geographic groupings (144 total), a
+version-2 membership plan, explicit coverage/evidence metadata, map disclosures
+and regression/acceptance checks. The scope and source decisions are recorded in
+[regional-expansion.md](research/regional-expansion.md). Thirteen additions contain
+selected communities; they do not claim complete regional polygons.
+
+- All **86 synthetic regression tests** passed. New cases cover explicit CSD
+  selection, overlapping whole-division/community assignments, split-division
+  exclusions, name/type drift, missing evidence, release round-trips, and preservation
+  of unassigned land and unapproved repairs.
+- Real-data API acceptance passed: 447 new-member interior-point lookups, all 46
+  city-area lookups, new aliases, all jurisdiction counts and coverage metadata.
+  A byte-for-byte row comparison against the prior serving database preserved all
+  5,054 municipal rows, 46 city-area rows, 121 region rows and 2,931 membership rows.
+- Desktop/mobile browser acceptance passed with no page errors, including the
+  added groupings, partial-coverage labels, Sahtú alias, all province counts and
+  existing Québec city-area navigation. Selected screenshots were visually reviewed.
+- The 67-file public working tree passed the publication guard and offline secret
+  scan: 154 recognized geographic digest fields, zero unresolved findings. Raw
+  source references and rebuilt databases remain ignored local artifacts.
+- Wheel/source artifact checks verify packaged source bytes against the public
+  working tree. No deployment configuration, dependency, credential handling,
+  authentication policy or cloud infrastructure was added or changed.
+
+These checks concern the expanded working tree; the user's Git index remains
+untouched. Run the staged checks again when staging a commit. The original review's
+Docker, infrastructure and geographic-qualification limitations still apply.

@@ -88,10 +88,11 @@ function showDetails(row) {
     const regions = data.regions.filter(r => r.province === row.id);
     el("selection").append(line(`${row.code} · ${countText(row.count, "municipal-level area")}`),
       line(regions.length ? "Choose a region to open its municipalities. Municipalities without a region can be selected directly." :
-        "No regional groupings added here yet. Choose a municipality to inspect it."));
+        "No regional layer selected here. Choose a municipality to inspect it."));
   } else if (row.level === "region") {
     el("selection").append(line(`${row.code} · ${row.type} · ${countText(row.member_count, "municipal-level area")}`),
       line("Choose a municipality on the map or in the list to inspect it."));
+    if (row.coverage_note) el("selection").append(line(row.coverage_note));
   } else if (row.level === "city_area") {
     el("selection").append(line(`${row.type} · City: ${row.parent_name} · Source ID: ${row.source_id}`),
       line(`${data.report.city_areas.sources[row.source].authority} · ${data.report.city_areas.sources[row.source].release}`),
@@ -140,7 +141,7 @@ function renderResults() {
     const title = document.createElement("span"), name = document.createElement("strong"), note = document.createElement("small"), code = document.createElement("span");
     name.textContent = row.name;
     note.textContent = (row.level === "province" ? `${countText(row.count, "municipal-level area")} · Open →` :
-      row.level === "region" ? `${row.member_count} areas · ${row.type} · Open →` :
+      row.level === "region" ? `${row.member_count} areas · ${row.type}${row.coverage_policy === "selected_members" ? " · Partial coverage" : ""} · Open →` :
       row.level === "city_area" ? `${row.type} · ${row.source_id}` :
       hasChildren(row) ? `${areaCounts(cityChildren.get(row.id))} · Open →` :
         `${row.id} · ${row.type}${!row.region_id ? " · No regional grouping" : ""}`) + (row.issues.length ? " · Review needed" : "");
@@ -183,8 +184,8 @@ function coverageNote() {
   const entry = data.report.regions?.jurisdictions.find(j => j.province === province);
   el("coverage-note").textContent = city ? `${byId.get(city).name} · ${areaCounts(cityChildren.get(city))}. The outer line shows the city boundary.` :
     !province ? "Choose one of Canada's 13 provinces and territories to begin." :
-    region ? `${byId.get(region).name} · Municipalities within this region.` :
-      !entry || entry.status === "deferred" ? "Regions have not been added here yet. Showing municipalities directly." :
+    region ? `${byId.get(region).name} · ${byId.get(region).coverage_policy === "selected_members" ? "Selected communities; outlines show their combined footprint, not the complete region." : "Municipalities within this region."}` :
+      !entry || entry.status === "deferred" ? "No regional layer selected. Showing municipalities directly." :
         `${countText(entry.expected_region_count, "region")}${entry.unassigned_member_count ? ` · ${countText(entry.unassigned_member_count, "municipality", "municipalities")} shown directly without a regional grouping` : ""}. Click to explore.`;
 }
 async function boundaryLayer(key) {

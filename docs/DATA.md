@@ -4,6 +4,12 @@ Install the project as described in README.md. All commands use local files; non
 write a consumer application database. The original source snapshots and generated
 datasets belong in ignored `.local/` storage, not Git.
 
+The current plan adds 23 familiar regional groupings to the original 121. No new
+geometry download is needed: all their outlines use the existing StatCan source.
+Thirteen groups have selected-community coverage rather than complete regional
+outlines. See [regional expansion decisions](research/regional-expansion.md) before
+using these polygons for geofencing or interpreting gaps.
+
 ## 1. Obtain pinned source bytes
 
 ```bash
@@ -99,6 +105,18 @@ selection, deferred/partial coverage and mobile layout:
 
 Install the `browser` extra and Chromium first. The check defaults to system
 Chromium at `/usr/bin/chromium` (see its `--help` for available options).
+
+Check the expanded release through the API, optionally comparing all existing
+municipality, region, membership and city-area rows against an earlier release:
+
+```bash
+.venv/bin/python tools/check_real_data.py --dataset .local/releases/canada-expanded \
+  --baseline .local/releases/canada
+```
+
+The acceptance check expects the expanded 144-region plan, exercises new membership
+and alias cases, and probes every available municipal geometry in the 23 additions.
+Keep the baseline as an immutable rollback artifact.
 
 ## Geometry-only benchmarks
 

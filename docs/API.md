@@ -40,6 +40,7 @@ statistical municipal equivalent, regional district, arrondissement or sector.
 | Canada | `ca` |
 | Québec | `ca-qc` |
 | Outaouais | `ca-qc-ra-07` |
+| Interlake | `ca-mb-gr-interlake` |
 | Gatineau municipality | `ca-csd-2481017` |
 | Gatineau sector | `ca-qc-2481017-sector-15` |
 
@@ -52,6 +53,21 @@ The hierarchy skips missing regions. Ontario's ungrouped municipalities, includi
 Toronto and Ottawa, remain directly under Ontario alongside its regions. Québec's
 Montréal region and City of Montréal remain separate identities. A geographic
 parent does not establish governmental jurisdiction or Indigenous governance.
+
+Named regional additions include `coverage_policy`, `coverage_note`,
+`boundary_basis` and an `evidence` array (publisher, URL, claim and review date).
+These fields are also included in boundary properties and lookup matches.
+`whole_divisions` describes membership built from the listed complete census
+divisions; it does not certify an official regional boundary. `selected_members`
+means the outline is only the union of explicitly selected community polygons.
+It must not be treated as an exhaustive regional geofence. For example, the
+North Slave group includes Łutselk’e but does not assign unorganized land nearby.
+
+Dataset regional coverage lists every `excluded_csd_id` in `excluded_csd_ids`,
+along with wholly excluded `excluded_cd_ids` and `partially_assigned_cd_ids`.
+The `included`/`partial`/`deferred` jurisdiction status concerns membership coverage,
+not geometric approval. The regional level is deliberately absent in Saskatchewan.
+See [regional evidence and limits](research/regional-expansion.md).
 
 ## Lookups
 

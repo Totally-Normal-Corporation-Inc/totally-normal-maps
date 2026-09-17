@@ -68,6 +68,80 @@ class RegionalBuildTests(unittest.TestCase):
         with open_catalogue(self.base) as db:
             return {r["id"]: {**dict(r), "properties": json.loads(r["properties"])} for r in db.execute("SELECT * FROM csd")}
 
+    def explicit_plan(self, members=None, report=None):
+        members = members or self.members()
+        plan = copy.deepcopy(self.plan)
+        plan['schema_version'] = 2
+        if report:
+            plan['base_identity_sha256'] = report['identity_sha256']
+        region = plan['regions'][0]
+        region.pop('cd_ids')
+        region.pop('source_divisions')
+        region.update(id='ca-pe-gr-example', csd_ids=['1101001'],
+            source_members=[{'id': '1101001', 'name': 'Sample 11', 'type': 'V'}],
+            coverage_policy='selected_members', boundary_basis='member_csd_union',
+            coverage_note='Selected community footprints, not a complete regional boundary.',
+            evidence=[{'url': 'https://example.invalid/regions', 'authority': 'Synthetic publisher',
+                       'claim': 'Synthetic membership list', 'reviewed_on': '2026-09-16'}])
+        assigned = {uid for r in plan['regions'] for uid in
+                    (r['csd_ids'] if 'csd_ids' in r else [uid for uid, m in members.items() if m['properties']['CDUID'] in r['cd_ids']])}
+        for entry in plan['jurisdictions']:
+            skipped = [uid for uid, r in members.items() if r['province'] == entry['province'] and uid not in assigned]
+            used_cds = {members[uid]['properties']['CDUID'] for uid in assigned}
+            entry['excluded_csd_ids'] = sorted(skipped)
+            entry['partially_assigned_cd_ids'] = sorted({members[uid]['properties']['CDUID'] for uid in skipped} & used_cds)
+            if entry['expected_region_count'] and skipped:
+                entry['status'] = 'partial'
+        return plan
+
+    def test_explicit_membership_round_trips_through_release_and_api_model(self):
+        from totally_normal_maps.releases import export_release
+        from totally_normal_maps.dataset import Dataset
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_json(root / 'plan.json', self.explicit_plan())
+            build_regions(self.base, root / 'run', plan_path=root / 'plan.json')
+            export_release(root / 'run', root / 'release', label='synthetic')
+            data = Dataset(root / 'release')
+            area = data.areas['ca-pe-gr-example']
+            self.assertEqual(data.areas['ca-csd-1101001']['parent_id'], area['id'])
+            for key in ('coverage_policy', 'coverage_note', 'boundary_basis', 'evidence'):
+                self.assertEqual(area[key], self.explicit_plan()['regions'][0][key])
+            self.assertEqual(data.boundary(area['id'])['properties']['coverage_policy'], 'selected_members')
+
+    def test_split_division_requires_complete_exclusion_ledger(self):
+        members = self.members()
+        extra = copy.deepcopy(members['1101001'])
+        extra['id'] = extra['properties']['CSDUID'] = '1101002'
+        members[extra['id']] = extra
+        report = {**self.base_report, 'feature_count': len(members), 'identity_sha256': identity_digest(members)}
+        plan = self.explicit_plan(members, report)
+        validate_plan(plan, report, members)
+        for field in ('excluded_csd_ids', 'partially_assigned_cd_ids'):
+            broken = copy.deepcopy(plan)
+            next(j for j in broken['jurisdictions'] if j['province'] == '11')[field] = []
+            with self.assertRaisesRegex(CatalogueError, 'Every unassigned'):
+                validate_plan(broken, report, members)
+
+    def test_explicit_membership_rejects_conflicts_drift_and_missing_evidence(self):
+        for mutation in ('mixed', 'duplicate', 'cross_province', 'unknown', 'name', 'coverage', 'evidence', 'collision'):
+            with self.subTest(mutation=mutation):
+                plan = self.explicit_plan()
+                r = plan['regions'][0]
+                if mutation == 'mixed': r['cd_ids'] = ['1101']
+                elif mutation == 'duplicate': r['csd_ids'] *= 2
+                elif mutation == 'cross_province': r['csd_ids'] = ['2401001']
+                elif mutation == 'unknown': r['csd_ids'] = ['1199999']
+                elif mutation == 'name': r['source_members'][0]['name'] = 'Changed'
+                elif mutation == 'coverage': r['coverage_policy'] = 'complete'
+                elif mutation == 'evidence': r['evidence'] = []
+                else:
+                    duplicate = copy.deepcopy(self.plan['regions'][0])
+                    plan['regions'].append(duplicate)
+                    plan['expected_region_count'] += 1
+                with self.assertRaises(CatalogueError):
+                    validate_plan(plan, self.base_report, self.members())
+
     def test_original_run_and_municipal_rows_remain_unchanged(self):
         self.assertEqual(sha256(self.base / "catalogue.sqlite3"), self.base_report["catalogue_sha256"])
         with open_catalogue(self.base) as base, open_catalogue(self.run_path) as result:
@@ -273,6 +347,18 @@ class RegionalGeometryTests(unittest.TestCase):
         self.assertIsNone(candidate)
         self.assertEqual(record["assignment_status"], "unavailable")
 
+    def test_explicit_selection_does_not_fill_unlisted_land_or_promote_repairs(self):
+        rows = {'a': self.member('a', box(-80, 45, -79, 46)),
+                'b': self.member('b', None, box(-78, 45, -77, 46)),
+                'excluded': self.member('excluded', box(-79, 45, -78, 46))}
+        definition = {**self.definition(), 'csd_ids': ['a', 'b']}
+        definition.pop('cd_ids')
+        record, full, display, candidate = dissolve_region(definition, rows, 0)
+        self.assertIsNone(full)
+        self.assertEqual(record['assignment_status'], 'unreviewed_repair')
+        self.assertFalse(candidate.covers(Point(-78.5, 45.5)))
+        self.assertEqual(record['member_count'], 2)
+
     def test_quebec_ambiguous_crosswalk_and_changed_source_are_rejected(self):
         shapes = [("01", "First", box(-76, 45, -75, 46)), ("02", "Second", box(-75, 45, -74, 46)),
                   ("09", "Côte-Nord (Tracé de 1927)", box(-60, 52, -59, 53))]
@@ -296,7 +382,7 @@ class RegionalGeometryTests(unittest.TestCase):
 
     def test_real_plan_contains_known_geographic_exceptions(self):
         plan = read_json(PLAN)
-        by_cd = {cd: r for r in plan["regions"] for cd in r["cd_ids"]}
+        by_cd = {cd: r for r in plan["regions"] for cd in r.get("cd_ids", [])}
         self.assertEqual(by_cd["2481"]["name"], "Outaouais")
         self.assertEqual(by_cd["2446"]["name"], "Estrie")
         self.assertEqual(by_cd["2447"]["name"], "Estrie")
@@ -306,3 +392,23 @@ class RegionalGeometryTests(unittest.TestCase):
         self.assertNotIn("5959", by_cd)  # Northern Rockies is a municipality.
         self.assertEqual(by_cd["5957"]["kind"], "Unincorporated region")
         self.assertEqual(len([r for r in plan["regions"] if r["province"] == "13"]), 12)
+
+    def test_expansion_keeps_split_divisions_and_indigenous_csd_identities_explicit(self):
+        plan = read_json(PLAN)
+        regions = {r['id']: r for r in plan['regions']}
+        parents = {uid: r['id'] for r in plan['regions'] for uid in r.get('csd_ids', [])}
+        self.assertEqual(parents['6105020'], 'ca-nt-gr-north-slave')  # Łutselk’e, despite CD 5.
+        self.assertEqual(parents['6104014'], 'ca-nt-gr-south-slave')  # Fort Providence, despite CD 4.
+        self.assertEqual(parents['6104017'], 'ca-nt-gr-south-slave')  # Kátł’odeeche / Hay River Dene 1.
+        self.assertNotIn('6104097', parents)  # Unorganized land not assigned from a nearby town.
+        self.assertNotIn('6001045', parents)  # Most of Yukon is one unorganized CSD.
+        self.assertNotIn('6001008', parents)  # Carcross 4 is distinct from Carcross settlement.
+        self.assertEqual(parents['6001048'], 'ca-yt-gr-southern-lakes')
+        self.assertEqual(parents['4819012'], 'ca-ab-gr-peace-country')
+        self.assertEqual(parents['4808011'], 'ca-ab-gr-central-alberta')
+        self.assertEqual(regions['ca-mb-gr-interlake']['cd_ids'], ['4613', '4614', '4618'])
+        self.assertEqual(regions['ca-nl-gr-labrador']['cd_ids'], ['1010', '1011'])
+        sk = next(j for j in plan['jurisdictions'] if j['province'] == '47')
+        self.assertEqual(sk['status'], 'deferred')
+        self.assertEqual(len(sk['excluded_csd_ids']), 995)
+        self.assertEqual(sk['expected_region_count'], 0)

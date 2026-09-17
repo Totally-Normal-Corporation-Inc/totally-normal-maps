@@ -5,7 +5,7 @@ municipalities and city areas, with an HTTP API and an offline map preview.
 Python 3.13+. No Django, database server, Docker or cloud account is needed locally.
 
 **Current coverage:** Canada, 13 provinces/territories, 5,054 municipal/statistical
-areas, 121 regional groupings and 46 Québec arrondissements/sectors in nine cities.
+areas, 144 regional groupings and 46 Québec arrondissements/sectors in nine cities.
 The catalogue is **review-required**, not a fully qualified legal boundary service.
 58 municipal boundaries have separate unapproved repair candidates. Source-vintage
 differences and deferred regions remain explicit. An API response is not approval

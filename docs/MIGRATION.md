@@ -8,7 +8,7 @@ no unrelated application Git history is imported.
 | Original capability | Standalone location |
 |---|---|
 | National StatCan importer and immutable catalogue | `totally_normal_maps/catalogue.py` |
-| Province overview and 121 regional groupings | `regions.py`, pinned manifests, regional research |
+| Province overview and original 121 regional groupings | `regions.py`, pinned manifests, regional research |
 | All 46 Québec arrondissements/sectors | `city_areas.py`, pinned manifest, city-area research |
 | Full hierarchy map, search, keyboard and mobile behaviour | `web/`, `preview.py`, `check_preview.py` |
 | Geometry comparison, fixtures and optional local PostGIS adapter | `benchmark.py`, `points.json` |
