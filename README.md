@@ -31,6 +31,13 @@ The API is at **http://127.0.0.1:8000**. Its interactive reference is `/docs` an
 machine-readable OpenAPI contract is `/openapi.json`. The Swagger documentation UI
 loads its assets from a public CDN; the separate offline map has no external assets.
 
+Hosted geography endpoints require an API key sent as `Authorization: Bearer <key>`.
+Keys are issued manually per application; there is no billing or signup system.
+The map explorer uses separate display files and needs no visitor account or API
+key. See [public maps and protected API deployment](docs/DEPLOYMENT.md#public-map-and-key-protected-api).
+The loopback-only development API below permits requests without a key when none
+are configured.
+
 ```bash
 curl 'http://127.0.0.1:8000/v1/areas/ca/children'
 curl 'http://127.0.0.1:8000/v1/areas/ca-qc/children'

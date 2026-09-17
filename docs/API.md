@@ -1,9 +1,15 @@
 # HTTP API v1
 
-The API is read-only and serves one immutable dataset per process. All geography
-endpoints require a bearer token when configured. Local mode permits anonymous
-requests from the loopback interface only. `/healthz`, `/readyz`, `/docs` and
+The API is read-only and serves one immutable dataset per process. In production,
+all geography endpoints require an API key, sent as `Authorization: Bearer <key>`.
+Local development permits anonymous loopback requests only when no keys are
+configured. `/healthz`, `/readyz`, `/docs` and
 `/openapi.json` are public; none expose credentials or operator configuration.
+
+Keys are issued manually per consuming application. Missing or invalid keys return
+401 with `WWW-Authenticate: Bearer`. Send keys only in the Authorization header over
+HTTPS, never in a URL or public browser code. The public map explorer reads separate
+display files and does not need an API key. There are no subscriptions or billing.
 
 ## Endpoints
 

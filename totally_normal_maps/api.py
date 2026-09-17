@@ -38,7 +38,6 @@ class Settings:
     tokens: dict[str, str] = field(default_factory=dict, repr=False)
     allowed_hosts: tuple[str, ...] = ('localhost', '127.0.0.1', '::1')
     cors_origins: tuple[str, ...] = ()
-    allow_anonymous: bool = False
     requests_per_minute: int = 120
 
     def __post_init__(self):
@@ -55,14 +54,16 @@ class Settings:
             raise CatalogueError('CORS origins must use HTTPS or explicit local development origins.')
         if not 1 <= self.requests_per_minute <= 100_000:
             raise CatalogueError('Request limit must be 1–100,000 per minute per client and process.')
-        if self.mode == 'production' and (not self.manifest_sha256 or (not self.tokens and not self.allow_anonymous)):
-            raise CatalogueError('Production requires a pinned manifest and tokens, or deliberate anonymous mode.')
+        if self.mode == 'production' and (not self.manifest_sha256 or not self.tokens):
+            raise CatalogueError('Production requires a pinned manifest and API tokens.')
 
     @classmethod
     def from_env(cls):
         path = os.environ.get('MAPS_DATASET')
         if not path:
             raise CatalogueError('Set MAPS_DATASET to an exported serving release.')
+        if os.environ.get('MAPS_ALLOW_ANONYMOUS') == 'true':
+            raise CatalogueError('Anonymous API hosting is no longer supported. Remove MAPS_ALLOW_ANONYMOUS and configure MAPS_API_TOKENS.')
         try:
             tokens = json.loads(os.environ.get('MAPS_API_TOKENS', '{}'))
             rate = int(os.environ.get('MAPS_REQUESTS_PER_MINUTE', '120'))
@@ -72,7 +73,7 @@ class Settings:
                    mode=os.environ.get('MAPS_MODE', 'local'), tokens=tokens,
                    allowed_hosts=tuple(s.strip() for s in os.environ.get('MAPS_ALLOWED_HOSTS', 'localhost,127.0.0.1,::1').split(',') if s.strip()),
                    cors_origins=tuple(s.strip() for s in os.environ.get('MAPS_CORS_ORIGINS', '').split(',') if s.strip()),
-                   allow_anonymous=os.environ.get('MAPS_ALLOW_ANONYMOUS') == 'true', requests_per_minute=rate)
+                   requests_per_minute=rate)
 
 
 class AccessMiddleware:
@@ -119,7 +120,7 @@ class AccessMiddleware:
                 except ValueError:
                     loopback = False
                 local = self.settings.mode == 'local' and not self.settings.tokens and loopback
-                if authorization or not (local or self.settings.allow_anonymous):
+                if authorization or not local:
                     return await self.reject(scope, receive, send, 401, 'A valid bearer token is required.', {'WWW-Authenticate': 'Bearer'})
                 identity = f'anonymous:{host}'
             now = time.monotonic()

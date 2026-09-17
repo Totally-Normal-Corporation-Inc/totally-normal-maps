@@ -21,9 +21,8 @@ address automatically enforces production settings.
 | `MAPS_DATASET` | Directory containing a serving release, not a raw build run |
 | `MAPS_MANIFEST_SHA256` | Trusted exact SHA-256 of manifest.json; required in production |
 | `MAPS_MODE` | `local` or `production`; image defaults to production |
-| `MAPS_API_TOKENS` | JSON object mapping consumer names to unique random 32–256-character tokens |
+| `MAPS_API_TOKENS` | Required in production: JSON object mapping consumer names to unique random 32–256-character API keys |
 | `MAPS_ALLOWED_HOSTS` | Comma-separated hostnames; no unrestricted `*` |
-| `MAPS_ALLOW_ANONYMOUS` | Exact `true` deliberately exposes read access without tokens |
 | `MAPS_REQUESTS_PER_MINUTE` | Per-client, per-process quota; default 120 |
 | `MAPS_CORS_ORIGINS` | Explicit HTTPS browser origins; empty by default |
 | `MAPS_DATASET_S3_URI` | Optional s3://bucket/prefix/manifest.json bootstrap source |
@@ -36,6 +35,38 @@ Use distinct tokens per application; rotate via a controlled deployment.
 CLI `--dataset` and `--manifest-sha256` override their corresponding environment
 settings. The default concurrency limit is 64; configure `--limit-concurrency`
 after measuring latency and memory with representative data.
+
+## Public map and key-protected API
+
+The hosting model is a public map explorer with no visitor accounts, plus an API
+whose geography routes require manually issued keys. Billing, subscriptions and
+self-service developer accounts are outside the current scope.
+
+Serve the generated preview's reviewed static display assets through a production
+static host/CDN. The explorer reads `catalogue.json` and display GeoJSON directly;
+it does not call `/v1/` or need a secret in browser JavaScript. Publish only the
+display assets allowed by `preview.py`, retaining source attribution and coverage
+labels; never expose the whole build/run directory. These display files are public
+and downloadable. The bundled preview server itself remains loopback-only.
+
+Route `/v1/` to the API in production mode, with `MAPS_API_TOKENS` injected from a
+secret store. Missing or invalid keys return 401; docs and health endpoints remain
+public. Production refuses to start without keys and a pinned manifest. The former
+`MAPS_ALLOW_ANONYMOUS=true` setting now fails startup; remove it when upgrading.
+
+Generate each key with a cryptographically secure generator, for example Python's
+`secrets.token_urlsafe(32)`, and distribute it privately to that application's
+operator. Store it on the consuming server and send it over HTTPS as
+`Authorization: Bearer <key>`. Do not put it in a URL, public map bundle, repository
+or request log. The environment value is a JSON object mapping an application name
+to its key, with at most 100 entries. No real keys belong in this repository.
+
+To rotate without interruption, configure the replacement under a second client
+name and deploy both keys to every serving instance before updating the consumer.
+Then remove the old entry and roll out that configuration to every instance.
+Removing an entry revokes that key once all instances have updated. Each configured
+name has an independent rate limit; the built-in counters are per process, so
+shared limits belong at ingress.
 
 ## Container
 

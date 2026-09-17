@@ -137,7 +137,10 @@ class APITests(unittest.TestCase):
         self.assertEqual(self.client.get('/v1/countries', headers={'Host': 'attacker.invalid'}).status_code, 400)
 
     def test_token_authentication_host_guards_and_rate_limits(self):
-        settings = replace(self.settings, mode='production', tokens={'test': 'synthetic-test-token-' + 'x' * 40}, requests_per_minute=2)
+        settings = replace(self.settings, mode='production', tokens={
+            'test': 'synthetic-test-token-' + 'x' * 40,
+            'second': 'synthetic-test-token-' + 'y' * 40,
+        }, requests_per_minute=2)
         with TestClient(create_app(settings), base_url='http://localhost', client=('203.0.113.5', 2345)) as client:
             self.assertEqual(client.get('/v1/countries').status_code, 401)
             self.assertEqual(client.get('/v1/countries', headers={'X-Forwarded-For': '127.0.0.1'}).status_code, 401)
@@ -147,9 +150,74 @@ class APITests(unittest.TestCase):
             response = client.get('/v1/countries', headers=auth)
             self.assertEqual(response.status_code, 429)
             self.assertIn('retry-after', response.headers)
+            self.assertEqual(client.get('/v1/countries', headers={
+                'Authorization': 'Bearer ' + settings.tokens['second'],
+            }).status_code, 200)
             self.assertEqual(client.get('/healthz', headers={'Host': '10.0.0.1'}).status_code, 200)
         with TestClient(create_app(self.settings), base_url='http://localhost', client=('203.0.113.5', 2345)) as client:
             self.assertEqual(client.get('/v1/countries').status_code, 401)
+
+    def test_all_geography_endpoints_require_a_valid_key_in_production(self):
+        settings = replace(self.settings, mode='production', tokens={'test': 'synthetic-test-token-' + 'x' * 40})
+        point = {'longitude': -109.75, 'latitude': 50.5}
+        endpoints = [
+            ('GET', '/v1/datasets/current', {}),
+            ('GET', '/v1/countries', {}),
+            ('GET', '/v1/areas', {}),
+            ('GET', '/v1/areas/ca-csd-2401001', {}),
+            ('GET', '/v1/areas/ca-csd-2401001/children', {}),
+            ('GET', '/v1/areas/ca-csd-2401001/ancestors', {}),
+            ('GET', '/v1/areas/ca-csd-2401001/boundary', {}),
+            ('GET', '/v1/areas/ca-csd-2401001/boundary?resolution=full', {}),
+            ('GET', '/v1/areas/ca/children/boundaries', {}),
+            ('GET', '/v1/lookup', {'params': point}),
+            ('POST', '/v1/lookup', {'json': point}),
+            ('POST', '/v1/lookup/batch', {'json': {'points': [point]}}),
+        ]
+        for host in ('127.0.0.1', '203.0.113.5'):
+            with TestClient(create_app(settings), base_url='http://localhost', client=(host, 2345)) as client:
+                for method, path, kwargs in endpoints:
+                    with self.subTest(host=host, method=method, path=path):
+                        for headers in ({}, {'Authorization': 'Bearer invalid-synthetic-key'}):
+                            response = client.request(method, path, headers=headers, **kwargs)
+                            self.assertEqual(response.status_code, 401)
+                            self.assertEqual(response.headers['www-authenticate'], 'Bearer')
+                        response = client.request(method, path, headers={
+                            'Authorization': 'Bearer ' + settings.tokens['test'],
+                        }, **kwargs)
+                        self.assertEqual(response.status_code, 200)
+                for path in ('/healthz', '/readyz', '/docs', '/openapi.json'):
+                    with self.subTest(host=host, public_path=path):
+                        self.assertEqual(client.get(path).status_code, 200)
+
+    def test_configured_keys_also_protect_local_api_and_are_not_url_parameters(self):
+        settings = replace(self.settings, tokens={'test': 'synthetic-test-token-' + 'x' * 40})
+        with TestClient(create_app(settings), base_url='http://localhost', client=('127.0.0.1', 2345)) as client:
+            self.assertEqual(client.get('/v1/countries').status_code, 401)
+            self.assertEqual(client.get('/v1/countries', params={'api_key': settings.tokens['test']}).status_code, 401)
+            self.assertEqual(client.get('/v1/countries', headers={
+                'Authorization': 'Bearer ' + settings.tokens['test'],
+            }).status_code, 200)
+
+    def test_environment_cannot_enable_anonymous_hosting(self):
+        environment = {
+            'MAPS_DATASET': str(self.release),
+            'MAPS_MANIFEST_SHA256': self.digest,
+            'MAPS_MODE': 'production',
+        }
+        with patch.dict('os.environ', environment, clear=True):
+            with self.assertRaisesRegex(CatalogueError, 'API tokens'):
+                Settings.from_env()
+            with patch.dict('os.environ', {'MAPS_ALLOW_ANONYMOUS': 'true'}):
+                with self.assertRaisesRegex(CatalogueError, 'Anonymous API hosting is no longer supported'):
+                    Settings.from_env()
+            with patch.dict('os.environ', {'MAPS_API_TOKENS': json.dumps({'test': 'synthetic-test-token-' + 'x' * 40})}):
+                settings = Settings.from_env()
+                self.assertEqual(settings.mode, 'production')
+                self.assertEqual(len(settings.tokens), 1)
+                with patch.dict('os.environ', {'MAPS_ALLOW_ANONYMOUS': 'true'}):
+                    with self.assertRaisesRegex(CatalogueError, 'Anonymous API hosting is no longer supported'):
+                        Settings.from_env()
 
     def test_cors_explicit_origins_only(self):
         settings = replace(self.settings, cors_origins=('https://example.com',))

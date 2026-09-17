@@ -16,8 +16,11 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
 ## Serving boundary
 
 - The API loads a checksummed immutable release and has no mutation endpoints.
-- Production mode requires an independently pinned manifest and authentication,
-  unless the operator deliberately selects anonymous service.
+- Production mode requires an independently pinned manifest and at least one API
+  key. Every geography request must authenticate; anonymous hosting is unsupported.
+  Only loopback development without configured keys permits anonymous API requests.
+- Public map browsing uses separate display files without API credentials. Keep
+  keys out of browser JavaScript, public assets, URLs and request logs.
 - Use TLS at the gateway. Tokens are independent per consumer and compared without
   ordinary string timing comparisons. The service never requires cloud write access
   or consumer database credentials.
