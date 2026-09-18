@@ -33,5 +33,5 @@ jobs:
       - run: python tools/check_artifacts.py --staged dist/*.whl dist/*.tar.gz
       - run: python -m tools.make_ci_bundle --output /tmp/maps-ci-bundle
       - run: docker build --target bundled-local --build-context deployment_bundle=/tmp/maps-ci-bundle --tag maps-ci .
-      - run: python tools/check_container.py --image maps-ci
+      - run: python tools/check_container.py --image maps-ci --lock /tmp/maps-ci-bundle/dataset.lock.json
       # No publishing, deployment, credentials, cloud writes, or government downloads.

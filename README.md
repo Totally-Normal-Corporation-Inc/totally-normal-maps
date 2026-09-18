@@ -79,10 +79,12 @@ checksummed GitHub Release ZIP during the build and verifies all contents before
 serving. Runtime needs API keys and allowed hosts, with no dataset mount or upload.
 Deploy and roll back the whole image by digest. The Python wheel remains data-free.
 
-The locked attachment must be published before the first default image build.
-Use [the release workflow](docs/RELEASING.md) to publish a new dataset once, then
-reuse its lock for code-only releases. Ordinary PR CI tests a synthetic bundle
-offline; private deployment automation owns production promotion.
+Select an exact `main` commit with passing CI and build with that commit's lock.
+An `app-*` GitHub Release is optional. The locked dataset attachment must already
+be published; reuse it for code-only updates. Data updates publish a new attachment
+and change the lock through a PR. See [the release workflow](docs/RELEASING.md).
+Ordinary PR CI tests a synthetic bundle offline; private deployment automation
+owns production promotion.
 
 ## Documentation
 

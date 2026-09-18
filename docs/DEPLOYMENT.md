@@ -83,7 +83,10 @@ The default image runs as UID/GID 10001 and contains code, dependencies, the pub
 website and verified dataset. The build downloads the exact public attachment in
 `dataset.lock.json`; a missing attachment or checksum mismatch fails the build.
 It never downloads data at startup. No dataset volume or S3 setup is needed.
-See [release preparation](RELEASING.md) for the initial attachment publication.
+Select an exact `main` commit with passing CI and build with that checkout's lock.
+An `app-*` GitHub Release is optional. Code-only updates reuse the existing dataset
+attachment; data changes publish a new attachment and update the lock through a PR.
+See [release preparation and container verification](RELEASING.md).
 
 Inject `MAPS_API_TOKENS` and `MAPS_ALLOWED_HOSTS` at runtime, publish port 8000
 behind HTTPS, and use `/readyz` for readiness. This endpoint records the dataset,
@@ -113,7 +116,10 @@ automation should resolve and pin its approved digest and deploy the built image
 by immutable digest. Dependencies are pinned in requirements.lock and
 requirements-s3.lock. PR CI builds the same serving image with a small synthetic
 bundle supplied as an explicit named context, then tests it with a read-only
-filesystem. It does not download the real dataset or publish anything.
+filesystem and networking disabled. It does not download the real dataset or
+publish anything. Before first deployment or a substantial dataset/loading change,
+run the [real-data container check](RELEASING.md#local-verification-and-ci) with the
+intended API-container memory limit and retain its report with the image digest.
 
 For an already verified local distribution, build without a GitHub download:
 
@@ -162,7 +168,10 @@ from whatever manifest an untrusted server returns. Never overwrite a release pr
 ## Availability and integration
 
 Each process verifies data and builds its own in-memory index at startup. Measure
-startup, memory and request capacity before setting CPU/RAM and worker counts.
+startup and peak memory under the intended container limit. A successful smoke
+check establishes only startup and basic-request fit, not concurrent-load capacity
+or the memory budget of an entire task with other containers. Check representative
+load before increasing concurrency or worker counts.
 Use readiness health checks so a new task receives no traffic before its data loads.
 Two or more replicas across availability zones improve service availability.
 

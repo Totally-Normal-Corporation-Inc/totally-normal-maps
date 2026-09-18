@@ -47,7 +47,7 @@ jobs:
       # Only this manually requested main-branch release downloads the reviewed
       # dataset attachment. Ordinary PR CI uses synthetic local data instead.
       - run: docker build --tag maps-release .
-      - run: python tools/check_container.py --image maps-release --receipt /tmp/deployment.json
+      - run: python tools/check_container.py --image maps-release --lock dataset.lock.json --receipt /tmp/deployment.json
       - id: receipt
         run: |
           python - <<'PY'

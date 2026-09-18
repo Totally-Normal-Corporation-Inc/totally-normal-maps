@@ -12,6 +12,7 @@ import unittest
 from unittest.mock import Mock, patch
 import warnings
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
+from urllib.error import HTTPError
 
 from fastapi.testclient import TestClient
 
@@ -21,6 +22,7 @@ from totally_normal_maps.deployment import assemble_deployment, verify_deploymen
 from totally_normal_maps.distribution import asset_url, package_dataset, read_lock, unpack_dataset, validate_lock
 from totally_normal_maps.releases import export_release
 from .api_fixture import make_release
+from tools import check_container
 
 
 class DeploymentTests(unittest.TestCase):
@@ -193,6 +195,33 @@ class DeploymentTests(unittest.TestCase):
                 self.assertEqual(response.headers.get('cache-control'), 'no-store')
                 for key in ('deployment_version', 'dataset_manifest_sha256', 'website_manifest_sha256', 'code_sha256'):
                     self.assertEqual(response.json()[key], self.record[key])
+
+    def test_container_probe_accepts_service_and_detects_leaks_or_stale_readiness(self):
+        client = self.client()
+        record = read_json(self.bundle / 'deployment.json')
+
+        def open_request(request, timeout):
+            response = client.get(request.full_url, headers=dict(request.header_items()))
+            if fault == 'private_file' and request.full_url.endswith('/deployment.json'):
+                response.status_code = 200
+            if response.status_code >= 400:
+                raise HTTPError(request.full_url, response.status_code, 'Fixture response', response.headers, None)
+            body = response.content
+            if request.full_url.endswith('/readyz'):
+                if fault == 'cache': response.headers['Cache-Control'] = 'public'
+                if fault == 'fingerprint':
+                    body = json.dumps({**response.json(), 'code_sha256': '0' * 64}).encode()
+            result = io.BytesIO(body)
+            result.headers = response.headers
+            return result
+
+        with patch.object(check_container, 'urlopen', side_effect=open_request):
+            fault = None
+            check_container.check_lock(record, self.lock_path)
+            check_container.check_service('http://localhost', self.token, record)
+            for fault in ('private_file', 'cache', 'fingerprint'):
+                with self.subTest(fault=fault), self.assertRaises(AssertionError):
+                    check_container.check_service('http://localhost', self.token, record)
 
     def test_public_routes_reject_private_files_traversal_stale_versions_and_writes(self):
         client = self.client(); prefix = '/maps/'+self.record['website_manifest_sha256']+'/'
