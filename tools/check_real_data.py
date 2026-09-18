@@ -21,8 +21,10 @@ def main():
         meta = client.get('/v1/datasets/current').json()
         refresh = meta['coverage'].get('quebec_refresh')
         ontario = meta['coverage'].get('ontario_refresh')
+        jurisdictions = meta['coverage'].get('jurisdiction_refreshes', {})
         assert meta['counts'] == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
-                                  'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0)}
+                                  'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
+                                  sum(r['added_city_area_count'] for r in jurisdictions.values())}
         def children(uid):
             response = client.get(f'/v1/areas/{uid}/children')
             response.raise_for_status()
@@ -85,7 +87,7 @@ def main():
         city_lookups = 0
         for uid in city_ids:
             if not areas[uid]['geometry_available']:
-                assert areas[uid]['assignment_status'] in {'missing_geometry', 'unreviewed_repair'}
+                assert areas[uid]['assignment_status'] in {'missing_geometry', 'unreviewed_repair', 'unreviewed_parent', 'unreviewed_overlap'}
                 assert client.get(f'/v1/areas/{uid}/boundary?resolution=full').status_code == 409
                 continue
             polygon = client.app.state.dataset.geometries[uid]
@@ -96,6 +98,22 @@ def main():
             assert response.json()['qualification'] == 'review_required'
             city_lookups += 1
         municipal_lookups = 0
+        jurisdiction_lookups = 0
+        dataset = client.app.state.dataset
+        for province, refresh_report in jurisdictions.items():
+            from totally_normal_maps.catalogue import PROVINCES
+            province_id = 'ca-' + PROVINCES[province][0].lower()
+            audited = {r['csd_id'] for r in refresh_report['audit']['municipalities']}
+            expected = {r['source_id'] for r in areas.values() if r.get('province_id') == province_id and r['level'] == 'municipality'}
+            assert audited == expected, province
+            for uid, row in areas.items():
+                if row.get('province_id') != province_id or row['level'] not in {'municipality', 'region'}: continue
+                if uid not in dataset.geometries:
+                    assert uid in dataset.pending_ids
+                    continue
+                point = dataset.geometries[uid].representative_point()
+                assert uid in dataset.lookup(point.x, point.y)['direct_match_ids'], uid
+                jurisdiction_lookups += 1
         ontario_lookups = 0
         if ontario:
             dataset = client.app.state.dataset
@@ -117,6 +135,11 @@ def main():
                     uid = 'ca-csd-' + member['csd_id']
                     assert areas[uid]['effective_date'] == adjustment['effective_date']
                     assert areas[uid]['boundary_source_ids'] == member['source_ids']
+            for adjustment in ontario.get('deferred_adjustments', []):
+                for member in adjustment['members']:
+                    uid = 'ca-csd-' + member['csd_id']
+                    assert areas[uid]['update_status'] == 'deferred'
+                    assert areas[uid]['boundary_basis'] == 'retained_previous_boundary'
             for uid in ('ca-on-3506008-ons-3050','ca-on-3506008-ons-3051'):
                 assert uid not in dataset.geometries
                 assert not dataset.boundary(uid)['properties']['suitable_for_assignment']
@@ -177,6 +200,7 @@ def main():
         print(json.dumps({'status': 'passed', 'counts': meta['counts'], 'city_area_lookups': city_lookups,
                           'quebec_municipal_lookups': municipal_lookups,
                           'ontario_municipal_region_lookups': ontario_lookups,
+                          'other_jurisdiction_municipal_region_lookups': jurisdiction_lookups,
                           'new_region_member_lookups': regional_lookups, 'unchanged_baseline_rows': unchanged,
                           'dataset_version': meta['dataset_version'], 'elapsed_seconds': round(time.perf_counter() - started, 3)}))
 

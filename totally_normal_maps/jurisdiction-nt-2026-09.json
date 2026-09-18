@@ -1,0 +1,630 @@
+{
+  "schema_version": 1,
+  "province": "61",
+  "reviewed_on": "2026-09-18",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "parent_catalogue_sha256": "71919d914face99dee46acd1861eacd431033f714631dc368f6138949676957d",
+  "parent_report_sha256": "f6455b4fdfd09bbdd0cb455a63ec1a96bf4f115225eceb41455ae9f920234724",
+  "sources": {},
+  "adjustments": [],
+  "names": [],
+  "city_layers": [],
+  "repair_review": [],
+  "unresolved": [
+    "Exhaustive municipal website searches and reconciliation of post-2025 municipal legal changes remain incomplete. Municipal geometry retains the national 2025-01-01 source unless separately evidenced.",
+    "Existing municipal repair candidates remain unapproved. Missing city-area layers do not establish that a municipality has no subdivisions."
+  ],
+  "audit": {
+    "inventory_complete": true,
+    "source_audit_complete": false,
+    "municipal_boundary_reconciliation": "pending",
+    "regional_policy": "Retain existing evidenced regional memberships and explicit exclusions; do not invent a region or substitute electoral wards.",
+    "regional_coverage": {
+      "province": "61",
+      "code": "NT",
+      "status": "partial",
+      "reason": "Five MACA regional community groupings, covering 33 listed CSDs. Eight unlisted or unorganized CSDs remain directly under the territory. Outlines are selected community footprints, not complete administrative or Indigenous territorial boundaries.",
+      "reference_url": "https://www.gov.nt.ca/careers/en/regional-centres",
+      "expected_region_count": 5,
+      "excluded_cd_ids": [],
+      "excluded_csd_ids": [
+        "6101063",
+        "6102063",
+        "6103097",
+        "6104097",
+        "6105004",
+        "6105026",
+        "6105097",
+        "6106097"
+      ],
+      "partially_assigned_cd_ids": [
+        "6101",
+        "6102",
+        "6103",
+        "6104",
+        "6105",
+        "6106"
+      ],
+      "member_count": 33,
+      "unassigned_member_count": 8
+    },
+    "discovery_portal": "https://www.maca.gov.nt.ca/en/communitylist",
+    "municipalities": [
+      {
+        "csd_id": "6101010",
+        "name": "Tsiigehtchic",
+        "source_type": "CC",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101014",
+        "name": "Paulatuk",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101015",
+        "name": "Fort McPherson",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101017",
+        "name": "Inuvik",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101025",
+        "name": "Aklavik",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101036",
+        "name": "Tuktoyaktuk",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101041",
+        "name": "Sachs Harbour",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101063",
+        "name": "Region 1, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6101095",
+        "name": "Ulukhaktok",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102003",
+        "name": "Déline",
+        "source_type": "CC",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102005",
+        "name": "Tulita",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102007",
+        "name": "Norman Wells",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102009",
+        "name": "Fort Good Hope",
+        "source_type": "CC",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102012",
+        "name": "Colville Lake",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6102063",
+        "name": "Region 2, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6103031",
+        "name": "Behchokò",
+        "source_type": "CG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6103034",
+        "name": "Whatì",
+        "source_type": "CG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6103049",
+        "name": "Gamètì",
+        "source_type": "CG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6103052",
+        "name": "Wekweètì",
+        "source_type": "CG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6103097",
+        "name": "Region 3, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104005",
+        "name": "Kakisa",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104006",
+        "name": "Sambaa K’e",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104009",
+        "name": "Fort Liard",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104010",
+        "name": "Nahanni Butte",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104013",
+        "name": "Jean Marie River",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104014",
+        "name": "Fort Providence",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104017",
+        "name": "Hay River Dene 1",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104038",
+        "name": "Fort Simpson",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104044",
+        "name": "Wrigley",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6104097",
+        "name": "Region 4, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105001",
+        "name": "Fort Smith",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105003",
+        "name": "Enterprise",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105004",
+        "name": "Salt Plains 195",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105016",
+        "name": "Hay River",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105018",
+        "name": "Fort Resolution",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105020",
+        "name": "Lutselk'e",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105026",
+        "name": "Reliance",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6105097",
+        "name": "Region 5, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6106021",
+        "name": "Dettah",
+        "source_type": "SET",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6106023",
+        "name": "Yellowknife",
+        "source_type": "CY",
+        "status": "source_blocked",
+        "evidence": [
+          {
+            "publisher": "Government of the Northwest Territories",
+            "url": "https://amgis.yellowknife.ca/server/rest/services/OpenData?f=json",
+            "claim": "Public open-data service inventory contains municipal boundaries, zoning and infrastructure, but no neighbourhood boundary service was identified.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6106097",
+        "name": "Region 6, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      }
+    ]
+  }
+}

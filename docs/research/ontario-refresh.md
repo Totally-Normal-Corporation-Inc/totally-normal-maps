@@ -1,7 +1,8 @@
 # Ontario refresh — 18 September 2026
 
 The local refresh retains all **40 Ontario regional identities and 578 municipal /
-statistical identities**, updates nine municipal boundaries for four adopted changes,
+statistical identities**, applies four municipal replacements for two adopted changes, defers five
+municipalities across two further adjustment groups,
 and adds **520 city-area identities**, of which **518 have assignment geometry**.
 Ontario's 414 local municipalities remain covered; the remaining national identities
 are reserves, settlements and unorganized statistical areas. Geographic parentage
@@ -11,10 +12,10 @@ never asserts municipal jurisdiction over an Indigenous community.
 
 | Effective date | Change | Current boundary publisher |
 |---|---|---|
-| 2026-01-01 | Barrie / Oro-Medonte / Springwater | Land Information Ontario |
+| 2026-01-01 | Barrie / Oro-Medonte / Springwater — deferred | Land Information Ontario |
 | 2026-01-01 | Woodstock / Norwich | Land Information Ontario |
 | 2026-01-01 | Casselman / The Nation | Land Information Ontario |
-| 2026-05-01 | Hanover / West Grey | County of Grey |
+| 2026-05-01 | Hanover / West Grey — deferred | County of Grey |
 
 Adoption evidence: [Barrie decision](https://ero.ontario.ca/notice/025-1324),
 [Woodstock ministerial order](https://www.ontario.ca/document/ontario-gazette-volume-159-issue-03-january-17-2026/government-notices-other),
@@ -30,10 +31,15 @@ restricted general GIS viewing licence. The complete section is also available i
 [the publisher's page data](https://www.arcgis.com/sharing/rest/content/items/9bada6ae370e479f8fa98774a0219bd5/data?f=json).
 
 The national CSD identifiers and original database rows are unchanged. A separate
-`boundary_revision` table supplies current full publisher polygons; Oro-Medonte
-includes all three source extent parts (mainland, islands and water). The four
-affected regional unions are rebuilt. Simcoe remains an unapproved regional
-candidate because Ramara's original repair is still unapproved.
+`boundary_revision` table supplies accepted current publisher polygons and retains
+old assignment boundaries for deferred proposals. Oro-Medonte's proposal includes
+all three source extent parts (mainland, islands and water), but covers only 73.5%
+of its new extent with the old boundary; Hanover covers 59.5%. Both fail the
+80%-of-both-extents gate. Their complete adjustment groups are deferred, preserving
+old assignment boundaries and regional unions. Only the two regions affected by
+accepted groups are rebuilt. The earlier nine-replacement release is unchanged.
+Proposed source identifiers and effective dates remain labelled as proposals, not
+as provenance for the retained national geometry.
 
 These sources have different precision, shorelines and water coverage. A difference
 in total area is **not** a measure of annexed land. Every old/new municipal symmetric

@@ -66,7 +66,7 @@ function matchingRows() {
 }
 function style(feature) {
   const row = byId.get(feature.properties.id), active = row.id === selected;
-  const repair = row.assignment_status === "unreviewed_repair";
+  const repair = row.assignment_status?.startsWith("unreviewed_");
   const colour = colours[Array.from(row.id).reduce((sum, c) => sum + c.charCodeAt(0), 0) % colours.length];
   return {weight: active ? 3 : row.level === "province" ? 1.6 : 1,
     color: active ? "#173b2c" : repair ? "#ad6328" : "#658176",
@@ -103,7 +103,7 @@ function showDetails(row) {
     else el("selection").append(line(`${(row.vertices || 0).toLocaleString()} full-boundary vertices · Draft geography; source differences require review`));
     if (hasChildren(row)) el("selection").append(line(`${areaCounts(cityChildren.get(row.id))} · Select a boundary or name to inspect it.`));
   } else {
-    el("selection").append(line(`${row.code} · ${row.boundary_basis === "predecessor_csd_union" ? "Québec municipality" : "Official CSD"} ${row.source_id || row.id} · Type ${row.type}`));
+    el("selection").append(line(`${row.code} · ${row.boundary_basis === "predecessor_csd_union" ? "Municipality" : "Official CSD"} ${row.source_id || row.id} · Type ${row.type}`));
     if (row.coverage_note) el("selection").append(line(row.coverage_note));
     const region = byId.get(row.region_id);
     el("selection").append(line(region ? `Region: ${region.name} · ${region.type}` : "No regional grouping added for this municipality yet."));
@@ -118,6 +118,9 @@ function showDetails(row) {
     } else el("selection").append(line("City areas have not been added here yet."));
   }
   if (row.issues.length) el("selection").append(line(row.issues.join("; "), "issue"));
+  if (row.assignment_status?.startsWith("unreviewed_") && row.assignment_status !== "unreviewed_repair") {
+    el("selection").append(line("Boundary shown for review only; unavailable for point assignment.", "issue"));
+  }
   if (row.repair && Number.isFinite(row.repair.area_change_m2)) {
     el("selection").append(line(`Unreviewed repair · Area change ${row.repair.area_change_m2.toFixed(3)} m² · Parts ${row.repair.source_parts} → ${row.repair.candidate_parts} · Holes ${row.repair.source_holes} → ${row.repair.candidate_holes}`, "issue"));
   }
@@ -264,6 +267,7 @@ async function showMap(fit = false) {
   }
 }
 function refresh(fit = false) {
+  clearTimeout(searchTimer);
   shown = 100; selected = null;
   showDetails(byId.get(locationState.area || locationState.city || locationState.region || locationState.province));
   renderNavigation(); coverageNote(); renderResults();
@@ -302,6 +306,7 @@ async function start() {
     rows.sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
   }
   data.areas = data.areas.filter(row => row.lifecycle_status !== "superseded");
+  data.regions = data.regions.filter(row => row.lifecycle_status !== "superseded");
   for (const row of data.city_areas) {
     const parent = row.parent_area_id || row.parent_csd_id;
     if (!cityChildren.has(parent)) cityChildren.set(parent, []);
@@ -316,19 +321,21 @@ async function start() {
   for (const row of data.areas) row.searchText = normal(`${row.name} ${row.id} ${row.code} ${(row.aliases || []).join(" ")} ${byId.get(row.region_id)?.name || ""} ${(cityChildren.get(row.id) || []).map(a => a.searchText).join(" ")}`);
   for (const row of data.regions) row.searchText = normal(`${row.name} ${row.id} ${row.code} ${(row.aliases || []).join(" ")} ${data.areas.filter(a => a.region_id === row.id).map(a => a.searchText).join(" ")}`);
   for (const row of data.provinces) row.searchText = normal(`${row.name} ${row.code} ${data.regions.filter(r => r.province === row.id).map(r => r.searchText).join(" ")} ${data.areas.filter(a => a.province === row.id).map(a => a.searchText).join(" ")}`);
-  el("area-count").textContent = (data.report.quebec_refresh?.active_municipality_count || data.report.feature_count).toLocaleString();
+  el("area-count").textContent = data.areas.length.toLocaleString();
   el("region-count").textContent = data.regions.length.toLocaleString();
   el("city-area-count").textContent = data.city_areas.length.toLocaleString();
   el("issue-count").textContent = [...byId.values()].filter(row => row.lifecycle_status !== "superseded" &&
     (row.issues.length || row.level === "province" && row.display_reference_year && row.repair)).length;
   el("reference-date").textContent = data.report.source.reference_date + (data.report.quebec_refresh ? ` · Québec updates ${data.report.quebec_refresh.reviewed_on}` : "") + (data.report.ontario_refresh ? ` · Ontario updates ${data.report.ontario_refresh.reviewed_on}` : "");
+  if (data.report.jurisdiction_refreshes) el("reference-date").textContent += ` · ${Object.keys(data.report.jurisdiction_refreshes).length} jurisdiction coverage reports`;
   const source = data.report.source;
   const regionalSources = (data.report.regions?.sources || []).slice(1);
   const statcanCredit = s => `Adapted from Statistics Canada, ${s.family}, ${s.reference_date}. This does not constitute an endorsement by Statistics Canada of this product.`;
   el("attribution").textContent = source.authority === "Statistics Canada" ? statcanCredit(source) : `Source: ${source.authority}, ${source.family}, ${source.reference_date}.`;
   if (data.report.province_display_source) el("attribution").textContent += ` Province overview (display only): ${statcanCredit(data.report.province_display_source)}`;
   el("attribution").textContent += ` ${regionalSources.map(s => `Regional grouping reference: ${s.authority}, ${s.release}.`).join(" ")}`;
-  const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {})];
+  const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {}),
+    ...Object.values(data.report.jurisdiction_refreshes || {}).flatMap(report => Object.values(report.sources || {}))];
   const credited = new Set();
   for (const item of additionalSources) {
     const key = `${item.authority}|${item.licence}`;
@@ -337,6 +344,7 @@ async function start() {
     el("attribution").textContent += ` Additional geography: ${item.authority}.`;
     if (item.authority === "City of Toronto") el("attribution").textContent += " Contains information licensed under the Open Government Licence – Toronto.";
     if (item.attribution) el("attribution").textContent += ` ${item.attribution}`;
+    if (item.attribution_statement) el("attribution").textContent += ` ${item.attribution_statement}`;
     const link = document.createElement("a"), url = new URL(item.licence, location.href);
     link.textContent = `${item.authority} licence`;
     if (url.protocol === "https:") link.href = url.href;
@@ -354,12 +362,19 @@ async function start() {
   }
   for (const province of data.provinces) el("province").append(new Option(`${province.code} · ${province.name}`, province.id));
   for (const entry of data.report.regions?.jurisdictions || []) {
-    el("coverage-decisions").append(line(`${entry.code} · ${entry.status === "deferred" ? "Deferred" : `${entry.expected_region_count} regions`} — ${entry.reason}`));
+    const current = data.report.jurisdiction_refreshes?.[entry.province]?.migrations?.regional_coverage;
+    el("coverage-decisions").append(line(current ?
+      `${entry.code} · ${current.current_region_ids.length} regions · ${current.member_count} municipal members · ${current.unassigned_municipality_ids.length} municipalities without a regional grouping` :
+      `${entry.code} · ${entry.status === "deferred" ? "Deferred" : `${entry.expected_region_count} regions`} — ${entry.reason}`));
   }
   for (const entry of data.report.city_areas?.municipalities || []) {
     el("city-area-decisions").append(line(`${entry.name} · ${entry.expected_count} areas${entry.coverage_policy === "partial" ? " · Partial city coverage" : entry.coverage_policy === "unavailable" ? " · Boundaries unavailable" : ""}`));
   }
   for (const note of data.report.ontario_refresh?.unresolved || []) el("city-area-decisions").append(line(note));
+  for (const [province, report] of Object.entries(data.report.jurisdiction_refreshes || {})) {
+    const pending = report.audit.municipalities.filter(row => row.status === "pending_municipal_site_review").length;
+    el("city-area-decisions").append(line(`${byId.get(province).name} · ${report.added_city_area_count} added areas · ${pending} municipal source searches pending.`));
+  }
   if (!data.city_areas.length) el("city-area-decisions").append(line("No city areas added to this run yet."));
   el("search").addEventListener("input", () => { clearTimeout(searchTimer); searchTimer = setTimeout(() => refresh(), 150); });
   el("issues-only").addEventListener("change", () => refresh());

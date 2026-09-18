@@ -209,3 +209,103 @@ uncertainty. Original CSD and regional rows remain untouched. Municipal source p
 are complete, regional unions retain unresolved member repairs, and Ontario's two
 unapproved city-area repairs have no assignment geometry. The serving export adds
 `display/city-areas-35.geojson`; display files never supply coordinate assignments.
+
+## Other jurisdictions: qualified additions and audit inventory
+
+The September jurisdiction manifests provide an initial source qualification pass,
+not the completed nationwide municipal-site audit. Read
+[the exact coverage and unfinished work](research/jurisdiction-refresh.md).
+The shared builder is offline, province-scoped, and requires the exact parent
+catalogue and report digests recorded in the plan. Preserve archived inputs; a
+fresh run with different parent metadata requires explicit requalification.
+
+First rebuild Ontario with the corrected two-sided comparison, using a fresh
+output path. The Barrie/Oro-Medonte/Springwater and Hanover/West Grey groups are
+deferred as whole groups. The Québec run remains its input:
+
+```bash
+.venv/bin/maps ontario-refresh --run .local/quebec-refresh/ready \
+  --source-dir .local/ontario-refresh/sources \
+  --output .local/jurisdiction-refresh/ontario-checked
+```
+
+For each plan, download its named sources explicitly, then build locally. Example:
+
+```bash
+.venv/bin/maps download-jurisdiction-refresh \
+  --plan totally_normal_maps/jurisdiction-bc-2026-09.json \
+  --source vancouver-local-areas \
+  --output .local/jurisdiction-refresh/sources/vancouver-local-areas.geojson
+
+.venv/bin/maps jurisdiction-refresh --province 59 \
+  --run .local/jurisdiction-refresh/ontario-checked \
+  --source-dir .local/jurisdiction-refresh/sources \
+  --plan totally_normal_maps/jurisdiction-bc-2026-09.json \
+  --output .local/jurisdiction-refresh/ready-59
+```
+
+Apply the remaining plans in pinned order: AB/48, MB/46, SK/47, NB/13, NS/12,
+PE/11, NL/10, YT/60, NT/61, NU/62. Each uses the previous `ready-<code>` run.
+Plans without qualified downloads still add their explicit audit inventory.
+Exit 1 means a completed review-required build; do not treat it as rejected input.
+A source count/hash/schema change is a rejection, requiring source requalification.
+
+Acquisition also supports manifests with an explicit ArcGIS `acquisition` block
+(`kind`, `layer_url`, `layer_name`). It fetches full polygons in object-ID chunks,
+checks counts, missing/duplicate IDs, transfer limits and edit metadata, then checks
+the complete snapshot checksum. It never requests display/generalized geometry.
+This is an operator command, never an ordinary-test or public-CI download.
+
+```bash
+.venv/bin/maps release --run .local/jurisdiction-refresh/ready-62 \
+  --output .local/releases/canada-jurisdictions --label canada-jurisdictions-2026-09-18
+.venv/bin/python tools/check_real_data.py --dataset .local/releases/canada-jurisdictions \
+  --baseline .local/releases/canada-ontario-checked
+```
+
+All stages refuse to overwrite prior outputs. No source data, package, image or
+release is pushed or published by this workflow.
+
+## Municipal and regional migration contract
+
+The generic jurisdiction plan optionally accepts `mergers`, `region_updates` and
+`membership_updates`. Every operation requires source evidence and an ISO
+`effective_date` no later than `reviewed_on`. Original CSD, region, city-area and
+membership rows remain unchanged; the separate `jurisdiction_revision` table
+records current identities and relationships. Serving checks verify these rows
+against the scoped report and complete current member geometry before accepting
+traffic.
+
+- A merger names a publisher `source`, `source_id`, `name`, `type`, stable
+  `id` (`ca-<province>-mun-<publisher-id>`), all `predecessor_csd_ids`, the current
+  `region_id` (or null), and every existing `city_area_id` in `city_area_ids`.
+  Its assignment geometry is the complete predecessor union. The comparison
+  publisher polygon must overlap at least 80% of both extents; otherwise the
+  whole succession is deferred and predecessors remain current. A predecessor
+  with an unapproved repair cannot be merged. Simultaneous predecessor boundary
+  adjustments or renames require separate qualification.
+- An existing city area keeps its identity, source geometry and any nested
+  city-area parent. Its current municipal ancestor changes only through the
+  merger's explicit city-area list. A new city layer for a successor supplies
+  `parent_municipality_id`, its current `parent_name`, and a predecessor
+  `parent_csd_id` as the retained national source association. Parent geometry
+  checks use the complete successor boundary.
+- A regional definition supplies `id`, `operation` (`add`, `update`, or `retire`)
+  and the exact current `member_ids`, using API municipal IDs. Add/update also
+  requires `source_id`, `name`, `kind`, `type`, `coverage_policy`
+  (`whole_divisions`, `selected_members`, or `complete_members`) and `coverage_note`.
+  Names or spatial containment never establish membership.
+- Each municipal move supplies `municipality_id`, `previous_region_id` and
+  `region_id`; null means direct province membership. All affected regional
+  boundaries are rebuilt from complete current members. Unapproved member or
+  existing regional repairs remain review-only. Retiring a region requires an
+  empty member list and explicit reassignment of every member; its old identity
+  remains historical. An empty current grouping is rejected.
+
+Migration reports include the current regional IDs, member count and every
+ungrouped current municipal ID. They supplement the retained baseline regional
+inventory. Historical municipalities and regions remain accessible by ID and
+through `include_historical=true`, but never participate in current point lookup.
+No provincial publisher identity is represented as an invented Statistics Canada
+CSD code. The eleven supplied plans currently import city areas and audit gaps;
+they do not claim completed post-2025 municipal change reconciliation.

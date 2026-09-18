@@ -267,7 +267,8 @@ def check_preview(url, output):
             page.screenshot(path=str(output/'ontario-hamilton-stoney-creek.png'),full_page=True)
             page.locator('#province').select_option('35');status('40 regions · 17 municipalities')
         page.locator("#issues-only").check()
-        expect(page.locator("#map-status")).to_have_text(re.compile(r"^10 regions" if ontario else r"^7 regions"))
+        expect(page.locator("#map-status")).to_have_text(re.compile(
+            r"^9 regions" if ontario and ontario.get('deferred_adjustments') else r"^10 regions" if ontario else r"^7 regions"))
         page.locator("#province").select_option("48")
         status("2 regions · 392 municipalities")
         expect(page.locator("#issues-only")).not_to_be_checked()
@@ -299,6 +300,30 @@ def check_preview(url, output):
             status("75 municipalities")
         page.locator("#back").click()
         status("17 regions")
+        # Exercise real imported layers through the same visible navigation controls,
+        # including provinces with no regional layer and review-only polygons.
+        imported = catalogue['report'].get('jurisdiction_refreshes', {})
+        municipal = {row['id']: row for row in catalogue['areas']}
+        for province, report in imported.items():
+            for coverage in report['coverage']:
+                city = municipal[coverage['parent_csd_id']]
+                page.locator('#province').select_option(province)
+                if city.get('region_id'):
+                    page.locator('#results [data-area-id="'+city['region_id']+'"]').click()
+                page.locator('#search').fill(city['name'])
+                page.locator('#results [data-area-id="'+city['id']+'"]').click()
+                current(city['name'])
+                expect(page.locator('#map-status')).not_to_have_text('Loading boundaries…')
+                rows(min(100, coverage['expected_count']))
+                while not page.locator('#more').is_hidden(): page.locator('#more').click()
+                rows(coverage['expected_count'])
+                review = next((r for r in city_areas if r['parent_csd_id'] == city['id'] and
+                               r['assignment_status'] in {'unreviewed_parent', 'unreviewed_overlap'}), None)
+                if review:
+                    page.locator('#results [data-area-id="'+review['id']+'"]').click()
+                    expect(page.locator('#selection')).to_contain_text('unavailable for point assignment')
+                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+                page.screenshot(path=str(output/('jurisdiction-'+province+'-'+city['id']+'.png')), full_page=True)
         assert not errors, errors
         browser.close()
         print(json.dumps({"status": "passed", "city_areas_checked": len(city_areas), "checks": ["13 province outlines", "map click drilldown", "keyboard map navigation", "Outaouais 75 municipalities", "Gatineau identity", "breadcrumbs and back", "search reset and empty results", "all 13 jurisdiction child counts", "Ontario direct municipalities", "repair filter", "pagination", "mobile navigation and width"], "page_errors": errors}))

@@ -12,6 +12,7 @@ from shapely.strtree import STRtree
 
 from .catalogue import CatalogueError, PROVINCES, geometry_issue, read_json
 from .releases import MAX_FILE_BYTES, checked_release, source_metadata
+from .jurisdiction_migrations import load_migrations
 
 
 def normalize(value):
@@ -45,7 +46,7 @@ class Dataset:
             if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
                 raise CatalogueError('Invalid serving database.')
             tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision'} or 'csd' not in tables:
+            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision'} or 'csd' not in tables:
                 raise CatalogueError('Unexpected serving database tables.')
             memberships = dict(db.execute('SELECT csd_id, region_id FROM csd_region')) if 'csd_region' in tables else {}
             self.source_ids = {}
@@ -59,7 +60,7 @@ class Dataset:
                     uid = f"ca-csd-{source['id']}" if table == 'csd' else source['id']
                     province_id = f"ca-{PROVINCES[record['province']][0].lower()}"
                     parent = (memberships.get(source['id'], province_id) if table == 'csd' else
-                              record.get('parent_area_id', f"ca-csd-{source['parent_csd_id']}") if table == 'city_area' else province_id)
+                              record.get('parent_area_id') or record.get('municipality_id', f"ca-csd-{source['parent_csd_id']}") if table == 'city_area' else province_id)
                     item = {'id': uid, 'source_id': record.get('source_id', source['id']), 'name': record['name'],
                             'level': level, 'kind': record.get('kind', 'municipality_or_equivalent'),
                             'source_type': record.get('type'), 'parent_id': parent, 'province_id': province_id,
@@ -72,7 +73,7 @@ class Dataset:
                             item[key] = record[key]
                     self.add(item)
                     if table == 'city_area':
-                        item['municipality_id'] = f"ca-csd-{source['parent_csd_id']}"
+                        item['municipality_id'] = record.get('municipality_id', f"ca-csd-{source['parent_csd_id']}")
                     self.source_ids[(level, source['id'])] = uid
                     full = source['geometry']
                     if full is not None:
@@ -102,10 +103,14 @@ class Dataset:
                 self.load_revisions(db)
             if 'boundary_revision' in tables:
                 self.load_boundary_revisions(db)
+            load_migrations(self, db, 'jurisdiction_revision' in tables)
         counts = Counter(r['level'] for r in self.areas.values() if r.get('lifecycle_status') != 'superseded')
         expected_municipalities = self.report.get('quebec_refresh', {}).get('active_municipality_count', self.report['feature_count'])
+        migrations = [r['migrations'] for r in self.report.get('jurisdiction_refreshes', {}).values() if 'migrations' in r]
+        expected_municipalities += sum(r['added_municipality_count'] - r['superseded_municipality_count'] for r in migrations)
+        expected_regions = self.report.get('regions', {}).get('feature_count', 0) + sum(r['added_region_count'] - r['retired_region_count'] for r in migrations)
         for level, expected in [('municipality', expected_municipalities),
-                                ('region', self.report.get('regions', {}).get('feature_count', 0)),
+                                ('region', expected_regions),
                                 ('city_area', self.report.get('city_areas', {}).get('feature_count', 0))]:
             if counts[level] != expected:
                 raise CatalogueError('Serving layer count differs from the report.')
@@ -114,6 +119,8 @@ class Dataset:
             if parent is not None:
                 if parent not in self.areas or parent == uid:
                     raise CatalogueError('Missing or invalid area parent.')
+                if item.get('lifecycle_status') != 'superseded' and self.areas[parent].get('lifecycle_status') == 'superseded':
+                    raise CatalogueError('Current area may not retain a superseded parent.')
                 if item.get('lifecycle_status') != 'superseded':
                     self.children[parent].append(uid)
             item['geometry_available'] = uid in self.geometries
@@ -165,20 +172,30 @@ class Dataset:
             refresh = self.report['ontario_refresh']
             self.summary['sources'].extend(refresh['sources'].values())
             self.summary['coverage']['ontario_refresh'] = refresh
+        if 'jurisdiction_refreshes' in self.report:
+            self.summary['coverage']['jurisdiction_refreshes'] = self.report['jurisdiction_refreshes']
+            for refresh in self.report['jurisdiction_refreshes'].values():
+                self.summary['sources'].extend(refresh['sources'].values())
+        if any(r.get('lifecycle_status') == 'superseded' for r in self.areas.values()):
+            self.summary['historical_counts'] = dict(Counter(r['level'] for r in self.areas.values() if r.get('lifecycle_status') == 'superseded'))
         self.summary['sources'] = [source_metadata(source) for source in self.summary['sources']]
 
     def load_boundary_revisions(self, db):
-        """Current Ontario source boundaries; preserve unresolved repairs and history."""
-        refresh = self.report.get('ontario_refresh')
-        if not refresh or refresh.get('state') != 'review_required':
-            raise CatalogueError('Boundary revisions require an Ontario refresh report.')
+        """Scoped source revisions; preserve unresolved repairs and previous extents."""
+        refreshes = dict(self.report.get('jurisdiction_refreshes', {}))
+        if 'ontario_refresh' in self.report:
+            refreshes['35'] = self.report['ontario_refresh']
+        if not refreshes or any(p not in PROVINCES or r.get('state') != 'review_required' for p, r in refreshes.items()):
+            raise CatalogueError('Boundary revisions require qualified jurisdiction reports.')
+        by_province = {'ca-' + PROVINCES[p][0].lower(): r for p, r in refreshes.items()}
         rows = db.execute('SELECT * FROM boundary_revision ORDER BY id').fetchall()
         allowed = {'id', 'name', 'source_name', 'aliases', 'evidence', 'assignment_status', 'bbox',
                    'vertices', 'boundary_basis', 'effective_date', 'boundary_source', 'boundary_source_ids',
-                   'previous_boundary_reference_date', 'uncertainty_basis', 'coverage_note', 'comparison', 'issues'}
+                   'previous_boundary_reference_date', 'uncertainty_basis', 'coverage_note', 'comparison', 'issues', 'update_status',
+                   'proposed_boundary_source', 'proposed_boundary_source_ids', 'proposed_effective_date'}
         for source in rows:
             uid, operation = source['id'], source['operation']; row = json.loads(source['record'])
-            if (uid not in self.areas or self.areas[uid]['province_id'] != 'ca-on' or
+            if (uid not in self.areas or self.areas[uid]['province_id'] not in by_province or
                     row.get('id') != uid or not row.get('evidence') or set(row) - allowed):
                 raise CatalogueError('Invalid Ontario boundary revision identity or metadata.')
             area = self.areas[uid]
@@ -187,11 +204,11 @@ class Dataset:
                         set(row) - {'id', 'name', 'source_name', 'aliases', 'evidence'}):
                     raise CatalogueError('Invalid Ontario name revision.')
                 area.update(row); continue
-            if operation not in {'boundary', 'region'} or area['level'] != ('region' if operation == 'region' else 'municipality'):
+            if operation not in {'boundary', 'deferred_boundary', 'region'} or area['level'] != ('region' if operation == 'region' else 'municipality'):
                 raise CatalogueError('Invalid boundary revision operation.')
             was_pending = uid not in self.geometries
             full, review = source['geometry'], source['review_geometry']
-            if (was_pending != (full is None) or (operation == 'boundary' and was_pending) or
+            if (was_pending != (full is None) or (operation in {'boundary', 'deferred_boundary'} and was_pending) or
                     row.get('assignment_status') != ('unreviewed_repair' if was_pending else 'validated_derived' if operation == 'region' else 'validated_source')):
                 raise CatalogueError('Boundary revision cannot approve or downgrade an existing repair.')
             if uid in self.pending_ids:
@@ -200,6 +217,8 @@ class Dataset:
             if full is not None:
                 geom = shapely.from_wkb(full)
                 if geometry_issue(geom): raise CatalogueError('Invalid revised assignment geometry.')
+                if operation == 'deferred_boundary' and (row.get('update_status') != 'deferred' or not geom.equals_exact(self.geometries[uid], 0)):
+                    raise CatalogueError('Deferred update must retain the previous assignment boundary.')
                 self.geometries[uid] = geom
             if review is not None:
                 geom = shapely.from_wkb(review)
@@ -208,11 +227,16 @@ class Dataset:
             elif was_pending:
                 raise CatalogueError('Unresolved region lacks its review candidate.')
             area.update(row); self.required_displays.add(uid)
-        expected = {'ca-csd-' + r['csd_id'] for a in refresh['adjustments'] for r in a['members']}
-        if ({r['id'] for r in rows if r['operation'] == 'boundary'} != expected or
-                len(expected) != refresh['updated_municipality_count'] or
-                sum(r['operation'] == 'region' for r in rows) != refresh['updated_region_count']):
-            raise CatalogueError('Ontario revision counts differ from report.')
+        for province_id, refresh in by_province.items():
+            scoped = [r for r in rows if self.areas[r['id']]['province_id'] == province_id]
+            expected = {'ca-csd-' + r['csd_id'] for a in refresh['adjustments'] for r in a['members']}
+            deferred = {'ca-csd-' + r['csd_id'] for a in refresh.get('deferred_adjustments', []) for r in a['members']}
+            if ({r['id'] for r in scoped if r['operation'] == 'boundary'} != expected or
+                    {r['id'] for r in scoped if r['operation'] == 'deferred_boundary'} != deferred or
+                    len(expected) != refresh['updated_municipality_count'] or
+                    len(deferred) != refresh.get('deferred_municipality_count', 0) or
+                    sum(r['operation'] == 'region' for r in scoped) != refresh['updated_region_count']):
+                raise CatalogueError('Jurisdiction revision counts differ from report.')
 
     def load_revisions(self, db):
         """Apply explicit current identities without altering retained source rows."""

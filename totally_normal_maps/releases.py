@@ -69,12 +69,14 @@ def checked_release(root, expected_sha256=None):
 
 def source_metadata(source):
     metadata = {key: source[key] for key in ('authority', 'family', 'release', 'reference_date',
-                'retrieved_at', 'retrieved_on', 'url', 'dataset_url', 'licence', 'sha256', 'scope') if key in source}
+                'retrieved_at', 'retrieved_on', 'url', 'dataset_url', 'licence', 'sha256', 'scope', 'attribution_statement') if key in source}
     if source.get('authority') == 'Statistics Canada':
         metadata['attribution'] = (f"Adapted from Statistics Canada, {source['family']}, {source['reference_date']}. "
                                    'This does not constitute an endorsement by Statistics Canada of this product.')
     else:
         metadata['attribution'] = f"Source: {source.get('authority', 'See source URL')}, {source.get('release', '')}. No publisher endorsement is implied."
+    if source.get('attribution_statement'):
+        metadata['attribution'] += ' ' + source['attribution_statement']
     if source.get('authority') == 'City of Toronto':
         metadata['attribution'] += ' Contains information licensed under the Open Government Licence – Toronto.'
     elif source.get('authority') == 'County of Grey':
@@ -118,6 +120,22 @@ def serving_report(report):
         output['ontario_refresh'] = {key: part[key] for key in ('reviewed_on', 'state', 'adjustments',
             'updated_municipality_count', 'updated_region_count', 'added_city_area_count', 'coverage', 'names', 'repair_review', 'unresolved')}
         output['ontario_refresh']['sources'] = {key: source_metadata(s) for key, s in part['sources'].items()}
+        for key in ('deferred_adjustments', 'deferred_municipality_count'):
+            if key in part:
+                output['ontario_refresh'][key] = part[key]
+    if 'jurisdiction_refreshes' in report:
+        output['jurisdiction_refreshes'] = {}
+        for province, part in report['jurisdiction_refreshes'].items():
+            output['jurisdiction_refreshes'][province] = {key: part[key] for key in (
+                'reviewed_on', 'state', 'adjustments', 'deferred_adjustments', 'deferred_municipality_count',
+                'updated_municipality_count', 'updated_region_count', 'added_city_area_count',
+                'coverage', 'names', 'repair_review', 'unresolved', 'audit')}
+            output['jurisdiction_refreshes'][province]['sources'] = {key: source_metadata(s) for key, s in part['sources'].items()}
+            if 'migrations' in part:
+                output['jurisdiction_refreshes'][province]['migrations'] = {key: part['migrations'][key] for key in (
+                    'mergers', 'deferred_mergers', 'membership_updates', 'region_updates', 'city_parent_updates',
+                    'added_municipality_count', 'superseded_municipality_count', 'added_region_count',
+                    'retired_region_count', 'revised_region_ids', 'regional_coverage')}
     return output
 
 
@@ -130,7 +148,7 @@ def export_release(run, output, *, label='canada-review'):
     report = read_json(run / 'report.json')
     with open_catalogue(run) as db:
         tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        if 'csd' not in tables or tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision'}:
+        if 'csd' not in tables or tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision'}:
             raise CatalogueError('Only reference-geography tables may enter a serving release.')
         if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
             raise CatalogueError('Catalogue failed database integrity checks.')
@@ -138,9 +156,9 @@ def export_release(run, output, *, label='canada-review'):
     if 'regions' in report:
         names += [f'regions-{p}.geojson' for p in PROVINCES]
     if 'city_areas' in report:
-        names.append('city-areas-24.geojson')
-        if 'ontario_refresh' in report:
-            names.append('city-areas-35.geojson')
+        with open_catalogue(run) as db:
+            city_provinces = {json.loads(r['record'])['province'] for r in db.execute('SELECT record FROM city_area')}
+        names += ['city-areas-' + p + '.geojson' for p in sorted(city_provinces)]
     with new_directory(output) as staging:
         (staging / 'display').mkdir()
         shutil.copyfile(run / 'catalogue.sqlite3', staging / 'catalogue.sqlite3')

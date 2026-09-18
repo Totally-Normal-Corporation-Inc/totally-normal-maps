@@ -12,7 +12,7 @@ from shapely.geometry import box, mapping, Polygon
 
 from totally_normal_maps.catalogue import CatalogueError, open_catalogue, read_json, sha256, write_json
 from totally_normal_maps.dataset import Dataset
-from totally_normal_maps.ontario_refresh import build_refresh
+from totally_normal_maps.ontario_refresh import build_refresh, compare_extents
 from totally_normal_maps.releases import export_release
 from .api_fixture import make_release
 
@@ -47,7 +47,7 @@ class OntarioRefreshTests(unittest.TestCase):
         public['report']=report;write_json(self.base/'preview/catalogue.json',public)
         self.display('35.geojson',shapes);self.display('regions-35.geojson',{self.region:union})
         self.payloads={
-            'municipal':self.collection([('1','Town 1',box(-80,44,-78.8,45),'a'),('2','Town 1',box(-80.1,44,-80.05,44.05),'a'),('3','Town 2',box(-78.8,44,-78,44.95),'b')]),
+            'municipal':self.collection([('1','Town 1',box(-80,44,-78.85,45),'a'),('2','Town 1',box(-80.1,44,-80.05,44.05),'a'),('3','Town 2',box(-78.85,44,-78,44.95),'b')]),
             'former':self.collection([('1','Former town',shapes[self.city],'c')]),
             'neighbourhoods':self.collection([('1','West',box(-81,44,-80.5,45),'c'),('2','East',box(-80.5,44,-80,45),'c')])}
         self.plan={'schema_version':1,'reviewed_on':'2026-09-18','base_source_sha256':report['source']['sha256'],
@@ -133,3 +133,35 @@ class OntarioRefreshTests(unittest.TestCase):
                 write_json(self.root/'plan.json',self.plan)
                 with self.assertRaises(CatalogueError):self.build()
                 self.assertFalse((self.root/'updated').exists())
+
+    def test_overlap_compares_both_extents_and_exact_threshold(self):
+        old = box(0, 0, 100, 100)
+        for new in (box(0, 0, 10, 10), box(0, 0, 1000, 1000), box(30, 0, 130, 100)):
+            with self.subTest(bounds=new.bounds):
+                self.assertFalse(compare_extents(old, new)['sufficient_overlap'])
+        self.assertTrue(compare_extents(old, box(20, 0, 120, 100))['sufficient_overlap'])
+        self.assertFalse(compare_extents(old, box(20.01, 0, 120.01, 100))['sufficient_overlap'])
+        with self.assertRaises(CatalogueError):
+            compare_extents(old, Polygon())
+
+    def test_failed_member_defers_complete_group_and_preserves_uncertainty(self):
+        self.payloads['municipal']['features'][2]['geometry'] = mapping(box(-78.8, 44, -78.7, 44.1))
+        self.save()
+        before = sha256(self.base/'catalogue.sqlite3')
+        ds = self.dataset()
+        report = ds.summary['coverage']['ontario_refresh']
+        self.assertEqual(report['updated_municipality_count'], 0)
+        self.assertEqual(report['updated_region_count'], 0)
+        self.assertEqual(report['deferred_municipality_count'], 2)
+        for uid in ('3501001', '3501002'):
+            with open_catalogue(self.base) as db:
+                old = shapely.from_wkb(db.execute('SELECT geometry FROM csd WHERE id=?', (uid,)).fetchone()[0])
+            self.assertTrue(ds.geometries['ca-csd-'+uid].equals_exact(old, 0))
+            self.assertEqual(ds.areas['ca-csd-'+uid]['update_status'], 'deferred')
+            self.assertNotIn('boundary_source', ds.areas['ca-csd-'+uid])
+            self.assertNotIn('effective_date', ds.areas['ca-csd-'+uid])
+            self.assertEqual(ds.areas['ca-csd-'+uid]['proposed_boundary_source'], 'municipal')
+        # A deferred source expansion outside the retained original still flags uncertainty.
+        self.assertIn('ca-csd-3501001', ds.lookup(-78.9,44.5)['review_candidate_ids'])
+        self.assertNotIn('ca-csd-3501001', ds.lookup(-78.9,44.5)['direct_match_ids'])
+        self.assertEqual(sha256(self.base/'catalogue.sqlite3'), before)

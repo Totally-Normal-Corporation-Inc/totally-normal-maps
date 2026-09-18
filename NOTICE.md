@@ -82,3 +82,36 @@ for review, including source water-coverage gaps. Two Ottawa neighbourhood repai
 are display candidates only. Publisher identity codes and explicit Hamilton community
 attributes supply city-area identities and hierarchy. Toronto's two boundary schemes
 remain independent. See docs/research/ontario-refresh.md for evidence and limitations.
+
+## Other jurisdiction additions
+
+- City of Vancouver, Local area boundary. Contains information licensed under the
+  Open Government Licence – Vancouver: https://opendata.vancouver.ca/pages/licence/
+- City of Calgary, Community District Boundaries. Contains information licensed
+  under the Open Government Licence – City of Calgary:
+  https://data.calgary.ca/d/Open-Data-Terms/u45n-7awa
+- City of Edmonton, Neighbourhoods. Distributed under the City of Edmonton Open
+  Data Terms of Use, version 2.1. Preserve these terms when redistributing:
+  https://www.edmonton.ca/public-files/assets/document?path=Web-version2.1-OpenDataAgreement.pdf
+- City of Winnipeg, Neighbourhoods. Contains information licensed under the Open
+  Government Licence – Winnipeg: https://data.winnipeg.ca/open-data-licence
+- City of Saskatoon, Neighbourhood, public open-data map service. Reuse statement:
+  https://www.saskatoon.ca/services-residents/connect-your-city/open-data
+- City of Saint John, Neighbourhoods. Contains information licensed under the Open
+  Government Licence – City of Saint John. The publisher supplies the licence in
+  the dataset metadata:
+  https://www.arcgis.com/sharing/rest/content/items/338f69c642454516b877085043966e96?f=json
+- City of Fredericton, Neighbourhoods. Contains information licensed under the
+  Open Government License – City of Fredericton:
+  https://data-fredericton.opendata.arcgis.com/pages/open-data-license
+- Halifax Regional Municipality, Community Boundaries. Contains information
+  licensed under the Open Data Licence – Halifax Regional Municipality:
+  https://data-hrm.hub.arcgis.com/pages/open-data-licence
+- Government of Yukon on behalf of the City of Whitehorse, NG911 Subdivisions.
+  Contains information licensed under the Open Government Licence – Yukon:
+  https://open.yukon.ca/data/open-government-licence-yukon
+
+These are complete publisher polygons, separately simplified for display. Invalid
+geometry and unresolved parent/overlap cases are excluded from normal assignment.
+Source licences remain separate from the MIT code licence. See
+`docs/research/jurisdiction-refresh.md` for exact scope and unfinished qualification.

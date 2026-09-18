@@ -15,8 +15,19 @@ else:
 ROOT = Path(__file__).resolve().parents[1]
 MANIFESTS = {f'totally_normal_maps/{name}' for name in (
     'statcan-2025.json', 'province-display-2021.json', 'regions-2026-09.json',
-    'city-areas-quebec-2026-09.json', 'quebec-refresh-2026-09.json', 'ontario-refresh-2026-09.json')}
-CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256)": "[0-9a-f]{64}",?\s*')
+    'city-areas-quebec-2026-09.json', 'quebec-refresh-2026-09.json', 'ontario-refresh-2026-09.json',
+    'jurisdiction-bc-2026-09.json',
+    'jurisdiction-ab-2026-09.json',
+    'jurisdiction-mb-2026-09.json',
+    'jurisdiction-sk-2026-09.json',
+    'jurisdiction-nb-2026-09.json',
+    'jurisdiction-ns-2026-09.json',
+    'jurisdiction-pe-2026-09.json',
+    'jurisdiction-nl-2026-09.json',
+    'jurisdiction-yt-2026-09.json',
+    'jurisdiction-nt-2026-09.json',
+    'jurisdiction-nu-2026-09.json')}
+CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256|parent_catalogue_sha256|parent_report_sha256)": "[0-9a-f]{64}",?\s*')
 REPAIR_CHECKSUM_LINE = re.compile(r'\s*"(?:source_sha256|candidate_sha256)": "[0-9a-f]{64}",?\s*')
 
 
@@ -55,7 +66,7 @@ def main():
             # Reviewed public source/identity digests, not a blanket entropy exclusion.
             if (name in MANIFESTS and row['type'] == 'Hex High Entropy String'
                     and (CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1]) or
-                         name == 'totally_normal_maps/ontario-refresh-2026-09.json' and
+                         (name == 'totally_normal_maps/ontario-refresh-2026-09.json' or name.startswith('totally_normal_maps/jurisdiction-')) and
                          REPAIR_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1]))):
                 checksums += 1
                 continue
