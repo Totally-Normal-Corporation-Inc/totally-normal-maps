@@ -322,11 +322,15 @@ def create_app(settings=None):
 
     @app.get('/readyz', tags=['Health'])
     def ready(request: Request):
+        # Health checks bypass the middleware's default cache policy. Readiness
+        # and deployment fingerprints must describe the instance being queried.
+        headers = {'Cache-Control': 'no-store'}
         if not getattr(request.app.state, 'dataset', None):
-            raise HTTPException(503, 'Dataset not loaded.')
+            raise HTTPException(503, 'Dataset not loaded.', headers=headers)
         deployment = getattr(request.app.state, 'deployment', None)
-        return {'status': 'ready', **({k: deployment[k] for k in (
-            'deployment_version', 'dataset_manifest_sha256', 'website_manifest_sha256', 'code_sha256')} if deployment else {})}
+        return JSONResponse({'status': 'ready', **({k: deployment[k] for k in (
+            'deployment_version', 'dataset_manifest_sha256', 'website_manifest_sha256', 'code_sha256')} if deployment else {})},
+            headers=headers)
 
     @app.get('/', include_in_schema=False)
     def website_home(request: Request):

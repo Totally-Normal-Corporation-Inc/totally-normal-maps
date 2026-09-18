@@ -32,7 +32,9 @@ display files and does not need an API key. There are no subscriptions or billin
 
 In a combined deployment, `/readyz` also returns `deployment_version`,
 `dataset_manifest_sha256`, `website_manifest_sha256` and `code_sha256` for promotion
-and rollback checks. Website routes are public and versioned by their manifest
+and rollback checks. Both ready (200) and not-ready (503) responses send
+`Cache-Control: no-store`, including requests using load-balancer IP Host headers.
+Website routes are public and versioned by their manifest
 SHA-256, with immutable caching. They never serve databases or full assignment
 geometry. `/v1/` authentication and dataset-version preconditions are unchanged.
 API-only deployments return 404 for the website routes.

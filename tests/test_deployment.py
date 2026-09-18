@@ -183,6 +183,17 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual(response.headers['cache-control'], 'no-store')
         self.assertNotIn(self.token, html.text+client.get(prefix+'catalogue.json').text)
 
+    def test_readiness_fingerprints_are_not_cacheable(self):
+        client = self.client()
+        for host in ('localhost', '10.0.0.1'):
+            with self.subTest(host=host):
+                # Anonymous load-balancer checks retain the health fast path.
+                response = client.get('/readyz', headers={'Host': host})
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.headers.get('cache-control'), 'no-store')
+                for key in ('deployment_version', 'dataset_manifest_sha256', 'website_manifest_sha256', 'code_sha256'):
+                    self.assertEqual(response.json()[key], self.record[key])
+
     def test_public_routes_reject_private_files_traversal_stale_versions_and_writes(self):
         client = self.client(); prefix = '/maps/'+self.record['website_manifest_sha256']+'/'
         for path in ('dataset/catalogue.sqlite3', 'catalogue.sqlite3', 'report.json', 'site-manifest.json',
