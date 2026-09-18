@@ -30,7 +30,8 @@ display files and does not need an API key. There are no subscriptions or billin
 
 Area pages accept `offset` (default 0), `limit` (default 100, maximum 500).
 `/v1/areas` additionally accepts `q` (accent-insensitive names/aliases/source IDs),
-`level`, and `parent_id`. Pages return `total`, `next_offset` and `dataset_version`.
+`level`, `parent_id`, and `include_historical` (default false). Pages return `total`,
+`next_offset` and `dataset_version`.
 An unknown area or parent is a 404; an existing parent without children has an
 empty page. Countries and administrative kinds can be extended in future releases;
 the current builder and serving-release schema explicitly support Canada only.
@@ -49,11 +50,30 @@ statistical municipal equivalent, regional district, arrondissement or sector.
 | Interlake | `ca-mb-gr-interlake` |
 | Gatineau municipality | `ca-csd-2481017` |
 | Gatineau sector | `ca-qc-2481017-sector-15` |
+| New La Pocatière municipality | `ca-qc-mun-14082` |
 
 National municipal source IDs remain strings in `source_id`. API IDs are
 namespaced to avoid collisions with future countries and datasets. Do not use
 names, translations or a local application's primary keys as service identities.
 Region and city-area IDs retain their original catalogue namespaces.
+
+In the Québec refresh, new municipal identities use provincial codes under
+`ca-qc-mun-`, without inventing national CSD codes. Six predecessors retain their
+original IDs, full boundaries and `lifecycle_status: superseded`, with `valid_to`
+(exclusive effective date) and `successor_ids`. New records expose `predecessor_ids`
+and `effective_date`. The successor assignment boundary is the complete union of
+national predecessor boundaries (`boundary_basis: predecessor_csd_union`); the
+current provincial polygon is retained separately as comparison evidence.
+Historical records are excluded from default browsing and coordinate lookup.
+They remain accessible by ID, or through `/v1/areas?include_historical=true`.
+Their boundary responses have `suitable_for_assignment: false`.
+
+Both arrondissements and their quartiers/sectors use `level: city_area`. A nested
+area's `parent_id` is its arrondissement; `municipality_id` identifies the containing
+city throughout that hierarchy. Follow children and ancestors rather than assuming
+every city area is directly below a municipality. Terrebonne's three documented
+sector identities have `assignment_status: missing_geometry`; their municipal
+bounding box limits lookup uncertainty and is never a sector assignment polygon.
 
 The hierarchy skips missing regions. Ontario's ungrouped municipalities, including
 Toronto and Ottawa, remain directly under Ontario alongside its regions. Québec's
@@ -105,7 +125,9 @@ match more than one area. The response includes:
   their existence prevents a confident negative classification anywhere.
 - `hierarchy_geometry_disagreements`: a child source covers the point while an
   available parent polygon does not. Original source boundaries remain intact.
-- `ambiguous`: multiple direct matches at the same navigation level.
+- `ambiguous`: multiple incomparable direct matches at the same navigation level.
+  A quartier and its own arrondissement are an expected ancestor/descendant pair;
+  overlapping siblings or unrelated arrondissements still signal ambiguity.
 
 `status` is `matched`, `no_match`, `ambiguous`, or `review_required`. Uncertainty or
 cross-source disagreement takes precedence over the ambiguous status; the boolean
@@ -158,3 +180,33 @@ or building map displays. Source-data licences remain separate from the MIT code
 Treat 401/403/404/409/412/422 as conditions to handle, not infinite retries. Retry
 429/503 with a bounded delay. Store consumer memberships locally, preserve manual
 overrides, and queue new classifications during an outage.
+
+## Ontario refresh semantics
+
+The Ontario refresh keeps all existing CSD and regional identities. Nine current
+municipal boundaries use full publisher geometry, with `boundary_source`,
+`boundary_source_ids`, `effective_date`, `previous_boundary_reference_date` and
+`comparison` metadata. Original national rows and previous immutable releases remain
+available for historical provenance. Every old/new boundary difference is indexed
+as uncertainty. A changed municipality can therefore appear in both
+`direct_match_ids` and `review_candidate_ids`: the first is its current full boundary,
+the second flags source/vintage disagreement at that point. An uncovered old extent
+returns review uncertainty rather than a confident absence of geography.
+
+`boundary_difference_review_count` counts available boundaries with these comparison
+polygons. `unavailable_geometries` counts unavailable assignment boundaries only.
+Seven original municipal repairs and their affected regional candidates remain
+unapproved. Updated regional outlines cannot approve an unresolved member repair.
+
+Ontario city areas expose `scheme`. Toronto's `former_municipality` and
+`neighbourhood` schemes are independent; both remain children of `ca-csd-3520005`.
+Matching one polygon in each scheme is expected and does not alone cause ambiguity.
+Same-scheme sibling overlaps still do. Hamilton communities contain neighbourhoods
+through explicit publisher parent attributes; follow `children` and `ancestors`.
+Ottawa's ONS study areas have neighbourhood scope, not every locally named community.
+
+Examples: `ca-on-3520005-former-01`, `ca-on-3506008-ons-3050`, and
+`ca-on-3525005-community-6`. The two Ottawa Greenbelt source polygons have
+`assignment_status: unreviewed_repair`: display candidates are available, full boundary
+requests return 409, and their bounding boxes flag uncertainty only. Current counts,
+coverage measurements and remaining gaps are in `coverage.ontario_refresh`.

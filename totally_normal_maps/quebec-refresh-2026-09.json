@@ -1,0 +1,3226 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-18",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "sources": {
+    "quebec-quartiers": {
+      "url": "https://www.donneesquebec.ca/recherche/dataset/5b1ae6f2-6719-46df-bd2f-e57a7034c917/resource/436c85aa-88d9-4e57-9095-b72b776a71a0/download/vdq-quartier.geojson",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+      "authority": "Ville de Québec",
+      "family": "Quartiers",
+      "release": "File modified 2026-09-13; effective boundary date unspecified",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "11ad73f93e201678f7a285696ca18edd04ece150b8b6e8058cafdf52f0cdf10f",
+      "id_field": "ID",
+      "name_field": "NOM",
+      "geojson_crs": null,
+      "expected_count": 35,
+      "identities": [
+        {
+          "source_id": "1",
+          "properties": {
+            "ID": 1,
+            "NOM": "Saint-Jean-Baptiste"
+          }
+        },
+        {
+          "source_id": "2",
+          "properties": {
+            "ID": 2,
+            "NOM": "Cap-Rouge"
+          }
+        },
+        {
+          "source_id": "3",
+          "properties": {
+            "ID": 3,
+            "NOM": "Cité-Universitaire"
+          }
+        },
+        {
+          "source_id": "4",
+          "properties": {
+            "ID": 4,
+            "NOM": "Vieux-Québec—Cap-Blanc—Colline parlementaire"
+          }
+        },
+        {
+          "source_id": "5",
+          "properties": {
+            "ID": 5,
+            "NOM": "Des Châtels"
+          }
+        },
+        {
+          "source_id": "6",
+          "properties": {
+            "ID": 6,
+            "NOM": "Duberger—Les Saules"
+          }
+        },
+        {
+          "source_id": "7",
+          "properties": {
+            "ID": 7,
+            "NOM": "L'Aéroport"
+          }
+        },
+        {
+          "source_id": "8",
+          "properties": {
+            "ID": 8,
+            "NOM": "Lac-Saint-Charles"
+          }
+        },
+        {
+          "source_id": "9",
+          "properties": {
+            "ID": 9,
+            "NOM": "Lairet"
+          }
+        },
+        {
+          "source_id": "10",
+          "properties": {
+            "ID": 10,
+            "NOM": "Vieux-Limoilou"
+          }
+        },
+        {
+          "source_id": "11",
+          "properties": {
+            "ID": 11,
+            "NOM": "Loretteville"
+          }
+        },
+        {
+          "source_id": "12",
+          "properties": {
+            "ID": 12,
+            "NOM": "Maizerets"
+          }
+        },
+        {
+          "source_id": "13",
+          "properties": {
+            "ID": 13,
+            "NOM": "Montcalm"
+          }
+        },
+        {
+          "source_id": "14",
+          "properties": {
+            "ID": 14,
+            "NOM": "Neufchatel Est—Lebourgneuf"
+          }
+        },
+        {
+          "source_id": "15",
+          "properties": {
+            "ID": 15,
+            "NOM": "Notre-Dame-des-Laurentides"
+          }
+        },
+        {
+          "source_id": "16",
+          "properties": {
+            "ID": 16,
+            "NOM": "Plateau"
+          }
+        },
+        {
+          "source_id": "17",
+          "properties": {
+            "ID": 17,
+            "NOM": "Saint-Louis"
+          }
+        },
+        {
+          "source_id": "18",
+          "properties": {
+            "ID": 18,
+            "NOM": "Pointe-de-Sainte-Foy"
+          }
+        },
+        {
+          "source_id": "19",
+          "properties": {
+            "ID": 19,
+            "NOM": "Orsainville"
+          }
+        },
+        {
+          "source_id": "20",
+          "properties": {
+            "ID": 20,
+            "NOM": "Quartier 4-3"
+          }
+        },
+        {
+          "source_id": "21",
+          "properties": {
+            "ID": 21,
+            "NOM": "Jésuites"
+          }
+        },
+        {
+          "source_id": "22",
+          "properties": {
+            "ID": 22,
+            "NOM": "Quartier 4-5"
+          }
+        },
+        {
+          "source_id": "23",
+          "properties": {
+            "ID": 23,
+            "NOM": "Quartier 4-6"
+          }
+        },
+        {
+          "source_id": "24",
+          "properties": {
+            "ID": 24,
+            "NOM": "Sainte-Thérèse-de-Lisieux"
+          }
+        },
+        {
+          "source_id": "25",
+          "properties": {
+            "ID": 25,
+            "NOM": "Quartier 5-2"
+          }
+        },
+        {
+          "source_id": "26",
+          "properties": {
+            "ID": 26,
+            "NOM": "Chutes-Montmorency"
+          }
+        },
+        {
+          "source_id": "27",
+          "properties": {
+            "ID": 27,
+            "NOM": "Vieux-Bourg"
+          }
+        },
+        {
+          "source_id": "28",
+          "properties": {
+            "ID": 28,
+            "NOM": "Saint-Émile"
+          }
+        },
+        {
+          "source_id": "29",
+          "properties": {
+            "ID": 29,
+            "NOM": "Saint-Sacrement"
+          }
+        },
+        {
+          "source_id": "30",
+          "properties": {
+            "ID": 30,
+            "NOM": "Saint-Roch"
+          }
+        },
+        {
+          "source_id": "31",
+          "properties": {
+            "ID": 31,
+            "NOM": "Saint-Sauveur"
+          }
+        },
+        {
+          "source_id": "32",
+          "properties": {
+            "ID": 32,
+            "NOM": "Sillery"
+          }
+        },
+        {
+          "source_id": "33",
+          "properties": {
+            "ID": 33,
+            "NOM": "Val-Bélair"
+          }
+        },
+        {
+          "source_id": "34",
+          "properties": {
+            "ID": 34,
+            "NOM": "Vanier"
+          }
+        },
+        {
+          "source_id": "35",
+          "properties": {
+            "ID": 35,
+            "NOM": "Vieux-Moulin"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "levis-secteurs": {
+      "url": "https://www.donneesquebec.ca/recherche/dataset/b68b2510-5704-48ba-95ca-cb2cf1c25d61/resource/daa9a1ef-23ad-4570-81ec-e613e9c7c37b/download/secteur.json",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+      "authority": "Ville de Lévis",
+      "family": "Secteur",
+      "release": "File modified 2022-05-16; effective boundary date unspecified",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "fee9b981d204f6e829c6f1a6fcd882bca23aa39374d3051c33531b18173e5791",
+      "id_field": "ID",
+      "name_field": "NOM",
+      "geojson_crs": null,
+      "expected_count": 10,
+      "identities": [
+        {
+          "source_id": "1",
+          "properties": {
+            "ID": 1,
+            "NOM": "Saint-Étienne-de-Lauzon"
+          }
+        },
+        {
+          "source_id": "2",
+          "properties": {
+            "ID": 2,
+            "NOM": "Saint-Nicolas"
+          }
+        },
+        {
+          "source_id": "3",
+          "properties": {
+            "ID": 3,
+            "NOM": "Saint-Rédempteur"
+          }
+        },
+        {
+          "source_id": "4",
+          "properties": {
+            "ID": 4,
+            "NOM": "Charny"
+          }
+        },
+        {
+          "source_id": "5",
+          "properties": {
+            "ID": 5,
+            "NOM": "Sainte-Hélène-de-Breakeyville"
+          }
+        },
+        {
+          "source_id": "6",
+          "properties": {
+            "ID": 6,
+            "NOM": "Saint-Jean-Chrysostome"
+          }
+        },
+        {
+          "source_id": "7",
+          "properties": {
+            "ID": 7,
+            "NOM": "Saint-Romuald"
+          }
+        },
+        {
+          "source_id": "8",
+          "properties": {
+            "ID": 8,
+            "NOM": "Lévis"
+          }
+        },
+        {
+          "source_id": "9",
+          "properties": {
+            "ID": 9,
+            "NOM": "Pintendre"
+          }
+        },
+        {
+          "source_id": "10",
+          "properties": {
+            "ID": 10,
+            "NOM": "Saint-Joseph-de-la-Pointe-De-Lévy"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "laval-quartiers": {
+      "url": "https://www.donneesquebec.ca/recherche/dataset/c06e074e-2ade-4cfa-a1cf-fcbc700cf1a8/resource/b02a7969-52de-435d-841f-ec7f47f48732/download/limiteanciennemunicipalite.geojson",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+      "authority": "Ville de Laval",
+      "family": "Limites des anciennes municipalités",
+      "release": "File modified 2017-02-13; effective boundary date unspecified",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "df1474e753e0e0a60fa6d6e49a2b70297add7c88150f952234701a0e9c94805a",
+      "id_field": "NOM",
+      "name_field": "NOM",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+      },
+      "expected_count": 14,
+      "identities": [
+        {
+          "source_id": "Laval-sur-le-Lac",
+          "properties": {
+            "NOM": "Laval-sur-le-Lac"
+          }
+        },
+        {
+          "source_id": "Sainte-Dorothée",
+          "properties": {
+            "NOM": "Sainte-Dorothée"
+          }
+        },
+        {
+          "source_id": "Pont-Viau",
+          "properties": {
+            "NOM": "Pont-Viau"
+          }
+        },
+        {
+          "source_id": "Sainte-Rose",
+          "properties": {
+            "NOM": "Sainte-Rose"
+          }
+        },
+        {
+          "source_id": "Saint-François",
+          "properties": {
+            "NOM": "Saint-François"
+          }
+        },
+        {
+          "source_id": "Vimont",
+          "properties": {
+            "NOM": "Vimont"
+          }
+        },
+        {
+          "source_id": "Duvernay",
+          "properties": {
+            "NOM": "Duvernay"
+          }
+        },
+        {
+          "source_id": "Fabreville",
+          "properties": {
+            "NOM": "Fabreville"
+          }
+        },
+        {
+          "source_id": "Auteuil",
+          "properties": {
+            "NOM": "Auteuil"
+          }
+        },
+        {
+          "source_id": "Îles-Laval",
+          "properties": {
+            "NOM": "Îles-Laval"
+          }
+        },
+        {
+          "source_id": "Laval-Ouest",
+          "properties": {
+            "NOM": "Laval-Ouest"
+          }
+        },
+        {
+          "source_id": "Saint-Vincent-de-Paul",
+          "properties": {
+            "NOM": "Saint-Vincent-de-Paul"
+          }
+        },
+        {
+          "source_id": "Laval-des-Rapides",
+          "properties": {
+            "NOM": "Laval-des-Rapides"
+          }
+        },
+        {
+          "source_id": "Chomedey",
+          "properties": {
+            "NOM": "Chomedey"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "trois-rivieres-quartiers": {
+      "url": "https://www.donneesquebec.ca/recherche/dataset/a7383b8a-4ebf-4e2d-ac31-2c9fa3050f06/resource/7a144527-1c93-4e01-949b-4b78fe4d4288/download/quartier-nom-populaire-v3r.json",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+      "authority": "Ville de Trois-Rivières",
+      "family": "Quartier (nom populaire)",
+      "release": "File modified 2026-09-01; effective boundary date unspecified",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "b3b5f0d3ca6642cbc327bab405f4660b4a1f0aac4bb9d35bd99e6aa2b26b20e3",
+      "id_field": "ID",
+      "name_field": "NOM",
+      "geojson_crs": null,
+      "expected_count": 29,
+      "identities": [
+        {
+          "source_id": "30",
+          "properties": {
+            "ID": 30,
+            "NOM": "Saint-François-d'Assise"
+          }
+        },
+        {
+          "source_id": "31",
+          "properties": {
+            "ID": 31,
+            "NOM": "Trois-Rivières sur Saint-Laurent"
+          }
+        },
+        {
+          "source_id": "32",
+          "properties": {
+            "ID": 32,
+            "NOM": "Saint-Patrick"
+          }
+        },
+        {
+          "source_id": "33",
+          "properties": {
+            "ID": 33,
+            "NOM": "Sainte-Cécile"
+          }
+        },
+        {
+          "source_id": "34",
+          "properties": {
+            "ID": 34,
+            "NOM": "Centre-Ville"
+          }
+        },
+        {
+          "source_id": "35",
+          "properties": {
+            "ID": 35,
+            "NOM": "De Sienne"
+          }
+        },
+        {
+          "source_id": "36",
+          "properties": {
+            "ID": 36,
+            "NOM": "Sainte-Marguerite"
+          }
+        },
+        {
+          "source_id": "37",
+          "properties": {
+            "ID": 37,
+            "NOM": "Normanville"
+          }
+        },
+        {
+          "source_id": "38",
+          "properties": {
+            "ID": 38,
+            "NOM": "Terrasse Duvernay"
+          }
+        },
+        {
+          "source_id": "39",
+          "properties": {
+            "ID": 39,
+            "NOM": "du Monarque"
+          }
+        },
+        {
+          "source_id": "40",
+          "properties": {
+            "ID": 40,
+            "NOM": "Chavigny"
+          }
+        },
+        {
+          "source_id": "41",
+          "properties": {
+            "ID": 41,
+            "NOM": "Saint-Odilon"
+          }
+        },
+        {
+          "source_id": "42",
+          "properties": {
+            "ID": 42,
+            "NOM": "Bas-du-Cap"
+          }
+        },
+        {
+          "source_id": "43",
+          "properties": {
+            "ID": 43,
+            "NOM": "Sainte-Marthe"
+          }
+        },
+        {
+          "source_id": "44",
+          "properties": {
+            "ID": 44,
+            "NOM": "Saint-Louis-de-France"
+          }
+        },
+        {
+          "source_id": "45",
+          "properties": {
+            "ID": 45,
+            "NOM": "Des Ormeaux"
+          }
+        },
+        {
+          "source_id": "46",
+          "properties": {
+            "ID": 46,
+            "NOM": "Pointe-du-Lac Nord"
+          }
+        },
+        {
+          "source_id": "47",
+          "properties": {
+            "ID": 47,
+            "NOM": "Sainte-Bernadette"
+          }
+        },
+        {
+          "source_id": "48",
+          "properties": {
+            "ID": 48,
+            "NOM": "Quartier Universitaire"
+          }
+        },
+        {
+          "source_id": "49",
+          "properties": {
+            "ID": 49,
+            "NOM": "Parc Isabeau"
+          }
+        },
+        {
+          "source_id": "50",
+          "properties": {
+            "ID": 50,
+            "NOM": "Parent"
+          }
+        },
+        {
+          "source_id": "51",
+          "properties": {
+            "ID": 51,
+            "NOM": "Vieilles-Forges / Saint-Jean"
+          }
+        },
+        {
+          "source_id": "52",
+          "properties": {
+            "ID": 52,
+            "NOM": "Terrasses du Fleuve"
+          }
+        },
+        {
+          "source_id": "53",
+          "properties": {
+            "ID": 53,
+            "NOM": "Saint-Philippe"
+          }
+        },
+        {
+          "source_id": "54",
+          "properties": {
+            "ID": 54,
+            "NOM": "Saint-Sacrement"
+          }
+        },
+        {
+          "source_id": "55",
+          "properties": {
+            "ID": 55,
+            "NOM": "Les Rivières"
+          }
+        },
+        {
+          "source_id": "56",
+          "properties": {
+            "ID": 56,
+            "NOM": "Jean-XXIII"
+          }
+        },
+        {
+          "source_id": "57",
+          "properties": {
+            "ID": 57,
+            "NOM": "Baie-Jolie"
+          }
+        },
+        {
+          "source_id": "58",
+          "properties": {
+            "ID": 58,
+            "NOM": "Pointe-du-Lac Sud"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "municipality-14082": {
+      "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO+%3D+%2714082%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_DES%2CMUS_CO_REG%2CMUS_CO_VER&outSR=4326&returnGeometry=true&f=geojson",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+      "authority": "Québec MRNF",
+      "family": "SDA municipal boundaries",
+      "release": "V2026-08",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "b991c5384be6d6fa42c3915a875ae3cec009783a70dfa0f75f9d41948ae4dd44",
+      "id_field": "MUS_CO_GEO",
+      "name_field": "MUS_NM_MUN",
+      "expected_count": 1,
+      "identities": [
+        {
+          "source_id": "14082",
+          "properties": {
+            "MUS_CO_GEO": "14082",
+            "MUS_NM_MUN": "La Pocatière",
+            "MUS_CO_DES": "V",
+            "MUS_CO_REG": "01",
+            "MUS_CO_VER": "V2026-08"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Gouvernement du Québec",
+          "url": "https://www.lapocatiere.ca/regroupement-de-la-ville-de-la-pocatiere-de-la-paroisse-de-sainte-anne-de-la-pocatiere-et-de-la-municipalite-de-saint-onesime-dixworth/",
+          "claim": "Municipal merger, predecessor identities and effective date.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Québec MRNF",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+          "claim": "Official municipal code, current name, regional membership and full SDA V2026-08 polygon.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "municipality-93022": {
+      "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO+%3D+%2793022%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_DES%2CMUS_CO_REG%2CMUS_CO_VER&outSR=4326&returnGeometry=true&f=geojson",
+      "dataset_url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+      "authority": "Québec MRNF",
+      "family": "SDA municipal boundaries",
+      "release": "V2026-08",
+      "retrieved_on": "2026-09-18",
+      "licence": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "a57ab1f8e48b7fee8755bc84acd3f617d166c9eb9d33fe93067105ea72e3e806",
+      "id_field": "MUS_CO_GEO",
+      "name_field": "MUS_NM_MUN",
+      "expected_count": 1,
+      "identities": [
+        {
+          "source_id": "93022",
+          "properties": {
+            "MUS_CO_GEO": "93022",
+            "MUS_NM_MUN": "Hébertville",
+            "MUS_CO_DES": "M",
+            "MUS_CO_REG": "02",
+            "MUS_CO_VER": "V2026-08"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Gouvernement du Québec",
+          "url": "https://www.quebec.ca/nouvelles/actualites/details/saint-bruno-hebertville-et-hebertville-station-se-regroupent-et-consolident-leurs-services",
+          "claim": "Municipal merger, predecessor identities and effective date.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Québec MRNF",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+          "claim": "Official municipal code, current name, regional membership and full SDA V2026-08 polygon.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  },
+  "mergers": [
+    {
+      "id": "ca-qc-mun-14082",
+      "source_id": "14082",
+      "source": "municipality-14082",
+      "name": "La Pocatière",
+      "type": "V",
+      "region_id": "ca-qc-ra-01",
+      "predecessor_csd_ids": [
+        "2414085",
+        "2414090",
+        "2414080"
+      ],
+      "effective_date": "2025-09-03",
+      "evidence": [
+        {
+          "publisher": "Ville de La Pocatière (Québec government announcement)",
+          "url": "https://www.lapocatiere.ca/regroupement-de-la-ville-de-la-pocatiere-de-la-paroisse-de-sainte-anne-de-la-pocatiere-et-de-la-municipalite-de-saint-onesime-dixworth/",
+          "claim": "Municipal merger, predecessor identities and effective date.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Québec MRNF",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+          "claim": "Official municipal code, current name, regional membership and full SDA V2026-08 polygon.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-mun-93022",
+      "source_id": "93022",
+      "source": "municipality-93022",
+      "name": "Hébertville",
+      "type": "M",
+      "region_id": "ca-qc-ra-02",
+      "predecessor_csd_ids": [
+        "2493020",
+        "2493025",
+        "2493030"
+      ],
+      "effective_date": "2026-01-01",
+      "evidence": [
+        {
+          "publisher": "Gouvernement du Québec",
+          "url": "https://www.quebec.ca/nouvelles/actualites/details/saint-bruno-hebertville-et-hebertville-station-se-regroupent-et-consolident-leurs-services",
+          "claim": "Municipal merger, predecessor identities and effective date.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Québec MRNF",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs",
+          "claim": "Official municipal code, current name, regional membership and full SDA V2026-08 polygon.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  ],
+  "names": [
+    {
+      "csd_id": "2409020",
+      "source_name": "Sainte-Jeanne-d'Arc",
+      "name": "Sainte-Jeanne-d'Arc-de-la-Mitis",
+      "aliases": [],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 09020. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2414045",
+      "source_name": "Saint-Germain",
+      "name": "Saint-Germain-de-Kamouraska",
+      "aliases": [],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 14045. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2438802",
+      "source_name": "Wôlinak 11",
+      "name": "Wôlinak 11",
+      "aliases": [
+        "Wôlinak"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 38802. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2462802",
+      "source_name": "Communauté Atikamekw de Manawan",
+      "name": "Communauté Atikamekw de Manawan",
+      "aliases": [
+        "Manawan"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 62802. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2490802",
+      "source_name": "Communauté de Wemotaci",
+      "name": "Communauté de Wemotaci",
+      "aliases": [
+        "Wemotaci"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 90802. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2490804",
+      "source_name": "Obedjiwan 28",
+      "name": "Obedjiwan 28",
+      "aliases": [
+        "Obedjiwan"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 90804. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2497802",
+      "source_name": "Uashat 27",
+      "name": "Uashat 27",
+      "aliases": [
+        "Uashat"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 97802. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2498804",
+      "source_name": "Romaine 2",
+      "name": "Romaine 2",
+      "aliases": [
+        "La Romaine"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 98804. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "csd_id": "2498806",
+      "source_name": "Nutashkuan",
+      "name": "Nutashkuan",
+      "aliases": [
+        "Natashquan"
+      ],
+      "evidence": [
+        {
+          "publisher": "Québec MAMH",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/repertoire-des-municipalites-du-quebec",
+          "claim": "Current municipal register checked by geographic code 98806. Source-specific Indigenous land names are retained and provincial names are searchable aliases.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "id": "ca-qc-2423027-quartier-1",
+      "source": "quebec-quartiers",
+      "source_id": "1",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Jean-Baptiste",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-2",
+      "source": "quebec-quartiers",
+      "source_id": "2",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Cap-Rouge",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-3",
+      "source": "quebec-quartiers",
+      "source_id": "3",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Cité-Universitaire",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-4",
+      "source": "quebec-quartiers",
+      "source_id": "4",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Vieux-Québec—Cap-Blanc—Colline parlementaire",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-5",
+      "source": "quebec-quartiers",
+      "source_id": "5",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Des Châtels",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req06"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-6",
+      "source": "quebec-quartiers",
+      "source_id": "6",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Duberger—Les Saules",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req02"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-7",
+      "source": "quebec-quartiers",
+      "source_id": "7",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "L'Aéroport",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-8",
+      "source": "quebec-quartiers",
+      "source_id": "8",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Lac-Saint-Charles",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req06"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-9",
+      "source": "quebec-quartiers",
+      "source_id": "9",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Lairet",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-10",
+      "source": "quebec-quartiers",
+      "source_id": "10",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Vieux-Limoilou",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-11",
+      "source": "quebec-quartiers",
+      "source_id": "11",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Loretteville",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req06"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-12",
+      "source": "quebec-quartiers",
+      "source_id": "12",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Maizerets",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-13",
+      "source": "quebec-quartiers",
+      "source_id": "13",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Montcalm",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-14",
+      "source": "quebec-quartiers",
+      "source_id": "14",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Neufchatel Est—Lebourgneuf",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req02",
+      "aliases": [
+        "Neufchâtel Est–Lebourgneuf"
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-15",
+      "source": "quebec-quartiers",
+      "source_id": "15",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Notre-Dame-des-Laurentides",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-16",
+      "source": "quebec-quartiers",
+      "source_id": "16",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Plateau",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-17",
+      "source": "quebec-quartiers",
+      "source_id": "17",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Louis",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-18",
+      "source": "quebec-quartiers",
+      "source_id": "18",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Pointe-de-Sainte-Foy",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-19",
+      "source": "quebec-quartiers",
+      "source_id": "19",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Orsainville",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-20",
+      "source": "quebec-quartiers",
+      "source_id": "20",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Quartier 4-3",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04",
+      "aliases": [
+        "Bourg-Royal"
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-21",
+      "source": "quebec-quartiers",
+      "source_id": "21",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Jésuites",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-22",
+      "source": "quebec-quartiers",
+      "source_id": "22",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Quartier 4-5",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04",
+      "aliases": [
+        "Saint-Charles-Borromée"
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-23",
+      "source": "quebec-quartiers",
+      "source_id": "23",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Quartier 4-6",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req04",
+      "aliases": [
+        "Saint-Rodrigue"
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-24",
+      "source": "quebec-quartiers",
+      "source_id": "24",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Sainte-Thérèse-de-Lisieux",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req05"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-25",
+      "source": "quebec-quartiers",
+      "source_id": "25",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Quartier 5-2",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req05",
+      "aliases": [
+        "Saint-Michel"
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-26",
+      "source": "quebec-quartiers",
+      "source_id": "26",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Chutes-Montmorency",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req05"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-27",
+      "source": "quebec-quartiers",
+      "source_id": "27",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Vieux-Bourg",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req05"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-28",
+      "source": "quebec-quartiers",
+      "source_id": "28",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Émile",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req06"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-29",
+      "source": "quebec-quartiers",
+      "source_id": "29",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Sacrement",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-30",
+      "source": "quebec-quartiers",
+      "source_id": "30",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Roch",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-31",
+      "source": "quebec-quartiers",
+      "source_id": "31",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Saint-Sauveur",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req01",
+      "parent_outside_limit": 0.17,
+      "parent_exception_evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Saint-Sauveur belongs to La Cité-Limoilou. The quartier polygon extends about 16.38% outside the SDA arrondissement; identity is retained and disagreement stays review-required. This exception is specific to these pinned sources.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2423027-quartier-32",
+      "source": "quebec-quartiers",
+      "source_id": "32",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Sillery",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req03"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-33",
+      "source": "quebec-quartiers",
+      "source_id": "33",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Val-Bélair",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req06"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-34",
+      "source": "quebec-quartiers",
+      "source_id": "34",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Vanier",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req02"
+    },
+    {
+      "id": "ca-qc-2423027-quartier-35",
+      "source": "quebec-quartiers",
+      "source_id": "35",
+      "parent_csd_id": "2423027",
+      "parent_name": "Québec",
+      "name": "Vieux-Moulin",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/vque_9",
+          "claim": "Cartographie des quartiers de la Ville de Québec.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Québec",
+          "url": "https://www.ville.quebec.qc.ca/apropos/portrait/quelques_chiffres/quartiers/index.aspx",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-req05"
+    },
+    {
+      "id": "ca-qc-2425213-sector-1",
+      "source": "levis-secteurs",
+      "source_id": "1",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Étienne-de-Lauzon",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea03"
+    },
+    {
+      "id": "ca-qc-2425213-sector-2",
+      "source": "levis-secteurs",
+      "source_id": "2",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Nicolas",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea03"
+    },
+    {
+      "id": "ca-qc-2425213-sector-3",
+      "source": "levis-secteurs",
+      "source_id": "3",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Rédempteur",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea03"
+    },
+    {
+      "id": "ca-qc-2425213-sector-4",
+      "source": "levis-secteurs",
+      "source_id": "4",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Charny",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea02"
+    },
+    {
+      "id": "ca-qc-2425213-sector-5",
+      "source": "levis-secteurs",
+      "source_id": "5",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Sainte-Hélène-de-Breakeyville",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea02"
+    },
+    {
+      "id": "ca-qc-2425213-sector-6",
+      "source": "levis-secteurs",
+      "source_id": "6",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Jean-Chrysostome",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea02"
+    },
+    {
+      "id": "ca-qc-2425213-sector-7",
+      "source": "levis-secteurs",
+      "source_id": "7",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Romuald",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea02"
+    },
+    {
+      "id": "ca-qc-2425213-sector-8",
+      "source": "levis-secteurs",
+      "source_id": "8",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Lévis",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea01"
+    },
+    {
+      "id": "ca-qc-2425213-sector-9",
+      "source": "levis-secteurs",
+      "source_id": "9",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Pintendre",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea01"
+    },
+    {
+      "id": "ca-qc-2425213-sector-10",
+      "source": "levis-secteurs",
+      "source_id": "10",
+      "parent_csd_id": "2425213",
+      "parent_name": "Lévis",
+      "name": "Saint-Joseph-de-la-Pointe-De-Lévy",
+      "kind": "sector",
+      "type": "Secteur",
+      "evidence": [
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/secteur-levis",
+          "claim": "Limites administratives des secteurs de la ville de Lévis. Les secteurs correspondent aux limites des anciennes municipalités avant la fusion de 2001.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Lévis",
+          "url": "https://levis.ca/fr/ville/decouvrir-levis/presentation-de-la-ville",
+          "claim": "Explicit arrondissement membership, independently cross-checked by full polygon intersection; source drift is not clipped.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_area_id": "ca-qc-arr-rea01"
+    },
+    {
+      "id": "ca-qc-2465005-quartier-laval-sur-le-lac",
+      "source": "laval-quartiers",
+      "source_id": "Laval-sur-le-Lac",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Laval-sur-le-Lac",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-sainte-dorothee",
+      "source": "laval-quartiers",
+      "source_id": "Sainte-Dorothée",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Sainte-Dorothée",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-pont-viau",
+      "source": "laval-quartiers",
+      "source_id": "Pont-Viau",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Pont-Viau",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-sainte-rose",
+      "source": "laval-quartiers",
+      "source_id": "Sainte-Rose",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Sainte-Rose",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-saint-francois",
+      "source": "laval-quartiers",
+      "source_id": "Saint-François",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Saint-François",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-vimont",
+      "source": "laval-quartiers",
+      "source_id": "Vimont",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Vimont",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-duvernay",
+      "source": "laval-quartiers",
+      "source_id": "Duvernay",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Duvernay",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-fabreville",
+      "source": "laval-quartiers",
+      "source_id": "Fabreville",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Fabreville",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-auteuil",
+      "source": "laval-quartiers",
+      "source_id": "Auteuil",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Auteuil",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-iles-laval",
+      "source": "laval-quartiers",
+      "source_id": "Îles-Laval",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Îles-Laval",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-laval-ouest",
+      "source": "laval-quartiers",
+      "source_id": "Laval-Ouest",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Laval-Ouest",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-saint-vincent-de-paul",
+      "source": "laval-quartiers",
+      "source_id": "Saint-Vincent-de-Paul",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Saint-Vincent-de-Paul",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-laval-des-rapides",
+      "source": "laval-quartiers",
+      "source_id": "Laval-des-Rapides",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Laval-des-Rapides",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2465005-quartier-chomedey",
+      "source": "laval-quartiers",
+      "source_id": "Chomedey",
+      "parent_csd_id": "2465005",
+      "parent_name": "Laval",
+      "name": "Chomedey",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites",
+          "claim": "Délimitation des anciennes municipalités avant la fusion de 1965 pour constituer ce qui est aujourd'hui la Ville de Laval.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "Ville de Laval",
+          "url": "https://www.laval.ca/wp-content/uploads/2025/02/portrait-sociodemographique-jeunes.pdf",
+          "claim": "The fourteen quartiers correspond to the former municipalities, separate from the six planning sectors.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-30",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "30",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-François-d'Assise",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-31",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "31",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Trois-Rivières sur Saint-Laurent",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-32",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "32",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-Patrick",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-33",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "33",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Sainte-Cécile",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-34",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "34",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Centre-Ville",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-35",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "35",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "De Sienne",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-36",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "36",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Sainte-Marguerite",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-37",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "37",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Normanville",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-38",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "38",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Terrasse Duvernay",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-39",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "39",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "du Monarque",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-40",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "40",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Chavigny",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-41",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "41",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-Odilon",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-42",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "42",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Bas-du-Cap",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-43",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "43",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Sainte-Marthe",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-44",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "44",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-Louis-de-France",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-45",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "45",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Des Ormeaux",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-46",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "46",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Pointe-du-Lac Nord",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-47",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "47",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Sainte-Bernadette",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-48",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "48",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Quartier Universitaire",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-49",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "49",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Parc Isabeau",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-50",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "50",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Parent",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-51",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "51",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Vieilles-Forges / Saint-Jean",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-52",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "52",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Terrasses du Fleuve",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-53",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "53",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-Philippe",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-54",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "54",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Saint-Sacrement",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-55",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "55",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Les Rivières",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-56",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "56",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Jean-XXIII",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-57",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "57",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Baie-Jolie",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2437067-quartier-58",
+      "source": "trois-rivieres-quartiers",
+      "source_id": "58",
+      "parent_csd_id": "2437067",
+      "parent_name": "Trois-Rivières",
+      "name": "Pointe-du-Lac Sud",
+      "kind": "quartier",
+      "type": "Quartier",
+      "evidence": [
+        {
+          "publisher": "Ville de Trois-Rivières",
+          "url": "https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r",
+          "claim": "Quartier (nom populaire) de la Ville de Trois-Rivières.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2464008-sector-terrebonne",
+      "source_id": "terrebonne",
+      "source": null,
+      "parent_csd_id": "2464008",
+      "parent_name": "Terrebonne",
+      "name": "Terrebonne",
+      "kind": "sector",
+      "type": "Secteur",
+      "geometry_status": "unavailable",
+      "coverage_note": "Recognized sector; a complete reusable boundary source is still required. No outline or automatic assignment is provided.",
+      "evidence": [
+        {
+          "publisher": "Ville de Terrebonne",
+          "url": "https://terrebonne.ca/wp-content/uploads/2026/01/reglement-1000-plan-urbanisme.pdf",
+          "claim": "Terrebonne, Lachenaie and La Plaine are the three former-city sectors. No complete licensed polygon source has been qualified in this release.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2464008-sector-lachenaie",
+      "source_id": "lachenaie",
+      "source": null,
+      "parent_csd_id": "2464008",
+      "parent_name": "Terrebonne",
+      "name": "Lachenaie",
+      "kind": "sector",
+      "type": "Secteur",
+      "geometry_status": "unavailable",
+      "coverage_note": "Recognized sector; a complete reusable boundary source is still required. No outline or automatic assignment is provided.",
+      "evidence": [
+        {
+          "publisher": "Ville de Terrebonne",
+          "url": "https://terrebonne.ca/wp-content/uploads/2026/01/reglement-1000-plan-urbanisme.pdf",
+          "claim": "Terrebonne, Lachenaie and La Plaine are the three former-city sectors. No complete licensed polygon source has been qualified in this release.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "ca-qc-2464008-sector-la-plaine",
+      "source_id": "la-plaine",
+      "source": null,
+      "parent_csd_id": "2464008",
+      "parent_name": "Terrebonne",
+      "name": "La Plaine",
+      "kind": "sector",
+      "type": "Secteur",
+      "geometry_status": "unavailable",
+      "coverage_note": "Recognized sector; a complete reusable boundary source is still required. No outline or automatic assignment is provided.",
+      "evidence": [
+        {
+          "publisher": "Ville de Terrebonne",
+          "url": "https://terrebonne.ca/wp-content/uploads/2026/01/reglement-1000-plan-urbanisme.pdf",
+          "claim": "Terrebonne, Lachenaie and La Plaine are the three former-city sectors. No complete licensed polygon source has been qualified in this release.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "parent_csd_id": "2423027",
+      "name": "Québec",
+      "source": "quebec-quartiers",
+      "expected_count": 35,
+      "coverage_policy": "citywide",
+      "coverage_note": "Full source polygons retained; differences from the national municipal outline remain review-required."
+    },
+    {
+      "parent_csd_id": "2425213",
+      "name": "Lévis",
+      "source": "levis-secteurs",
+      "expected_count": 10,
+      "coverage_policy": "citywide",
+      "coverage_note": "Full source polygons retained; differences from the national municipal outline remain review-required."
+    },
+    {
+      "parent_csd_id": "2465005",
+      "name": "Laval",
+      "source": "laval-quartiers",
+      "expected_count": 14,
+      "coverage_policy": "citywide",
+      "coverage_note": "Full source polygons retained; differences from the national municipal outline remain review-required."
+    },
+    {
+      "parent_csd_id": "2437067",
+      "name": "Trois-Rivières",
+      "source": "trois-rivieres-quartiers",
+      "expected_count": 29,
+      "coverage_policy": "partial",
+      "coverage_note": "The publisher’s named quartiers cover approximately 85.7% of the StatCan municipal outline. Uncovered land or water is not assigned an invented quartier."
+    },
+    {
+      "parent_csd_id": "2464008",
+      "name": "Terrebonne",
+      "source": null,
+      "expected_count": 3,
+      "coverage_policy": "unavailable",
+      "coverage_note": "Three documented identities; sector boundaries remain unavailable."
+    }
+  ],
+  "repair_review": [
+    {
+      "csd_id": "2423027",
+      "name": "Québec",
+      "decision": "retain_unapproved_repair",
+      "source_holes": 4,
+      "candidate_holes": 5,
+      "reason": "Candidate changes hole topology. Cross-vintage agreement is insufficient to approve the original repair.",
+      "reference_symmetric_difference_m2": 7015752.686034155,
+      "reference_difference_fraction": 0.014265451010629555,
+      "reference_source": {
+        "authority": "Québec MRNF",
+        "release": "SDA V2026-08",
+        "licence": "https://creativecommons.org/licenses/by/4.0/",
+        "sha256": "033196f981d306b77ed535906db37080dc7a17927713d440b12e0fbb245d72e7",
+        "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO+%3D+%2723027%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_DES%2CMUS_CO_REG%2CMUS_CO_VER&outSR=4326&returnGeometry=true&f=geojson"
+      }
+    },
+    {
+      "csd_id": "2472032",
+      "name": "Oka",
+      "decision": "retain_unapproved_repair",
+      "source_holes": 10,
+      "candidate_holes": 12,
+      "reason": "Candidate changes hole topology. Cross-vintage agreement is insufficient to approve the original repair.",
+      "reference_symmetric_difference_m2": 7185785.148751953,
+      "reference_difference_fraction": 0.08034611991359308,
+      "reference_source": {
+        "authority": "Québec MRNF",
+        "release": "SDA V2026-08",
+        "licence": "https://creativecommons.org/licenses/by/4.0/",
+        "sha256": "94e34c7121eae6a4dcee60a02e8223406432ceb67a20ad8fa88ebc74a7b1762d",
+        "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO+%3D+%2772032%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_DES%2CMUS_CO_REG%2CMUS_CO_VER&outSR=4326&returnGeometry=true&f=geojson"
+      }
+    },
+    {
+      "csd_id": "2485090",
+      "name": "Notre-Dame-du-Nord",
+      "decision": "retain_unapproved_repair",
+      "source_holes": 3,
+      "candidate_holes": 5,
+      "reason": "Candidate changes hole topology. Cross-vintage agreement is insufficient to approve the original repair.",
+      "reference_symmetric_difference_m2": 2329330.0166833205,
+      "reference_difference_fraction": 0.025697188537655357,
+      "reference_source": {
+        "authority": "Québec MRNF",
+        "release": "SDA V2026-08",
+        "licence": "https://creativecommons.org/licenses/by/4.0/",
+        "sha256": "b2cbc72b8fd67e95f63925d6894ce5fa210b9d3fe319df6258a140c61c216cc1",
+        "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO+%3D+%2785090%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_DES%2CMUS_CO_REG%2CMUS_CO_VER&outSR=4326&returnGeometry=true&f=geojson"
+      }
+    },
+    {
+      "csd_id": "2498015",
+      "name": "Côte-Nord-du-Golfe-du-Saint-Laurent",
+      "decision": "retain_unapproved_repair",
+      "source_holes": 1,
+      "candidate_holes": 2,
+      "reason": "Candidate changes hole topology. Cross-vintage agreement is insufficient to approve the original repair.",
+      "reference_comparison": "Complete native ArcGIS JSON polygon (425109 vertices, EPSG:3857); incomplete GeoJSON response rejected. Major source-boundary disagreement remains unresolved.",
+      "reference_source": {
+        "authority": "Québec MRNF",
+        "release": "SDA V2026-08",
+        "licence": "https://creativecommons.org/licenses/by/4.0/",
+        "sha256": "c495219a197e6710d70cd7fe1df42a870bf70621c70238e8ced98d7de32b4187",
+        "url": "https://servicescarto.mern.gouv.qc.ca/pes/rest/services/Territoire/SDA_WMS/MapServer/2/query?where=MUS_CO_GEO%3D%2798015%27&outFields=MUS_CO_GEO%2CMUS_NM_MUN%2CMUS_CO_VER&returnGeometry=true&f=json"
+      },
+      "reference_symmetric_difference_m2": 15580491847.376762,
+      "reference_difference_fraction": 0.843521031246338
+    }
+  ],
+  "unresolved": [
+    {
+      "scope": "Terrebonne sectors",
+      "status": "boundary_source_required",
+      "ids": [
+        "ca-qc-2464008-sector-terrebonne",
+        "ca-qc-2464008-sector-lachenaie",
+        "ca-qc-2464008-sector-la-plaine"
+      ],
+      "reason": "Names verified; reusable full-resolution polygons not qualified."
+    },
+    {
+      "scope": "Québec municipal/statistical reconciliation",
+      "status": "review_required",
+      "provincial_only_codes": [
+        "12802",
+        "12804",
+        "90801",
+        "99820",
+        "99908",
+        "99910",
+        "99914",
+        "99916",
+        "99918",
+        "99920",
+        "99922",
+        "99924"
+      ],
+      "national_only_codes": [
+        "2472802",
+        "2485803",
+        "2485804",
+        "2489802",
+        "2498802"
+      ],
+      "reason": "Indigenous land and unorganized territory definitions differ between sources. These are source-identity differences, not proof of vacant land; no jurisdiction or territory is inferred."
+    },
+    {
+      "scope": "Québec municipal repairs",
+      "status": "unapproved",
+      "ids": [
+        "ca-csd-2423027",
+        "ca-csd-2472032",
+        "ca-csd-2485090",
+        "ca-csd-2498015"
+      ],
+      "reason": "Full repair review retained; original candidates have not been promoted."
+    }
+  ]
+}

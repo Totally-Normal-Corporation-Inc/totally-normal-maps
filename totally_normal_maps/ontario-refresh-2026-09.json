@@ -1,0 +1,4738 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-18",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "sources": {
+    "toronto-former": {
+      "authority": "City of Toronto",
+      "family": "Former Municipality Boundaries",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/833937f6-e190-49a2-9835-80137cf88c41/resource/4eadc3a3-bafa-44cf-a43f-f99a7fa98eb4/download/former-municipality-boundaries-data-4326.geojson",
+      "dataset_url": "https://open.toronto.ca/dataset/former-municipality-boundaries/",
+      "licence": "https://open.toronto.ca/open-data-licence/",
+      "sha256": "ac994d183911a5b4f6f7d3e185c5beebcc4c5da40f09e9df5b2631bad0b28101",
+      "id_field": "AREA_SHORT_CODE",
+      "name_field": "AREA_NAME",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+      },
+      "expected_count": 6,
+      "identities": [
+        {
+          "source_id": "14",
+          "properties": {
+            "AREA_SHORT_CODE": "14",
+            "AREA_NAME": "YORK"
+          }
+        },
+        {
+          "source_id": "08",
+          "properties": {
+            "AREA_SHORT_CODE": "08",
+            "AREA_NAME": "NORTH YORK"
+          }
+        },
+        {
+          "source_id": "06",
+          "properties": {
+            "AREA_SHORT_CODE": "06",
+            "AREA_NAME": "EAST YORK"
+          }
+        },
+        {
+          "source_id": "01",
+          "properties": {
+            "AREA_SHORT_CODE": "01",
+            "AREA_NAME": "SCARBOROUGH"
+          }
+        },
+        {
+          "source_id": "19",
+          "properties": {
+            "AREA_SHORT_CODE": "19",
+            "AREA_NAME": "ETOBICOKE"
+          }
+        },
+        {
+          "source_id": "04",
+          "properties": {
+            "AREA_SHORT_CODE": "04",
+            "AREA_NAME": "TORONTO"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "City of Toronto",
+          "url": "https://open.toronto.ca/dataset/former-municipality-boundaries/",
+          "claim": "Former Municipality Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "toronto-neighbourhoods": {
+      "authority": "City of Toronto",
+      "family": "Neighbourhoods (158)",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/fc443770-ef0a-4025-9c2c-2cb558bfab00/resource/0719053b-28b7-48ea-b863-068823a93aaa/download/neighbourhoods-4326.geojson",
+      "dataset_url": "https://open.toronto.ca/dataset/neighbourhoods/",
+      "licence": "https://open.toronto.ca/open-data-licence/",
+      "sha256": "b0cb58077f5b3a47e0e56a68913c6980cfaf39d37d7d020fd91b60650c480233",
+      "id_field": "AREA_SHORT_CODE",
+      "name_field": "AREA_NAME",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+      },
+      "expected_count": 158,
+      "identities": [
+        {
+          "source_id": "174",
+          "properties": {
+            "AREA_SHORT_CODE": "174",
+            "AREA_NAME": "South Eglinton-Davisville"
+          }
+        },
+        {
+          "source_id": "173",
+          "properties": {
+            "AREA_SHORT_CODE": "173",
+            "AREA_NAME": "North Toronto"
+          }
+        },
+        {
+          "source_id": "172",
+          "properties": {
+            "AREA_SHORT_CODE": "172",
+            "AREA_NAME": "Dovercourt Village"
+          }
+        },
+        {
+          "source_id": "171",
+          "properties": {
+            "AREA_SHORT_CODE": "171",
+            "AREA_NAME": "Junction-Wallace Emerson"
+          }
+        },
+        {
+          "source_id": "170",
+          "properties": {
+            "AREA_SHORT_CODE": "170",
+            "AREA_NAME": "Yonge-Bay Corridor"
+          }
+        },
+        {
+          "source_id": "169",
+          "properties": {
+            "AREA_SHORT_CODE": "169",
+            "AREA_NAME": "Bay-Cloverhill"
+          }
+        },
+        {
+          "source_id": "156",
+          "properties": {
+            "AREA_SHORT_CODE": "156",
+            "AREA_NAME": "Bendale-Glen Andrew"
+          }
+        },
+        {
+          "source_id": "155",
+          "properties": {
+            "AREA_SHORT_CODE": "155",
+            "AREA_NAME": "Downsview"
+          }
+        },
+        {
+          "source_id": "154",
+          "properties": {
+            "AREA_SHORT_CODE": "154",
+            "AREA_NAME": "Oakdale-Beverley Heights"
+          }
+        },
+        {
+          "source_id": "153",
+          "properties": {
+            "AREA_SHORT_CODE": "153",
+            "AREA_NAME": "Avondale"
+          }
+        },
+        {
+          "source_id": "152",
+          "properties": {
+            "AREA_SHORT_CODE": "152",
+            "AREA_NAME": "East Willowdale"
+          }
+        },
+        {
+          "source_id": "151",
+          "properties": {
+            "AREA_SHORT_CODE": "151",
+            "AREA_NAME": "Yonge-Doris"
+          }
+        },
+        {
+          "source_id": "150",
+          "properties": {
+            "AREA_SHORT_CODE": "150",
+            "AREA_NAME": "Fenside-Parkwoods"
+          }
+        },
+        {
+          "source_id": "149",
+          "properties": {
+            "AREA_SHORT_CODE": "149",
+            "AREA_NAME": "Parkwoods-O'Connor Hills"
+          }
+        },
+        {
+          "source_id": "148",
+          "properties": {
+            "AREA_SHORT_CODE": "148",
+            "AREA_NAME": "East L'Amoreaux"
+          }
+        },
+        {
+          "source_id": "147",
+          "properties": {
+            "AREA_SHORT_CODE": "147",
+            "AREA_NAME": "L'Amoreaux West"
+          }
+        },
+        {
+          "source_id": "146",
+          "properties": {
+            "AREA_SHORT_CODE": "146",
+            "AREA_NAME": "Malvern East"
+          }
+        },
+        {
+          "source_id": "145",
+          "properties": {
+            "AREA_SHORT_CODE": "145",
+            "AREA_NAME": "Malvern West"
+          }
+        },
+        {
+          "source_id": "144",
+          "properties": {
+            "AREA_SHORT_CODE": "144",
+            "AREA_NAME": "Morningside Heights"
+          }
+        },
+        {
+          "source_id": "143",
+          "properties": {
+            "AREA_SHORT_CODE": "143",
+            "AREA_NAME": "West Rouge"
+          }
+        },
+        {
+          "source_id": "142",
+          "properties": {
+            "AREA_SHORT_CODE": "142",
+            "AREA_NAME": "Woburn North"
+          }
+        },
+        {
+          "source_id": "141",
+          "properties": {
+            "AREA_SHORT_CODE": "141",
+            "AREA_NAME": "Golfdale-Cedarbrae-Woburn"
+          }
+        },
+        {
+          "source_id": "140",
+          "properties": {
+            "AREA_SHORT_CODE": "140",
+            "AREA_NAME": "Guildwood"
+          }
+        },
+        {
+          "source_id": "139",
+          "properties": {
+            "AREA_SHORT_CODE": "139",
+            "AREA_NAME": "Scarborough Village"
+          }
+        },
+        {
+          "source_id": "138",
+          "properties": {
+            "AREA_SHORT_CODE": "138",
+            "AREA_NAME": "Eglinton East"
+          }
+        },
+        {
+          "source_id": "136",
+          "properties": {
+            "AREA_SHORT_CODE": "136",
+            "AREA_NAME": "West Hill"
+          }
+        },
+        {
+          "source_id": "135",
+          "properties": {
+            "AREA_SHORT_CODE": "135",
+            "AREA_NAME": "Morningside"
+          }
+        },
+        {
+          "source_id": "134",
+          "properties": {
+            "AREA_SHORT_CODE": "134",
+            "AREA_NAME": "Highland Creek"
+          }
+        },
+        {
+          "source_id": "133",
+          "properties": {
+            "AREA_SHORT_CODE": "133",
+            "AREA_NAME": "Centennial Scarborough"
+          }
+        },
+        {
+          "source_id": "130",
+          "properties": {
+            "AREA_SHORT_CODE": "130",
+            "AREA_NAME": "Milliken"
+          }
+        },
+        {
+          "source_id": "129",
+          "properties": {
+            "AREA_SHORT_CODE": "129",
+            "AREA_NAME": "Agincourt North"
+          }
+        },
+        {
+          "source_id": "128",
+          "properties": {
+            "AREA_SHORT_CODE": "128",
+            "AREA_NAME": "Agincourt South-Malvern West"
+          }
+        },
+        {
+          "source_id": "126",
+          "properties": {
+            "AREA_SHORT_CODE": "126",
+            "AREA_NAME": "Dorset Park"
+          }
+        },
+        {
+          "source_id": "125",
+          "properties": {
+            "AREA_SHORT_CODE": "125",
+            "AREA_NAME": "Ionview"
+          }
+        },
+        {
+          "source_id": "124",
+          "properties": {
+            "AREA_SHORT_CODE": "124",
+            "AREA_NAME": "Kennedy Park"
+          }
+        },
+        {
+          "source_id": "123",
+          "properties": {
+            "AREA_SHORT_CODE": "123",
+            "AREA_NAME": "Cliffcrest"
+          }
+        },
+        {
+          "source_id": "122",
+          "properties": {
+            "AREA_SHORT_CODE": "122",
+            "AREA_NAME": "Birchcliffe-Cliffside"
+          }
+        },
+        {
+          "source_id": "168",
+          "properties": {
+            "AREA_SHORT_CODE": "168",
+            "AREA_NAME": "Downtown Yonge East"
+          }
+        },
+        {
+          "source_id": "167",
+          "properties": {
+            "AREA_SHORT_CODE": "167",
+            "AREA_NAME": "Church-Wellesley"
+          }
+        },
+        {
+          "source_id": "166",
+          "properties": {
+            "AREA_SHORT_CODE": "166",
+            "AREA_NAME": "St Lawrence-East Bayfront-The Islands"
+          }
+        },
+        {
+          "source_id": "165",
+          "properties": {
+            "AREA_SHORT_CODE": "165",
+            "AREA_NAME": "Harbourfront-CityPlace"
+          }
+        },
+        {
+          "source_id": "164",
+          "properties": {
+            "AREA_SHORT_CODE": "164",
+            "AREA_NAME": "Wellington Place"
+          }
+        },
+        {
+          "source_id": "163",
+          "properties": {
+            "AREA_SHORT_CODE": "163",
+            "AREA_NAME": "Fort York-Liberty Village"
+          }
+        },
+        {
+          "source_id": "162",
+          "properties": {
+            "AREA_SHORT_CODE": "162",
+            "AREA_NAME": "West Queen West"
+          }
+        },
+        {
+          "source_id": "161",
+          "properties": {
+            "AREA_SHORT_CODE": "161",
+            "AREA_NAME": "Humber Bay Shores"
+          }
+        },
+        {
+          "source_id": "160",
+          "properties": {
+            "AREA_SHORT_CODE": "160",
+            "AREA_NAME": "Mimico-Queensway"
+          }
+        },
+        {
+          "source_id": "159",
+          "properties": {
+            "AREA_SHORT_CODE": "159",
+            "AREA_NAME": "Etobicoke City Centre"
+          }
+        },
+        {
+          "source_id": "158",
+          "properties": {
+            "AREA_SHORT_CODE": "158",
+            "AREA_NAME": "Islington"
+          }
+        },
+        {
+          "source_id": "157",
+          "properties": {
+            "AREA_SHORT_CODE": "157",
+            "AREA_NAME": "Bendale South"
+          }
+        },
+        {
+          "source_id": "109",
+          "properties": {
+            "AREA_SHORT_CODE": "109",
+            "AREA_NAME": "Caledonia-Fairbank"
+          }
+        },
+        {
+          "source_id": "108",
+          "properties": {
+            "AREA_SHORT_CODE": "108",
+            "AREA_NAME": "Briar Hill-Belgravia"
+          }
+        },
+        {
+          "source_id": "107",
+          "properties": {
+            "AREA_SHORT_CODE": "107",
+            "AREA_NAME": "Oakwood Village"
+          }
+        },
+        {
+          "source_id": "106",
+          "properties": {
+            "AREA_SHORT_CODE": "106",
+            "AREA_NAME": "Humewood-Cedarvale"
+          }
+        },
+        {
+          "source_id": "105",
+          "properties": {
+            "AREA_SHORT_CODE": "105",
+            "AREA_NAME": "Lawrence Park North"
+          }
+        },
+        {
+          "source_id": "103",
+          "properties": {
+            "AREA_SHORT_CODE": "103",
+            "AREA_NAME": "Lawrence Park South"
+          }
+        },
+        {
+          "source_id": "102",
+          "properties": {
+            "AREA_SHORT_CODE": "102",
+            "AREA_NAME": "Forest Hill North"
+          }
+        },
+        {
+          "source_id": "101",
+          "properties": {
+            "AREA_SHORT_CODE": "101",
+            "AREA_NAME": "Forest Hill South"
+          }
+        },
+        {
+          "source_id": "100",
+          "properties": {
+            "AREA_SHORT_CODE": "100",
+            "AREA_NAME": "Yonge-Eglinton"
+          }
+        },
+        {
+          "source_id": "099",
+          "properties": {
+            "AREA_SHORT_CODE": "099",
+            "AREA_NAME": "Mount Pleasant East"
+          }
+        },
+        {
+          "source_id": "098",
+          "properties": {
+            "AREA_SHORT_CODE": "098",
+            "AREA_NAME": "Rosedale-Moore Park"
+          }
+        },
+        {
+          "source_id": "097",
+          "properties": {
+            "AREA_SHORT_CODE": "097",
+            "AREA_NAME": "Yonge-St.Clair"
+          }
+        },
+        {
+          "source_id": "096",
+          "properties": {
+            "AREA_SHORT_CODE": "096",
+            "AREA_NAME": "Casa Loma"
+          }
+        },
+        {
+          "source_id": "095",
+          "properties": {
+            "AREA_SHORT_CODE": "095",
+            "AREA_NAME": "Annex"
+          }
+        },
+        {
+          "source_id": "094",
+          "properties": {
+            "AREA_SHORT_CODE": "094",
+            "AREA_NAME": "Wychwood"
+          }
+        },
+        {
+          "source_id": "092",
+          "properties": {
+            "AREA_SHORT_CODE": "092",
+            "AREA_NAME": "Corso Italia-Davenport"
+          }
+        },
+        {
+          "source_id": "091",
+          "properties": {
+            "AREA_SHORT_CODE": "091",
+            "AREA_NAME": "Weston-Pelham Park"
+          }
+        },
+        {
+          "source_id": "090",
+          "properties": {
+            "AREA_SHORT_CODE": "090",
+            "AREA_NAME": "Junction Area"
+          }
+        },
+        {
+          "source_id": "121",
+          "properties": {
+            "AREA_SHORT_CODE": "121",
+            "AREA_NAME": "Oakridge"
+          }
+        },
+        {
+          "source_id": "120",
+          "properties": {
+            "AREA_SHORT_CODE": "120",
+            "AREA_NAME": "Clairlea-Birchmount"
+          }
+        },
+        {
+          "source_id": "119",
+          "properties": {
+            "AREA_SHORT_CODE": "119",
+            "AREA_NAME": "Wexford/Maryvale"
+          }
+        },
+        {
+          "source_id": "118",
+          "properties": {
+            "AREA_SHORT_CODE": "118",
+            "AREA_NAME": "Tam O'Shanter-Sullivan"
+          }
+        },
+        {
+          "source_id": "116",
+          "properties": {
+            "AREA_SHORT_CODE": "116",
+            "AREA_NAME": "Steeles"
+          }
+        },
+        {
+          "source_id": "115",
+          "properties": {
+            "AREA_SHORT_CODE": "115",
+            "AREA_NAME": "Mount Dennis"
+          }
+        },
+        {
+          "source_id": "114",
+          "properties": {
+            "AREA_SHORT_CODE": "114",
+            "AREA_NAME": "Lambton Baby Point"
+          }
+        },
+        {
+          "source_id": "113",
+          "properties": {
+            "AREA_SHORT_CODE": "113",
+            "AREA_NAME": "Weston"
+          }
+        },
+        {
+          "source_id": "112",
+          "properties": {
+            "AREA_SHORT_CODE": "112",
+            "AREA_NAME": "Beechborough-Greenbrook"
+          }
+        },
+        {
+          "source_id": "111",
+          "properties": {
+            "AREA_SHORT_CODE": "111",
+            "AREA_NAME": "Rockcliffe-Smythe"
+          }
+        },
+        {
+          "source_id": "110",
+          "properties": {
+            "AREA_SHORT_CODE": "110",
+            "AREA_NAME": "Keelesdale-Eglinton West"
+          }
+        },
+        {
+          "source_id": "080",
+          "properties": {
+            "AREA_SHORT_CODE": "080",
+            "AREA_NAME": "Palmerston-Little Italy"
+          }
+        },
+        {
+          "source_id": "079",
+          "properties": {
+            "AREA_SHORT_CODE": "079",
+            "AREA_NAME": "University"
+          }
+        },
+        {
+          "source_id": "078",
+          "properties": {
+            "AREA_SHORT_CODE": "078",
+            "AREA_NAME": "Kensington-Chinatown"
+          }
+        },
+        {
+          "source_id": "074",
+          "properties": {
+            "AREA_SHORT_CODE": "074",
+            "AREA_NAME": "North St.James Town"
+          }
+        },
+        {
+          "source_id": "073",
+          "properties": {
+            "AREA_SHORT_CODE": "073",
+            "AREA_NAME": "Moss Park"
+          }
+        },
+        {
+          "source_id": "072",
+          "properties": {
+            "AREA_SHORT_CODE": "072",
+            "AREA_NAME": "Regent Park"
+          }
+        },
+        {
+          "source_id": "071",
+          "properties": {
+            "AREA_SHORT_CODE": "071",
+            "AREA_NAME": "Cabbagetown-South St.James Town"
+          }
+        },
+        {
+          "source_id": "070",
+          "properties": {
+            "AREA_SHORT_CODE": "070",
+            "AREA_NAME": "South Riverdale"
+          }
+        },
+        {
+          "source_id": "069",
+          "properties": {
+            "AREA_SHORT_CODE": "069",
+            "AREA_NAME": "Blake-Jones"
+          }
+        },
+        {
+          "source_id": "068",
+          "properties": {
+            "AREA_SHORT_CODE": "068",
+            "AREA_NAME": "North Riverdale"
+          }
+        },
+        {
+          "source_id": "067",
+          "properties": {
+            "AREA_SHORT_CODE": "067",
+            "AREA_NAME": "Playter Estates-Danforth"
+          }
+        },
+        {
+          "source_id": "066",
+          "properties": {
+            "AREA_SHORT_CODE": "066",
+            "AREA_NAME": "Danforth"
+          }
+        },
+        {
+          "source_id": "065",
+          "properties": {
+            "AREA_SHORT_CODE": "065",
+            "AREA_NAME": "Greenwood-Coxwell"
+          }
+        },
+        {
+          "source_id": "064",
+          "properties": {
+            "AREA_SHORT_CODE": "064",
+            "AREA_NAME": "Woodbine Corridor"
+          }
+        },
+        {
+          "source_id": "063",
+          "properties": {
+            "AREA_SHORT_CODE": "063",
+            "AREA_NAME": "The Beaches"
+          }
+        },
+        {
+          "source_id": "062",
+          "properties": {
+            "AREA_SHORT_CODE": "062",
+            "AREA_NAME": "East End-Danforth"
+          }
+        },
+        {
+          "source_id": "061",
+          "properties": {
+            "AREA_SHORT_CODE": "061",
+            "AREA_NAME": "Taylor-Massey"
+          }
+        },
+        {
+          "source_id": "060",
+          "properties": {
+            "AREA_SHORT_CODE": "060",
+            "AREA_NAME": "Woodbine-Lumsden"
+          }
+        },
+        {
+          "source_id": "059",
+          "properties": {
+            "AREA_SHORT_CODE": "059",
+            "AREA_NAME": "Danforth East York"
+          }
+        },
+        {
+          "source_id": "058",
+          "properties": {
+            "AREA_SHORT_CODE": "058",
+            "AREA_NAME": "Old East York"
+          }
+        },
+        {
+          "source_id": "089",
+          "properties": {
+            "AREA_SHORT_CODE": "089",
+            "AREA_NAME": "Runnymede-Bloor West Village"
+          }
+        },
+        {
+          "source_id": "088",
+          "properties": {
+            "AREA_SHORT_CODE": "088",
+            "AREA_NAME": "High Park North"
+          }
+        },
+        {
+          "source_id": "087",
+          "properties": {
+            "AREA_SHORT_CODE": "087",
+            "AREA_NAME": "High Park-Swansea"
+          }
+        },
+        {
+          "source_id": "086",
+          "properties": {
+            "AREA_SHORT_CODE": "086",
+            "AREA_NAME": "Roncesvalles"
+          }
+        },
+        {
+          "source_id": "085",
+          "properties": {
+            "AREA_SHORT_CODE": "085",
+            "AREA_NAME": "South Parkdale"
+          }
+        },
+        {
+          "source_id": "084",
+          "properties": {
+            "AREA_SHORT_CODE": "084",
+            "AREA_NAME": "Little Portugal"
+          }
+        },
+        {
+          "source_id": "083",
+          "properties": {
+            "AREA_SHORT_CODE": "083",
+            "AREA_NAME": "Dufferin Grove"
+          }
+        },
+        {
+          "source_id": "081",
+          "properties": {
+            "AREA_SHORT_CODE": "081",
+            "AREA_NAME": "Trinity-Bellwoods"
+          }
+        },
+        {
+          "source_id": "047",
+          "properties": {
+            "AREA_SHORT_CODE": "047",
+            "AREA_NAME": "Don Valley Village"
+          }
+        },
+        {
+          "source_id": "046",
+          "properties": {
+            "AREA_SHORT_CODE": "046",
+            "AREA_NAME": "Pleasant View"
+          }
+        },
+        {
+          "source_id": "044",
+          "properties": {
+            "AREA_SHORT_CODE": "044",
+            "AREA_NAME": "Flemingdon Park"
+          }
+        },
+        {
+          "source_id": "043",
+          "properties": {
+            "AREA_SHORT_CODE": "043",
+            "AREA_NAME": "Victoria Village"
+          }
+        },
+        {
+          "source_id": "042",
+          "properties": {
+            "AREA_SHORT_CODE": "042",
+            "AREA_NAME": "Banbury-Don Mills"
+          }
+        },
+        {
+          "source_id": "041",
+          "properties": {
+            "AREA_SHORT_CODE": "041",
+            "AREA_NAME": "Bridle Path-Sunnybrook-York Mills"
+          }
+        },
+        {
+          "source_id": "040",
+          "properties": {
+            "AREA_SHORT_CODE": "040",
+            "AREA_NAME": "St.Andrew-Windfields"
+          }
+        },
+        {
+          "source_id": "039",
+          "properties": {
+            "AREA_SHORT_CODE": "039",
+            "AREA_NAME": "Bedford Park-Nortown"
+          }
+        },
+        {
+          "source_id": "038",
+          "properties": {
+            "AREA_SHORT_CODE": "038",
+            "AREA_NAME": "Lansing-Westgate"
+          }
+        },
+        {
+          "source_id": "037",
+          "properties": {
+            "AREA_SHORT_CODE": "037",
+            "AREA_NAME": "Willowdale West"
+          }
+        },
+        {
+          "source_id": "036",
+          "properties": {
+            "AREA_SHORT_CODE": "036",
+            "AREA_NAME": "Newtonbrook West"
+          }
+        },
+        {
+          "source_id": "035",
+          "properties": {
+            "AREA_SHORT_CODE": "035",
+            "AREA_NAME": "Westminster-Branson"
+          }
+        },
+        {
+          "source_id": "034",
+          "properties": {
+            "AREA_SHORT_CODE": "034",
+            "AREA_NAME": "Bathurst Manor"
+          }
+        },
+        {
+          "source_id": "033",
+          "properties": {
+            "AREA_SHORT_CODE": "033",
+            "AREA_NAME": "Clanton Park"
+          }
+        },
+        {
+          "source_id": "032",
+          "properties": {
+            "AREA_SHORT_CODE": "032",
+            "AREA_NAME": "Englemount-Lawrence"
+          }
+        },
+        {
+          "source_id": "031",
+          "properties": {
+            "AREA_SHORT_CODE": "031",
+            "AREA_NAME": "Yorkdale-Glen Park"
+          }
+        },
+        {
+          "source_id": "030",
+          "properties": {
+            "AREA_SHORT_CODE": "030",
+            "AREA_NAME": "Brookhaven-Amesbury"
+          }
+        },
+        {
+          "source_id": "029",
+          "properties": {
+            "AREA_SHORT_CODE": "029",
+            "AREA_NAME": "Maple Leaf"
+          }
+        },
+        {
+          "source_id": "028",
+          "properties": {
+            "AREA_SHORT_CODE": "028",
+            "AREA_NAME": "Rustic"
+          }
+        },
+        {
+          "source_id": "027",
+          "properties": {
+            "AREA_SHORT_CODE": "027",
+            "AREA_NAME": "York University Heights"
+          }
+        },
+        {
+          "source_id": "025",
+          "properties": {
+            "AREA_SHORT_CODE": "025",
+            "AREA_NAME": "Glenfield-Jane Heights"
+          }
+        },
+        {
+          "source_id": "057",
+          "properties": {
+            "AREA_SHORT_CODE": "057",
+            "AREA_NAME": "Broadview North"
+          }
+        },
+        {
+          "source_id": "056",
+          "properties": {
+            "AREA_SHORT_CODE": "056",
+            "AREA_NAME": "Leaside-Bennington"
+          }
+        },
+        {
+          "source_id": "055",
+          "properties": {
+            "AREA_SHORT_CODE": "055",
+            "AREA_NAME": "Thorncliffe Park"
+          }
+        },
+        {
+          "source_id": "054",
+          "properties": {
+            "AREA_SHORT_CODE": "054",
+            "AREA_NAME": "O'Connor-Parkview"
+          }
+        },
+        {
+          "source_id": "053",
+          "properties": {
+            "AREA_SHORT_CODE": "053",
+            "AREA_NAME": "Henry Farm"
+          }
+        },
+        {
+          "source_id": "052",
+          "properties": {
+            "AREA_SHORT_CODE": "052",
+            "AREA_NAME": "Bayview Village"
+          }
+        },
+        {
+          "source_id": "050",
+          "properties": {
+            "AREA_SHORT_CODE": "050",
+            "AREA_NAME": "Newtonbrook East"
+          }
+        },
+        {
+          "source_id": "049",
+          "properties": {
+            "AREA_SHORT_CODE": "049",
+            "AREA_NAME": "Bayview Woods-Steeles"
+          }
+        },
+        {
+          "source_id": "048",
+          "properties": {
+            "AREA_SHORT_CODE": "048",
+            "AREA_NAME": "Hillcrest Village"
+          }
+        },
+        {
+          "source_id": "020",
+          "properties": {
+            "AREA_SHORT_CODE": "020",
+            "AREA_NAME": "Alderwood"
+          }
+        },
+        {
+          "source_id": "019",
+          "properties": {
+            "AREA_SHORT_CODE": "019",
+            "AREA_NAME": "Long Branch"
+          }
+        },
+        {
+          "source_id": "018",
+          "properties": {
+            "AREA_SHORT_CODE": "018",
+            "AREA_NAME": "New Toronto"
+          }
+        },
+        {
+          "source_id": "016",
+          "properties": {
+            "AREA_SHORT_CODE": "016",
+            "AREA_NAME": "Stonegate-Queensway"
+          }
+        },
+        {
+          "source_id": "015",
+          "properties": {
+            "AREA_SHORT_CODE": "015",
+            "AREA_NAME": "Kingsway South"
+          }
+        },
+        {
+          "source_id": "013",
+          "properties": {
+            "AREA_SHORT_CODE": "013",
+            "AREA_NAME": "Etobicoke West Mall"
+          }
+        },
+        {
+          "source_id": "012",
+          "properties": {
+            "AREA_SHORT_CODE": "012",
+            "AREA_NAME": "Markland Wood"
+          }
+        },
+        {
+          "source_id": "011",
+          "properties": {
+            "AREA_SHORT_CODE": "011",
+            "AREA_NAME": "Eringate-Centennial-West Deane"
+          }
+        },
+        {
+          "source_id": "010",
+          "properties": {
+            "AREA_SHORT_CODE": "010",
+            "AREA_NAME": "Princess-Rosethorn"
+          }
+        },
+        {
+          "source_id": "009",
+          "properties": {
+            "AREA_SHORT_CODE": "009",
+            "AREA_NAME": "Edenbridge-Humber Valley"
+          }
+        },
+        {
+          "source_id": "008",
+          "properties": {
+            "AREA_SHORT_CODE": "008",
+            "AREA_NAME": "Humber Heights-Westmount"
+          }
+        },
+        {
+          "source_id": "007",
+          "properties": {
+            "AREA_SHORT_CODE": "007",
+            "AREA_NAME": "Willowridge-Martingrove-Richview"
+          }
+        },
+        {
+          "source_id": "006",
+          "properties": {
+            "AREA_SHORT_CODE": "006",
+            "AREA_NAME": "Kingsview Village-The Westway"
+          }
+        },
+        {
+          "source_id": "005",
+          "properties": {
+            "AREA_SHORT_CODE": "005",
+            "AREA_NAME": "Elms-Old Rexdale"
+          }
+        },
+        {
+          "source_id": "004",
+          "properties": {
+            "AREA_SHORT_CODE": "004",
+            "AREA_NAME": "Rexdale-Kipling"
+          }
+        },
+        {
+          "source_id": "003",
+          "properties": {
+            "AREA_SHORT_CODE": "003",
+            "AREA_NAME": "Thistletown-Beaumond Heights"
+          }
+        },
+        {
+          "source_id": "002",
+          "properties": {
+            "AREA_SHORT_CODE": "002",
+            "AREA_NAME": "Mount Olive-Silverstone-Jamestown"
+          }
+        },
+        {
+          "source_id": "001",
+          "properties": {
+            "AREA_SHORT_CODE": "001",
+            "AREA_NAME": "West Humber-Clairville"
+          }
+        },
+        {
+          "source_id": "024",
+          "properties": {
+            "AREA_SHORT_CODE": "024",
+            "AREA_NAME": "Black Creek"
+          }
+        },
+        {
+          "source_id": "023",
+          "properties": {
+            "AREA_SHORT_CODE": "023",
+            "AREA_NAME": "Pelmo Park-Humberlea"
+          }
+        },
+        {
+          "source_id": "022",
+          "properties": {
+            "AREA_SHORT_CODE": "022",
+            "AREA_NAME": "Humbermede"
+          }
+        },
+        {
+          "source_id": "021",
+          "properties": {
+            "AREA_SHORT_CODE": "021",
+            "AREA_NAME": "Humber Summit"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "City of Toronto",
+          "url": "https://open.toronto.ca/dataset/neighbourhoods/",
+          "claim": "Neighbourhoods (158) identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "ottawa-neighbourhoods-canonical": {
+      "authority": "City of Ottawa",
+      "family": "Ottawa Neighbourhood Study generation 3",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://services.arcgis.com/G6F8XLCl5KtAlZ2G/arcgis/rest/services/GEN3_OTT_1_3_3/FeatureServer/0/query?f=geojson&where=1%3D1&outFields=%2A&outSR=4326&returnGeometry=true",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=439875b741f34985a7001a1491c2d79b",
+      "licence": "https://ottawa.ca/en/city-hall/get-know-your-city/open-data#open-data-licence-version-2-0",
+      "sha256": "5e73da7bd98825a25b7dc62fac0c3f445943996561c5e72ec9f2142b02392b8e",
+      "id_field": "ONS_ID",
+      "name_field": "ONS_Name",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      },
+      "expected_count": 116,
+      "identities": [
+        {
+          "source_id": "3110",
+          "properties": {
+            "ONS_ID": 3110,
+            "ONS_Name": "TREND-ARLINGTON"
+          }
+        },
+        {
+          "source_id": "3076",
+          "properties": {
+            "ONS_ID": 3076,
+            "ONS_Name": "NAVAN - SARSFIELD"
+          }
+        },
+        {
+          "source_id": "3075",
+          "properties": {
+            "ONS_ID": 3075,
+            "ONS_Name": "MUNSTER - ASHTON"
+          }
+        },
+        {
+          "source_id": "3048",
+          "properties": {
+            "ONS_ID": 3048,
+            "ONS_Name": "GLEN CAIRN"
+          }
+        },
+        {
+          "source_id": "3091",
+          "properties": {
+            "ONS_ID": 3091,
+            "ONS_Name": "PORTOBELLO SOUTH"
+          }
+        },
+        {
+          "source_id": "3039",
+          "properties": {
+            "ONS_ID": 3039,
+            "ONS_Name": "EDWARDS - CARLSBAD SPRINGS"
+          }
+        },
+        {
+          "source_id": "3041",
+          "properties": {
+            "ONS_ID": 3041,
+            "ONS_Name": "EMERALD WOODS - SAWMILL CREEK"
+          }
+        },
+        {
+          "source_id": "3057",
+          "properties": {
+            "ONS_ID": 3057,
+            "ONS_Name": "INDUSTRIAL EAST"
+          }
+        },
+        {
+          "source_id": "3065",
+          "properties": {
+            "ONS_ID": 3065,
+            "ONS_Name": "LEDBURY-HERON GATE-RIDGEMONT"
+          }
+        },
+        {
+          "source_id": "3053",
+          "properties": {
+            "ONS_ID": 3053,
+            "ONS_Name": "GREENBORO WEST"
+          }
+        },
+        {
+          "source_id": "3030",
+          "properties": {
+            "ONS_ID": 3030,
+            "ONS_Name": "COLONNADE BUSINESS PARK"
+          }
+        },
+        {
+          "source_id": "3071",
+          "properties": {
+            "ONS_ID": 3071,
+            "ONS_Name": "MARLBOROUGH"
+          }
+        },
+        {
+          "source_id": "3022",
+          "properties": {
+            "ONS_ID": 3022,
+            "ONS_Name": "CARSON GROVE - CARSON MEADOWS"
+          }
+        },
+        {
+          "source_id": "3035",
+          "properties": {
+            "ONS_ID": 3035,
+            "ONS_Name": "CRESTVIEW-TANGLEWOOD"
+          }
+        },
+        {
+          "source_id": "3089",
+          "properties": {
+            "ONS_ID": 3089,
+            "ONS_Name": "PINEVIEW"
+          }
+        },
+        {
+          "source_id": "3060",
+          "properties": {
+            "ONS_ID": 3060,
+            "ONS_Name": "KANATA LAKES"
+          }
+        },
+        {
+          "source_id": "3012",
+          "properties": {
+            "ONS_ID": 3012,
+            "ONS_Name": "BORDEN FARM - FISHER GLEN"
+          }
+        },
+        {
+          "source_id": "3113",
+          "properties": {
+            "ONS_ID": 3113,
+            "ONS_Name": "VARS"
+          }
+        },
+        {
+          "source_id": "3010",
+          "properties": {
+            "ONS_ID": 3010,
+            "ONS_Name": "BLACKBURN HAMLET"
+          }
+        },
+        {
+          "source_id": "3094",
+          "properties": {
+            "ONS_ID": 3094,
+            "ONS_Name": "QUEENSWOOD - CHATELAINE"
+          }
+        },
+        {
+          "source_id": "3047",
+          "properties": {
+            "ONS_ID": 3047,
+            "ONS_Name": "GLEBE-DOWS LAKE"
+          }
+        },
+        {
+          "source_id": "3058",
+          "properties": {
+            "ONS_ID": 3058,
+            "ONS_Name": "IRIS"
+          }
+        },
+        {
+          "source_id": "3024",
+          "properties": {
+            "ONS_ID": 3024,
+            "ONS_Name": "CENTRETOWN"
+          }
+        },
+        {
+          "source_id": "3064",
+          "properties": {
+            "ONS_ID": 3064,
+            "ONS_Name": "LEBRETON DEVELOPMENT"
+          }
+        },
+        {
+          "source_id": "3072",
+          "properties": {
+            "ONS_ID": 3072,
+            "ONS_Name": "MERIVALE GARDENS - GRENFELL GLEN - PINEGLEN - COUNTRY PLACE"
+          }
+        },
+        {
+          "source_id": "3059",
+          "properties": {
+            "ONS_ID": 3059,
+            "ONS_Name": "ISLAND PARK-WELLINGTON VILLAGE"
+          }
+        },
+        {
+          "source_id": "3092",
+          "properties": {
+            "ONS_ID": 3092,
+            "ONS_Name": "QUALICUM - REDWOOD"
+          }
+        },
+        {
+          "source_id": "3025",
+          "properties": {
+            "ONS_ID": 3025,
+            "ONS_Name": "CHAPEL HILL NORTH"
+          }
+        },
+        {
+          "source_id": "3066",
+          "properties": {
+            "ONS_ID": 3066,
+            "ONS_Name": "LESLIE PARK - BRUCE FARM"
+          }
+        },
+        {
+          "source_id": "3019",
+          "properties": {
+            "ONS_ID": 3019,
+            "ONS_Name": "CARLETON UNIVERSITY"
+          }
+        },
+        {
+          "source_id": "3016",
+          "properties": {
+            "ONS_ID": 3016,
+            "ONS_Name": "BROOKSIDE - BRIARBROOK - MORGANS GRANT"
+          }
+        },
+        {
+          "source_id": "3032",
+          "properties": {
+            "ONS_ID": 3032,
+            "ONS_Name": "CONVENT GLEN - ORLEANS WOODS"
+          }
+        },
+        {
+          "source_id": "3097",
+          "properties": {
+            "ONS_ID": 3097,
+            "ONS_Name": "RIDEAUCREST - DAVIDSON HEIGHTS"
+          }
+        },
+        {
+          "source_id": "3107",
+          "properties": {
+            "ONS_ID": 3107,
+            "ONS_Name": "STITTSVILLE EAST"
+          }
+        },
+        {
+          "source_id": "3099",
+          "properties": {
+            "ONS_ID": 3099,
+            "ONS_Name": "RIVERSIDE PARK SOUTH - REVELSTOKE"
+          }
+        },
+        {
+          "source_id": "3011",
+          "properties": {
+            "ONS_ID": 3011,
+            "ONS_Name": "BLOSSOM PARK - TIMBERMILL"
+          }
+        },
+        {
+          "source_id": "3042",
+          "properties": {
+            "ONS_ID": 3042,
+            "ONS_Name": "EXPERIMENTAL FARM"
+          }
+        },
+        {
+          "source_id": "3111",
+          "properties": {
+            "ONS_ID": 3111,
+            "ONS_Name": "VANIER NORTH"
+          }
+        },
+        {
+          "source_id": "3043",
+          "properties": {
+            "ONS_ID": 3043,
+            "ONS_Name": "FALLINGBROOK"
+          }
+        },
+        {
+          "source_id": "3093",
+          "properties": {
+            "ONS_ID": 3093,
+            "ONS_Name": "QUEENSWAY TERRACE NORTH"
+          }
+        },
+        {
+          "source_id": "3055",
+          "properties": {
+            "ONS_ID": 3055,
+            "ONS_Name": "HINTONBURG-MECHANICSVILLE"
+          }
+        },
+        {
+          "source_id": "3038",
+          "properties": {
+            "ONS_ID": 3038,
+            "ONS_Name": "DUNROBIN"
+          }
+        },
+        {
+          "source_id": "3074",
+          "properties": {
+            "ONS_ID": 3074,
+            "ONS_Name": "RICHMOND"
+          }
+        },
+        {
+          "source_id": "3027",
+          "properties": {
+            "ONS_ID": 3027,
+            "ONS_Name": "CHAPMAN MILLS"
+          }
+        },
+        {
+          "source_id": "3087",
+          "properties": {
+            "ONS_ID": 3087,
+            "ONS_Name": "OVERBROOK"
+          }
+        },
+        {
+          "source_id": "3088",
+          "properties": {
+            "ONS_ID": 3088,
+            "ONS_Name": "PARKWOOD HILLS"
+          }
+        },
+        {
+          "source_id": "3114",
+          "properties": {
+            "ONS_ID": 3114,
+            "ONS_Name": "WATERRIDGE VILLAGE"
+          }
+        },
+        {
+          "source_id": "3061",
+          "properties": {
+            "ONS_ID": 3061,
+            "ONS_Name": "KATIMAVIK-HAZELDEAN"
+          }
+        },
+        {
+          "source_id": "3112",
+          "properties": {
+            "ONS_ID": 3112,
+            "ONS_Name": "VANIER SOUTH"
+          }
+        },
+        {
+          "source_id": "3002",
+          "properties": {
+            "ONS_ID": 3002,
+            "ONS_Name": "ALTA VISTA"
+          }
+        },
+        {
+          "source_id": "3115",
+          "properties": {
+            "ONS_ID": 3115,
+            "ONS_Name": "WEST CENTRETOWN"
+          }
+        },
+        {
+          "source_id": "3077",
+          "properties": {
+            "ONS_ID": 3077,
+            "ONS_Name": "NEW EDINBURGH"
+          }
+        },
+        {
+          "source_id": "3031",
+          "properties": {
+            "ONS_ID": 3031,
+            "ONS_Name": "CONSTANCE BAY"
+          }
+        },
+        {
+          "source_id": "3068",
+          "properties": {
+            "ONS_ID": 3068,
+            "ONS_Name": "LOWERTOWN WEST"
+          }
+        },
+        {
+          "source_id": "3062",
+          "properties": {
+            "ONS_ID": 3062,
+            "ONS_Name": "KINBURN"
+          }
+        },
+        {
+          "source_id": "3109",
+          "properties": {
+            "ONS_ID": 3109,
+            "ONS_Name": "STONEBRIDGE - HALF MOON BAY"
+          }
+        },
+        {
+          "source_id": "3063",
+          "properties": {
+            "ONS_ID": 3063,
+            "ONS_Name": "LAURENTIAN"
+          }
+        },
+        {
+          "source_id": "3098",
+          "properties": {
+            "ONS_ID": 3098,
+            "ONS_Name": "RIVERSIDE PARK - MOONEYS BAY"
+          }
+        },
+        {
+          "source_id": "3052",
+          "properties": {
+            "ONS_ID": 3052,
+            "ONS_Name": "GREENBORO EAST"
+          }
+        },
+        {
+          "source_id": "3004",
+          "properties": {
+            "ONS_ID": 3004,
+            "ONS_Name": "BEACON HILL SOUTH - CARDINAL HEIGHTS"
+          }
+        },
+        {
+          "source_id": "3103",
+          "properties": {
+            "ONS_ID": 3103,
+            "ONS_Name": "ROTHWELL HEIGHTS - BEACON HILL NORTH"
+          }
+        },
+        {
+          "source_id": "3020",
+          "properties": {
+            "ONS_ID": 3020,
+            "ONS_Name": "CARLINGTON"
+          }
+        },
+        {
+          "source_id": "3078",
+          "properties": {
+            "ONS_ID": 3078,
+            "ONS_Name": "NORTH GOWER - KARS"
+          }
+        },
+        {
+          "source_id": "3051",
+          "properties": {
+            "ONS_ID": 3051,
+            "ONS_Name": "GREENBELT (WEST)"
+          }
+        },
+        {
+          "source_id": "3105",
+          "properties": {
+            "ONS_ID": 3105,
+            "ONS_Name": "SOUTH KEYS"
+          }
+        },
+        {
+          "source_id": "3100",
+          "properties": {
+            "ONS_ID": 3100,
+            "ONS_Name": "RIVERSIDE SOUTH - LEITRIM"
+          }
+        },
+        {
+          "source_id": "3023",
+          "properties": {
+            "ONS_ID": 3023,
+            "ONS_Name": "CENTREPOINTE - BRIARGREEN"
+          }
+        },
+        {
+          "source_id": "3007",
+          "properties": {
+            "ONS_ID": 3007,
+            "ONS_Name": "BELLS CORNERS EAST"
+          }
+        },
+        {
+          "source_id": "3021",
+          "properties": {
+            "ONS_ID": 3021,
+            "ONS_Name": "CARP"
+          }
+        },
+        {
+          "source_id": "3018",
+          "properties": {
+            "ONS_ID": 3018,
+            "ONS_Name": "CARLETON HEIGHTS-COURTLAND PARK"
+          }
+        },
+        {
+          "source_id": "3049",
+          "properties": {
+            "ONS_ID": 3049,
+            "ONS_Name": "GREELY"
+          }
+        },
+        {
+          "source_id": "3104",
+          "properties": {
+            "ONS_ID": 3104,
+            "ONS_Name": "SANDY HILL"
+          }
+        },
+        {
+          "source_id": "3028",
+          "properties": {
+            "ONS_ID": 3028,
+            "ONS_Name": "CITY VIEW"
+          }
+        },
+        {
+          "source_id": "3029",
+          "properties": {
+            "ONS_ID": 3029,
+            "ONS_Name": "CIVIC HOSPITAL"
+          }
+        },
+        {
+          "source_id": "3081",
+          "properties": {
+            "ONS_ID": 3081,
+            "ONS_Name": "OLD HUNT CLUB"
+          }
+        },
+        {
+          "source_id": "3026",
+          "properties": {
+            "ONS_ID": 3026,
+            "ONS_Name": "CHAPEL HILL SOUTH"
+          }
+        },
+        {
+          "source_id": "3083",
+          "properties": {
+            "ONS_ID": 3083,
+            "ONS_Name": "OLD OTTAWA SOUTH"
+          }
+        },
+        {
+          "source_id": "3086",
+          "properties": {
+            "ONS_ID": 3086,
+            "ONS_Name": "OSGOODE - VERNON"
+          }
+        },
+        {
+          "source_id": "3005",
+          "properties": {
+            "ONS_ID": 3005,
+            "ONS_Name": "BEAVERBROOK"
+          }
+        },
+        {
+          "source_id": "3090",
+          "properties": {
+            "ONS_ID": 3090,
+            "ONS_Name": "PLAYFAIR PARK - GUILDWOOD ESTATES"
+          }
+        },
+        {
+          "source_id": "3003",
+          "properties": {
+            "ONS_ID": 3003,
+            "ONS_Name": "BAYSHORE"
+          }
+        },
+        {
+          "source_id": "3036",
+          "properties": {
+            "ONS_ID": 3036,
+            "ONS_Name": "CRYSTAL BAY - LAKEVIEW PARK"
+          }
+        },
+        {
+          "source_id": "3044",
+          "properties": {
+            "ONS_ID": 3044,
+            "ONS_Name": "FINDLAY CREEK"
+          }
+        },
+        {
+          "source_id": "3102",
+          "properties": {
+            "ONS_ID": 3102,
+            "ONS_Name": "ROCKCLIFFE PARK"
+          }
+        },
+        {
+          "source_id": "3045",
+          "properties": {
+            "ONS_ID": 3045,
+            "ONS_Name": "FISHER HEIGHTS"
+          }
+        },
+        {
+          "source_id": "3073",
+          "properties": {
+            "ONS_ID": 3073,
+            "ONS_Name": "METCALFE"
+          }
+        },
+        {
+          "source_id": "3001",
+          "properties": {
+            "ONS_ID": 3001,
+            "ONS_Name": "AIRPORT"
+          }
+        },
+        {
+          "source_id": "3008",
+          "properties": {
+            "ONS_ID": 3008,
+            "ONS_Name": "BELLS CORNERS WEST"
+          }
+        },
+        {
+          "source_id": "3106",
+          "properties": {
+            "ONS_ID": 3106,
+            "ONS_Name": "STITTSVILLE"
+          }
+        },
+        {
+          "source_id": "3084",
+          "properties": {
+            "ONS_ID": 3084,
+            "ONS_Name": "ORLEANS INDUSTRIAL"
+          }
+        },
+        {
+          "source_id": "3014",
+          "properties": {
+            "ONS_ID": 3014,
+            "ONS_Name": "BRIDLEWOOD - EMERALD MEADOWS"
+          }
+        },
+        {
+          "source_id": "3095",
+          "properties": {
+            "ONS_ID": 3095,
+            "ONS_Name": "QUEENSWOOD HEIGHTS"
+          }
+        },
+        {
+          "source_id": "3069",
+          "properties": {
+            "ONS_ID": 3069,
+            "ONS_Name": "MANOR PARK"
+          }
+        },
+        {
+          "source_id": "3033",
+          "properties": {
+            "ONS_ID": 3033,
+            "ONS_Name": "CORKERY"
+          }
+        },
+        {
+          "source_id": "3015",
+          "properties": {
+            "ONS_ID": 3015,
+            "ONS_Name": "BRITANNIA"
+          }
+        },
+        {
+          "source_id": "3046",
+          "properties": {
+            "ONS_ID": 3046,
+            "ONS_Name": "FITZROY"
+          }
+        },
+        {
+          "source_id": "3013",
+          "properties": {
+            "ONS_ID": 3013,
+            "ONS_Name": "BRAEMAR PARK-BELAIR HEIGHTS-COPELAND PARK"
+          }
+        },
+        {
+          "source_id": "3117",
+          "properties": {
+            "ONS_ID": 3117,
+            "ONS_Name": "WHITEHAVEN - WOODPARK - GLABAR PARK"
+          }
+        },
+        {
+          "source_id": "3108",
+          "properties": {
+            "ONS_ID": 3108,
+            "ONS_Name": "STITTSVILLE NORTH"
+          }
+        },
+        {
+          "source_id": "3050",
+          "properties": {
+            "ONS_ID": 3050,
+            "ONS_Name": "GREENBELT (EAST)"
+          }
+        },
+        {
+          "source_id": "3082",
+          "properties": {
+            "ONS_ID": 3082,
+            "ONS_Name": "OLD OTTAWA EAST"
+          }
+        },
+        {
+          "source_id": "3116",
+          "properties": {
+            "ONS_ID": 3116,
+            "ONS_Name": "WESTBORO"
+          }
+        },
+        {
+          "source_id": "3080",
+          "properties": {
+            "ONS_ID": 3080,
+            "ONS_Name": "OLD BARRHAVEN WEST"
+          }
+        },
+        {
+          "source_id": "3070",
+          "properties": {
+            "ONS_ID": 3070,
+            "ONS_Name": "MANOTICK"
+          }
+        },
+        {
+          "source_id": "3009",
+          "properties": {
+            "ONS_ID": 3009,
+            "ONS_Name": "BILLINGS BRIDGE - HERON PARK"
+          }
+        },
+        {
+          "source_id": "3079",
+          "properties": {
+            "ONS_ID": 3079,
+            "ONS_Name": "OLD BARRHAVEN EAST"
+          }
+        },
+        {
+          "source_id": "3101",
+          "properties": {
+            "ONS_ID": 3101,
+            "ONS_Name": "RIVERVIEW"
+          }
+        },
+        {
+          "source_id": "3034",
+          "properties": {
+            "ONS_ID": 3034,
+            "ONS_Name": "CRAIG HENRY - MANORDALE"
+          }
+        },
+        {
+          "source_id": "3017",
+          "properties": {
+            "ONS_ID": 3017,
+            "ONS_Name": "CARDINAL CREEK"
+          }
+        },
+        {
+          "source_id": "3037",
+          "properties": {
+            "ONS_ID": 3037,
+            "ONS_Name": "CUMBERLAND"
+          }
+        },
+        {
+          "source_id": "3067",
+          "properties": {
+            "ONS_ID": 3067,
+            "ONS_Name": "LOWERTOWN EAST"
+          }
+        },
+        {
+          "source_id": "3006",
+          "properties": {
+            "ONS_ID": 3006,
+            "ONS_Name": "BEECHWOOD CEMETERY"
+          }
+        },
+        {
+          "source_id": "3056",
+          "properties": {
+            "ONS_ID": 3056,
+            "ONS_Name": "HUNT CLUB PARK"
+          }
+        },
+        {
+          "source_id": "3085",
+          "properties": {
+            "ONS_ID": 3085,
+            "ONS_Name": "ORLEANS VILLAGE - CHATEAUNEUF"
+          }
+        },
+        {
+          "source_id": "3040",
+          "properties": {
+            "ONS_ID": 3040,
+            "ONS_Name": "ELMVALE - CANTERBURY"
+          }
+        },
+        {
+          "source_id": "3054",
+          "properties": {
+            "ONS_ID": 3054,
+            "ONS_Name": "HAWTHORN MEADOWS - SHEFFIELD GLEN"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "City of Ottawa",
+          "url": "https://www.arcgis.com/home/item.html?id=439875b741f34985a7001a1491c2d79b",
+          "claim": "Ottawa Neighbourhood Study generation 3 identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "unapproved_invalid_ids": [
+        "3050",
+        "3051"
+      ]
+    },
+    "hamilton-communities": {
+      "authority": "City of Hamilton",
+      "family": "Community Boundaries",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://services.arcgis.com/rYz782eMbySr2srL/arcgis/rest/services/Community_Boundaries/FeatureServer/17/query?where=1%3D1&outFields=OBJECTID%2CCOMMUNITY_NAME&returnGeometry=true&outSR=4326&f=geojson",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=b47b85ebd505425e959e26dadf16448f",
+      "licence": "https://www.hamilton.ca/city-initiatives/strategies-actions/open-data-licence-terms-and-conditions",
+      "sha256": "64aea96911f6a3d0ba89a1e38a6c882f74b31ce17aa9d02e331d7acc87e0dee8",
+      "id_field": "OBJECTID",
+      "name_field": "COMMUNITY_NAME",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      },
+      "expected_count": 6,
+      "identities": [
+        {
+          "source_id": "1",
+          "properties": {
+            "OBJECTID": 1,
+            "COMMUNITY_NAME": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2",
+          "properties": {
+            "OBJECTID": 2,
+            "COMMUNITY_NAME": "Dundas"
+          }
+        },
+        {
+          "source_id": "3",
+          "properties": {
+            "OBJECTID": 3,
+            "COMMUNITY_NAME": "Flamborough"
+          }
+        },
+        {
+          "source_id": "4",
+          "properties": {
+            "OBJECTID": 4,
+            "COMMUNITY_NAME": "Glanbrook"
+          }
+        },
+        {
+          "source_id": "5",
+          "properties": {
+            "OBJECTID": 5,
+            "COMMUNITY_NAME": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6",
+          "properties": {
+            "OBJECTID": 6,
+            "COMMUNITY_NAME": "Stoney Creek"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "City of Hamilton",
+          "url": "https://www.arcgis.com/home/item.html?id=b47b85ebd505425e959e26dadf16448f",
+          "claim": "Community Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    "hamilton-neighbourhoods": {
+      "authority": "City of Hamilton",
+      "family": "Neighbourhood Boundaries",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://services.arcgis.com/rYz782eMbySr2srL/arcgis/rest/services/Neighborhoods/FeatureServer/8/query?where=1%3D1&outFields=%2A&returnGeometry=true&outSR=4326&f=geojson",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=30e74cacb3b641d799629ebccad9d615",
+      "licence": "https://www.hamilton.ca/city-initiatives/strategies-actions/open-data-licence-terms-and-conditions",
+      "sha256": "796b15e853a33ca09f18ba3b46ea0bf005e63f8a4d7aa0c78bc24999019446ec",
+      "id_field": "PLANNING_UNIT",
+      "name_field": "NEIGHBOURHOOD",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      },
+      "expected_count": 234,
+      "identities": [
+        {
+          "source_id": "5108",
+          "properties": {
+            "PLANNING_UNIT": "5108",
+            "NEIGHBOURHOOD": "Poplar Park",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6905",
+          "properties": {
+            "PLANNING_UNIT": "6905",
+            "NEIGHBOURHOOD": "Westdale North",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5109",
+          "properties": {
+            "PLANNING_UNIT": "5109",
+            "NEIGHBOURHOOD": "Guernsey",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6902",
+          "properties": {
+            "PLANNING_UNIT": "6902",
+            "NEIGHBOURHOOD": "Ainslie Wood",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5265",
+          "properties": {
+            "PLANNING_UNIT": "5265",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5266",
+          "properties": {
+            "PLANNING_UNIT": "5266",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5267",
+          "properties": {
+            "PLANNING_UNIT": "5267",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6405",
+          "properties": {
+            "PLANNING_UNIT": "6405",
+            "NEIGHBOURHOOD": "Greenford",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7105",
+          "properties": {
+            "PLANNING_UNIT": "7105",
+            "NEIGHBOURHOOD": "Bonnington",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5112",
+          "properties": {
+            "PLANNING_UNIT": "5112",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5111",
+          "properties": {
+            "PLANNING_UNIT": "5111",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5110",
+          "properties": {
+            "PLANNING_UNIT": "5110",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5261",
+          "properties": {
+            "PLANNING_UNIT": "5261",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5262",
+          "properties": {
+            "PLANNING_UNIT": "5262",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5263",
+          "properties": {
+            "PLANNING_UNIT": "5263",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5264",
+          "properties": {
+            "PLANNING_UNIT": "5264",
+            "NEIGHBOURHOOD": "Industrial",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5252",
+          "properties": {
+            "PLANNING_UNIT": "5252",
+            "NEIGHBOURHOOD": "Westmeria",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5105",
+          "properties": {
+            "PLANNING_UNIT": "5105",
+            "NEIGHBOURHOOD": "Battlefield",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6410",
+          "properties": {
+            "PLANNING_UNIT": "6410",
+            "NEIGHBOURHOOD": "Lakeley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7103",
+          "properties": {
+            "PLANNING_UNIT": "7103",
+            "NEIGHBOURHOOD": "Rolston",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5251",
+          "properties": {
+            "PLANNING_UNIT": "5251",
+            "NEIGHBOURHOOD": "Dewitt",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5240",
+          "properties": {
+            "PLANNING_UNIT": "5240",
+            "NEIGHBOURHOOD": "Fruitland",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5230",
+          "properties": {
+            "PLANNING_UNIT": "5230",
+            "NEIGHBOURHOOD": "Fruitland",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6502",
+          "properties": {
+            "PLANNING_UNIT": "6502",
+            "NEIGHBOURHOOD": "Rosedale",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5470",
+          "properties": {
+            "PLANNING_UNIT": "5470",
+            "NEIGHBOURHOOD": "Nash North",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5106",
+          "properties": {
+            "PLANNING_UNIT": "5106",
+            "NEIGHBOURHOOD": "Stoney Creek",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5441",
+          "properties": {
+            "PLANNING_UNIT": "5441",
+            "NEIGHBOURHOOD": "Felker",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5450",
+          "properties": {
+            "PLANNING_UNIT": "5450",
+            "NEIGHBOURHOOD": "Nash South",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5222",
+          "properties": {
+            "PLANNING_UNIT": "5222",
+            "NEIGHBOURHOOD": "Winona South",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5115",
+          "properties": {
+            "PLANNING_UNIT": "5115",
+            "NEIGHBOURHOOD": "Stoney Creek",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5114",
+          "properties": {
+            "PLANNING_UNIT": "5114",
+            "NEIGHBOURHOOD": "Battlefield",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "7106",
+          "properties": {
+            "PLANNING_UNIT": "7106",
+            "NEIGHBOURHOOD": "Southam",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6607",
+          "properties": {
+            "PLANNING_UNIT": "6607",
+            "NEIGHBOURHOOD": "Gibson",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5221",
+          "properties": {
+            "PLANNING_UNIT": "5221",
+            "NEIGHBOURHOOD": "Fruitland",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5310",
+          "properties": {
+            "PLANNING_UNIT": "5310",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5360",
+          "properties": {
+            "PLANNING_UNIT": "5360",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5320",
+          "properties": {
+            "PLANNING_UNIT": "5320",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5330",
+          "properties": {
+            "PLANNING_UNIT": "5330",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "3115",
+          "properties": {
+            "PLANNING_UNIT": "3115",
+            "NEIGHBOURHOOD": "Scenic Woods",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "7107",
+          "properties": {
+            "PLANNING_UNIT": "7107",
+            "NEIGHBOURHOOD": "Buchanan",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7104",
+          "properties": {
+            "PLANNING_UNIT": "7104",
+            "NEIGHBOURHOOD": "Yeoville",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6407",
+          "properties": {
+            "PLANNING_UNIT": "6407",
+            "NEIGHBOURHOOD": "Riverdale West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7506",
+          "properties": {
+            "PLANNING_UNIT": "7506",
+            "NEIGHBOURHOOD": "Butler",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7505",
+          "properties": {
+            "PLANNING_UNIT": "7505",
+            "NEIGHBOURHOOD": "Eleanor",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7407",
+          "properties": {
+            "PLANNING_UNIT": "7407",
+            "NEIGHBOURHOOD": "Quinndale",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7406",
+          "properties": {
+            "PLANNING_UNIT": "7406",
+            "NEIGHBOURHOOD": "Templemead",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7208",
+          "properties": {
+            "PLANNING_UNIT": "7208",
+            "NEIGHBOURHOOD": "Balfour",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7207",
+          "properties": {
+            "PLANNING_UNIT": "7207",
+            "NEIGHBOURHOOD": "Hill Park",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7206",
+          "properties": {
+            "PLANNING_UNIT": "7206",
+            "NEIGHBOURHOOD": "Burkholme",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7205",
+          "properties": {
+            "PLANNING_UNIT": "7205",
+            "NEIGHBOURHOOD": "Macassa",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7201",
+          "properties": {
+            "PLANNING_UNIT": "7201",
+            "NEIGHBOURHOOD": "Greeningdon",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6509",
+          "properties": {
+            "PLANNING_UNIT": "6509",
+            "NEIGHBOURHOOD": "Homeside",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6605",
+          "properties": {
+            "PLANNING_UNIT": "6605",
+            "NEIGHBOURHOOD": "Crown Point West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7401",
+          "properties": {
+            "PLANNING_UNIT": "7401",
+            "NEIGHBOURHOOD": "Broughton East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6506",
+          "properties": {
+            "PLANNING_UNIT": "6506",
+            "NEIGHBOURHOOD": "Glenview East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7605",
+          "properties": {
+            "PLANNING_UNIT": "7605",
+            "NEIGHBOURHOOD": "Sheldon",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6508",
+          "properties": {
+            "PLANNING_UNIT": "6508",
+            "NEIGHBOURHOOD": "Normanhurst",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6505",
+          "properties": {
+            "PLANNING_UNIT": "6505",
+            "NEIGHBOURHOOD": "Glenview West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7305",
+          "properties": {
+            "PLANNING_UNIT": "7305",
+            "NEIGHBOURHOOD": "Hampton Heights",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7301",
+          "properties": {
+            "PLANNING_UNIT": "7301",
+            "NEIGHBOURHOOD": "Berrisfield",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7302",
+          "properties": {
+            "PLANNING_UNIT": "7302",
+            "NEIGHBOURHOOD": "Lisgar",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7304",
+          "properties": {
+            "PLANNING_UNIT": "7304",
+            "NEIGHBOURHOOD": "Huntington",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7204",
+          "properties": {
+            "PLANNING_UNIT": "7204",
+            "NEIGHBOURHOOD": "Lawfield",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6608",
+          "properties": {
+            "PLANNING_UNIT": "6608",
+            "NEIGHBOURHOOD": "Landsdale",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6507",
+          "properties": {
+            "PLANNING_UNIT": "6507",
+            "NEIGHBOURHOOD": "Mcquesten West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7608",
+          "properties": {
+            "PLANNING_UNIT": "7608",
+            "NEIGHBOURHOOD": "Gurnett",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6404",
+          "properties": {
+            "PLANNING_UNIT": "6404",
+            "NEIGHBOURHOOD": "Corman",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6401",
+          "properties": {
+            "PLANNING_UNIT": "6401",
+            "NEIGHBOURHOOD": "Red Hill",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7602",
+          "properties": {
+            "PLANNING_UNIT": "7602",
+            "NEIGHBOURHOOD": "Kennedy West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7610",
+          "properties": {
+            "PLANNING_UNIT": "7610",
+            "NEIGHBOURHOOD": "Gourley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7611",
+          "properties": {
+            "PLANNING_UNIT": "7611",
+            "NEIGHBOURHOOD": "Kernighan",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7606",
+          "properties": {
+            "PLANNING_UNIT": "7606",
+            "NEIGHBOURHOOD": "Falkirk East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7408",
+          "properties": {
+            "PLANNING_UNIT": "7408",
+            "NEIGHBOURHOOD": "Trenholme",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5273",
+          "properties": {
+            "PLANNING_UNIT": "5273",
+            "NEIGHBOURHOOD": "Bayview",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "7601",
+          "properties": {
+            "PLANNING_UNIT": "7601",
+            "NEIGHBOURHOOD": "Carpenter",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6406",
+          "properties": {
+            "PLANNING_UNIT": "6406",
+            "NEIGHBOURHOOD": "Kentley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2101",
+          "properties": {
+            "PLANNING_UNIT": "2101",
+            "NEIGHBOURHOOD": "Cootes Paradise",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3114",
+          "properties": {
+            "PLANNING_UNIT": "3114",
+            "NEIGHBOURHOOD": "Lime Kiln",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "7508",
+          "properties": {
+            "PLANNING_UNIT": "7508",
+            "NEIGHBOURHOOD": "Ryckmans",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7507",
+          "properties": {
+            "PLANNING_UNIT": "7507",
+            "NEIGHBOURHOOD": "Barnstown",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7102",
+          "properties": {
+            "PLANNING_UNIT": "7102",
+            "NEIGHBOURHOOD": "Gilbert",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6704",
+          "properties": {
+            "PLANNING_UNIT": "6704",
+            "NEIGHBOURHOOD": "Central",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6703",
+          "properties": {
+            "PLANNING_UNIT": "6703",
+            "NEIGHBOURHOOD": "Beasley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7604",
+          "properties": {
+            "PLANNING_UNIT": "7604",
+            "NEIGHBOURHOOD": "Mewburn",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7509",
+          "properties": {
+            "PLANNING_UNIT": "7509",
+            "NEIGHBOURHOOD": "Jerome",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7510",
+          "properties": {
+            "PLANNING_UNIT": "7510",
+            "NEIGHBOURHOOD": "Crerar",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7511",
+          "properties": {
+            "PLANNING_UNIT": "7511",
+            "NEIGHBOURHOOD": "Rushdale",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7603",
+          "properties": {
+            "PLANNING_UNIT": "7603",
+            "NEIGHBOURHOOD": "Kennedy East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7501",
+          "properties": {
+            "PLANNING_UNIT": "7501",
+            "NEIGHBOURHOOD": "Allison",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7503",
+          "properties": {
+            "PLANNING_UNIT": "7503",
+            "NEIGHBOURHOOD": "Chappel East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7504",
+          "properties": {
+            "PLANNING_UNIT": "7504",
+            "NEIGHBOURHOOD": "Broughton West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2104",
+          "properties": {
+            "PLANNING_UNIT": "2104",
+            "NEIGHBOURHOOD": "Simcoe",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "1400",
+          "properties": {
+            "PLANNING_UNIT": "1400",
+            "NEIGHBOURHOOD": "1400",
+            "COMMUNITY": "Flamborough"
+          }
+        },
+        {
+          "source_id": "1300",
+          "properties": {
+            "PLANNING_UNIT": "1300",
+            "NEIGHBOURHOOD": "1300",
+            "COMMUNITY": "Flamborough"
+          }
+        },
+        {
+          "source_id": "6206",
+          "properties": {
+            "PLANNING_UNIT": "6206",
+            "NEIGHBOURHOOD": "Industrial Sector F",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6212",
+          "properties": {
+            "PLANNING_UNIT": "6212",
+            "NEIGHBOURHOOD": "Industrial Sector",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6211",
+          "properties": {
+            "PLANNING_UNIT": "6211",
+            "NEIGHBOURHOOD": "Industrial Sector K",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6103",
+          "properties": {
+            "PLANNING_UNIT": "6103",
+            "NEIGHBOURHOOD": "North End East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6205",
+          "properties": {
+            "PLANNING_UNIT": "6205",
+            "NEIGHBOURHOOD": "Industrial Sector E",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3103",
+          "properties": {
+            "PLANNING_UNIT": "3103",
+            "NEIGHBOURHOOD": "Garner",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3303",
+          "properties": {
+            "PLANNING_UNIT": "3303",
+            "NEIGHBOURHOOD": "Jerseyville East",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3304",
+          "properties": {
+            "PLANNING_UNIT": "3304",
+            "NEIGHBOURHOOD": "Jerseyville West",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3320",
+          "properties": {
+            "PLANNING_UNIT": "3320",
+            "NEIGHBOURHOOD": "Copetown East",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "6204",
+          "properties": {
+            "PLANNING_UNIT": "6204",
+            "NEIGHBOURHOOD": "Industrial Sector D",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6203",
+          "properties": {
+            "PLANNING_UNIT": "6203",
+            "NEIGHBOURHOOD": "Industrial Sector C",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6202",
+          "properties": {
+            "PLANNING_UNIT": "6202",
+            "NEIGHBOURHOOD": "Industrial Sector B",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6201",
+          "properties": {
+            "PLANNING_UNIT": "6201",
+            "NEIGHBOURHOOD": "Industrial Sector A And Keith",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6903",
+          "properties": {
+            "PLANNING_UNIT": "6903",
+            "NEIGHBOURHOOD": "Ainslie Wood East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6511",
+          "properties": {
+            "PLANNING_UNIT": "6511",
+            "NEIGHBOURHOOD": "Mcquesten East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6209",
+          "properties": {
+            "PLANNING_UNIT": "6209",
+            "NEIGHBOURHOOD": "Parkview East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3102",
+          "properties": {
+            "PLANNING_UNIT": "3102",
+            "NEIGHBOURHOOD": "Shaver",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "1100",
+          "properties": {
+            "PLANNING_UNIT": "1100",
+            "NEIGHBOURHOOD": "1100",
+            "COMMUNITY": "Flamborough"
+          }
+        },
+        {
+          "source_id": "3302",
+          "properties": {
+            "PLANNING_UNIT": "3302",
+            "NEIGHBOURHOOD": "Summit",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2107",
+          "properties": {
+            "PLANNING_UNIT": "2107",
+            "NEIGHBOURHOOD": "Pleasant View",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3110",
+          "properties": {
+            "PLANNING_UNIT": "3110",
+            "NEIGHBOURHOOD": "Spring Valley",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3111",
+          "properties": {
+            "PLANNING_UNIT": "3111",
+            "NEIGHBOURHOOD": "Clearview",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3220",
+          "properties": {
+            "PLANNING_UNIT": "3220",
+            "NEIGHBOURHOOD": "Trinity",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3101",
+          "properties": {
+            "PLANNING_UNIT": "3101",
+            "NEIGHBOURHOOD": "Duff's Corner",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "7211",
+          "properties": {
+            "PLANNING_UNIT": "7211",
+            "NEIGHBOURHOOD": "Eastmount",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7212",
+          "properties": {
+            "PLANNING_UNIT": "7212",
+            "NEIGHBOURHOOD": "Raleigh",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6701",
+          "properties": {
+            "PLANNING_UNIT": "6701",
+            "NEIGHBOURHOOD": "Durand",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6101",
+          "properties": {
+            "PLANNING_UNIT": "6101",
+            "NEIGHBOURHOOD": "Dundurn",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3201",
+          "properties": {
+            "PLANNING_UNIT": "3201",
+            "NEIGHBOURHOOD": "Kelly",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "6207",
+          "properties": {
+            "PLANNING_UNIT": "6207",
+            "NEIGHBOURHOOD": "Industrial Sector G",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3104",
+          "properties": {
+            "PLANNING_UNIT": "3104",
+            "NEIGHBOURHOOD": "Marritt",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3203",
+          "properties": {
+            "PLANNING_UNIT": "3203",
+            "NEIGHBOURHOOD": "Bowman",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2206",
+          "properties": {
+            "PLANNING_UNIT": "2206",
+            "NEIGHBOURHOOD": "Central Business Dis",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2215",
+          "properties": {
+            "PLANNING_UNIT": "2215",
+            "NEIGHBOURHOOD": "Sobel",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "6804",
+          "properties": {
+            "PLANNING_UNIT": "6804",
+            "NEIGHBOURHOOD": "Strathcona",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6408",
+          "properties": {
+            "PLANNING_UNIT": "6408",
+            "NEIGHBOURHOOD": "Riverdale East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7210",
+          "properties": {
+            "PLANNING_UNIT": "7210",
+            "NEIGHBOURHOOD": "Inch Park",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3106",
+          "properties": {
+            "PLANNING_UNIT": "3106",
+            "NEIGHBOURHOOD": "Horning",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2103",
+          "properties": {
+            "PLANNING_UNIT": "2103",
+            "NEIGHBOURHOOD": "Hrca_B",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3240",
+          "properties": {
+            "PLANNING_UNIT": "3240",
+            "NEIGHBOURHOOD": "Alberton North",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3112",
+          "properties": {
+            "PLANNING_UNIT": "3112",
+            "NEIGHBOURHOOD": "Old Mill",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3116",
+          "properties": {
+            "PLANNING_UNIT": "3116",
+            "NEIGHBOURHOOD": "Sulphur Springs",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3330",
+          "properties": {
+            "PLANNING_UNIT": "3330",
+            "NEIGHBOURHOOD": "Copetown",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "6601",
+          "properties": {
+            "PLANNING_UNIT": "6601",
+            "NEIGHBOURHOOD": "Stinson",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2203",
+          "properties": {
+            "PLANNING_UNIT": "2203",
+            "NEIGHBOURHOOD": "Dundana West",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2216",
+          "properties": {
+            "PLANNING_UNIT": "2216",
+            "NEIGHBOURHOOD": "Creighton West",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2217",
+          "properties": {
+            "PLANNING_UNIT": "2217",
+            "NEIGHBOURHOOD": "Creighton East",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "7111",
+          "properties": {
+            "PLANNING_UNIT": "7111",
+            "NEIGHBOURHOOD": "Mountview",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7109",
+          "properties": {
+            "PLANNING_UNIT": "7109",
+            "NEIGHBOURHOOD": "Westcliffe East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2210",
+          "properties": {
+            "PLANNING_UNIT": "2210",
+            "NEIGHBOURHOOD": "Binkley",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2211",
+          "properties": {
+            "PLANNING_UNIT": "2211",
+            "NEIGHBOURHOOD": "Wier",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2219",
+          "properties": {
+            "PLANNING_UNIT": "2219",
+            "NEIGHBOURHOOD": "Spencer Creek",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2202",
+          "properties": {
+            "PLANNING_UNIT": "2202",
+            "NEIGHBOURHOOD": "Pleasant Valley East",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2204",
+          "properties": {
+            "PLANNING_UNIT": "2204",
+            "NEIGHBOURHOOD": "Dundana East",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "7110",
+          "properties": {
+            "PLANNING_UNIT": "7110",
+            "NEIGHBOURHOOD": "Westcliffe West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2208",
+          "properties": {
+            "PLANNING_UNIT": "2208",
+            "NEIGHBOURHOOD": "Highland Hills West",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2223",
+          "properties": {
+            "PLANNING_UNIT": "2223",
+            "NEIGHBOURHOOD": "Hunter",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "6602",
+          "properties": {
+            "PLANNING_UNIT": "6602",
+            "NEIGHBOURHOOD": "St. Clair",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6603",
+          "properties": {
+            "PLANNING_UNIT": "6603",
+            "NEIGHBOURHOOD": "Blakeley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7306",
+          "properties": {
+            "PLANNING_UNIT": "7306",
+            "NEIGHBOURHOOD": "Sunninghill",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2201",
+          "properties": {
+            "PLANNING_UNIT": "2201",
+            "NEIGHBOURHOOD": "Pleasant Valley West",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "6906",
+          "properties": {
+            "PLANNING_UNIT": "6906",
+            "NEIGHBOURHOOD": "Cootes Paradise",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6901",
+          "properties": {
+            "PLANNING_UNIT": "6901",
+            "NEIGHBOURHOOD": "Ainslie Wood West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7209",
+          "properties": {
+            "PLANNING_UNIT": "7209",
+            "NEIGHBOURHOOD": "Centremount",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6604",
+          "properties": {
+            "PLANNING_UNIT": "6604",
+            "NEIGHBOURHOOD": "Delta West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7307",
+          "properties": {
+            "PLANNING_UNIT": "7307",
+            "NEIGHBOURHOOD": "Sherwood",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2222",
+          "properties": {
+            "PLANNING_UNIT": "2222",
+            "NEIGHBOURHOOD": "York Heights",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2221",
+          "properties": {
+            "PLANNING_UNIT": "2221",
+            "NEIGHBOURHOOD": "Sydenham",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2220",
+          "properties": {
+            "PLANNING_UNIT": "2220",
+            "NEIGHBOURHOOD": "Colborne",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2214",
+          "properties": {
+            "PLANNING_UNIT": "2214",
+            "NEIGHBOURHOOD": "Morden",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "1500",
+          "properties": {
+            "PLANNING_UNIT": "1500",
+            "NEIGHBOURHOOD": "1500",
+            "COMMUNITY": "Flamborough"
+          }
+        },
+        {
+          "source_id": "2213",
+          "properties": {
+            "PLANNING_UNIT": "2213",
+            "NEIGHBOURHOOD": "Hrca_B",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3310",
+          "properties": {
+            "PLANNING_UNIT": "3310",
+            "NEIGHBOURHOOD": "Lynden",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2207",
+          "properties": {
+            "PLANNING_UNIT": "2207",
+            "NEIGHBOURHOOD": "Highland Hills East",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "6702",
+          "properties": {
+            "PLANNING_UNIT": "6702",
+            "NEIGHBOURHOOD": "Corktown",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5410",
+          "properties": {
+            "PLANNING_UNIT": "5410",
+            "NEIGHBOURHOOD": "Highland",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6301",
+          "properties": {
+            "PLANNING_UNIT": "6301",
+            "NEIGHBOURHOOD": "Hamilton Beach",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5272",
+          "properties": {
+            "PLANNING_UNIT": "5272",
+            "NEIGHBOURHOOD": "Trillium",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5107",
+          "properties": {
+            "PLANNING_UNIT": "5107",
+            "NEIGHBOURHOOD": "Eastdale",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6904",
+          "properties": {
+            "PLANNING_UNIT": "6904",
+            "NEIGHBOURHOOD": "Westdale South",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6907",
+          "properties": {
+            "PLANNING_UNIT": "6907",
+            "NEIGHBOURHOOD": "Ainslie Wood North",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2205",
+          "properties": {
+            "PLANNING_UNIT": "2205",
+            "NEIGHBOURHOOD": "University Gardens",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "5210",
+          "properties": {
+            "PLANNING_UNIT": "5210",
+            "NEIGHBOURHOOD": "Fruitland",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "objectid-178",
+          "properties": {
+            "PLANNING_UNIT": null,
+            "NEIGHBOURHOOD": "East Mountain Industrial Business Park ",
+            "COMMUNITY": "Hamilton",
+            "OBJECTID": 178
+          }
+        },
+        {
+          "source_id": "5274",
+          "properties": {
+            "PLANNING_UNIT": "5274",
+            "NEIGHBOURHOOD": "Winona North",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6403",
+          "properties": {
+            "PLANNING_UNIT": "6403",
+            "NEIGHBOURHOOD": "Gersholme",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6501",
+          "properties": {
+            "PLANNING_UNIT": "6501",
+            "NEIGHBOURHOOD": "Lower King's Forest",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "4200",
+          "properties": {
+            "PLANNING_UNIT": "4200",
+            "NEIGHBOURHOOD": "4200",
+            "COMMUNITY": "Glanbrook"
+          }
+        },
+        {
+          "source_id": "5113",
+          "properties": {
+            "PLANNING_UNIT": "5113",
+            "NEIGHBOURHOOD": "Lakeshore",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5101",
+          "properties": {
+            "PLANNING_UNIT": "5101",
+            "NEIGHBOURHOOD": "Highway Valley",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5102",
+          "properties": {
+            "PLANNING_UNIT": "5102",
+            "NEIGHBOURHOOD": "South Meadow",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5420",
+          "properties": {
+            "PLANNING_UNIT": "5420",
+            "NEIGHBOURHOOD": "Trinity",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "5380",
+          "properties": {
+            "PLANNING_UNIT": "5380",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6409",
+          "properties": {
+            "PLANNING_UNIT": "6409",
+            "NEIGHBOURHOOD": "Grayside",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6803",
+          "properties": {
+            "PLANNING_UNIT": "6803",
+            "NEIGHBOURHOOD": "Kirkendall North",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5340",
+          "properties": {
+            "PLANNING_UNIT": "5340",
+            "NEIGHBOURHOOD": "East Mountain Area",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6606",
+          "properties": {
+            "PLANNING_UNIT": "6606",
+            "NEIGHBOURHOOD": "Stipeley",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7609",
+          "properties": {
+            "PLANNING_UNIT": "7609",
+            "NEIGHBOURHOOD": "Gilkson",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7607",
+          "properties": {
+            "PLANNING_UNIT": "7607",
+            "NEIGHBOURHOOD": "Falkirk West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3210",
+          "properties": {
+            "PLANNING_UNIT": "3210",
+            "NEIGHBOURHOOD": "Carluke",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2106",
+          "properties": {
+            "PLANNING_UNIT": "2106",
+            "NEIGHBOURHOOD": "Guelph",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3113",
+          "properties": {
+            "PLANNING_UNIT": "3113",
+            "NEIGHBOURHOOD": "St. John's",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "7101",
+          "properties": {
+            "PLANNING_UNIT": "7101",
+            "NEIGHBOURHOOD": "Fessenden",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6411",
+          "properties": {
+            "PLANNING_UNIT": "6411",
+            "NEIGHBOURHOOD": "Nashdale",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7512",
+          "properties": {
+            "PLANNING_UNIT": "7512",
+            "NEIGHBOURHOOD": "Randall",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6302",
+          "properties": {
+            "PLANNING_UNIT": "6302",
+            "NEIGHBOURHOOD": "Confederation Park",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7202",
+          "properties": {
+            "PLANNING_UNIT": "7202",
+            "NEIGHBOURHOOD": "Bruleville",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6504",
+          "properties": {
+            "PLANNING_UNIT": "6504",
+            "NEIGHBOURHOOD": "Bartonville",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7203",
+          "properties": {
+            "PLANNING_UNIT": "7203",
+            "NEIGHBOURHOOD": "Thorner",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7108",
+          "properties": {
+            "PLANNING_UNIT": "7108",
+            "NEIGHBOURHOOD": "Mohawk",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7502",
+          "properties": {
+            "PLANNING_UNIT": "7502",
+            "NEIGHBOURHOOD": "Chappel West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "1200",
+          "properties": {
+            "PLANNING_UNIT": "1200",
+            "NEIGHBOURHOOD": "1200",
+            "COMMUNITY": "Flamborough"
+          }
+        },
+        {
+          "source_id": "6210",
+          "properties": {
+            "PLANNING_UNIT": "6210",
+            "NEIGHBOURHOOD": "Industrial Sector J",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6102",
+          "properties": {
+            "PLANNING_UNIT": "6102",
+            "NEIGHBOURHOOD": "North End West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "4100",
+          "properties": {
+            "PLANNING_UNIT": "4100",
+            "NEIGHBOURHOOD": "4100",
+            "COMMUNITY": "Glanbrook"
+          }
+        },
+        {
+          "source_id": "3109",
+          "properties": {
+            "PLANNING_UNIT": "3109",
+            "NEIGHBOURHOOD": "Leeming",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3230",
+          "properties": {
+            "PLANNING_UNIT": "3230",
+            "NEIGHBOURHOOD": "Alberton South",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "6802",
+          "properties": {
+            "PLANNING_UNIT": "6802",
+            "NEIGHBOURHOOD": "Kirkendall South",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "2102",
+          "properties": {
+            "PLANNING_UNIT": "2102",
+            "NEIGHBOURHOOD": "York Road",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "3202",
+          "properties": {
+            "PLANNING_UNIT": "3202",
+            "NEIGHBOURHOOD": "Book",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "6208",
+          "properties": {
+            "PLANNING_UNIT": "6208",
+            "NEIGHBOURHOOD": "Parkview West",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "3105",
+          "properties": {
+            "PLANNING_UNIT": "3105",
+            "NEIGHBOURHOOD": "Lampman",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "5270",
+          "properties": {
+            "PLANNING_UNIT": "5270",
+            "NEIGHBOURHOOD": "Fifty Point",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "3108",
+          "properties": {
+            "PLANNING_UNIT": "3108",
+            "NEIGHBOURHOOD": "Hamilton Golf & Club",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2209",
+          "properties": {
+            "PLANNING_UNIT": "2209",
+            "NEIGHBOURHOOD": "Turnball",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "6801",
+          "properties": {
+            "PLANNING_UNIT": "6801",
+            "NEIGHBOURHOOD": "Chedoke Park",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6503",
+          "properties": {
+            "PLANNING_UNIT": "6503",
+            "NEIGHBOURHOOD": "Delta East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "6510",
+          "properties": {
+            "PLANNING_UNIT": "6510",
+            "NEIGHBOURHOOD": "Crown Point East",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5103",
+          "properties": {
+            "PLANNING_UNIT": "5103",
+            "NEIGHBOURHOOD": "Corman",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "3301",
+          "properties": {
+            "PLANNING_UNIT": "3301",
+            "NEIGHBOURHOOD": "Skunk's Misery",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "3107",
+          "properties": {
+            "PLANNING_UNIT": "3107",
+            "NEIGHBOURHOOD": "Oakes",
+            "COMMUNITY": "Ancaster"
+          }
+        },
+        {
+          "source_id": "2108",
+          "properties": {
+            "PLANNING_UNIT": "2108",
+            "NEIGHBOURHOOD": "Patterson",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2218",
+          "properties": {
+            "PLANNING_UNIT": "2218",
+            "NEIGHBOURHOOD": "Golf Course",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2105",
+          "properties": {
+            "PLANNING_UNIT": "2105",
+            "NEIGHBOURHOOD": "Desjardin's",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "2212",
+          "properties": {
+            "PLANNING_UNIT": "2212",
+            "NEIGHBOURHOOD": "Cramer",
+            "COMMUNITY": "Dundas"
+          }
+        },
+        {
+          "source_id": "5460",
+          "properties": {
+            "PLANNING_UNIT": "5460",
+            "NEIGHBOURHOOD": "Albion",
+            "COMMUNITY": "Stoney Creek"
+          }
+        },
+        {
+          "source_id": "6402",
+          "properties": {
+            "PLANNING_UNIT": "6402",
+            "NEIGHBOURHOOD": "Vincent",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7303",
+          "properties": {
+            "PLANNING_UNIT": "7303",
+            "NEIGHBOURHOOD": "Upper King's Forest",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "7409",
+          "properties": {
+            "PLANNING_UNIT": "7409",
+            "NEIGHBOURHOOD": "Albion Falls",
+            "COMMUNITY": "Hamilton"
+          }
+        },
+        {
+          "source_id": "5431",
+          "properties": {
+            "PLANNING_UNIT": "5431",
+            "NEIGHBOURHOOD": "Valley Park",
+            "COMMUNITY": "Stoney Creek"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "City of Hamilton",
+          "url": "https://www.arcgis.com/home/item.html?id=30e74cacb3b641d799629ebccad9d615",
+          "claim": "Neighbourhood Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "City of Hamilton",
+          "url": "https://www.arcgis.com/home/item.html?id=30e74cacb3b641d799629ebccad9d615",
+          "claim": "East Mountain Industrial Business Park has no PLANNING_UNIT; retain its pinned OBJECTID 178 as the explicit fallback identity. Other 233 neighbourhoods retain planning-unit codes.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "fallback_id_field": "OBJECTID"
+    },
+    "ontario-municipalities": {
+      "authority": "Land Information Ontario",
+      "family": "Municipal Boundary (selected identities, including every extent part)",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://ws.lioservices.lrc.gov.on.ca/arcgis2/rest/services/LIO_OPEN_DATA/LIO_Open03/MapServer/14/query?where=MUNICIPAL_NAME_SHORTFORM+IN+%28%27BARRIE%27%2C%27ORO-MEDONTE%27%2C%27SPRINGWATER%27%2C%27WOODSTOCK%27%2C%27NORWICH%27%2C%27CASSELMAN%27%2C%27THE+NATION%27%2C%27HANOVER%27%2C%27WEST+GREY%27%2C%27SCUGOG%27%2C%27RAMARA%27%29&outFields=OGF_ID%2CMUNICIPAL_NAME%2CMUNICIPAL_NAME_SHORTFORM%2CMUNID%2CMAH_CODE%2CMUNICIPAL_AREA_EXTENT_TYPE%2CEFFECTIVE_DATETIME&returnGeometry=true&outSR=4326&f=geojson",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=64fb702e16204c3e88b528d9759f1174",
+      "licence": "https://www.ontario.ca/page/open-government-licence-ontario",
+      "sha256": "cbc9ebb4d85f1fe34822de007fe45ba9f87904b1076fda704f30ee56b47f4af7",
+      "id_field": "OGF_ID",
+      "name_field": "MUNICIPAL_NAME_SHORTFORM",
+      "geojson_crs": null,
+      "expected_count": 13,
+      "identities": [
+        {
+          "source_id": "319585900",
+          "properties": {
+            "OGF_ID": 319585900,
+            "MUNICIPAL_NAME_SHORTFORM": "CASSELMAN",
+            "MUNID": "2044",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773300669000
+          }
+        },
+        {
+          "source_id": "319585799",
+          "properties": {
+            "OGF_ID": 319585799,
+            "MUNICIPAL_NAME_SHORTFORM": "HANOVER",
+            "MUNID": "42029",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1707992793000
+          }
+        },
+        {
+          "source_id": "319586061",
+          "properties": {
+            "OGF_ID": 319586061,
+            "MUNICIPAL_NAME_SHORTFORM": "ORO-MEDONTE",
+            "MUNID": "43047",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Islands",
+            "EFFECTIVE_DATETIME": 1707992793000
+          }
+        },
+        {
+          "source_id": "319585990",
+          "properties": {
+            "OGF_ID": 319585990,
+            "MUNICIPAL_NAME_SHORTFORM": "WEST GREY",
+            "MUNID": "42004",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1707992793000
+          }
+        },
+        {
+          "source_id": "319585676",
+          "properties": {
+            "OGF_ID": 319585676,
+            "MUNICIPAL_NAME_SHORTFORM": "SCUGOG",
+            "MUNID": "18020",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1707992793000
+          }
+        },
+        {
+          "source_id": "319585774",
+          "properties": {
+            "OGF_ID": 319585774,
+            "MUNICIPAL_NAME_SHORTFORM": "NORWICH",
+            "MUNID": "32002",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773300568000
+          }
+        },
+        {
+          "source_id": "319586012",
+          "properties": {
+            "OGF_ID": 319586012,
+            "MUNICIPAL_NAME_SHORTFORM": "THE NATION",
+            "MUNID": "2011",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773300658000
+          }
+        },
+        {
+          "source_id": "319586110",
+          "properties": {
+            "OGF_ID": 319586110,
+            "MUNICIPAL_NAME_SHORTFORM": "WOODSTOCK",
+            "MUNID": "32042",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773300577000
+          }
+        },
+        {
+          "source_id": "319585873",
+          "properties": {
+            "OGF_ID": 319585873,
+            "MUNICIPAL_NAME_SHORTFORM": "RAMARA",
+            "MUNID": "43050",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1707992793000
+          }
+        },
+        {
+          "source_id": "319586151",
+          "properties": {
+            "OGF_ID": 319586151,
+            "MUNICIPAL_NAME_SHORTFORM": "ORO-MEDONTE",
+            "MUNID": "43047",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Water",
+            "EFFECTIVE_DATETIME": 1732110400000
+          }
+        },
+        {
+          "source_id": "319586107",
+          "properties": {
+            "OGF_ID": 319586107,
+            "MUNICIPAL_NAME_SHORTFORM": "ORO-MEDONTE",
+            "MUNID": "43047",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773158059000
+          }
+        },
+        {
+          "source_id": "319586147",
+          "properties": {
+            "OGF_ID": 319586147,
+            "MUNICIPAL_NAME_SHORTFORM": "BARRIE",
+            "MUNID": "43042",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773158037000
+          }
+        },
+        {
+          "source_id": "319585782",
+          "properties": {
+            "OGF_ID": 319585782,
+            "MUNICIPAL_NAME_SHORTFORM": "SPRINGWATER",
+            "MUNID": "43040",
+            "MUNICIPAL_AREA_EXTENT_TYPE": "Mainland",
+            "EFFECTIVE_DATETIME": 1773158004000
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Land Information Ontario",
+          "url": "https://www.arcgis.com/home/item.html?id=64fb702e16204c3e88b528d9759f1174",
+          "claim": "Municipal Boundary (selected identities, including every extent part) identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "attribution": "Contains information licensed under the Open Government Licence – Ontario."
+    },
+    "grey-boundaries": {
+      "authority": "County of Grey",
+      "family": "Municipality Boundary",
+      "release": "Public source retrieved 2026-09-18; boundary vintage varies by feature",
+      "retrieved_on": "2026-09-18",
+      "url": "https://services1.arcgis.com/wE2uWQWlTTnVDgyt/arcgis/rest/services/Grey_County_Reference_Layers_-_Open_Data/FeatureServer/1/query?f=geojson&where=1%3D1&outFields=%2A&outSR=4326&returnGeometry=true",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=1915f2e37a5c4ea7801a075eccaad32a",
+      "licence": "https://maps.grey.ca/pages/terms",
+      "sha256": "7142f63bc8b8acbc04c3809fb4e1d065554f1cb3284eff53d3ab1d751a485a46",
+      "id_field": "MUN_NAME",
+      "name_field": "MUN_NAME",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:4326"
+        }
+      },
+      "expected_count": 9,
+      "identities": [
+        {
+          "source_id": "Georgian Bluffs",
+          "properties": {
+            "MUN_NAME": "Georgian Bluffs",
+            "EDIT_DATE": 1627668286000
+          }
+        },
+        {
+          "source_id": "Owen Sound",
+          "properties": {
+            "MUN_NAME": "Owen Sound",
+            "EDIT_DATE": 1731598355000
+          }
+        },
+        {
+          "source_id": "Chatsworth",
+          "properties": {
+            "MUN_NAME": "Chatsworth",
+            "EDIT_DATE": 1627668288000
+          }
+        },
+        {
+          "source_id": "West Grey",
+          "properties": {
+            "MUN_NAME": "West Grey",
+            "EDIT_DATE": 1777565305000
+          }
+        },
+        {
+          "source_id": "Hanover",
+          "properties": {
+            "MUN_NAME": "Hanover",
+            "EDIT_DATE": 1777565240000
+          }
+        },
+        {
+          "source_id": "The Blue Mountains",
+          "properties": {
+            "MUN_NAME": "The Blue Mountains",
+            "EDIT_DATE": 1627668289000
+          }
+        },
+        {
+          "source_id": "Grey Highlands",
+          "properties": {
+            "MUN_NAME": "Grey Highlands",
+            "EDIT_DATE": 1627668289000
+          }
+        },
+        {
+          "source_id": "Meaford",
+          "properties": {
+            "MUN_NAME": "Meaford",
+            "EDIT_DATE": 1731598428000
+          }
+        },
+        {
+          "source_id": "Southgate",
+          "properties": {
+            "MUN_NAME": "Southgate",
+            "EDIT_DATE": 1669909183000
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "County of Grey",
+          "url": "https://www.arcgis.com/home/item.html?id=1915f2e37a5c4ea7801a075eccaad32a",
+          "claim": "Municipality Boundary identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        },
+        {
+          "publisher": "County of Grey",
+          "url": "https://www.arcgis.com/sharing/rest/content/items/9bada6ae370e479f8fa98774a0219bd5/data?f=json",
+          "claim": "The Terms page includes a distinct Grey County Open Data Licence section permitting copying, adaptation and redistribution, including commercial use. The Municipality Boundary item explicitly selects this licence. General GIS viewing restrictions are a separate section.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "attribution": "Contains information licensed under the Grey County Open Data Licence."
+    }
+  },
+  "adjustments": [
+    {
+      "id": "barrie",
+      "effective_date": "2026-01-01",
+      "members": [
+        {
+          "csd_id": "3543042",
+          "name": "Barrie",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319586147"
+          ],
+          "group_field": "MUNID",
+          "group_value": "43042"
+        },
+        {
+          "csd_id": "3543023",
+          "name": "Oro-Medonte",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319586061",
+            "319586151",
+            "319586107"
+          ],
+          "group_field": "MUNID",
+          "group_value": "43047"
+        },
+        {
+          "csd_id": "3543009",
+          "name": "Springwater",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319585782"
+          ],
+          "group_field": "MUNID",
+          "group_value": "43040"
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ontario / affected municipality",
+          "url": "https://ero.ontario.ca/notice/025-1324",
+          "claim": "Adopted municipal boundary transfer effective 2026-01-01. Identity retained for every affected municipality.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "woodstock",
+      "effective_date": "2026-01-01",
+      "members": [
+        {
+          "csd_id": "3532042",
+          "name": "Woodstock",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319586110"
+          ],
+          "group_field": "MUNID",
+          "group_value": "32042"
+        },
+        {
+          "csd_id": "3532002",
+          "name": "Norwich",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319585774"
+          ],
+          "group_field": "MUNID",
+          "group_value": "32002"
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ontario / affected municipality",
+          "url": "https://www.ontario.ca/document/ontario-gazette-volume-159-issue-03-january-17-2026/government-notices-other",
+          "claim": "Adopted municipal boundary transfer effective 2026-01-01. Identity retained for every affected municipality.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "casselman",
+      "effective_date": "2026-01-01",
+      "members": [
+        {
+          "csd_id": "3502044",
+          "name": "Casselman",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319585900"
+          ],
+          "group_field": "MUNID",
+          "group_value": "2044"
+        },
+        {
+          "csd_id": "3502025",
+          "name": "The Nation / La Nation",
+          "source": "ontario-municipalities",
+          "source_ids": [
+            "319586012"
+          ],
+          "group_field": "MUNID",
+          "group_value": "2011"
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ontario / affected municipality",
+          "url": "https://www.casselman.ca/en/news/the-province-has-approved-a-municipal-restructuring-proposal-to-transfer-a-portion-of-land-from-the-nation-municipality-to-the-municipality-of-casselman",
+          "claim": "Adopted municipal boundary transfer effective 2026-01-01. Identity retained for every affected municipality.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "hanover",
+      "effective_date": "2026-05-01",
+      "members": [
+        {
+          "csd_id": "3542029",
+          "name": "Hanover",
+          "source": "grey-boundaries",
+          "source_ids": [
+            "Hanover"
+          ],
+          "group_field": "MUN_NAME",
+          "group_value": "Hanover"
+        },
+        {
+          "csd_id": "3542004",
+          "name": "West Grey",
+          "source": "grey-boundaries",
+          "source_ids": [
+            "West Grey"
+          ],
+          "group_field": "MUN_NAME",
+          "group_value": "West Grey"
+        }
+      ],
+      "evidence": [
+        {
+          "publisher": "Ontario / affected municipality",
+          "url": "https://www.hanover.ca/news/looking-future-ministerial-order-supports-long-term-economic-prosperity-town-hanover-and",
+          "claim": "Adopted municipal boundary transfer effective 2026-05-01. Identity retained for every affected municipality.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  ],
+  "city_layers": [
+    {
+      "source": "toronto-former",
+      "parent_csd_id": "3520005",
+      "parent_name": "Toronto",
+      "kind": "former_municipality",
+      "type": "Former municipality",
+      "id_prefix": "ca-on-3520005-former-",
+      "scheme": "former_municipality",
+      "coverage_policy": "citywide",
+      "expected_count": 6,
+      "evidence": [
+        {
+          "publisher": "City of Toronto",
+          "url": "https://open.toronto.ca/dataset/former-municipality-boundaries/",
+          "claim": "Former Municipality Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "source": "toronto-neighbourhoods",
+      "parent_csd_id": "3520005",
+      "parent_name": "Toronto",
+      "kind": "neighbourhood",
+      "type": "Neighbourhood",
+      "id_prefix": "ca-on-3520005-neighbourhood-",
+      "scheme": "neighbourhood",
+      "coverage_policy": "citywide",
+      "expected_count": 158,
+      "evidence": [
+        {
+          "publisher": "City of Toronto",
+          "url": "https://open.toronto.ca/dataset/neighbourhoods/",
+          "claim": "Neighbourhoods (158) identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "source": "ottawa-neighbourhoods-canonical",
+      "parent_csd_id": "3506008",
+      "parent_name": "Ottawa",
+      "kind": "neighbourhood_study_area",
+      "type": "Neighbourhood study area",
+      "id_prefix": "ca-on-3506008-ons-",
+      "scheme": "neighbourhood",
+      "coverage_policy": "citywide",
+      "expected_count": 116,
+      "evidence": [
+        {
+          "publisher": "City of Ottawa",
+          "url": "https://www.arcgis.com/home/item.html?id=439875b741f34985a7001a1491c2d79b",
+          "claim": "Ottawa Neighbourhood Study generation 3 identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "coverage_note": "ONS research geographies are generalized study areas, not a complete catalogue of every locally named community."
+    },
+    {
+      "source": "hamilton-communities",
+      "parent_csd_id": "3525005",
+      "parent_name": "Hamilton",
+      "kind": "community",
+      "type": "Community",
+      "id_prefix": "ca-on-3525005-community-",
+      "scheme": "community",
+      "coverage_policy": "citywide",
+      "expected_count": 6,
+      "evidence": [
+        {
+          "publisher": "City of Hamilton",
+          "url": "https://www.arcgis.com/home/item.html?id=b47b85ebd505425e959e26dadf16448f",
+          "claim": "Community Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "source": "hamilton-neighbourhoods",
+      "parent_csd_id": "3525005",
+      "parent_name": "Hamilton",
+      "kind": "neighbourhood",
+      "type": "Neighbourhood",
+      "id_prefix": "ca-on-3525005-neighbourhood-",
+      "scheme": "neighbourhood",
+      "coverage_policy": "citywide",
+      "expected_count": 234,
+      "evidence": [
+        {
+          "publisher": "City of Hamilton",
+          "url": "https://www.arcgis.com/home/item.html?id=30e74cacb3b641d799629ebccad9d615",
+          "claim": "Neighbourhood Boundaries identities and complete unfiltered boundary coordinates; no geometry simplification requested.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "parent_property": "COMMUNITY",
+      "parent_ids": {
+        "Ancaster": "ca-on-3525005-community-1",
+        "Dundas": "ca-on-3525005-community-2",
+        "Flamborough": "ca-on-3525005-community-3",
+        "Glanbrook": "ca-on-3525005-community-4",
+        "Hamilton": "ca-on-3525005-community-5",
+        "Stoney Creek": "ca-on-3525005-community-6"
+      }
+    }
+  ],
+  "names": [
+    {
+      "csd_id": "3557014",
+      "source_name": "Tarbutt and Tarbutt Additional",
+      "name": "Tarbutt",
+      "evidence": [
+        {
+          "publisher": "Township of Tarbutt",
+          "url": "https://tarbutt.ca/",
+          "claim": "Current municipality uses Township of Tarbutt; retain original national name as an alias.",
+          "reviewed_on": "2026-09-18"
+        }
+      ]
+    }
+  ],
+  "repair_review": [
+    {
+      "csd_id": "3518020",
+      "name": "Scugog",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "c49863dca77350141fb925d2cb6859d62734aad0bab1ad54d01df86c6eb1662d",
+        "source_area_m2": 538911210.6599486,
+        "candidate_area_m2": 538911210.6599483,
+        "area_change_m2": -2.384185791015625e-07,
+        "source_parts": 1,
+        "candidate_parts": 1,
+        "source_holes": 1,
+        "candidate_holes": 2,
+        "source_vertices": 462,
+        "candidate_vertices": 463,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "515314601744a9e6536ade335ac333366f544eadd97e93ab8a7cd12ce4729428"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement.",
+      "comparison_source": "ontario-municipalities",
+      "comparison_source_ids": [
+        "319585676"
+      ],
+      "comparison_note": "Provincial polygon leaves about 1.19 km² of the national candidate uncovered; cross-source differences do not certify its hole repair."
+    },
+    {
+      "csd_id": "3539017",
+      "name": "Chippewas of the Thames First Nation 42",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "8f6b7752b4b4d5fd405835c97f7b6e0cb1aa1e63f685ce13d334d6347c92f275",
+        "source_area_m2": 45328740.18766186,
+        "candidate_area_m2": 45328740.18766177,
+        "area_change_m2": -8.940696716308594e-08,
+        "source_parts": 3,
+        "candidate_parts": 3,
+        "source_holes": 1,
+        "candidate_holes": 4,
+        "source_vertices": 927,
+        "candidate_vertices": 930,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "fff2febc1deddb21c1d90356ed2a53508c2798fd72b7d2b60fda92e466c80561"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement."
+    },
+    {
+      "csd_id": "3543019",
+      "name": "Ramara",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "2baf31ee7baa215be4987c667b4868d0d2c201aeebd2f5dc1712d84e3394d1d0",
+        "source_area_m2": 585053033.8665181,
+        "candidate_area_m2": 585053033.8665166,
+        "area_change_m2": -1.5497207641601562e-06,
+        "source_parts": 1,
+        "candidate_parts": 1,
+        "source_holes": 9,
+        "candidate_holes": 10,
+        "source_vertices": 2719,
+        "candidate_vertices": 2720,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "a1a78ea301411ff089bd9bdd8a713630cb8e722aa88ad20aa52a014615e679a8"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement.",
+      "comparison_source": "ontario-municipalities",
+      "comparison_source_ids": [
+        "319585873"
+      ],
+      "comparison_note": "Provincial polygon leaves about 138.48 km² of the national candidate uncovered, including water-source differences; it cannot replace the full candidate or certify its hole repair."
+    },
+    {
+      "csd_id": "3556092",
+      "name": "Cochrane, Unorganized, North Part",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "a56df0a766f0d64585899b7a2b5f1a7938a87a7dfe408a068b98c07f0aed4aeb",
+        "source_area_m2": 134404679346.07588,
+        "candidate_area_m2": 134404679346.07634,
+        "area_change_m2": 0.000457763671875,
+        "source_parts": 1,
+        "candidate_parts": 1,
+        "source_holes": 15,
+        "candidate_holes": 16,
+        "source_vertices": 14886,
+        "candidate_vertices": 14887,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "eb7c3731b4c3927ab3e3279520ae240cd0113eb592d4e618931e781d88f17f90"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement."
+    },
+    {
+      "csd_id": "3557095",
+      "name": "Algoma, Unorganized, North Part",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "9c1922ab938b6ac84719231d499dcc891a0f2aa344e61204cb5ca73dc130b1af",
+        "source_area_m2": 52683087147.625595,
+        "candidate_area_m2": 52683087147.62557,
+        "area_change_m2": -2.288818359375e-05,
+        "source_parts": 4,
+        "candidate_parts": 4,
+        "source_holes": 7,
+        "candidate_holes": 8,
+        "source_vertices": 8416,
+        "candidate_vertices": 8417,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "7b21583576836e6f74348b2b6261784f5d050e3171eb6e0b2c732c2566f37255"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement."
+    },
+    {
+      "csd_id": "3558090",
+      "name": "Thunder Bay, Unorganized",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "51ee45999293397b21b3425ef74d4547381477cf348f9d4b6eefd77e1f570bdb",
+        "source_area_m2": 133649531214.37337,
+        "candidate_area_m2": 133649531214.37361,
+        "area_change_m2": 0.000244140625,
+        "source_parts": 1,
+        "candidate_parts": 1,
+        "source_holes": 17,
+        "candidate_holes": 18,
+        "source_vertices": 36812,
+        "candidate_vertices": 36813,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "27f376d1d1f7c2a3509cf0707e4e3be0fac2a9b58bf4da5d3cfad962c18008ba"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement."
+    },
+    {
+      "csd_id": "3560090",
+      "name": "Kenora, Unorganized",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "95feb0c9db45fe7771dcae02dc834e607fe1a7c10246d8be54a73043f3892593",
+        "source_area_m2": 426735678562.0202,
+        "candidate_area_m2": 426735678562.01624,
+        "area_change_m2": -0.00396728515625,
+        "source_parts": 5,
+        "candidate_parts": 5,
+        "source_holes": 90,
+        "candidate_holes": 92,
+        "source_vertices": 159145,
+        "candidate_vertices": 159147,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "35c775d8cebb4bbf15053f48f55abb31144a18251b2125a51cc6e4e86eebfacb"
+      },
+      "decision": "Retain separate candidate. Near-zero area change does not approve a topology change or establish authoritative hole placement."
+    }
+  ],
+  "unresolved": [
+    "Seven existing Ontario municipal repair candidates remain unapproved; their seven regional outlines remain unapproved too.",
+    "Two Ottawa Greenbelt neighbourhood source polygons are invalid. Display repair candidates remain excluded from assignment.",
+    "Ottawa former municipalities: official GeoOttawa geometry found, but explicit reuse licensing was not established; deferred. Orléans has no separately qualified broad community boundary in this release.",
+    "Other Ontario cities still need qualified city-area layers. GTA and similar overlapping informal regions are not administrative parents.",
+    "New municipal sources differ from the national boundary family, including water coverage. Full source polygons are retained; every old/new boundary difference is indexed as review uncertainty, including uncovered old extents. No legal boundary certification is implied."
+  ]
+}

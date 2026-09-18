@@ -2,6 +2,9 @@
 
 Research snapshot: 2026-09-16. Dataset remains subject to review.
 
+This records the original 46-area layer. See the later [Québec refresh](quebec-refresh.md)
+for municipal updates, additional quartiers/sectors and the remaining gaps.
+
 ## Included coverage
 
 | Municipality | Official areas | National city outline covered¹ |

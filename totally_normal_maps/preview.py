@@ -21,7 +21,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
             self.send_error(403)
             return
         name = unquote(urlsplit(self.path).path).removeprefix("/") or "index.html"
-        allowed = {"index.html", "preview.js", "preview.css", "leaflet.js", "leaflet.css", "catalogue.json", "provinces.geojson", "city-areas-24.geojson"} | {f"{key}.geojson" for key in PROVINCES} | {f"regions-{key}.geojson" for key in PROVINCES}
+        allowed = {"index.html", "preview.js", "preview.css", "leaflet.js", "leaflet.css", "catalogue.json", "provinces.geojson"} | {f"{key}.geojson" for key in PROVINCES} | {f"regions-{key}.geojson" for key in PROVINCES} | {f"city-areas-{key}.geojson" for key in PROVINCES}
         path = self.preview_directory / name
         if name not in allowed or path.is_symlink() or not path.is_file():
             self.send_error(404)

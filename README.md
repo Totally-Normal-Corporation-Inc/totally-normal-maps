@@ -4,8 +4,13 @@ Standalone reference geography: countries, provinces/territories, regions,
 municipalities and city areas, with an HTTP API and an offline map preview.
 Python 3.13+. No Django, database server, Docker or cloud account is needed locally.
 
-**Current coverage:** Canada, 13 provinces/territories, 5,054 municipal/statistical
-areas, 144 regional groupings and 46 Québec arrondissements/sectors in nine cities.
+**Current coverage with the Québec and Ontario refreshes:** Canada, 13 provinces/territories,
+5,050 current municipal/statistical areas, 144 regional groupings and 657 city-area
+identities in 15 cities. Of those city areas, 652 have assignment boundaries;
+Terrebonne's three sectors still need boundaries and two Ottawa neighbourhood
+repairs remain unapproved. Ontario adds 520 identities in Toronto, Ottawa and Hamilton
+and updates nine municipal boundaries. Six former Québec municipal identities remain
+available as historical records. The original national source contains 5,054 areas.
 The catalogue is **review-required**, not a fully qualified legal boundary service.
 58 municipal boundaries have separate unapproved repair candidates. Source-vintage
 differences and deferred regions remain explicit. An API response is not approval
@@ -47,7 +52,8 @@ curl 'http://127.0.0.1:8000/v1/lookup?longitude=-75.72&latitude=45.43'
 ```
 
 The standalone map retains country → province → region → municipality → city-area
-navigation. Missing regional levels are skipped without hiding municipalities.
+navigation, with quartiers/sectors nested under arrondissements where applicable.
+Missing regional levels are skipped without hiding municipalities.
 
 ```bash
 .venv/bin/maps serve --run .local/canada/current --port 9010
@@ -65,6 +71,8 @@ display assets. The API uses a production ASGI server and separate serving relea
 - [Geography evidence and outstanding work](docs/research/canada-overview.md)
 - [Province-by-province regional decisions](docs/research/canada-regions.md)
 - [Québec city-area coverage and discrepancies](docs/research/quebec-city-areas.md)
+- [Québec municipal refresh, added areas and remaining gaps](docs/research/quebec-refresh.md)
+- [Ontario boundary updates, city areas and remaining gaps](docs/research/ontario-refresh.md)
 - [Migration inventory and verification](docs/MIGRATION.md)
 - [Security model](SECURITY.md) and [third-party attribution](NOTICE.md)
 
@@ -75,6 +83,7 @@ Tests use synthetic geography and perform no source downloads or cloud calls.
 ```bash
 .venv/bin/python -m unittest tests.test_catalogue tests.test_regions tests.test_city_areas -q
 .venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_publication -q
+.venv/bin/python -m unittest tests.test_quebec_refresh tests.test_ontario_refresh -q
 .venv/bin/python tools/check_publication.py
 .venv/bin/python tools/check_secrets.py
 ```

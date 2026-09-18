@@ -12,7 +12,8 @@ The MIT licence applies to original project code. It does not relicense sources.
   https://www.statcan.gc.ca/en/terms-conditions/open-licence
   This project is independent and is not endorsed by Statistics Canada.
 - Gouvernement du Québec, Ministère des Ressources naturelles et des Forêts:
-  Découpages administratifs, administrative regions and arrondissements,
+  Découpages administratifs, administrative regions, arrondissements and municipal
+  comparison polygons,
   V2026-08 reference snapshots. CC BY 4.0:
   https://creativecommons.org/licenses/by/4.0/
   Dataset: https://www.donneesquebec.ca/recherche/dataset/decoupages-administratifs
@@ -20,6 +21,16 @@ The MIT licence applies to original project code. It does not relicense sources.
   updated 2025-04-24. CC BY 4.0:
   https://creativecommons.org/licenses/by/4.0/
   Dataset: https://www.donneesquebec.ca/recherche/dataset/vgat_296280560
+- Ville de Québec: Quartiers, pinned September 2026 snapshot. CC BY 4.0.
+  Dataset: https://www.donneesquebec.ca/recherche/dataset/vque_9
+- Ville de Lévis: Secteurs, file modified 2022-05-16. CC BY 4.0.
+  Dataset: https://www.donneesquebec.ca/recherche/dataset/secteur-levis
+- Ville de Laval: Limites des anciennes municipalités, file modified 2017-02-13.
+  CC BY 4.0. Dataset:
+  https://www.donneesquebec.ca/recherche/dataset/limites-des-anciennes-municipalites
+- Ville de Trois-Rivières: Quartiers (noms populaires), pinned September 2026
+  snapshot. CC BY 4.0. Dataset:
+  https://www.donneesquebec.ca/recherche/dataset/quartier-nom-populaire-v3r
 
 ## Notices for adapted Statistics Canada data
 
@@ -37,8 +48,37 @@ by the Statistics Canada Open Licence, including the product and reference date.
 
 Exact source URLs, checksums and reference dates are in the checked manifests.
 Boundaries are transformed to WGS84. Regional outlines dissolve national
-municipal members. Display boundaries are simplified separately. Candidate
+municipal members. Merged Québec municipality boundaries retain complete national
+predecessor unions, linked to provincial successor identities. City-area boundaries
+retain the full publisher geometry; parent relationships and source differences
+are documented separately. Display boundaries are simplified separately. Candidate
 repairs are explicitly labelled and are excluded from normal coordinate matches.
 These transformations and cross-source differences are described in docs/research.
 The data publishers do not endorse the project. Preserve attribution and source
 licences when distributing source data, derived datasets or map displays.
+
+## Ontario additions
+
+- Land Information Ontario, Municipal Boundary — Lower and Single Tier, selected
+  September 2026 source snapshot. Contains information licensed under the Open
+  Government Licence – Ontario:
+  https://www.ontario.ca/page/open-government-licence-ontario
+- County of Grey, Municipality Boundary, including the May 2026 Hanover expansion.
+  Contains information licensed under the Grey County Open Data Licence.
+  See the **Grey County Open Data Licence** section of https://maps.grey.ca/pages/terms
+  (distinct from the general GIS viewing terms).
+- City of Toronto, Former Municipality Boundaries and 158 Neighbourhoods.
+  Contains information licensed under the Open Government Licence – Toronto:
+  https://open.toronto.ca/open-data-licence/
+- City of Ottawa, Ottawa Neighbourhood Study generation 3. Open Data Licence v2.0:
+  https://ottawa.ca/en/city-hall/get-know-your-city/open-data#open-data-licence-version-2-0
+- City of Hamilton, Community Boundaries and Neighbourhood Boundaries. Open Data
+  Licence terms and conditions:
+  https://www.hamilton.ca/city-initiatives/strategies-actions/open-data-licence-terms-and-conditions
+
+Ontario current boundaries retain complete publisher geometry in separate revisions;
+original national source boundaries remain intact. Differences are separately indexed
+for review, including source water-coverage gaps. Two Ottawa neighbourhood repairs
+are display candidates only. Publisher identity codes and explicit Hamilton community
+attributes supply city-area identities and hierarchy. Toronto's two boundary schemes
+remain independent. See docs/research/ontario-refresh.md for evidence and limitations.

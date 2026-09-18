@@ -75,6 +75,12 @@ def source_metadata(source):
                                    'This does not constitute an endorsement by Statistics Canada of this product.')
     else:
         metadata['attribution'] = f"Source: {source.get('authority', 'See source URL')}, {source.get('release', '')}. No publisher endorsement is implied."
+    if source.get('authority') == 'City of Toronto':
+        metadata['attribution'] += ' Contains information licensed under the Open Government Licence – Toronto.'
+    elif source.get('authority') == 'County of Grey':
+        metadata['attribution'] += ' Contains information licensed under the Grey County Open Data Licence.'
+    elif source.get('authority') == 'Land Information Ontario':
+        metadata['attribution'] += ' Contains information licensed under the Open Government Licence – Ontario.'
     metadata['modifications'] = ('Reference geography adapted for this catalogue: coordinate transformation, '
                                 'regional aggregation where applicable, and separate simplified display boundaries. '
                                 'Unapproved repairs remain labelled and excluded from normal coordinate matches.')
@@ -101,6 +107,17 @@ def serving_report(report):
         output['city_areas'] = {key: part[key] for key in ('feature_count', 'municipality_count',
             'kind_counts', 'municipalities', 'display_tolerance_metres')}
         output['city_areas']['sources'] = {key: source_metadata(s) for key, s in part['sources'].items()}
+    if 'quebec_refresh' in report:
+        part = report['quebec_refresh']
+        output['quebec_refresh'] = {key: part[key] for key in ('reviewed_on', 'state',
+            'added_municipality_count', 'superseded_municipality_count', 'active_municipality_count',
+            'mergers', 'names', 'coverage', 'unresolved', 'repair_review')}
+        output['quebec_refresh']['sources'] = {key: source_metadata(s) for key, s in part['sources'].items()}
+    if 'ontario_refresh' in report:
+        part = report['ontario_refresh']
+        output['ontario_refresh'] = {key: part[key] for key in ('reviewed_on', 'state', 'adjustments',
+            'updated_municipality_count', 'updated_region_count', 'added_city_area_count', 'coverage', 'names', 'repair_review', 'unresolved')}
+        output['ontario_refresh']['sources'] = {key: source_metadata(s) for key, s in part['sources'].items()}
     return output
 
 
@@ -113,7 +130,7 @@ def export_release(run, output, *, label='canada-review'):
     report = read_json(run / 'report.json')
     with open_catalogue(run) as db:
         tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        if 'csd' not in tables or tables - {'csd', 'region', 'csd_region', 'city_area'}:
+        if 'csd' not in tables or tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision'}:
             raise CatalogueError('Only reference-geography tables may enter a serving release.')
         if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
             raise CatalogueError('Catalogue failed database integrity checks.')
@@ -122,6 +139,8 @@ def export_release(run, output, *, label='canada-review'):
         names += [f'regions-{p}.geojson' for p in PROVINCES]
     if 'city_areas' in report:
         names.append('city-areas-24.geojson')
+        if 'ontario_refresh' in report:
+            names.append('city-areas-35.geojson')
     with new_directory(output) as staging:
         (staging / 'display').mkdir()
         shutil.copyfile(run / 'catalogue.sqlite3', staging / 'catalogue.sqlite3')
