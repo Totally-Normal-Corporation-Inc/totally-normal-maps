@@ -63,7 +63,9 @@ def main():
             try:
                 with urlopen(url + '/readyz', timeout=3) as response:
                     if response.status == 200: break
-            except (URLError, TimeoutError):
+            except (URLError, TimeoutError, ConnectionError):
+                # Resets/disconnects while reading a startup response can escape
+                # urllib directly instead of being wrapped in URLError.
                 pass
             if time.monotonic() >= deadline:
                 raise RuntimeError('Combined container did not become ready.')
