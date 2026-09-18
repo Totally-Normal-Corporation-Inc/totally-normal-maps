@@ -21,6 +21,9 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
   Only loopback development without configured keys permits anonymous API requests.
 - Public map browsing uses separate display files without API credentials. Keep
   keys out of browser JavaScript, public assets, URLs and request logs.
+- Combined deployments serve only checksummed, allowlisted display assets under
+  versioned `/maps/` URLs. Website responses permit public immutable caching;
+  protected API responses remain `no-store`. The raw database is never a static asset.
 - Use TLS at the gateway. Tokens are independent per consumer and compared without
   ordinary string timing comparisons. The service never requires cloud write access
   or consumer database credentials.
@@ -49,6 +52,16 @@ and per-file hashes. They stage complete data before an atomic local publish. Th
 are no HTTP-triggered S3 fetches. SQLite uses read-only/query-only access and untrusted
 schema execution is disabled; assignment queries operate on in-memory indexes.
 
+Combined builds fetch only the GitHub Release attachment named in the committed
+dataset lock, over HTTPS. The exact ZIP size, ZIP hash and independent inner
+manifest hash are required. Extraction rejects unexpected members, duplicates,
+traversal, links and oversized expansion; files are verified before an atomic local
+publish. Attribution travels with the distribution. The bundle seals code, website,
+dataset and lock identities; startup verifies them before readiness. These hashes
+depend on trusting the reviewed code/image and lock, not on trusting download metadata.
+No GitHub credentials or runtime download are required. Keep the container root
+filesystem read-only and deploy/roll back the complete image by immutable digest.
+
 Hashes verify bytes, not geographical correctness. Missing coverage, invalid polygons,
 candidate repairs, partial subdivisions and differing source vintages remain visible.
 Do not promote an experimental dataset merely because its API or geometry tests pass.
@@ -60,6 +73,14 @@ no AWS access. Workflow dependencies are pinned to commit hashes. Do not execute
 untrusted pull-request code with `pull_request_target`, privileged `workflow_run`
 jobs, production credentials or a runner on a private/home network. Treat public
 issue/PR text as untrusted input to AI agents as well.
+
+The separate manually dispatched application-release workflow runs only on `main`.
+Its verification job has read-only permissions; only the final metadata-publication
+job receives `contents: write`. It creates a new `app-*` GitHub Release after a
+combined-image smoke test, without publishing an image or changing infrastructure.
+Dataset publication requires an explicit local `--publish` command and uses
+separate `dataset-*` prerelease tags. Never replace an existing tag or attachment;
+enable GitHub immutable releases for server-side enforcement.
 
 Production promotion belongs to a separate private workflow. Use short-lived cloud
 authentication restricted to its repository and environment. Pin the reviewed image
@@ -80,6 +101,7 @@ excluding source files. Source-checksum exceptions apply only to named checksum
 fields in the explicitly allowlisted geographic manifests, including reviewed
 parent-catalogue/report digests in jurisdiction plans. These exceptions do not
 approve changes to geographic evidence or exclude whole files from scanning.
+The dataset lock exception is limited to its two exact checksum fields.
 
 Build in a clean checkout. `tools/check_artifacts.py --staged` rejects archive files
 outside the reviewed public set and rejects changed source bytes, unsafe paths and

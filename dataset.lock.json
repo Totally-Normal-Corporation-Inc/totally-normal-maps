@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "repository": "Totally-Normal-Corporation-Inc/totally-normal-maps",
+  "tag": "dataset-2026-09-18-review",
+  "asset": "canada-jurisdictions-2026-09-18.zip",
+  "archive_bytes": 73067663,
+  "archive_sha256": "5455fe788060f0b6a9283783fa4cbe02a8718bfd09c7259aaf3bb8457bf30d29",
+  "manifest_sha256": "d6a24464415f5b2bab280eafd222e0520e755406c7fc473871e016ee01256b78"
+}

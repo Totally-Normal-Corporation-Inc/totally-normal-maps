@@ -1,0 +1,97 @@
+name: Release combined application
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: New application release tag (app-YYYY.MM.DD.N)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: application-release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      receipt: ${{ steps.receipt.outputs.json }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
+      - name: Validate application tag
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          python - <<'PY'
+          import os, re
+          tag = os.environ['RELEASE_TAG']
+          if not re.fullmatch(r'app-[0-9][A-Za-z0-9._-]{0,60}', tag) or '..' in tag:
+              raise SystemExit('Use a new app-* version tag; dataset tags are separate.')
+          PY
+      - run: python -m pip install -r requirements-dev.lock
+      - run: python -m pip install --no-deps --no-build-isolation -e .
+      - run: python -m unittest discover -q
+      - run: python tools/check_publication.py --staged
+      - run: python tools/check_secrets.py --staged
+      - run: python -m pip_audit -r requirements.lock -r requirements-s3.lock --no-deps --disable-pip
+      # Only this manually requested main-branch release downloads the reviewed
+      # dataset attachment. Ordinary PR CI uses synthetic local data instead.
+      - run: docker build --tag maps-release .
+      - run: python tools/check_container.py --image maps-release --receipt /tmp/deployment.json
+      - id: receipt
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          record = json.loads(Path('/tmp/deployment.json').read_text())
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('json=' + json.dumps(record, separators=(',', ':')) + '\n')
+          PY
+
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Create new application release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          DEPLOYMENT_RECORD: ${{ needs.verify.outputs.receipt }}
+        run: |
+          set -euo pipefail
+          existing=$(git ls-remote --tags "https://github.com/${GITHUB_REPOSITORY}.git" "refs/tags/${RELEASE_TAG}")
+          test -z "$existing" || { echo 'Release tag already exists; choose a new version.'; exit 1; }
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          record = json.loads(os.environ['DEPLOYMENT_RECORD'])
+          Path('/tmp/deployment.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+          Path('/tmp/release-notes.md').write_text(
+              'Combined website, API and pinned map dataset.\n\n'
+              'Build the default Dockerfile at this exact tag in private deployment automation. '
+              'Deploy and roll back the resulting image by digest. Runtime needs API keys and allowed hosts; no data upload or mount.\n\n'
+              'Dataset qualification remains **review_required**; coverage gaps and unapproved repairs are preserved.\n\n'
+              'Dataset manifest SHA-256: `' + record['dataset_manifest_sha256'] + '`\n\n'
+              'Code SHA-256: `' + record['code_sha256'] + '`\n')
+          PY
+          gh release create "$RELEASE_TAG" dataset.lock.json /tmp/deployment.json \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$RELEASE_TAG" \
+            --latest --notes-file /tmp/release-notes.md
+      # This publishes release metadata, not images or infrastructure. Any deployment
+      # system can build this tag and deploy its one complete image.

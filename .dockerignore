@@ -5,6 +5,7 @@
 !README.md
 !LICENSE
 !NOTICE.md
+!dataset.lock.json
 !totally_normal_maps/
 !totally_normal_maps/**
 totally_normal_maps/**/__pycache__/

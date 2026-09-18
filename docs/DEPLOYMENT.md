@@ -1,6 +1,7 @@
 # Deployment guide
 
-The public repository supplies a portable image and read-only API. Real account
+The public repository supplies one portable image with a public map explorer,
+read-only API and pinned dataset. Real account
 IDs, role policies, networking and release promotion belong to private deployment
 automation. Nothing here creates AWS resources or publishes an image/dataset.
 
@@ -18,8 +19,9 @@ address automatically enforces production settings.
 
 | Variable | Meaning |
 |---|---|
-| `MAPS_DATASET` | Directory containing a serving release, not a raw build run |
-| `MAPS_MANIFEST_SHA256` | Trusted exact SHA-256 of manifest.json; required in production |
+| `MAPS_BUNDLE` | Complete deployment directory; default image sets `/opt/maps/bundle` |
+| `MAPS_DATASET` | API-only mode: directory containing a serving release, not a raw build run |
+| `MAPS_MANIFEST_SHA256` | API-only mode: trusted exact SHA-256 of manifest.json; required in production |
 | `MAPS_MODE` | `local` or `production`; image defaults to production |
 | `MAPS_API_TOKENS` | Required in production: JSON object mapping consumer names to unique random 32–256-character API keys |
 | `MAPS_ALLOWED_HOSTS` | Comma-separated hostnames; no unrestricted `*` |
@@ -32,8 +34,10 @@ only. Inject actual tokens through your runtime's secret mechanism; do not commi
 them or put them in image build arguments. Token characters are URL-safe ASCII.
 Use distinct tokens per application; rotate via a controlled deployment.
 
-CLI `--dataset` and `--manifest-sha256` override their corresponding environment
-settings. The default concurrency limit is 64; configure `--limit-concurrency`
+The combined image derives its dataset pin from the sealed bundle. It rejects
+conflicting dataset paths, hashes and S3 bootstrap configuration. In API-only mode,
+CLI `--dataset` and `--manifest-sha256` override their environment settings.
+The default concurrency limit is 64; configure `--limit-concurrency`
 after measuring latency and memory with representative data.
 
 ## Public map and key-protected API
@@ -42,12 +46,13 @@ The hosting model is a public map explorer with no visitor accounts, plus an API
 whose geography routes require manually issued keys. Billing, subscriptions and
 self-service developer accounts are outside the current scope.
 
-Serve the generated preview's reviewed static display assets through a production
-static host/CDN. The explorer reads `catalogue.json` and display GeoJSON directly;
-it does not call `/v1/` or need a secret in browser JavaScript. Publish only the
-display assets allowed by `preview.py`, retaining source attribution and coverage
-labels; never expose the whole build/run directory. These display files are public
-and downloadable. The bundled preview server itself remains loopback-only.
+The combined image serves the explorer at `/`, redirecting to
+`/maps/<website-sha256>/index.html`. Its fixed asset allowlist contains the public
+catalogue, display GeoJSON, UI assets and attribution. The explorer does not call
+`/v1/` or need a secret in browser JavaScript. These display files are public and
+downloadable. Databases, full assignment geometry and deployment metadata are not
+exposed through the website routes. The separate development preview server
+remains loopback-only.
 
 Route `/v1/` to the API in production mode, with `MAPS_API_TOKENS` injected from a
 secret store. Missing or invalid keys return 401; docs and health endpoints remain
@@ -74,24 +79,61 @@ shared limits belong at ingress.
 docker build -t totally-normal-maps:local .
 ```
 
-The image runs as UID/GID 10001 and contains code and dependencies only. It expects
-a verified dataset at `/data/release` by default. Mount the release read-only, pass
-the configuration above, publish port 8000 behind HTTPS, and use `/readyz` for
-readiness. Supply `localhost` or `127.0.0.1` in allowed hosts for direct local checks.
+The default image runs as UID/GID 10001 and contains code, dependencies, the public
+website and verified dataset. The build downloads the exact public attachment in
+`dataset.lock.json`; a missing attachment or checksum mismatch fails the build.
+It never downloads data at startup. No dataset volume or S3 setup is needed.
+See [release preparation](RELEASING.md) for the initial attachment publication.
+
+Inject `MAPS_API_TOKENS` and `MAPS_ALLOWED_HOSTS` at runtime, publish port 8000
+behind HTTPS, and use `/readyz` for readiness. This endpoint records the dataset,
+website and code hashes after startup verification. Supply `localhost` or
+`127.0.0.1` in allowed hosts for direct local checks.
 Health endpoints deliberately accept load-balancer IP Host headers.
 
+For a local container check, set the two runtime variables in your shell using
+your normal secret/configuration mechanism, then pass them through without
+embedding values in the image:
+
+```bash
+docker run --rm --read-only --cap-drop=ALL --security-opt=no-new-privileges \
+  -e MAPS_API_TOKENS -e MAPS_ALLOWED_HOSTS \
+  -p 127.0.0.1:8000:8000 totally-normal-maps:local
+```
+
+Open `/` for the map. Include `127.0.0.1` in `MAPS_ALLOWED_HOSTS` for this example.
+
 Use a read-only root filesystem, drop Linux capabilities and prevent privilege
-escalation. Provide a bounded writable temporary/data volume only if downloading
-from S3. Ensure mounted data is readable by UID 10001 without granting write access
-to adopted releases. Source-builder output directories default to private local
-permissions; publishing/mounting jobs must explicitly set the intended read access.
+escalation. The combined image works without writable data volumes. Do not mount
+over `/opt/maps/bundle`, change `MAPS_BUNDLE`, or provide independent data overrides
+in private deployment automation: doing so defeats the combined-release contract.
 
 The base image uses a version tag for convenient rebuilding. Private release
 automation should resolve and pin its approved digest and deploy the built image
 by immutable digest. Dependencies are pinned in requirements.lock and
-requirements-s3.lock; CI audits these and builds the container without publishing it.
+requirements-s3.lock. PR CI builds the same serving image with a small synthetic
+bundle supplied as an explicit named context, then tests it with a read-only
+filesystem. It does not download the real dataset or publish anything.
 
-## S3 bootstrap
+For an already verified local distribution, build without a GitHub download:
+
+```bash
+.venv/bin/maps assemble-deployment --lock dataset.lock.json \
+  --archive /path/to/exact-reviewed-attachment.zip --output .local/deployment
+docker build --target bundled-local \
+  --build-context deployment_bundle=.local/deployment -t totally-normal-maps:local .
+```
+
+The bundle must be assembled from the same package code being built; code drift
+fails verification. The normal Docker context still excludes local data. The
+named context contains only the deliberately assembled bundle.
+
+Operators retaining separate data management can explicitly build
+`docker build --target api-only -t totally-normal-maps:api .` and mount a verified
+release read-only at `/data/release`, with `MAPS_MANIFEST_SHA256` supplied separately.
+That compatibility target contains no public website or bundled dataset.
+
+## S3 bootstrap (API-only compatibility mode)
 
 An operator can download a release separately:
 
@@ -129,12 +171,16 @@ rate limiter is local to a process and does not coordinate replicas. Avoid publi
 geometry-preparation or upload endpoints. Restrict egress where appropriate; the
 API itself needs no runtime network after loading a local release.
 
-Code and data deploy independently. Pin an image digest and dataset digest together
-for each task deployment. Stage source changes, compare classifications, and let
+Deploy one combined image by immutable digest and record its `/readyz` fingerprints.
+Rollback restores that same image, including its website and dataset. A code-only
+release reuses the existing data attachment. Stage source changes, compare classifications, and let
 consumers adopt deliberately using `If-Match`. During rolling updates, a client
 pinned to one version may receive 412 from another replica; retrying indefinitely
 is not a rollout strategy. Use separate versioned service targets or a controlled
-cutover when consumers require a consistent long-running backfill.
+cutover when consumers require a consistent long-running backfill. Versioned map
+URLs prevent mixed assets; an old URL returns 404 on a new image. Use a controlled
+cutover or retain old versioned targets when existing browser sessions must survive
+a rollout. Private automation must verify readiness before switching traffic.
 
 Keep consumer memberships and manual corrections in the consumer's database.
 Use bounded retries and queue new classifications when this API is unavailable.

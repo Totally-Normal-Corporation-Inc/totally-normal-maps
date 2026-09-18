@@ -17,6 +17,8 @@ display files and does not need an API key. There are no subscriptions or billin
 |---|---|---|
 | GET | `/healthz` | Process liveness |
 | GET | `/readyz` | Ready only after verified data and spatial indexes load |
+| GET | `/` | Combined deployments: redirect to the public map explorer |
+| GET/HEAD | `/maps/{website_version}/{asset}` | Combined deployments: allowlisted public display assets |
 | GET | `/v1/datasets/current` | Version, source attribution, counts, coverage and limitations |
 | GET | `/v1/countries` | Available countries (currently Canada) |
 | GET | `/v1/areas` | Search/filter all area metadata |
@@ -27,6 +29,13 @@ display files and does not need an API key. There are no subscriptions or billin
 | GET | `/v1/areas/{id}/children/boundaries` | Paginated GeoJSON FeatureCollection, display shapes only |
 | GET/POST | `/v1/lookup` | WGS84 coordinate lookup |
 | POST | `/v1/lookup/batch` | Up to 100 coordinate lookups, preserving input order |
+
+In a combined deployment, `/readyz` also returns `deployment_version`,
+`dataset_manifest_sha256`, `website_manifest_sha256` and `code_sha256` for promotion
+and rollback checks. Website routes are public and versioned by their manifest
+SHA-256, with immutable caching. They never serve databases or full assignment
+geometry. `/v1/` authentication and dataset-version preconditions are unchanged.
+API-only deployments return 404 for the website routes.
 
 Area pages accept `offset` (default 0), `limit` (default 100, maximum 500).
 `/v1/areas` additionally accepts `q` (accent-insensitive names/aliases/source IDs),

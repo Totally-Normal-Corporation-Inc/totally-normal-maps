@@ -25,11 +25,13 @@ jobs:
           python-version: '3.14'
       - run: python -m pip install -r requirements-dev.lock
       - run: python -m pip install --no-deps --no-build-isolation -e .
-      - run: python -m unittest tests.test_catalogue tests.test_regions tests.test_city_areas tests.test_api tests.test_releases tests.test_publication tests.test_quebec_refresh tests.test_ontario_refresh tests.test_jurisdiction_refresh tests.test_source_acquisition -q
+      - run: python -m unittest discover -q
       - run: python tools/check_publication.py --staged
       - run: python tools/check_secrets.py --staged
       - run: python -m pip_audit -r requirements.lock -r requirements-s3.lock --no-deps --disable-pip
       - run: python -m build --no-isolation
       - run: python tools/check_artifacts.py --staged dist/*.whl dist/*.tar.gz
-      - run: docker build --tag maps-ci .
+      - run: python -m tools.make_ci_bundle --output /tmp/maps-ci-bundle
+      - run: docker build --target bundled-local --build-context deployment_bundle=/tmp/maps-ci-bundle --tag maps-ci .
+      - run: python tools/check_container.py --image maps-ci
       # No publishing, deployment, credentials, cloud writes, or government downloads.
