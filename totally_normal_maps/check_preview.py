@@ -7,7 +7,7 @@ import argparse
 import json
 from pathlib import Path
 import re
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -26,7 +26,7 @@ def check_preview(url, output):
         # Avoid Chromium's unrelated automatic favicon request.
         page.route("**/favicon.ico", lambda route: route.fulfill(status=204))
         page.goto(url, wait_until="networkidle")
-        catalogue = page.request.get(url.rstrip("/") + "/catalogue.json").json()
+        catalogue = page.request.get(urljoin(page.url, "catalogue.json")).json()
         city_areas = catalogue.get("city_areas", [])
         refresh = catalogue['report'].get('quebec_refresh')
         ontario = catalogue['report'].get('ontario_refresh')

@@ -29,11 +29,22 @@ class APITests(unittest.TestCase):
 
     def test_health_and_contract(self):
         self.assertEqual(self.client.get('/healthz').json(), {'status': 'ok'})
-        self.assertEqual(self.client.get('/readyz').status_code, 200)
+        ready = self.client.get('/readyz')
+        self.assertEqual(ready.status_code, 200)
+        self.assertEqual(ready.json(), {'status': 'ready'})
+        self.assertEqual(ready.headers.get('cache-control'), 'no-store')
         spec = self.client.get('/openapi.json').json()
         self.assertEqual(spec['paths']['/v1/lookup']['post']['security'], [{'BearerAuth': []}])
         self.assertIn('BatchInput', spec['components']['schemas'])
         self.assertEqual(self.client.get('/v1/datasets/current').json()['qualification'], 'review_required')
+
+    def test_unavailable_readiness_is_not_cacheable(self):
+        # Without lifespan startup there is no dataset, so readiness must fail.
+        client = TestClient(create_app(self.settings), base_url='http://10.0.0.1')
+        self.addCleanup(client.close)
+        response = client.get('/readyz')
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.headers.get('cache-control'), 'no-store')
 
     def test_complete_hierarchy_and_namespaced_ids(self):
         self.assertEqual(self.client.get('/v1/countries').json()['items'][0]['id'], 'ca')

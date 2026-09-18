@@ -133,6 +133,19 @@ def main(argv=None):
     verify = commands.add_parser("verify-release", help="Verify hashes, hierarchy and geometry before deployment")
     verify.add_argument("--dataset", required=True, type=Path)
     verify.add_argument("--manifest-sha256")
+    package = commands.add_parser('package-dataset', help='Package a reviewed dataset and lock for a GitHub Release; no upload')
+    package.add_argument('--dataset', required=True, type=Path)
+    package.add_argument('--manifest-sha256', required=True)
+    package.add_argument('--repository', required=True)
+    package.add_argument('--tag', required=True, help='Immutable dataset-* tag; separate from application releases')
+    package.add_argument('--notice', required=True, type=Path)
+    package.add_argument('--output', required=True, type=Path)
+    assemble = commands.add_parser('assemble-deployment', help='Bundle code identity, pinned dataset and public website')
+    assemble.add_argument('--lock', required=True, type=Path)
+    assemble.add_argument('--archive', type=Path, help='Exact local archive for offline builds; otherwise download the pinned GitHub asset')
+    assemble.add_argument('--output', required=True, type=Path)
+    bundled = commands.add_parser('verify-deployment', help='Verify a combined website/API deployment against the running code')
+    bundled.add_argument('--bundle', required=True, type=Path)
     args = parser.parse_args(argv)
     if args.command == "download":
         report = download(args.output)
@@ -198,6 +211,17 @@ def main(argv=None):
     elif args.command == "verify-release":
         from .dataset import Dataset
         report = Dataset(args.dataset, args.manifest_sha256).summary
+    elif args.command == 'package-dataset':
+        from .distribution import package_dataset
+        report = package_dataset(args.dataset, args.output, manifest_sha256=args.manifest_sha256,
+            repository=args.repository, tag=args.tag, notice=args.notice)
+    elif args.command == 'assemble-deployment':
+        from .deployment import assemble_deployment
+        report = assemble_deployment(args.lock, args.output, archive=args.archive)
+    elif args.command == 'verify-deployment':
+        from .deployment import verify_deployment
+        data, record, _ = verify_deployment(args.bundle)
+        report = {**record, 'counts': data.summary['counts']}
     elif args.command == "api":
         from dataclasses import replace
         import uvicorn

@@ -1,7 +1,7 @@
 # Totally Normal Maps
 
 Standalone reference geography: countries, provinces/territories, regions,
-municipalities and city areas, with an HTTP API and an offline map preview.
+municipalities and city areas, with an HTTP API and a public map explorer.
 Python 3.13+. No Django, database server, Docker or cloud account is needed locally.
 
 **Current coverage with the Québec and Ontario refreshes:** Canada, 13 provinces/territories,
@@ -71,11 +71,25 @@ Missing regional levels are skipped without hiding municipalities.
 Open **http://127.0.0.1:9010**. This preview server is loopback-only and serves only
 display assets. The API uses a production ASGI server and separate serving releases.
 
+## Deploy website, API and maps together
+
+The default Dockerfile builds one image containing the website, API and exact
+dataset selected by [dataset.lock.json](dataset.lock.json). It downloads the
+checksummed GitHub Release ZIP during the build and verifies all contents before
+serving. Runtime needs API keys and allowed hosts, with no dataset mount or upload.
+Deploy and roll back the whole image by digest. The Python wheel remains data-free.
+
+The locked attachment must be published before the first default image build.
+Use [the release workflow](docs/RELEASING.md) to publish a new dataset once, then
+reuse its lock for code-only releases. Ordinary PR CI tests a synthetic bundle
+offline; private deployment automation owns production promotion.
+
 ## Documentation
 
 - [API contract, examples and lookup semantics](docs/API.md)
 - [Source downloads, builds, releases and benchmarks](docs/DATA.md)
-- [Container and S3 deployment](docs/DEPLOYMENT.md)
+- [Combined website, API and dataset deployment](docs/DEPLOYMENT.md)
+- [Dataset attachments and application release workflow](docs/RELEASING.md)
 - [Architecture and consumer integration](docs/ARCHITECTURE.md)
 - [Geography evidence and outstanding work](docs/research/canada-overview.md)
 - [Province-by-province regional decisions](docs/research/canada-regions.md)
@@ -92,7 +106,7 @@ Tests use synthetic geography and perform no source downloads or cloud calls.
 
 ```bash
 .venv/bin/python -m unittest tests.test_catalogue tests.test_regions tests.test_city_areas -q
-.venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_publication -q
+.venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_deployment tests.test_publication -q
 .venv/bin/python -m unittest tests.test_quebec_refresh tests.test_ontario_refresh -q
 .venv/bin/python -m unittest tests.test_jurisdiction_refresh tests.test_source_acquisition -q
 .venv/bin/python tools/check_publication.py

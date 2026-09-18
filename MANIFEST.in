@@ -1,6 +1,7 @@
 include README.md LICENSE NOTICE.md SECURITY.md AGENTS.md
 include requirements.lock requirements-s3.lock requirements-dev.lock
 include Dockerfile
+include .dockerignore dataset.lock.json
 recursive-include docs *.md
 recursive-include tools *.py
 recursive-include tests *.py

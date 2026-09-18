@@ -29,6 +29,7 @@ MANIFESTS = {f'totally_normal_maps/{name}' for name in (
     'jurisdiction-nu-2026-09.json')}
 CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256|parent_catalogue_sha256|parent_report_sha256)": "[0-9a-f]{64}",?\s*')
 REPAIR_CHECKSUM_LINE = re.compile(r'\s*"(?:source_sha256|candidate_sha256)": "[0-9a-f]{64}",?\s*')
+DATASET_CHECKSUM_LINE = re.compile(r'\s*"(?:archive_sha256|manifest_sha256)": "[0-9a-f]{64}",?\s*')
 
 
 def main():
@@ -63,6 +64,10 @@ def main():
     for name, rows in payload['results'].items():
         lines = files[name].decode().splitlines()
         for row in rows:
+            if (name == 'dataset.lock.json' and row['type'] == 'Hex High Entropy String'
+                    and DATASET_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
+                checksums += 1
+                continue
             # Reviewed public source/identity digests, not a blanket entropy exclusion.
             if (name in MANIFESTS and row['type'] == 'Hex High Entropy String'
                     and (CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1]) or

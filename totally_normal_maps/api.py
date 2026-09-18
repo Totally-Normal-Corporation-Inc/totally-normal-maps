@@ -16,7 +16,7 @@ from typing import Annotated, Literal
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
@@ -39,6 +39,7 @@ class Settings:
     allowed_hosts: tuple[str, ...] = ('localhost', '127.0.0.1', '::1')
     cors_origins: tuple[str, ...] = ()
     requests_per_minute: int = 120
+    bundle: Path | None = None
 
     def __post_init__(self):
         if self.mode not in {'local', 'production'}:
@@ -59,7 +60,17 @@ class Settings:
 
     @classmethod
     def from_env(cls):
+        bundle = Path(os.environ['MAPS_BUNDLE']) if os.environ.get('MAPS_BUNDLE') else None
         path = os.environ.get('MAPS_DATASET')
+        digest = os.environ.get('MAPS_MANIFEST_SHA256') or None
+        if bundle:
+            from .deployment import read_deployment
+            record = read_deployment(bundle)
+            if (path and Path(path).resolve() != (bundle / 'dataset').resolve()
+                    or digest and digest != record['dataset_manifest_sha256']
+                    or os.environ.get('MAPS_DATASET_S3_URI')):
+                raise CatalogueError('A combined deployment cannot override its bundled dataset.')
+            path, digest = str(bundle / 'dataset'), record['dataset_manifest_sha256']
         if not path:
             raise CatalogueError('Set MAPS_DATASET to an exported serving release.')
         if os.environ.get('MAPS_ALLOW_ANONYMOUS') == 'true':
@@ -69,7 +80,7 @@ class Settings:
             rate = int(os.environ.get('MAPS_REQUESTS_PER_MINUTE', '120'))
         except (ValueError, TypeError):
             raise CatalogueError('Invalid API token or request-limit configuration.') from None
-        return cls(dataset=Path(path), manifest_sha256=os.environ.get('MAPS_MANIFEST_SHA256') or None,
+        return cls(dataset=Path(path), manifest_sha256=digest, bundle=bundle,
                    mode=os.environ.get('MAPS_MODE', 'local'), tokens=tokens,
                    allowed_hosts=tuple(s.strip() for s in os.environ.get('MAPS_ALLOWED_HOSTS', 'localhost,127.0.0.1,::1').split(',') if s.strip()),
                    cors_origins=tuple(s.strip() for s in os.environ.get('MAPS_CORS_ORIGINS', '').split(',') if s.strip()),
@@ -172,8 +183,9 @@ class AccessMiddleware:
         async def secure_send(message):
             if message['type'] == 'http.response.start':
                 out = list(message.get('headers', []))
-                out.extend([(b'x-content-type-options', b'nosniff'), (b'referrer-policy', b'no-referrer'),
-                            (b'cache-control', b'no-store')])
+                out.extend([(b'x-content-type-options', b'nosniff'), (b'referrer-policy', b'no-referrer')])
+                if not any(k.lower() == b'cache-control' for k, _ in out):
+                    out.append((b'cache-control', b'no-store'))
                 dataset = getattr(scope.get('app').state, 'dataset', None)
                 if dataset:
                     out.append((b'x-maps-dataset-version', dataset.version.encode()))
@@ -252,7 +264,15 @@ def create_app(settings=None):
 
     @asynccontextmanager
     async def lifespan(app):
-        app.state.dataset = await asyncio.to_thread(Dataset, settings.dataset, settings.manifest_sha256)
+        if settings.bundle:
+            from .deployment import verify_deployment
+            data, deployment, site = await asyncio.to_thread(verify_deployment, settings.bundle)
+            if (data.version != settings.manifest_sha256
+                    or settings.dataset.resolve() != (settings.bundle / 'dataset').resolve()):
+                raise CatalogueError('Serving settings differ from the combined deployment.')
+            app.state.dataset, app.state.deployment, app.state.site = data, deployment, site
+        else:
+            app.state.dataset = await asyncio.to_thread(Dataset, settings.dataset, settings.manifest_sha256)
         LOG.info('Serving geography release %s (%d areas)', app.state.dataset.version, len(app.state.dataset.areas))
         yield
         del app.state.dataset
@@ -302,9 +322,43 @@ def create_app(settings=None):
 
     @app.get('/readyz', tags=['Health'])
     def ready(request: Request):
+        # Health checks bypass the middleware's default cache policy. Readiness
+        # and deployment fingerprints must describe the instance being queried.
+        headers = {'Cache-Control': 'no-store'}
         if not getattr(request.app.state, 'dataset', None):
-            raise HTTPException(503, 'Dataset not loaded.')
-        return {'status': 'ready'}
+            raise HTTPException(503, 'Dataset not loaded.', headers=headers)
+        deployment = getattr(request.app.state, 'deployment', None)
+        return JSONResponse({'status': 'ready', **({k: deployment[k] for k in (
+            'deployment_version', 'dataset_manifest_sha256', 'website_manifest_sha256', 'code_sha256')} if deployment else {})},
+            headers=headers)
+
+    @app.get('/', include_in_schema=False)
+    def website_home(request: Request):
+        deployment = getattr(request.app.state, 'deployment', None)
+        if deployment is None:
+            raise HTTPException(404, 'No public website is bundled with this API.')
+        return RedirectResponse('/maps/' + deployment['website_manifest_sha256'] + '/index.html', status_code=307,
+                                headers={'Cache-Control': 'no-store'})
+
+    @app.api_route('/maps/{version}/{name:path}', methods=['GET', 'HEAD'], include_in_schema=False)
+    def website_asset(version: str, name: str, request: Request):
+        deployment = getattr(request.app.state, 'deployment', None)
+        if deployment is None or version != deployment['website_manifest_sha256']:
+            raise HTTPException(404, 'This website version is not served by this deployment.')
+        files = request.app.state.site['files']
+        if name not in files:
+            raise HTTPException(404, 'Unknown public map asset.')
+        root = settings.bundle / 'site'
+        path = root / name
+        if any(p.is_symlink() for p in (root, path, path.parent)) or not path.is_file():
+            raise HTTPException(404, 'Public map asset unavailable.')
+        headers = {'ETag': '"' + files[name]['sha256'] + '"',
+                   'Cache-Control': 'public, max-age=31536000, immutable',
+                   'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"}
+        if request.headers.get('If-None-Match') == headers['ETag']:
+            return Response(status_code=304, headers=headers)
+        media = 'application/geo+json' if name.endswith('.geojson') else None
+        return FileResponse(path, media_type=media, headers=headers)
 
     @app.get('/v1/datasets/current', tags=['Dataset'])
     def current(request: Request):
