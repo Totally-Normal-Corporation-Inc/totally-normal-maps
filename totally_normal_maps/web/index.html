@@ -26,6 +26,7 @@
       <div class="gx-fgrid gx-fgrid--2">
         <div class="gx-w-lg gx-fspan-all"><label for="province">Jump to a province / territory</label><select id="province" class="gx-w-lg"><option value="">Canada</option></select></div>
         <div class="gx-w-lg gx-fspan-all"><label for="search">Search this level</label><input id="search" type="search" placeholder="Find a province or territory" autocomplete="off"></div>
+        <div id="city-scheme-control" class="gx-w-lg gx-fspan-all" hidden><label for="city-scheme">City-area boundaries</label><select id="city-scheme" class="gx-w-lg"></select></div>
         <div class="gx-check-row gx-fspan-all"><label><input id="issues-only" type="checkbox"> Geometry issues only</label></div>
       </div>
       <p id="coverage-note" role="status"></p>
@@ -35,10 +36,10 @@
       <details class="reading-guide"><summary>What this map tells us</summary>
         <p>Click a province to see its regions, then a region to see its municipalities. Provinces without regions open directly to municipalities. Use the breadcrumb trail or Back up to return.</p>
         <p>Municipalities without a regional grouping appear alongside the regions in their province. Municipal-level areas also include rural and northern statistical equivalents; their official type codes are retained.</p>
-        <p>Open a city with areas to see its arrondissements or sectors. Québec's official arrondissements and Gatineau's five sectors are included. Other cities stop at their municipal boundary. Electoral districts and informal neighbourhoods are not included.</p>
-        <p>City-area sources can differ from the national city outline. Both are retained for review. MacNider covers only part of Métis-sur-Mer; no area is invented for the remainder.</p>
+        <p>Open a city with areas to see its communities, neighbourhoods, arrondissements, sectors or quartiers. A community or arrondissement may open to areas within it. Where a city has separate boundary schemes, use the city-area selector. The coverage list identifies included sources and missing boundaries.</p>
+        <p>City-area sources can differ from the national city outline. Both are retained for review. Partial coverage is labelled; no area is invented for the remainder. Documented sector names without a qualified boundary source appear in the list without an outline.</p>
         <p>Regions use the local division appropriate to each province or territory. County and district groupings describe geography; they do not imply that every community belongs to that government.</p>
-        <p>The country overview can use a separate cartographic province reference, identified in the attribution. Regional outlines combine member municipal boundaries from the same national release. Québec's grouping is cross-checked against its administrative regions. Full boundaries are kept separately from the simplified display.</p>
+        <p>The country overview can use a separate cartographic province reference, identified in the attribution. Regional outlines combine member municipal boundaries. Any newer provincial municipality sources are identified separately. Québec's grouping is cross-checked against its administrative regions. Full boundaries are kept separately from the simplified display.</p>
         <p>Orange outlines include unapproved source repairs. A region inherits this review requirement from its members.</p>
         <p>This catalogue describes geographical coverage. Missing layers and boundaries under review remain explicitly marked.</p>
       </details>
@@ -56,6 +57,7 @@
     <span id="attribution">Dataset attribution is loading.</span>
     <a id="licence" href="https://www.statcan.gc.ca/en/terms-conditions/open-licence" target="_blank" rel="noreferrer">Source licence</a>
     <a id="quebec-licence" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" hidden>Québec source licence</a>
+    <span id="additional-licences"></span>
   </footer>
   <noscript>This local map needs JavaScript. The run directory also contains a report.json for review.</noscript>
 </body>

@@ -59,6 +59,24 @@ def main(argv=None):
     city_areas.add_argument("--output", required=True, type=Path)
     city_areas.add_argument("--plan", type=Path)
     city_areas.add_argument("--display-tolerance-metres", type=float, default=20)
+    refresh = commands.add_parser("quebec-refresh", help="Apply evidenced Québec municipal and city-area updates to a fresh run")
+    refresh.add_argument("--run", required=True, type=Path)
+    refresh.add_argument("--source-dir", required=True, type=Path)
+    refresh.add_argument("--output", required=True, type=Path)
+    refresh.add_argument("--plan", type=Path)
+    refresh_fetch = commands.add_parser("download-quebec-refresh", help="Download one pinned Québec refresh source")
+    refresh_fetch.add_argument("--source", required=True)
+    refresh_fetch.add_argument("--output", required=True, type=Path)
+    refresh_fetch.add_argument("--plan", type=Path)
+    ontario = commands.add_parser("ontario-refresh", help="Apply evidenced Ontario boundary and city-area updates offline")
+    ontario.add_argument("--run", required=True, type=Path)
+    ontario.add_argument("--source-dir", required=True, type=Path)
+    ontario.add_argument("--output", required=True, type=Path)
+    ontario.add_argument("--plan", type=Path)
+    ontario_fetch = commands.add_parser("download-ontario-refresh", help="Download one pinned Ontario refresh source")
+    ontario_fetch.add_argument("--source", required=True)
+    ontario_fetch.add_argument("--output", required=True, type=Path)
+    ontario_fetch.add_argument("--plan", type=Path)
     regions = commands.add_parser("regions", help="Add selected regions to a fresh local review run")
     regions.add_argument("--run", required=True, type=Path)
     regions.add_argument("--quebec-source", required=True, type=Path)
@@ -120,6 +138,21 @@ def main(argv=None):
         from .city_areas import build_city_areas
         report = build_city_areas(args.run, args.output, sources={"quebec": args.quebec_source, "gatineau": args.gatineau_source},
                                   plan_path=args.plan, tolerance=args.display_tolerance_metres)
+    elif args.command == "quebec-refresh":
+        from .quebec_refresh import build_refresh
+        report = build_refresh(args.run, args.output, source_dir=args.source_dir, plan_path=args.plan)
+    elif args.command == "ontario-refresh":
+        from .ontario_refresh import build_refresh
+        report = build_refresh(args.run, args.output, source_dir=args.source_dir, plan_path=args.plan)
+    elif args.command in {"download-quebec-refresh", "download-ontario-refresh"}:
+        if args.command == 'download-ontario-refresh':
+            from .ontario_refresh import PLAN, MAX_BYTES
+        else:
+            from .quebec_refresh import PLAN, MAX_BYTES
+        sources = read_json(args.plan or PLAN)['sources']
+        if args.source not in sources:
+            raise CatalogueError('Unknown refresh source.')
+        report = download(args.output, manifest=sources[args.source], max_bytes=MAX_BYTES)
     elif args.command == "regions":
         from .regions import build_regions
         report = build_regions(args.run, args.output, quebec_source=args.quebec_source,
@@ -185,6 +218,15 @@ def main(argv=None):
     elif args.command == "city-areas":
         summary = {"output": str(args.output), "state": report["state"],
                    **{key: report["city_areas"][key] for key in ("feature_count", "municipality_count", "kind_counts", "elapsed_seconds")}}
+    elif args.command == "quebec-refresh":
+        summary = {'output': str(args.output), 'state': report['state'],
+                   'active_municipalities': report['quebec_refresh']['active_municipality_count'],
+                   'city_areas': report['city_areas']['feature_count'],
+                   'unresolved': report['quebec_refresh']['unresolved']}
+    elif args.command == "ontario-refresh":
+        summary = {'output': str(args.output), 'state': report['state'],
+                   **{key: report['ontario_refresh'][key] for key in ('updated_municipality_count',
+                      'updated_region_count', 'added_city_area_count', 'unresolved')}}
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 1 if report.get("status") == "failed" or report.get("state") == "review_required" else 0
 

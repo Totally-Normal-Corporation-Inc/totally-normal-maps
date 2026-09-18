@@ -317,11 +317,12 @@ def create_app(settings=None):
     @app.get('/v1/areas', response_model=AreaPage, tags=['Areas'])
     def areas(request: Request, parent_id: str | None = Query(None, max_length=100),
               level: Level | None = None, q: str | None = Query(None, min_length=1, max_length=120),
-              offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+              offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
+              include_historical: bool = False):
         data = dataset(request)
         if parent_id is not None:
             area(data, parent_id)
-        return data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit)
+        return data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit, include_historical=include_historical)
 
     @app.get('/v1/areas/{area_id}', response_model=AreaDetail, tags=['Areas'])
     def detail(area_id: str, request: Request):
