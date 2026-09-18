@@ -9,6 +9,17 @@ include totally_normal_maps/statcan-2025.json totally_normal_maps/province-displ
 include totally_normal_maps/regions-2026-09.json totally_normal_maps/city-areas-quebec-2026-09.json totally_normal_maps/points.json
 include totally_normal_maps/quebec-refresh-2026-09.json
 include totally_normal_maps/ontario-refresh-2026-09.json
+include totally_normal_maps/jurisdiction-bc-2026-09.json
+include totally_normal_maps/jurisdiction-ab-2026-09.json
+include totally_normal_maps/jurisdiction-mb-2026-09.json
+include totally_normal_maps/jurisdiction-sk-2026-09.json
+include totally_normal_maps/jurisdiction-nb-2026-09.json
+include totally_normal_maps/jurisdiction-ns-2026-09.json
+include totally_normal_maps/jurisdiction-pe-2026-09.json
+include totally_normal_maps/jurisdiction-nl-2026-09.json
+include totally_normal_maps/jurisdiction-yt-2026-09.json
+include totally_normal_maps/jurisdiction-nt-2026-09.json
+include totally_normal_maps/jurisdiction-nu-2026-09.json
 include totally_normal_maps/web/index.html totally_normal_maps/web/preview.js totally_normal_maps/web/preview.css
 include totally_normal_maps/vendor/leaflet/leaflet.js totally_normal_maps/vendor/leaflet/leaflet.css totally_normal_maps/vendor/leaflet/LICENSE
 recursive-include totally_normal_maps/vendor/leaflet/images *.png

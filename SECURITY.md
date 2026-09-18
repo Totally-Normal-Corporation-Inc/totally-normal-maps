@@ -77,7 +77,9 @@ Both scanners read the exact index, including ignored files explicitly staged.
 The secret scanner works offline in a private temporary snapshot and never prints
 credential values. Keep scanners current and review findings rather than broadly
 excluding source files. Source-checksum exceptions apply only to named checksum
-fields in the six reviewed geographic manifests.
+fields in the explicitly allowlisted geographic manifests, including reviewed
+parent-catalogue/report digests in jurisdiction plans. These exceptions do not
+approve changes to geographic evidence or exclude whole files from scanning.
 
 Build in a clean checkout. `tools/check_artifacts.py --staged` rejects archive files
 outside the reviewed public set and rejects changed source bytes, unsafe paths and

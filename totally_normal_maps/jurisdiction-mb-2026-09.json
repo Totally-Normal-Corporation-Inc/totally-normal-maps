@@ -1,0 +1,5284 @@
+{
+  "schema_version": 1,
+  "province": "46",
+  "reviewed_on": "2026-09-18",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "parent_catalogue_sha256": "27f2f54468b9fdc0a7b6e96ad765fd4d7305c107c658169d1efad78bc5b10993",
+  "parent_report_sha256": "612f295928d154abb80d9545af9f3b768342a70c01fd2942b188c6817e766be4",
+  "sources": {
+    "winnipeg-neighbourhoods": {
+      "authority": "City of Winnipeg",
+      "family": "neighbourhood_characterization_area",
+      "release": "Pinned source snapshot 2026-09-18",
+      "retrieved_on": "2026-09-18",
+      "reference_date": null,
+      "scope": "Current neighbourhood characterization areas used for city planning, not the older 2001 or 2006 census partitions.",
+      "url": "https://data.winnipeg.ca/resource/8k6x-xxsy.geojson?%24limit=50000",
+      "dataset_url": "https://data.winnipeg.ca/d/8k6x-xxsy",
+      "licence": "https://data.winnipeg.ca/open-data-licence",
+      "attribution_statement": "Contains information licensed under the Open Government Licence – Winnipeg.",
+      "evidence": [
+        {
+          "publisher": "City of Winnipeg",
+          "url": "https://data.winnipeg.ca/d/8k6x-xxsy",
+          "claim": "Current neighbourhood characterization areas used for city planning, not the older 2001 or 2006 census partitions.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "sha256": "771ca728c2b294c81246d951537cde39e7daa4d6e2d8f4e71402e441aae6f0c7",
+      "expected_count": 237,
+      "id_field": "id",
+      "name_field": "name",
+      "geojson_crs": {
+        "type": "name",
+        "properties": {
+          "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+      },
+      "bounds": [
+        -141.1,
+        41,
+        -52,
+        90
+      ],
+      "identities": [
+        {
+          "source_id": "1006",
+          "properties": {
+            "id": "1006",
+            "name": "East Elmwood"
+          }
+        },
+        {
+          "source_id": "1012",
+          "properties": {
+            "id": "1012",
+            "name": "Talbot-Grey"
+          }
+        },
+        {
+          "source_id": "1020",
+          "properties": {
+            "id": "1020",
+            "name": "Glenelm"
+          }
+        },
+        {
+          "source_id": "1022",
+          "properties": {
+            "id": "1022",
+            "name": "North Point Douglas"
+          }
+        },
+        {
+          "source_id": "1024",
+          "properties": {
+            "id": "1024",
+            "name": "St. John's Park"
+          }
+        },
+        {
+          "source_id": "104",
+          "properties": {
+            "id": "104",
+            "name": "University"
+          }
+        },
+        {
+          "source_id": "1046",
+          "properties": {
+            "id": "1046",
+            "name": "Portage & Main"
+          }
+        },
+        {
+          "source_id": "1058",
+          "properties": {
+            "id": "1058",
+            "name": "Chalmers"
+          }
+        },
+        {
+          "source_id": "1062",
+          "properties": {
+            "id": "1062",
+            "name": "South Point Douglas"
+          }
+        },
+        {
+          "source_id": "1066",
+          "properties": {
+            "id": "1066",
+            "name": "Civic Centre"
+          }
+        },
+        {
+          "source_id": "1070",
+          "properties": {
+            "id": "1070",
+            "name": "Exchange District"
+          }
+        },
+        {
+          "source_id": "1074",
+          "properties": {
+            "id": "1074",
+            "name": "The Forks"
+          }
+        },
+        {
+          "source_id": "1078",
+          "properties": {
+            "id": "1078",
+            "name": "North St. Boniface"
+          }
+        },
+        {
+          "source_id": "1080",
+          "properties": {
+            "id": "1080",
+            "name": "Tissot"
+          }
+        },
+        {
+          "source_id": "1085",
+          "properties": {
+            "id": "1085",
+            "name": "Dufresne"
+          }
+        },
+        {
+          "source_id": "11",
+          "properties": {
+            "id": "11",
+            "name": "China Town"
+          }
+        },
+        {
+          "source_id": "110",
+          "properties": {
+            "id": "110",
+            "name": "Sargent Park"
+          }
+        },
+        {
+          "source_id": "1101",
+          "properties": {
+            "id": "1101",
+            "name": "Mission Industrial"
+          }
+        },
+        {
+          "source_id": "1126",
+          "properties": {
+            "id": "1126",
+            "name": "Symington Yards"
+          }
+        },
+        {
+          "source_id": "1134",
+          "properties": {
+            "id": "1134",
+            "name": "Maginot"
+          }
+        },
+        {
+          "source_id": "1136",
+          "properties": {
+            "id": "1136",
+            "name": "Stock Yards"
+          }
+        },
+        {
+          "source_id": "114",
+          "properties": {
+            "id": "114",
+            "name": "Murray Industrial Park"
+          }
+        },
+        {
+          "source_id": "115",
+          "properties": {
+            "id": "115",
+            "name": "Mathers"
+          }
+        },
+        {
+          "source_id": "116",
+          "properties": {
+            "id": "116",
+            "name": "Broadway-Assiniboine"
+          }
+        },
+        {
+          "source_id": "1164",
+          "properties": {
+            "id": "1164",
+            "name": "Archwood"
+          }
+        },
+        {
+          "source_id": "1172",
+          "properties": {
+            "id": "1172",
+            "name": "Central St. Boniface"
+          }
+        },
+        {
+          "source_id": "118",
+          "properties": {
+            "id": "118",
+            "name": "Kern Park"
+          }
+        },
+        {
+          "source_id": "1192",
+          "properties": {
+            "id": "1192",
+            "name": "The Mint"
+          }
+        },
+        {
+          "source_id": "1194",
+          "properties": {
+            "id": "1194",
+            "name": "Southdale"
+          }
+        },
+        {
+          "source_id": "1196",
+          "properties": {
+            "id": "1196",
+            "name": "Southland Park"
+          }
+        },
+        {
+          "source_id": "1198",
+          "properties": {
+            "id": "1198",
+            "name": "Sage Creek"
+          }
+        },
+        {
+          "source_id": "120",
+          "properties": {
+            "id": "120",
+            "name": "Normand Park"
+          }
+        },
+        {
+          "source_id": "1207",
+          "properties": {
+            "id": "1207",
+            "name": "Niakwa Park"
+          }
+        },
+        {
+          "source_id": "121",
+          "properties": {
+            "id": "121",
+            "name": "Minto"
+          }
+        },
+        {
+          "source_id": "1213",
+          "properties": {
+            "id": "1213",
+            "name": "Norwood West"
+          }
+        },
+        {
+          "source_id": "1215",
+          "properties": {
+            "id": "1215",
+            "name": "River-Osborne"
+          }
+        },
+        {
+          "source_id": "123",
+          "properties": {
+            "id": "123",
+            "name": "Norberry"
+          }
+        },
+        {
+          "source_id": "1230",
+          "properties": {
+            "id": "1230",
+            "name": "Glenwood"
+          }
+        },
+        {
+          "source_id": "124",
+          "properties": {
+            "id": "124",
+            "name": "Earl Grey"
+          }
+        },
+        {
+          "source_id": "1242",
+          "properties": {
+            "id": "1242",
+            "name": "Elm Park"
+          }
+        },
+        {
+          "source_id": "1252",
+          "properties": {
+            "id": "1252",
+            "name": "Alpine Place"
+          }
+        },
+        {
+          "source_id": "127",
+          "properties": {
+            "id": "127",
+            "name": "Edgeland"
+          }
+        },
+        {
+          "source_id": "1272",
+          "properties": {
+            "id": "1272",
+            "name": "Niakwa Place"
+          }
+        },
+        {
+          "source_id": "1277",
+          "properties": {
+            "id": "1277",
+            "name": "Lavalee"
+          }
+        },
+        {
+          "source_id": "1288",
+          "properties": {
+            "id": "1288",
+            "name": "Riverview"
+          }
+        },
+        {
+          "source_id": "129",
+          "properties": {
+            "id": "129",
+            "name": "Maybank"
+          }
+        },
+        {
+          "source_id": "130",
+          "properties": {
+            "id": "130",
+            "name": "Varennes"
+          }
+        },
+        {
+          "source_id": "131",
+          "properties": {
+            "id": "131",
+            "name": "Windsor Park"
+          }
+        },
+        {
+          "source_id": "132",
+          "properties": {
+            "id": "132",
+            "name": "Holden"
+          }
+        },
+        {
+          "source_id": "1320",
+          "properties": {
+            "id": "1320",
+            "name": "Lord Roberts"
+          }
+        },
+        {
+          "source_id": "133",
+          "properties": {
+            "id": "133",
+            "name": "Norwood East"
+          }
+        },
+        {
+          "source_id": "1342",
+          "properties": {
+            "id": "1342",
+            "name": "Roslyn"
+          }
+        },
+        {
+          "source_id": "1344",
+          "properties": {
+            "id": "1344",
+            "name": "McMillan"
+          }
+        },
+        {
+          "source_id": "1348",
+          "properties": {
+            "id": "1348",
+            "name": "Point Road"
+          }
+        },
+        {
+          "source_id": "135",
+          "properties": {
+            "id": "135",
+            "name": "Linden Ridge"
+          }
+        },
+        {
+          "source_id": "1356",
+          "properties": {
+            "id": "1356",
+            "name": "Kingston Crescent"
+          }
+        },
+        {
+          "source_id": "136",
+          "properties": {
+            "id": "136",
+            "name": "Templeton-Sinclair"
+          }
+        },
+        {
+          "source_id": "1364",
+          "properties": {
+            "id": "1364",
+            "name": "Wildwood"
+          }
+        },
+        {
+          "source_id": "137",
+          "properties": {
+            "id": "137",
+            "name": "Cloutier Drive"
+          }
+        },
+        {
+          "source_id": "1372",
+          "properties": {
+            "id": "1372",
+            "name": "Victoria Crescent"
+          }
+        },
+        {
+          "source_id": "1389",
+          "properties": {
+            "id": "1389",
+            "name": "Pulberry"
+          }
+        },
+        {
+          "source_id": "139",
+          "properties": {
+            "id": "139",
+            "name": "West Fort Garry Industrial"
+          }
+        },
+        {
+          "source_id": "1402",
+          "properties": {
+            "id": "1402",
+            "name": "Crescent Park"
+          }
+        },
+        {
+          "source_id": "142",
+          "properties": {
+            "id": "142",
+            "name": "Jefferson"
+          }
+        },
+        {
+          "source_id": "143",
+          "properties": {
+            "id": "143",
+            "name": "Pacific Industrial"
+          }
+        },
+        {
+          "source_id": "1430",
+          "properties": {
+            "id": "1430",
+            "name": "Beaumont"
+          }
+        },
+        {
+          "source_id": "1432",
+          "properties": {
+            "id": "1432",
+            "name": "Buffalo"
+          }
+        },
+        {
+          "source_id": "1450",
+          "properties": {
+            "id": "1450",
+            "name": "Pembina Strip"
+          }
+        },
+        {
+          "source_id": "1452",
+          "properties": {
+            "id": "1452",
+            "name": "Agassiz"
+          }
+        },
+        {
+          "source_id": "1474",
+          "properties": {
+            "id": "1474",
+            "name": "Armstrong Point"
+          }
+        },
+        {
+          "source_id": "1476",
+          "properties": {
+            "id": "1476",
+            "name": "Crescentwood"
+          }
+        },
+        {
+          "source_id": "1482",
+          "properties": {
+            "id": "1482",
+            "name": "Wellington Crescent"
+          }
+        },
+        {
+          "source_id": "1484",
+          "properties": {
+            "id": "1484",
+            "name": "Wolseley"
+          }
+        },
+        {
+          "source_id": "1490",
+          "properties": {
+            "id": "1490",
+            "name": "West Wolseley"
+          }
+        },
+        {
+          "source_id": "1492",
+          "properties": {
+            "id": "1492",
+            "name": "Sir John Franklin"
+          }
+        },
+        {
+          "source_id": "1498",
+          "properties": {
+            "id": "1498",
+            "name": "Old Tuxedo"
+          }
+        },
+        {
+          "source_id": "150",
+          "properties": {
+            "id": "150",
+            "name": "J. B. Mitchell"
+          }
+        },
+        {
+          "source_id": "1500",
+          "properties": {
+            "id": "1500",
+            "name": "Bruce Park"
+          }
+        },
+        {
+          "source_id": "152",
+          "properties": {
+            "id": "152",
+            "name": "Tuxedo Industrial"
+          }
+        },
+        {
+          "source_id": "1542",
+          "properties": {
+            "id": "1542",
+            "name": "Assiniboine Park"
+          }
+        },
+        {
+          "source_id": "1546",
+          "properties": {
+            "id": "1546",
+            "name": "Elmhurst"
+          }
+        },
+        {
+          "source_id": "155",
+          "properties": {
+            "id": "155",
+            "name": "South Tuxedo"
+          }
+        },
+        {
+          "source_id": "1552",
+          "properties": {
+            "id": "1552",
+            "name": "Vialoux"
+          }
+        },
+        {
+          "source_id": "1556",
+          "properties": {
+            "id": "1556",
+            "name": "Birchwood"
+          }
+        },
+        {
+          "source_id": "1560",
+          "properties": {
+            "id": "1560",
+            "name": "Kirkfield"
+          }
+        },
+        {
+          "source_id": "1562",
+          "properties": {
+            "id": "1562",
+            "name": "Westwood"
+          }
+        },
+        {
+          "source_id": "1566",
+          "properties": {
+            "id": "1566",
+            "name": "Southboine"
+          }
+        },
+        {
+          "source_id": "1568",
+          "properties": {
+            "id": "1568",
+            "name": "Ridgedale"
+          }
+        },
+        {
+          "source_id": "1573",
+          "properties": {
+            "id": "1573",
+            "name": "Roblin Park"
+          }
+        },
+        {
+          "source_id": "158",
+          "properties": {
+            "id": "158",
+            "name": "Melrose"
+          }
+        },
+        {
+          "source_id": "1584",
+          "properties": {
+            "id": "1584",
+            "name": "Betsworth"
+          }
+        },
+        {
+          "source_id": "1589",
+          "properties": {
+            "id": "1589",
+            "name": "Westdale"
+          }
+        },
+        {
+          "source_id": "160",
+          "properties": {
+            "id": "160",
+            "name": "Victoria West"
+          }
+        },
+        {
+          "source_id": "161",
+          "properties": {
+            "id": "161",
+            "name": "St. Vital Centre"
+          }
+        },
+        {
+          "source_id": "1640",
+          "properties": {
+            "id": "1640",
+            "name": "Royalwood"
+          }
+        },
+        {
+          "source_id": "1644",
+          "properties": {
+            "id": "1644",
+            "name": "Dakota Crossing"
+          }
+        },
+        {
+          "source_id": "1652",
+          "properties": {
+            "id": "1652",
+            "name": "Perrault"
+          }
+        },
+        {
+          "source_id": "1654",
+          "properties": {
+            "id": "1654",
+            "name": "Trappistes"
+          }
+        },
+        {
+          "source_id": "166",
+          "properties": {
+            "id": "166",
+            "name": "Fort Richmond"
+          }
+        },
+        {
+          "source_id": "1670",
+          "properties": {
+            "id": "1670",
+            "name": "St. Vital Perimeter South"
+          }
+        },
+        {
+          "source_id": "168",
+          "properties": {
+            "id": "168",
+            "name": "West Alexander"
+          }
+        },
+        {
+          "source_id": "1690",
+          "properties": {
+            "id": "1690",
+            "name": "Bridgwater Forest"
+          }
+        },
+        {
+          "source_id": "17",
+          "properties": {
+            "id": "17",
+            "name": "Vista"
+          }
+        },
+        {
+          "source_id": "170",
+          "properties": {
+            "id": "170",
+            "name": "Turnbull Drive"
+          }
+        },
+        {
+          "source_id": "1720",
+          "properties": {
+            "id": "1720",
+            "name": "Waverley West B"
+          }
+        },
+        {
+          "source_id": "1722",
+          "properties": {
+            "id": "1722",
+            "name": "Bridgwater Trails"
+          }
+        },
+        {
+          "source_id": "1723",
+          "properties": {
+            "id": "1723",
+            "name": "Bridgwater Lakes"
+          }
+        },
+        {
+          "source_id": "1725",
+          "properties": {
+            "id": "1725",
+            "name": "Bridgwater Centre"
+          }
+        },
+        {
+          "source_id": "1726",
+          "properties": {
+            "id": "1726",
+            "name": "South Pointe"
+          }
+        },
+        {
+          "source_id": "1727",
+          "properties": {
+            "id": "1727",
+            "name": "Prairie Pointe"
+          }
+        },
+        {
+          "source_id": "174",
+          "properties": {
+            "id": "174",
+            "name": "River Park South"
+          }
+        },
+        {
+          "source_id": "1743",
+          "properties": {
+            "id": "1743",
+            "name": "St. Norbert"
+          }
+        },
+        {
+          "source_id": "1750",
+          "properties": {
+            "id": "1750",
+            "name": "Richmond Lakes"
+          }
+        },
+        {
+          "source_id": "1752",
+          "properties": {
+            "id": "1752",
+            "name": "Parc La Salle"
+          }
+        },
+        {
+          "source_id": "176",
+          "properties": {
+            "id": "176",
+            "name": "St. George"
+          }
+        },
+        {
+          "source_id": "178",
+          "properties": {
+            "id": "178",
+            "name": "Parker"
+          }
+        },
+        {
+          "source_id": "179",
+          "properties": {
+            "id": "179",
+            "name": "Portage-Ellice"
+          }
+        },
+        {
+          "source_id": "1791",
+          "properties": {
+            "id": "1791",
+            "name": "Assiniboia Downs"
+          }
+        },
+        {
+          "source_id": "1792",
+          "properties": {
+            "id": "1792",
+            "name": "Buchanan"
+          }
+        },
+        {
+          "source_id": "1794",
+          "properties": {
+            "id": "1794",
+            "name": "Saskatchewan North"
+          }
+        },
+        {
+          "source_id": "180",
+          "properties": {
+            "id": "180",
+            "name": "Legislature"
+          }
+        },
+        {
+          "source_id": "1830",
+          "properties": {
+            "id": "1830",
+            "name": "Transcona South"
+          }
+        },
+        {
+          "source_id": "1831",
+          "properties": {
+            "id": "1831",
+            "name": "St. Boniface Industrial Park"
+          }
+        },
+        {
+          "source_id": "187",
+          "properties": {
+            "id": "187",
+            "name": "Robertson"
+          }
+        },
+        {
+          "source_id": "1894",
+          "properties": {
+            "id": "1894",
+            "name": "Fraipont"
+          }
+        },
+        {
+          "source_id": "19",
+          "properties": {
+            "id": "19",
+            "name": "Ebby-Wentworth"
+          }
+        },
+        {
+          "source_id": "190",
+          "properties": {
+            "id": "190",
+            "name": "Maple Grove Park"
+          }
+        },
+        {
+          "source_id": "1900",
+          "properties": {
+            "id": "1900",
+            "name": "Island Lakes"
+          }
+        },
+        {
+          "source_id": "194",
+          "properties": {
+            "id": "194",
+            "name": "Deer Lodge"
+          }
+        },
+        {
+          "source_id": "197",
+          "properties": {
+            "id": "197",
+            "name": "Spence"
+          }
+        },
+        {
+          "source_id": "199",
+          "properties": {
+            "id": "199",
+            "name": "St. Matthews"
+          }
+        },
+        {
+          "source_id": "2",
+          "properties": {
+            "id": "2",
+            "name": "Central River Heights"
+          }
+        },
+        {
+          "source_id": "201",
+          "properties": {
+            "id": "201",
+            "name": "St. John's"
+          }
+        },
+        {
+          "source_id": "204",
+          "properties": {
+            "id": "204",
+            "name": "Meadowood"
+          }
+        },
+        {
+          "source_id": "205",
+          "properties": {
+            "id": "205",
+            "name": "Rockwood"
+          }
+        },
+        {
+          "source_id": "206",
+          "properties": {
+            "id": "206",
+            "name": "Kensington"
+          }
+        },
+        {
+          "source_id": "209",
+          "properties": {
+            "id": "209",
+            "name": "Chevrier"
+          }
+        },
+        {
+          "source_id": "21",
+          "properties": {
+            "id": "21",
+            "name": "Shaughnessy Park"
+          }
+        },
+        {
+          "source_id": "212",
+          "properties": {
+            "id": "212",
+            "name": "La Barriere"
+          }
+        },
+        {
+          "source_id": "214",
+          "properties": {
+            "id": "214",
+            "name": "Dufferin Industrial"
+          }
+        },
+        {
+          "source_id": "215",
+          "properties": {
+            "id": "215",
+            "name": "Burrows Central"
+          }
+        },
+        {
+          "source_id": "217",
+          "properties": {
+            "id": "217",
+            "name": "Inkster-Faraday"
+          }
+        },
+        {
+          "source_id": "218",
+          "properties": {
+            "id": "218",
+            "name": "River West Park"
+          }
+        },
+        {
+          "source_id": "220",
+          "properties": {
+            "id": "220",
+            "name": "North River Heights"
+          }
+        },
+        {
+          "source_id": "221",
+          "properties": {
+            "id": "221",
+            "name": "Minnetonka"
+          }
+        },
+        {
+          "source_id": "225",
+          "properties": {
+            "id": "225",
+            "name": "Booth"
+          }
+        },
+        {
+          "source_id": "226",
+          "properties": {
+            "id": "226",
+            "name": "Fairfield Park"
+          }
+        },
+        {
+          "source_id": "24",
+          "properties": {
+            "id": "24",
+            "name": "Garden City"
+          }
+        },
+        {
+          "source_id": "25",
+          "properties": {
+            "id": "25",
+            "name": "Weston Shops"
+          }
+        },
+        {
+          "source_id": "27",
+          "properties": {
+            "id": "27",
+            "name": "Varsity View"
+          }
+        },
+        {
+          "source_id": "28",
+          "properties": {
+            "id": "28",
+            "name": "Richmond West"
+          }
+        },
+        {
+          "source_id": "286",
+          "properties": {
+            "id": "286",
+            "name": "Crestview"
+          }
+        },
+        {
+          "source_id": "29",
+          "properties": {
+            "id": "29",
+            "name": "West Perimeter South"
+          }
+        },
+        {
+          "source_id": "30",
+          "properties": {
+            "id": "30",
+            "name": "Whyte Ridge"
+          }
+        },
+        {
+          "source_id": "31",
+          "properties": {
+            "id": "31",
+            "name": "Jameswood"
+          }
+        },
+        {
+          "source_id": "327",
+          "properties": {
+            "id": "327",
+            "name": "Sturgeon Creek"
+          }
+        },
+        {
+          "source_id": "333",
+          "properties": {
+            "id": "333",
+            "name": "Heritage Park"
+          }
+        },
+        {
+          "source_id": "36",
+          "properties": {
+            "id": "36",
+            "name": "Daniel McIntyre"
+          }
+        },
+        {
+          "source_id": "37",
+          "properties": {
+            "id": "37",
+            "name": "Waverley Heights"
+          }
+        },
+        {
+          "source_id": "38",
+          "properties": {
+            "id": "38",
+            "name": "Colony"
+          }
+        },
+        {
+          "source_id": "391",
+          "properties": {
+            "id": "391",
+            "name": "St. James Industrial"
+          }
+        },
+        {
+          "source_id": "41",
+          "properties": {
+            "id": "41",
+            "name": "West Broadway"
+          }
+        },
+        {
+          "source_id": "429",
+          "properties": {
+            "id": "429",
+            "name": "King Edward"
+          }
+        },
+        {
+          "source_id": "43",
+          "properties": {
+            "id": "43",
+            "name": "Worthington"
+          }
+        },
+        {
+          "source_id": "435",
+          "properties": {
+            "id": "435",
+            "name": "Airport"
+          }
+        },
+        {
+          "source_id": "437",
+          "properties": {
+            "id": "437",
+            "name": "Omand's Creek Industrial"
+          }
+        },
+        {
+          "source_id": "45",
+          "properties": {
+            "id": "45",
+            "name": "Woodhaven"
+          }
+        },
+        {
+          "source_id": "47",
+          "properties": {
+            "id": "47",
+            "name": "Linden Woods"
+          }
+        },
+        {
+          "source_id": "495",
+          "properties": {
+            "id": "495",
+            "name": "Brooklands"
+          }
+        },
+        {
+          "source_id": "497",
+          "properties": {
+            "id": "497",
+            "name": "Weston"
+          }
+        },
+        {
+          "source_id": "520",
+          "properties": {
+            "id": "520",
+            "name": "Oak Point Highway"
+          }
+        },
+        {
+          "source_id": "524",
+          "properties": {
+            "id": "524",
+            "name": "North Inkster Industrial"
+          }
+        },
+        {
+          "source_id": "528",
+          "properties": {
+            "id": "528",
+            "name": "Tyndall Park"
+          }
+        },
+        {
+          "source_id": "54",
+          "properties": {
+            "id": "54",
+            "name": "Leila North"
+          }
+        },
+        {
+          "source_id": "55",
+          "properties": {
+            "id": "55",
+            "name": "Margaret Park"
+          }
+        },
+        {
+          "source_id": "555",
+          "properties": {
+            "id": "555",
+            "name": "Amber Trails"
+          }
+        },
+        {
+          "source_id": "57",
+          "properties": {
+            "id": "57",
+            "name": "Brockville"
+          }
+        },
+        {
+          "source_id": "573",
+          "properties": {
+            "id": "573",
+            "name": "Inkster Gardens"
+          }
+        },
+        {
+          "source_id": "58",
+          "properties": {
+            "id": "58",
+            "name": "South River Heights"
+          }
+        },
+        {
+          "source_id": "59",
+          "properties": {
+            "id": "59",
+            "name": "Grant Park"
+          }
+        },
+        {
+          "source_id": "596",
+          "properties": {
+            "id": "596",
+            "name": "Mandalay West"
+          }
+        },
+        {
+          "source_id": "62",
+          "properties": {
+            "id": "62",
+            "name": "Tuxedo"
+          }
+        },
+        {
+          "source_id": "622",
+          "properties": {
+            "id": "622",
+            "name": "Inkster Industrial Park"
+          }
+        },
+        {
+          "source_id": "63",
+          "properties": {
+            "id": "63",
+            "name": "Silver Heights"
+          }
+        },
+        {
+          "source_id": "630",
+          "properties": {
+            "id": "630",
+            "name": "The Maples"
+          }
+        },
+        {
+          "source_id": "634",
+          "properties": {
+            "id": "634",
+            "name": "Leila-McPhillips Triangle"
+          }
+        },
+        {
+          "source_id": "636",
+          "properties": {
+            "id": "636",
+            "name": "Mynarski"
+          }
+        },
+        {
+          "source_id": "65",
+          "properties": {
+            "id": "65",
+            "name": "Lord Selkirk Park"
+          }
+        },
+        {
+          "source_id": "662",
+          "properties": {
+            "id": "662",
+            "name": "West Kildonan Industrial"
+          }
+        },
+        {
+          "source_id": "666",
+          "properties": {
+            "id": "666",
+            "name": "Riverbend"
+          }
+        },
+        {
+          "source_id": "676",
+          "properties": {
+            "id": "676",
+            "name": "Rosser-Old Kildonan"
+          }
+        },
+        {
+          "source_id": "694",
+          "properties": {
+            "id": "694",
+            "name": "Kildonan Park"
+          }
+        },
+        {
+          "source_id": "696",
+          "properties": {
+            "id": "696",
+            "name": "Seven Oaks"
+          }
+        },
+        {
+          "source_id": "7",
+          "properties": {
+            "id": "7",
+            "name": "Montcalm"
+          }
+        },
+        {
+          "source_id": "702",
+          "properties": {
+            "id": "702",
+            "name": "Luxton"
+          }
+        },
+        {
+          "source_id": "722",
+          "properties": {
+            "id": "722",
+            "name": "Munroe West"
+          }
+        },
+        {
+          "source_id": "724",
+          "properties": {
+            "id": "724",
+            "name": "Kildonan Drive"
+          }
+        },
+        {
+          "source_id": "728",
+          "properties": {
+            "id": "728",
+            "name": "Rivergrove"
+          }
+        },
+        {
+          "source_id": "734",
+          "properties": {
+            "id": "734",
+            "name": "Valhalla"
+          }
+        },
+        {
+          "source_id": "740",
+          "properties": {
+            "id": "740",
+            "name": "River East"
+          }
+        },
+        {
+          "source_id": "753",
+          "properties": {
+            "id": "753",
+            "name": "Springfield North"
+          }
+        },
+        {
+          "source_id": "759",
+          "properties": {
+            "id": "759",
+            "name": "Rossmere-B"
+          }
+        },
+        {
+          "source_id": "76",
+          "properties": {
+            "id": "76",
+            "name": "Eric Coy"
+          }
+        },
+        {
+          "source_id": "761",
+          "properties": {
+            "id": "761",
+            "name": "Rossmere-A"
+          }
+        },
+        {
+          "source_id": "766",
+          "properties": {
+            "id": "766",
+            "name": "Valley Gardens"
+          }
+        },
+        {
+          "source_id": "768",
+          "properties": {
+            "id": "768",
+            "name": "McLeod Industrial"
+          }
+        },
+        {
+          "source_id": "79",
+          "properties": {
+            "id": "79",
+            "name": "Centennial"
+          }
+        },
+        {
+          "source_id": "797",
+          "properties": {
+            "id": "797",
+            "name": "Kil-Cona Park"
+          }
+        },
+        {
+          "source_id": "799",
+          "properties": {
+            "id": "799",
+            "name": "Springfield South"
+          }
+        },
+        {
+          "source_id": "801",
+          "properties": {
+            "id": "801",
+            "name": "North Transcona Yards"
+          }
+        },
+        {
+          "source_id": "807",
+          "properties": {
+            "id": "807",
+            "name": "Eaglemere"
+          }
+        },
+        {
+          "source_id": "81",
+          "properties": {
+            "id": "81",
+            "name": "Marlton"
+          }
+        },
+        {
+          "source_id": "811",
+          "properties": {
+            "id": "811",
+            "name": "Grassie"
+          }
+        },
+        {
+          "source_id": "83",
+          "properties": {
+            "id": "83",
+            "name": "William Whyte"
+          }
+        },
+        {
+          "source_id": "850",
+          "properties": {
+            "id": "850",
+            "name": "Meadows"
+          }
+        },
+        {
+          "source_id": "856",
+          "properties": {
+            "id": "856",
+            "name": "Peguis"
+          }
+        },
+        {
+          "source_id": "868",
+          "properties": {
+            "id": "868",
+            "name": "Kildonan Crossing"
+          }
+        },
+        {
+          "source_id": "87",
+          "properties": {
+            "id": "87",
+            "name": "Glendale"
+          }
+        },
+        {
+          "source_id": "870",
+          "properties": {
+            "id": "870",
+            "name": "Munroe East"
+          }
+        },
+        {
+          "source_id": "88",
+          "properties": {
+            "id": "88",
+            "name": "South Portage"
+          }
+        },
+        {
+          "source_id": "880",
+          "properties": {
+            "id": "880",
+            "name": "Griffin"
+          }
+        },
+        {
+          "source_id": "882",
+          "properties": {
+            "id": "882",
+            "name": "Radisson"
+          }
+        },
+        {
+          "source_id": "89",
+          "properties": {
+            "id": "89",
+            "name": "Logan-C.P.R."
+          }
+        },
+        {
+          "source_id": "898",
+          "properties": {
+            "id": "898",
+            "name": "Kildare-Redonda"
+          }
+        },
+        {
+          "source_id": "906",
+          "properties": {
+            "id": "906",
+            "name": "Transcona North"
+          }
+        },
+        {
+          "source_id": "920",
+          "properties": {
+            "id": "920",
+            "name": "Canterbury Park"
+          }
+        },
+        {
+          "source_id": "922",
+          "properties": {
+            "id": "922",
+            "name": "Transcona Yards"
+          }
+        },
+        {
+          "source_id": "93",
+          "properties": {
+            "id": "93",
+            "name": "Wilkes South"
+          }
+        },
+        {
+          "source_id": "95",
+          "properties": {
+            "id": "95",
+            "name": "Burrows-Keewatin"
+          }
+        },
+        {
+          "source_id": "96",
+          "properties": {
+            "id": "96",
+            "name": "Ridgewood South"
+          }
+        },
+        {
+          "source_id": "960",
+          "properties": {
+            "id": "960",
+            "name": "Mission Gardens"
+          }
+        },
+        {
+          "source_id": "964",
+          "properties": {
+            "id": "964",
+            "name": "Regent"
+          }
+        },
+        {
+          "source_id": "966",
+          "properties": {
+            "id": "966",
+            "name": "Dugald"
+          }
+        },
+        {
+          "source_id": "97",
+          "properties": {
+            "id": "97",
+            "name": "Polo Park"
+          }
+        },
+        {
+          "source_id": "98",
+          "properties": {
+            "id": "98",
+            "name": "Central Park"
+          }
+        },
+        {
+          "source_id": "986",
+          "properties": {
+            "id": "986",
+            "name": "Tyne-Tees"
+          }
+        },
+        {
+          "source_id": "99",
+          "properties": {
+            "id": "99",
+            "name": "Dufferin"
+          }
+        }
+      ],
+      "unapproved_invalid_ids": []
+    }
+  },
+  "adjustments": [],
+  "names": [],
+  "city_layers": [
+    {
+      "source": "winnipeg-neighbourhoods",
+      "parent_csd_id": "4611040",
+      "parent_name": "Winnipeg",
+      "kind": "neighbourhood_characterization_area",
+      "type": "neighbourhood characterization area",
+      "scheme": "neighbourhood_characterization_area",
+      "id_prefix": "ca-mb-4611040-neighbourhood-characterization-area-",
+      "id_map": {},
+      "expected_count": 237,
+      "coverage_policy": "citywide",
+      "coverage_note": "Current neighbourhood characterization areas used for city planning, not the older 2001 or 2006 census partitions.",
+      "evidence": [
+        {
+          "publisher": "City of Winnipeg",
+          "url": "https://data.winnipeg.ca/d/8k6x-xxsy",
+          "claim": "Current neighbourhood characterization areas used for city planning, not the older 2001 or 2006 census partitions.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "unapproved_parent_ids": []
+    }
+  ],
+  "repair_review": [
+    {
+      "csd_id": "4609024",
+      "name": "Portage la Prairie",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "2cd8bcb8a39f883e1e1cb8705e02b99431ad2773d728e99a6352a0bf73ed558c",
+        "source_area_m2": 2030439498.4223475,
+        "candidate_area_m2": 2030439498.4223418,
+        "area_change_m2": -5.7220458984375e-06,
+        "source_parts": 2,
+        "candidate_parts": 2,
+        "source_holes": 3,
+        "candidate_holes": 4,
+        "source_vertices": 4236,
+        "candidate_vertices": 4237,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "86e7b8e7763033275525fba4bd6236f442d183d8d4050dfc3807e9f72198a5b5"
+      }
+    },
+    {
+      "csd_id": "4613056",
+      "name": "St. Clements",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "718ddd5185e0f1ea00a16a226379bd168d7b6effbf171096b901070e4fbcf615",
+        "source_area_m2": 794837683.830828,
+        "candidate_area_m2": 794837683.8308303,
+        "area_change_m2": 2.384185791015625e-06,
+        "source_parts": 3,
+        "candidate_parts": 3,
+        "source_holes": 0,
+        "candidate_holes": 1,
+        "source_vertices": 4868,
+        "candidate_vertices": 4869,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "d3fcff02d64553451eb978a03f1700e57d184a42fc4706cabbc92317d22ff8e1"
+      }
+    },
+    {
+      "csd_id": "4615070",
+      "name": "Harrison Park",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "71d982123d0c0df9dcc4f75837a8dbfa8e262ca6f21ca9fa1375b3f2d25d33f0",
+        "source_area_m2": 1042938783.4978997,
+        "candidate_area_m2": 1042938783.4979006,
+        "area_change_m2": 9.5367431640625e-07,
+        "source_parts": 3,
+        "candidate_parts": 3,
+        "source_holes": 0,
+        "candidate_holes": 1,
+        "source_vertices": 493,
+        "candidate_vertices": 494,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "5cda15911173f4d7e7be99c3162f6bffb30bb1c1cc092fe3f04a5f128884c1e5"
+      }
+    },
+    {
+      "csd_id": "4615071",
+      "name": "Rolling River 67",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "366ebf21fc60ab086946b0eea1b9388af0bfcfe927d31c603b7c81445d4c6f79",
+        "source_area_m2": 68156608.83866125,
+        "candidate_area_m2": 68156608.83866124,
+        "area_change_m2": -1.4901161193847656e-08,
+        "source_parts": 4,
+        "candidate_parts": 4,
+        "source_holes": 0,
+        "candidate_holes": 1,
+        "source_vertices": 200,
+        "candidate_vertices": 201,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "5fa84e674eea091c5b46dfa0f541d5600cc9e9b1d0ae5d0bd6834e2b09a4f1c4"
+      }
+    },
+    {
+      "csd_id": "4615092",
+      "name": "Clanwilliam-Erickson",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "e665535567a5f24cb7fa8121430eb193f2b69f5352e484d3ef105f474e6cc482",
+        "source_area_m2": 376070588.22323227,
+        "candidate_area_m2": 376070588.22323227,
+        "area_change_m2": 0.0,
+        "source_parts": 1,
+        "candidate_parts": 1,
+        "source_holes": 2,
+        "candidate_holes": 3,
+        "source_vertices": 272,
+        "candidate_vertices": 273,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "8d347b04fbd1cb3ca046177a4ee5993144999ccd1fe0e497f85f96353ac706c9"
+      }
+    },
+    {
+      "csd_id": "4618060",
+      "name": "Grahamdale",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "1a597c4ce331917f96ecce0e00184285d8ce589b863c6ddcd343f592dce7ad8b",
+        "source_area_m2": 2367774107.8361645,
+        "candidate_area_m2": 2367774107.836164,
+        "area_change_m2": -4.76837158203125e-07,
+        "source_parts": 2,
+        "candidate_parts": 2,
+        "source_holes": 3,
+        "candidate_holes": 4,
+        "source_vertices": 10292,
+        "candidate_vertices": 10293,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "61dcc39cadab63db1440e6d27f30952a35b7a9077c828afda70b48e35d5d67f2"
+      }
+    },
+    {
+      "csd_id": "4619045",
+      "name": "Division No. 19, Unorganized",
+      "status": "unapproved",
+      "repair": {
+        "status": "unreviewed",
+        "method": "GEOS make_valid linework; polygon components only",
+        "source_sha256": "c2630ec443e6f7189c57329b5af5a54b39bac9aefed6218d4d01b09c67581eb3",
+        "source_area_m2": 83305265258.33098,
+        "candidate_area_m2": 83305265258.32959,
+        "area_change_m2": -0.0013885498046875,
+        "source_parts": 4,
+        "candidate_parts": 4,
+        "source_holes": 18,
+        "candidate_holes": 19,
+        "source_vertices": 81774,
+        "candidate_vertices": 81775,
+        "nonpolygon_vertices": 0,
+        "candidate_sha256": "a298cb841041dfa37b9babf7be15cb37074896882488d6a8fb3eefd4c3db4e59"
+      }
+    }
+  ],
+  "unresolved": [
+    "Exhaustive municipal website searches and reconciliation of post-2025 municipal legal changes remain incomplete. Municipal geometry retains the national 2025-01-01 source unless separately evidenced.",
+    "Existing municipal repair candidates remain unapproved. Missing city-area layers do not establish that a municipality has no subdivisions."
+  ],
+  "audit": {
+    "inventory_complete": true,
+    "source_audit_complete": false,
+    "municipal_boundary_reconciliation": "pending",
+    "regional_policy": "Retain existing evidenced regional memberships and explicit exclusions; do not invent a region or substitute electoral wards.",
+    "regional_coverage": {
+      "province": "46",
+      "code": "MB",
+      "status": "included",
+      "reason": "Eight familiar geographic groupings supported by the Manitoba Arts Council map and census-division crosswalk. Winnipeg groups Winnipeg and Headingley (2025 division 11), not the full metropolitan region. Boundaries are derived from 2025 CSDs.",
+      "reference_url": "https://www.travelmanitoba.com/trip-essentials/know-before-you-go/",
+      "expected_region_count": 8,
+      "excluded_cd_ids": [],
+      "excluded_csd_ids": [],
+      "partially_assigned_cd_ids": [],
+      "member_count": 241,
+      "unassigned_member_count": 0
+    },
+    "discovery_portal": "https://web43.gov.mb.ca/arcgis/rest/services/WALLAS/WaLLAS_REFERENCE/MapServer/7",
+    "municipalities": [
+      {
+        "csd_id": "4601035",
+        "name": "Stuartburn",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601039",
+        "name": "Piney",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601043",
+        "name": "Reynolds",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601046",
+        "name": "Whitemouth",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601051",
+        "name": "Pinawa",
+        "source_type": "LGD",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601057",
+        "name": "Lac du Bonnet",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601060",
+        "name": "Lac du Bonnet",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601070",
+        "name": "Buffalo Point 36",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601071",
+        "name": "Alexander",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601075",
+        "name": "Powerview-Pine Falls",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601078",
+        "name": "Victoria Beach",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601079",
+        "name": "Shoal Lake (Part) 40",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4601094",
+        "name": "Division No.  1, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602024",
+        "name": "Emerson-Franklin",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602026",
+        "name": "Roseau Rapids 2A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602027",
+        "name": "Roseau River 2",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602032",
+        "name": "De Salaberry",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602037",
+        "name": "St-Pierre-Jolys",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602041",
+        "name": "Hanover",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602044",
+        "name": "Steinbach",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602046",
+        "name": "Niverville",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602053",
+        "name": "La Broquerie",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602057",
+        "name": "Ste. Anne",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602061",
+        "name": "Ste. Anne",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602069",
+        "name": "Taché",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4602075",
+        "name": "Ritchot",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603030",
+        "name": "Montcalm",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603040",
+        "name": "Altona",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603041",
+        "name": "Rhineland",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603047",
+        "name": "Stanley",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603050",
+        "name": "Winkler",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603053",
+        "name": "Morden",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603058",
+        "name": "Thompson",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603062",
+        "name": "Roland",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603065",
+        "name": "Morris",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603067",
+        "name": "Morris",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603072",
+        "name": "Dufferin",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4603074",
+        "name": "Carman",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604034",
+        "name": "Pembina",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604040",
+        "name": "Louise",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604052",
+        "name": "Cartwright-Roblin",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604057",
+        "name": "Argyle",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604064",
+        "name": "Lorne",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4604068",
+        "name": "Swan Lake 7",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605025",
+        "name": "Killarney - Turtle Mountain",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605032",
+        "name": "Boissevain-Morton",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605038",
+        "name": "Deloraine-Winchester",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605044",
+        "name": "Brenda-Waskada",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605052",
+        "name": "Melita",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605056",
+        "name": "Two Borders",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605062",
+        "name": "Grassland",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4605071",
+        "name": "Prairie Lakes",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606016",
+        "name": "Sifton",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606023",
+        "name": "Pipestone",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606029",
+        "name": "Canupawakpa Dakota First Nation (Oak Lake 59)",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606031",
+        "name": "Wallace-Woodworth",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606034",
+        "name": "Virden",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4606040",
+        "name": "Sioux Valley Dakota Nation",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607039",
+        "name": "Glenboro-South Cypress",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607040",
+        "name": "Swan Lake 7A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607046",
+        "name": "Oakland-Wawanesa",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607052",
+        "name": "Souris-Glenwood",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607057",
+        "name": "Whitehead",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607060",
+        "name": "Cornwallis",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607062",
+        "name": "Brandon",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607066",
+        "name": "North Cypress-Langford",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607068",
+        "name": "Carberry",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607071",
+        "name": "Elton",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607072",
+        "name": "Waywayseecappo Highway 10",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4607076",
+        "name": "Riverdale",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608032",
+        "name": "Norfolk-Treherne",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608042",
+        "name": "Victoria",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608046",
+        "name": "North Norfolk",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608055",
+        "name": "Glenella-Lansdowne",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608060",
+        "name": "WestLake-Gladstone",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4608069",
+        "name": "Sandy Bay 5",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609018",
+        "name": "Grey",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609024",
+        "name": "Portage la Prairie",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609025",
+        "name": "Long Plain 6",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609026",
+        "name": "Dakota Plains 6A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609027",
+        "name": "Dakota Tipi 1",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609029",
+        "name": "Portage la Prairie",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4609030",
+        "name": "Long Plain",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4610035",
+        "name": "Macdonald",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4610043",
+        "name": "Cartier",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4610052",
+        "name": "St. François Xavier",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4611040",
+        "name": "Winnipeg",
+        "source_type": "CY",
+        "status": "qualified_complete",
+        "evidence": [
+          {
+            "publisher": "City of Winnipeg",
+            "url": "https://data.winnipeg.ca/d/8k6x-xxsy",
+            "claim": "Current neighbourhood characterization areas used for city planning, not the older 2001 or 2006 census partitions.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4611042",
+        "name": "Headingley",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4612047",
+        "name": "Springfield",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4612054",
+        "name": "Brokenhead",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4612056",
+        "name": "Beausejour",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613032",
+        "name": "East St. Paul",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613037",
+        "name": "West St. Paul",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613043",
+        "name": "St. Andrews",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613047",
+        "name": "Selkirk",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613049",
+        "name": "Dunnottar",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613056",
+        "name": "St. Clements",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4613062",
+        "name": "Brokenhead 4",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4614015",
+        "name": "Rosser",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4614031",
+        "name": "Woodlands",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4614036",
+        "name": "Rockwood",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4614039",
+        "name": "Stonewall",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4614042",
+        "name": "Teulon",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615020",
+        "name": "Neepawa",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615032",
+        "name": "Oakview",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615037",
+        "name": "Hamiota",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615042",
+        "name": "Birdtail Creek 57",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615047",
+        "name": "Ellice-Archie",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615049",
+        "name": "Gambler 63 (Part)",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615056",
+        "name": "Prairie View",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615063",
+        "name": "Yellowhead",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615067",
+        "name": "Keeseekoowenin 61",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615070",
+        "name": "Harrison Park",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615071",
+        "name": "Rolling River 67",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615072",
+        "name": "Rolling River 67B",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615074",
+        "name": "Minto-Odanah",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615075",
+        "name": "Minnedosa",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615078",
+        "name": "Rosedale",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4615092",
+        "name": "Clanwilliam-Erickson",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616005",
+        "name": "Rossburn",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616017",
+        "name": "Waywayseecappo First Nation",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616020",
+        "name": "Riding Mountain West",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616025",
+        "name": "Gambler 63 (Part)",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616030",
+        "name": "Russell-Binscarth",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616046",
+        "name": "Valley River 63A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4616048",
+        "name": "Roblin",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617026",
+        "name": "Alonsa",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617029",
+        "name": "Ebb and Flow 52",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617035",
+        "name": "McCreary",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617041",
+        "name": "Ste. Rose",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617048",
+        "name": "Dauphin",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617050",
+        "name": "Dauphin",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617054",
+        "name": "Gilbert Plains",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617058",
+        "name": "Grandview",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617064",
+        "name": "Ethelbert",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617072",
+        "name": "Mossey River",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617075",
+        "name": "Lakeshore",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4617092",
+        "name": "Division No. 17, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618031",
+        "name": "Gimli",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618034",
+        "name": "Winnipeg Beach",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618037",
+        "name": "Armstrong",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618040",
+        "name": "St. Laurent",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618044",
+        "name": "Coldwell",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618055",
+        "name": "Dog Creek 46",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618056",
+        "name": "West Interlake",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618060",
+        "name": "Grahamdale",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618061",
+        "name": "Obushkudayang",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618063",
+        "name": "Little Saskatchewan 48",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618067",
+        "name": "Fairford 50",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618068",
+        "name": "Fisher",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618074",
+        "name": "Arborg",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618076",
+        "name": "Bifrost-Riverton",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618091",
+        "name": "Division No. 18, Unorganized, East Part",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4618093",
+        "name": "Division No. 18, Unorganized, West Part",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619040",
+        "name": "Shoal River 65B",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619045",
+        "name": "Division No. 19, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619050",
+        "name": "Fort Alexander 3",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619051",
+        "name": "Little Grand Rapids 14",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619052",
+        "name": "Bloodvein 12",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619053",
+        "name": "Hole or Hollow Water 10",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619054",
+        "name": "Black River 9",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619056",
+        "name": "Fisher River 44",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619058",
+        "name": "Fisher River 44A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619059",
+        "name": "Peguis 1B",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619061",
+        "name": "Jackhead 43",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619062",
+        "name": "Dauphin River 48A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619065",
+        "name": "The Narrows 49",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619068",
+        "name": "Crane River 51",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619069",
+        "name": "Waterhen 45",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619070",
+        "name": "Pine Creek 66A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619071",
+        "name": "Swan Lake 65C",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619072",
+        "name": "Shoal River 65A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619075",
+        "name": "Poplar River 16",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619077",
+        "name": "Berens River 13",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619079",
+        "name": "Pauingassi First Nation",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4619082",
+        "name": "Chemawawin 3",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620032",
+        "name": "Mountain (South)",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620042",
+        "name": "Swan Valley West",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620048",
+        "name": "Swan River",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620051",
+        "name": "Minitonas-Bowsman",
+        "source_type": "MU",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620055",
+        "name": "Mountain (North)",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620056",
+        "name": "Mistasini Wapnohk",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620060",
+        "name": "Wuskwi Sipihk First Nation 2",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620066",
+        "name": "Division No. 20, Unorganized, South Part",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4620069",
+        "name": "Division No. 20, Unorganized, North Part",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621025",
+        "name": "Grand Rapids",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621027",
+        "name": "Grand Rapids 33",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621029",
+        "name": "Chemawawin 2",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621033",
+        "name": "Opaskwayak Cree Nation 21A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621034",
+        "name": "Opaskwayak Cree Nation 21B",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621035",
+        "name": "Opaskwayak Cree Nation 21C",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621036",
+        "name": "Opaskwayak Cree Nation 21D",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621039",
+        "name": "Opaskwayak Cree Nation 21N",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621040",
+        "name": "Opaskwayak Cree Nation 21I",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621043",
+        "name": "Opaskwayak Cree Nation 21E",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621045",
+        "name": "The Pas",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621052",
+        "name": "Kelsey",
+        "source_type": "RM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621058",
+        "name": "Moose Lake 31A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621060",
+        "name": "Moose Lake 31G",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621064",
+        "name": "Flin Flon (Part)",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621071",
+        "name": "Snow Lake",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621078",
+        "name": "Division No. 21, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4621080",
+        "name": "Moose Lake 31D",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622017",
+        "name": "Mystery Lake",
+        "source_type": "LGD",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622026",
+        "name": "Thompson",
+        "source_type": "CY",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622045",
+        "name": "Red Sucker Lake 1976A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622046",
+        "name": "Division No. 22, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622048",
+        "name": "Garden Hill First Nation",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622049",
+        "name": "God's Lake 23",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622050",
+        "name": "Oxford House 24",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622051",
+        "name": "Cross Lake 19",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622052",
+        "name": "Cross Lake 19A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622055",
+        "name": "God's River 86A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622056",
+        "name": "Red Sucker Lake 1976",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622058",
+        "name": "Norway House 17",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622059",
+        "name": "Nelson House 170",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622063",
+        "name": "Split Lake 171",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622064",
+        "name": "Ilford",
+        "source_type": "S-É",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622065",
+        "name": "York Landing",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622066",
+        "name": "Mooseocoot 4",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622067",
+        "name": "Cross Lake 19E",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622800",
+        "name": "Wasagamack",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622801",
+        "name": "St. Theresa Point",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4622802",
+        "name": "Mooseocoot",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623022",
+        "name": "Gillam",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623023",
+        "name": "A Kwis Ki Mahka",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623024",
+        "name": "Makesew Sakahikan Aski",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623027",
+        "name": "Fox Lake 2",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623034",
+        "name": "Leaf Rapids",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623037",
+        "name": "South Indian Lake",
+        "source_type": "S-É",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623039",
+        "name": "Granville Lake",
+        "source_type": "S-É",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623040",
+        "name": "O-Pipon-Na-Piwin Cree Nation 1",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623047",
+        "name": "Lynn Lake",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623056",
+        "name": "Churchill",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623058",
+        "name": "Churchill 1",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623062",
+        "name": "Division No. 23, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623064",
+        "name": "Pukatawagan 198",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623065",
+        "name": "Brochet 197",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623067",
+        "name": "Lac Brochet 197A",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623071",
+        "name": "Shamattawa 1",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "4623800",
+        "name": "Black Sturgeon",
+        "source_type": "IRI",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      }
+    ]
+  }
+}

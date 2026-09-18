@@ -8,7 +8,7 @@ import tempfile
 import time
 from urllib.request import urlopen
 
-from .catalogue import CatalogueError, MAX_SOURCE_BYTES, ROOT, build, read_json, sha256
+from .catalogue import CatalogueError, MAX_SOURCE_BYTES, ROOT, PROVINCES, build, read_json, sha256
 
 
 def download(destination, *, manifest=None, max_bytes=MAX_SOURCE_BYTES):
@@ -77,6 +77,16 @@ def main(argv=None):
     ontario_fetch.add_argument("--source", required=True)
     ontario_fetch.add_argument("--output", required=True, type=Path)
     ontario_fetch.add_argument("--plan", type=Path)
+    jurisdiction = commands.add_parser('jurisdiction-refresh', help='Apply a pinned jurisdiction plan offline')
+    jurisdiction.add_argument('--province', required=True, choices=tuple(PROVINCES))
+    jurisdiction.add_argument('--run', required=True, type=Path)
+    jurisdiction.add_argument('--source-dir', required=True, type=Path)
+    jurisdiction.add_argument('--plan', required=True, type=Path)
+    jurisdiction.add_argument('--output', required=True, type=Path)
+    jurisdiction_fetch = commands.add_parser('download-jurisdiction-refresh', help='Download one qualified, pinned source')
+    jurisdiction_fetch.add_argument('--source', required=True)
+    jurisdiction_fetch.add_argument('--plan', required=True, type=Path)
+    jurisdiction_fetch.add_argument('--output', required=True, type=Path)
     regions = commands.add_parser("regions", help="Add selected regions to a fresh local review run")
     regions.add_argument("--run", required=True, type=Path)
     regions.add_argument("--quebec-source", required=True, type=Path)
@@ -144,15 +154,25 @@ def main(argv=None):
     elif args.command == "ontario-refresh":
         from .ontario_refresh import build_refresh
         report = build_refresh(args.run, args.output, source_dir=args.source_dir, plan_path=args.plan)
-    elif args.command in {"download-quebec-refresh", "download-ontario-refresh"}:
+    elif args.command == 'jurisdiction-refresh':
+        from .jurisdiction_refresh import build_refresh
+        report = build_refresh(args.run, args.output, source_dir=args.source_dir, plan_path=args.plan, province=args.province)
+    elif args.command in {"download-quebec-refresh", "download-ontario-refresh", 'download-jurisdiction-refresh'}:
         if args.command == 'download-ontario-refresh':
             from .ontario_refresh import PLAN, MAX_BYTES
+        elif args.command == 'download-jurisdiction-refresh':
+            from .jurisdiction_refresh import MAX_BYTES
+            PLAN = args.plan
         else:
             from .quebec_refresh import PLAN, MAX_BYTES
         sources = read_json(args.plan or PLAN)['sources']
         if args.source not in sources:
             raise CatalogueError('Unknown refresh source.')
-        report = download(args.output, manifest=sources[args.source], max_bytes=MAX_BYTES)
+        if args.command == 'download-jurisdiction-refresh':
+            from .source_acquisition import download_source
+            report = download_source(sources[args.source], args.output)
+        else:
+            report = download(args.output, manifest=sources[args.source], max_bytes=MAX_BYTES)
     elif args.command == "regions":
         from .regions import build_regions
         report = build_regions(args.run, args.output, quebec_source=args.quebec_source,
@@ -227,6 +247,10 @@ def main(argv=None):
         summary = {'output': str(args.output), 'state': report['state'],
                    **{key: report['ontario_refresh'][key] for key in ('updated_municipality_count',
                       'updated_region_count', 'added_city_area_count', 'unresolved')}}
+    elif args.command == 'jurisdiction-refresh':
+        summary = {'output': str(args.output), 'state': report['state'], 'province': args.province,
+                   **{key: report['jurisdiction_refreshes'][args.province][key] for key in (
+                       'updated_municipality_count', 'deferred_municipality_count', 'added_city_area_count', 'unresolved')}}
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 1 if report.get("status") == "failed" or report.get("state") == "review_required" else 0
 

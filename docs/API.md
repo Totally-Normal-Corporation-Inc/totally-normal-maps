@@ -183,8 +183,8 @@ overrides, and queue new classifications during an outage.
 
 ## Ontario refresh semantics
 
-The Ontario refresh keeps all existing CSD and regional identities. Nine current
-municipal boundaries use full publisher geometry, with `boundary_source`,
+The Ontario refresh keeps all existing CSD and regional identities. Four accepted
+municipal replacements use full publisher geometry, with `boundary_source`,
 `boundary_source_ids`, `effective_date`, `previous_boundary_reference_date` and
 `comparison` metadata. Original national rows and previous immutable releases remain
 available for historical provenance. Every old/new boundary difference is indexed
@@ -210,3 +210,39 @@ Examples: `ca-on-3520005-former-01`, `ca-on-3506008-ons-3050`, and
 `assignment_status: unreviewed_repair`: display candidates are available, full boundary
 requests return 409, and their bounding boxes flag uncertainty only. Current counts,
 coverage measurements and remaining gaps are in `coverage.ontario_refresh`.
+
+## Jurisdiction refreshes and deferred updates
+
+`coverage.jurisdiction_refreshes` is keyed by national province code. Each entry
+contains its qualified sources, imported layers, unresolved work, repair review,
+adjustments and municipal audit inventory. `audit.inventory_complete` accounts for
+all baseline municipal/statistical identities; it does not mean the source audit
+is complete. Check `source_audit_complete` and each municipality's `status`.
+`pending_municipal_site_review` explicitly identifies unfinished research.
+
+Qualified future jurisdiction plans can also provide `migrations` in their coverage
+report. Municipal successors retain full predecessor unions and explicit historical
+links; regional membership changes rebuild complete current member unions. A
+retired region remains available through `include_historical=true` and by ID,
+with `lifecycle_status: superseded`; it is excluded from current lookup. The
+migration report's `regional_coverage` supplies the current membership inventory
+alongside the retained baseline inventory. Existing city-area identities and source
+geometry survive an explicitly evidenced municipal parent change.
+
+Municipal replacement overlap must cover at least 80% of both old and proposed
+extents. If any participant fails, the whole adjustment group is deferred.
+`deferred_adjustments` and `deferred_municipality_count` describe those groups;
+`adjustments` contains applied groups only. Retained municipalities have
+`update_status: deferred`, `boundary_basis: retained_previous_boundary`, and both
+ratios in `comparison`. The old/new difference still contributes review uncertainty,
+including proposed additions outside the retained boundary. Regional unions use
+only retained or accepted assignment geometry. Existing immutable releases retain
+their original data; the corrected rebuilt Ontario release applies four municipal
+replacements and defers five municipalities across two groups.
+
+New city-area states `unreviewed_parent` and `unreviewed_overlap` mean the publisher
+polygon is shown for review but has no assignment geometry. Full-boundary requests
+return 409. Its bounding box is uncertainty evidence only. These states do not
+approve a geometry repair or infer hierarchy from containment. City-area reports
+separate repair, parent and overlap review counts, and explicitly identify whether
+coverage measurements include unapproved candidates.

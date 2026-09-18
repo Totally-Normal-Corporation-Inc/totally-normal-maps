@@ -9,8 +9,17 @@ Python 3.13+. No Django, database server, Docker or cloud account is needed loca
 identities in 15 cities. Of those city areas, 652 have assignment boundaries;
 Terrebonne's three sectors still need boundaries and two Ottawa neighbourhood
 repairs remain unapproved. Ontario adds 520 identities in Toronto, Ottawa and Hamilton
-and updates nine municipal boundaries. Six former Québec municipal identities remain
+and applies four municipal boundary updates; five proposed updates remain deferred.
+Six former Québec municipal identities remain
 available as historical records. The original national source contains 5,054 areas.
+The initial expansion to other jurisdictions adds **1,418 city-area identities in
+nine cities**, bringing the local expansion release to **2,075 identities in 24
+cities**, with 2,045 assignment boundaries. Its eleven coverage reports inventory
+all 3,198 remaining baseline municipal/statistical areas; **the exhaustive municipal
+source audit and post-2025 boundary reconciliation remain unfinished**.
+The corrected Ontario rebuild applies four municipal boundary updates and defers
+five municipalities across two adjustment groups after checking overlap against
+both extents. Earlier immutable releases are unchanged.
 The catalogue is **review-required**, not a fully qualified legal boundary service.
 58 municipal boundaries have separate unapproved repair candidates. Source-vintage
 differences and deferred regions remain explicit. An API response is not approval
@@ -73,6 +82,7 @@ display assets. The API uses a production ASGI server and separate serving relea
 - [Québec city-area coverage and discrepancies](docs/research/quebec-city-areas.md)
 - [Québec municipal refresh, added areas and remaining gaps](docs/research/quebec-refresh.md)
 - [Ontario boundary updates, city areas and remaining gaps](docs/research/ontario-refresh.md)
+- [Other jurisdictions: additions, source decisions and unfinished audit](docs/research/jurisdiction-refresh.md)
 - [Migration inventory and verification](docs/MIGRATION.md)
 - [Security model](SECURITY.md) and [third-party attribution](NOTICE.md)
 
@@ -84,6 +94,7 @@ Tests use synthetic geography and perform no source downloads or cloud calls.
 .venv/bin/python -m unittest tests.test_catalogue tests.test_regions tests.test_city_areas -q
 .venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_publication -q
 .venv/bin/python -m unittest tests.test_quebec_refresh tests.test_ontario_refresh -q
+.venv/bin/python -m unittest tests.test_jurisdiction_refresh tests.test_source_acquisition -q
 .venv/bin/python tools/check_publication.py
 .venv/bin/python tools/check_secrets.py
 ```

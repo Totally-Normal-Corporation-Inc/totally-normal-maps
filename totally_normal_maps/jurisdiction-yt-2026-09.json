@@ -1,0 +1,926 @@
+{
+  "schema_version": 1,
+  "province": "60",
+  "reviewed_on": "2026-09-18",
+  "base_source_sha256": "cf23749f065a7ec6c145fd10a8f4a5f4623ff98043e648150627c96142b53228",
+  "base_identity_sha256": "b0ef94deb504d77a128e2e3ae287890efd4d2e5b63131c9be2c4b17d81c9a742",
+  "parent_catalogue_sha256": "404adf5bbe1bf46fd983bb405367bce67c313c359c6086fd20265ac1ca99e55d",
+  "parent_report_sha256": "7b4fc05dbc059dcfd62f1a4daca13f38a12b02dd1869e213b4df2a4493525994",
+  "sources": {
+    "whitehorse-subdivisions": {
+      "authority": "Government of Yukon on behalf of City of Whitehorse",
+      "family": "subdivision",
+      "release": "Pinned source snapshot 2026-09-18",
+      "retrieved_on": "2026-09-18",
+      "reference_date": null,
+      "scope": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+      "url": "https://mapservices.gov.yk.ca/arcgis/rest/services/GeoYukon/GY_EmergencyManagement/MapServer/27/query?f=geojson&where=1%3D1&outFields=%2A&outSR=4326",
+      "dataset_url": "https://www.arcgis.com/home/item.html?id=1e0abb1657404b808ed40c9284ed923a",
+      "licence": "https://open.yukon.ca/data/open-government-licence-yukon",
+      "attribution_statement": "Contains information licensed under the Open Government Licence – Yukon.",
+      "evidence": [
+        {
+          "publisher": "Government of Yukon on behalf of City of Whitehorse",
+          "url": "https://www.arcgis.com/home/item.html?id=1e0abb1657404b808ed40c9284ed923a",
+          "claim": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "sha256": "84c6fe40b4bc6c06acec2865bc38945d0b0d4489c17cdd02954d9ca25b6e4792",
+      "expected_count": 36,
+      "id_field": "NGUID",
+      "name_field": "NBRHD_COMM",
+      "geojson_crs": null,
+      "bounds": [
+        -141.1,
+        41,
+        -52,
+        90
+      ],
+      "identities": [
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{013a8bf8-334f-4a18-9e00-c1fca84acdae}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{013a8bf8-334f-4a18-9e00-c1fca84acdae}:whitehorse.ca",
+            "NBRHD_COMM": "MacRae Industrial Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{0719db2c-4b9e-4729-beb8-5e86934e59dd}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{0719db2c-4b9e-4729-beb8-5e86934e59dd}:whitehorse.ca",
+            "NBRHD_COMM": "Miles Canyon Townsite",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{159079bf-015a-4fe1-bdda-d299ad2997a9}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{159079bf-015a-4fe1-bdda-d299ad2997a9}:whitehorse.ca",
+            "NBRHD_COMM": "Logan Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{1afd97a4-06d1-4990-b0ff-2c283ab32dd7}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{1afd97a4-06d1-4990-b0ff-2c283ab32dd7}:whitehorse.ca",
+            "NBRHD_COMM": "Forestview Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{1b69764a-b248-4c55-818e-0c022588e364}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{1b69764a-b248-4c55-818e-0c022588e364}:whitehorse.ca",
+            "NBRHD_COMM": "Takhini West Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{2d873e38-2e6c-4b1b-a759-44abb06bcb0d}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{2d873e38-2e6c-4b1b-a759-44abb06bcb0d}:whitehorse.ca",
+            "NBRHD_COMM": "Mount Sima Industrial Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{334a81be-5720-4b44-88ce-0066d8156707}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{334a81be-5720-4b44-88ce-0066d8156707}:whitehorse.ca",
+            "NBRHD_COMM": "Hillcrest Industrial Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{35900097-683c-47b2-be2a-4a5df2a86345}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{35900097-683c-47b2-be2a-4a5df2a86345}:whitehorse.ca",
+            "NBRHD_COMM": "Copper Ridge Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{43b8fba5-fa07-4bff-b258-eb4bdc986497}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{43b8fba5-fa07-4bff-b258-eb4bdc986497}:whitehorse.ca",
+            "NBRHD_COMM": "Valleyview Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{4f6a3e7b-bf79-4401-b0fb-a4ecd73c9f00}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{4f6a3e7b-bf79-4401-b0fb-a4ecd73c9f00}:whitehorse.ca",
+            "NBRHD_COMM": "Mile 2 Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{51a1c7d8-369b-4f9e-b36f-59e0daffb6b5}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{51a1c7d8-369b-4f9e-b36f-59e0daffb6b5}:whitehorse.ca",
+            "NBRHD_COMM": "Raven's Ridge Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{51ddbb05-bd8a-413c-9b6e-0327bc6f69b7}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{51ddbb05-bd8a-413c-9b6e-0327bc6f69b7}:whitehorse.ca",
+            "NBRHD_COMM": "Cowley Creek Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{558fdba0-fa0b-46ec-8ddc-774c6a86dfc2}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{558fdba0-fa0b-46ec-8ddc-774c6a86dfc2}:whitehorse.ca",
+            "NBRHD_COMM": "Pineridge Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{5e9ef638-e37d-4411-b184-1635eeef88c1}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{5e9ef638-e37d-4411-b184-1635eeef88c1}:whitehorse.ca",
+            "NBRHD_COMM": "Whitehorse Copper Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{6cb31f2a-a216-443c-adc7-29fb62d713d1}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{6cb31f2a-a216-443c-adc7-29fb62d713d1}:whitehorse.ca",
+            "NBRHD_COMM": "Riverdale Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{7403bb85-fc2b-433d-b1c6-cd19a6a369a2}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{7403bb85-fc2b-433d-b1c6-cd19a6a369a2}:whitehorse.ca",
+            "NBRHD_COMM": "Eagle's Eye Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{7a34eaf8-eff6-41b3-a852-76f7c519bb87}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{7a34eaf8-eff6-41b3-a852-76f7c519bb87}:whitehorse.ca",
+            "NBRHD_COMM": "Crestview Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{7ba01a79-1caf-4796-9e19-8831e354261f}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{7ba01a79-1caf-4796-9e19-8831e354261f}:whitehorse.ca",
+            "NBRHD_COMM": "Porter Creek Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{88ec667f-a68c-4a4e-b013-1dff1a7e2e18}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{88ec667f-a68c-4a4e-b013-1dff1a7e2e18}:whitehorse.ca",
+            "NBRHD_COMM": "Fox Haven Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{8d2643b4-0248-4591-9e1c-639eb9f7f420}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{8d2643b4-0248-4591-9e1c-639eb9f7f420}:whitehorse.ca",
+            "NBRHD_COMM": "MacPhersion Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{9848a0bb-2216-4927-8151-9030275f4749}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{9848a0bb-2216-4927-8151-9030275f4749}:whitehorse.ca",
+            "NBRHD_COMM": "Heney Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{a09a49c2-7e19-42f6-a457-5f7720572d3a}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{a09a49c2-7e19-42f6-a457-5f7720572d3a}:whitehorse.ca",
+            "NBRHD_COMM": "Hillcrest Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{ae32750c-9cf1-477f-b538-850ed84b18f2}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{ae32750c-9cf1-477f-b538-850ed84b18f2}:whitehorse.ca",
+            "NBRHD_COMM": "Takhini East Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{b0322acb-c064-44d4-a448-5d4760bab96a}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{b0322acb-c064-44d4-a448-5d4760bab96a}:whitehorse.ca",
+            "NBRHD_COMM": "Hillcrest Subdivision (Granger)",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{b1eec340-5853-4148-9eee-991cf76b368b}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{b1eec340-5853-4148-9eee-991cf76b368b}:whitehorse.ca",
+            "NBRHD_COMM": "Whitehorse Industrial Subdivision (Marwell)",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{bff8037c-8e2f-44ae-a402-b0f86c981ac5}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{bff8037c-8e2f-44ae-a402-b0f86c981ac5}:whitehorse.ca",
+            "NBRHD_COMM": "Spruce Hill Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{c29a0984-e50d-4d6e-99d7-da346f043e91}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{c29a0984-e50d-4d6e-99d7-da346f043e91}:whitehorse.ca",
+            "NBRHD_COMM": "Canyon Crescent Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{ce183f31-cd66-499d-a9b5-170e93926607}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{ce183f31-cd66-499d-a9b5-170e93926607}:whitehorse.ca",
+            "NBRHD_COMM": "Mary Lake Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{ce487b1d-c7c6-4bfb-8544-f116d953b68f}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{ce487b1d-c7c6-4bfb-8544-f116d953b68f}:whitehorse.ca",
+            "NBRHD_COMM": "Ingram Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{cfd5c5a0-a021-446f-8747-fb03a8a4fa68}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{cfd5c5a0-a021-446f-8747-fb03a8a4fa68}:whitehorse.ca",
+            "NBRHD_COMM": "Kulan Industrial Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{d0136546-98a6-4d1c-9c06-ff593c7b4ec1}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{d0136546-98a6-4d1c-9c06-ff593c7b4ec1}:whitehorse.ca",
+            "NBRHD_COMM": "Takhini North Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{debd0651-5022-4fc4-bdf6-26e16b7881c5}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{debd0651-5022-4fc4-bdf6-26e16b7881c5}:whitehorse.ca",
+            "NBRHD_COMM": "Hillcrest Subdivision (McIntyre)",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{df51c9cb-b833-41bb-a5e6-0f6e5369abe7}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{df51c9cb-b833-41bb-a5e6-0f6e5369abe7}:whitehorse.ca",
+            "NBRHD_COMM": "White Pass Industrial Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{e743df75-7ff9-459f-8051-be9ca9cab1c9}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{e743df75-7ff9-459f-8051-be9ca9cab1c9}:whitehorse.ca",
+            "NBRHD_COMM": "Arkell Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{eebf5caa-f86f-419f-bfdc-2a519fd047fc}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{eebf5caa-f86f-419f-bfdc-2a519fd047fc}:whitehorse.ca",
+            "NBRHD_COMM": "Whistle Bend Subdivision",
+            "EXPIRE": null
+          }
+        },
+        {
+          "source_id": "urn:emergency:uid:gis::A5:{f24a2f93-162c-4977-88ab-a424dd9e9898}:whitehorse.ca",
+          "properties": {
+            "NGUID": "urn:emergency:uid:gis::A5:{f24a2f93-162c-4977-88ab-a424dd9e9898}:whitehorse.ca",
+            "NBRHD_COMM": "Wolf Creek Subdivision",
+            "EXPIRE": null
+          }
+        }
+      ],
+      "unapproved_invalid_ids": []
+    }
+  },
+  "adjustments": [],
+  "names": [],
+  "city_layers": [
+    {
+      "source": "whitehorse-subdivisions",
+      "parent_csd_id": "6001009",
+      "parent_name": "Whitehorse",
+      "kind": "subdivision",
+      "type": "subdivision",
+      "scheme": "subdivision",
+      "id_prefix": "ca-yt-6001009-subdivision-",
+      "id_map": {
+        "urn:emergency:uid:gis::A5:{013a8bf8-334f-4a18-9e00-c1fca84acdae}:whitehorse.ca": "013a8bf8-334f-4a18-9e00-c1fca84acdae",
+        "urn:emergency:uid:gis::A5:{0719db2c-4b9e-4729-beb8-5e86934e59dd}:whitehorse.ca": "0719db2c-4b9e-4729-beb8-5e86934e59dd",
+        "urn:emergency:uid:gis::A5:{159079bf-015a-4fe1-bdda-d299ad2997a9}:whitehorse.ca": "159079bf-015a-4fe1-bdda-d299ad2997a9",
+        "urn:emergency:uid:gis::A5:{1afd97a4-06d1-4990-b0ff-2c283ab32dd7}:whitehorse.ca": "1afd97a4-06d1-4990-b0ff-2c283ab32dd7",
+        "urn:emergency:uid:gis::A5:{1b69764a-b248-4c55-818e-0c022588e364}:whitehorse.ca": "1b69764a-b248-4c55-818e-0c022588e364",
+        "urn:emergency:uid:gis::A5:{2d873e38-2e6c-4b1b-a759-44abb06bcb0d}:whitehorse.ca": "2d873e38-2e6c-4b1b-a759-44abb06bcb0d",
+        "urn:emergency:uid:gis::A5:{334a81be-5720-4b44-88ce-0066d8156707}:whitehorse.ca": "334a81be-5720-4b44-88ce-0066d8156707",
+        "urn:emergency:uid:gis::A5:{35900097-683c-47b2-be2a-4a5df2a86345}:whitehorse.ca": "35900097-683c-47b2-be2a-4a5df2a86345",
+        "urn:emergency:uid:gis::A5:{43b8fba5-fa07-4bff-b258-eb4bdc986497}:whitehorse.ca": "43b8fba5-fa07-4bff-b258-eb4bdc986497",
+        "urn:emergency:uid:gis::A5:{4f6a3e7b-bf79-4401-b0fb-a4ecd73c9f00}:whitehorse.ca": "4f6a3e7b-bf79-4401-b0fb-a4ecd73c9f00",
+        "urn:emergency:uid:gis::A5:{51a1c7d8-369b-4f9e-b36f-59e0daffb6b5}:whitehorse.ca": "51a1c7d8-369b-4f9e-b36f-59e0daffb6b5",
+        "urn:emergency:uid:gis::A5:{51ddbb05-bd8a-413c-9b6e-0327bc6f69b7}:whitehorse.ca": "51ddbb05-bd8a-413c-9b6e-0327bc6f69b7",
+        "urn:emergency:uid:gis::A5:{558fdba0-fa0b-46ec-8ddc-774c6a86dfc2}:whitehorse.ca": "558fdba0-fa0b-46ec-8ddc-774c6a86dfc2",
+        "urn:emergency:uid:gis::A5:{5e9ef638-e37d-4411-b184-1635eeef88c1}:whitehorse.ca": "5e9ef638-e37d-4411-b184-1635eeef88c1",
+        "urn:emergency:uid:gis::A5:{6cb31f2a-a216-443c-adc7-29fb62d713d1}:whitehorse.ca": "6cb31f2a-a216-443c-adc7-29fb62d713d1",
+        "urn:emergency:uid:gis::A5:{7403bb85-fc2b-433d-b1c6-cd19a6a369a2}:whitehorse.ca": "7403bb85-fc2b-433d-b1c6-cd19a6a369a2",
+        "urn:emergency:uid:gis::A5:{7a34eaf8-eff6-41b3-a852-76f7c519bb87}:whitehorse.ca": "7a34eaf8-eff6-41b3-a852-76f7c519bb87",
+        "urn:emergency:uid:gis::A5:{7ba01a79-1caf-4796-9e19-8831e354261f}:whitehorse.ca": "7ba01a79-1caf-4796-9e19-8831e354261f",
+        "urn:emergency:uid:gis::A5:{88ec667f-a68c-4a4e-b013-1dff1a7e2e18}:whitehorse.ca": "88ec667f-a68c-4a4e-b013-1dff1a7e2e18",
+        "urn:emergency:uid:gis::A5:{8d2643b4-0248-4591-9e1c-639eb9f7f420}:whitehorse.ca": "8d2643b4-0248-4591-9e1c-639eb9f7f420",
+        "urn:emergency:uid:gis::A5:{9848a0bb-2216-4927-8151-9030275f4749}:whitehorse.ca": "9848a0bb-2216-4927-8151-9030275f4749",
+        "urn:emergency:uid:gis::A5:{a09a49c2-7e19-42f6-a457-5f7720572d3a}:whitehorse.ca": "a09a49c2-7e19-42f6-a457-5f7720572d3a",
+        "urn:emergency:uid:gis::A5:{ae32750c-9cf1-477f-b538-850ed84b18f2}:whitehorse.ca": "ae32750c-9cf1-477f-b538-850ed84b18f2",
+        "urn:emergency:uid:gis::A5:{b0322acb-c064-44d4-a448-5d4760bab96a}:whitehorse.ca": "b0322acb-c064-44d4-a448-5d4760bab96a",
+        "urn:emergency:uid:gis::A5:{b1eec340-5853-4148-9eee-991cf76b368b}:whitehorse.ca": "b1eec340-5853-4148-9eee-991cf76b368b",
+        "urn:emergency:uid:gis::A5:{bff8037c-8e2f-44ae-a402-b0f86c981ac5}:whitehorse.ca": "bff8037c-8e2f-44ae-a402-b0f86c981ac5",
+        "urn:emergency:uid:gis::A5:{c29a0984-e50d-4d6e-99d7-da346f043e91}:whitehorse.ca": "c29a0984-e50d-4d6e-99d7-da346f043e91",
+        "urn:emergency:uid:gis::A5:{ce183f31-cd66-499d-a9b5-170e93926607}:whitehorse.ca": "ce183f31-cd66-499d-a9b5-170e93926607",
+        "urn:emergency:uid:gis::A5:{ce487b1d-c7c6-4bfb-8544-f116d953b68f}:whitehorse.ca": "ce487b1d-c7c6-4bfb-8544-f116d953b68f",
+        "urn:emergency:uid:gis::A5:{cfd5c5a0-a021-446f-8747-fb03a8a4fa68}:whitehorse.ca": "cfd5c5a0-a021-446f-8747-fb03a8a4fa68",
+        "urn:emergency:uid:gis::A5:{d0136546-98a6-4d1c-9c06-ff593c7b4ec1}:whitehorse.ca": "d0136546-98a6-4d1c-9c06-ff593c7b4ec1",
+        "urn:emergency:uid:gis::A5:{debd0651-5022-4fc4-bdf6-26e16b7881c5}:whitehorse.ca": "debd0651-5022-4fc4-bdf6-26e16b7881c5",
+        "urn:emergency:uid:gis::A5:{df51c9cb-b833-41bb-a5e6-0f6e5369abe7}:whitehorse.ca": "df51c9cb-b833-41bb-a5e6-0f6e5369abe7",
+        "urn:emergency:uid:gis::A5:{e743df75-7ff9-459f-8051-be9ca9cab1c9}:whitehorse.ca": "e743df75-7ff9-459f-8051-be9ca9cab1c9",
+        "urn:emergency:uid:gis::A5:{eebf5caa-f86f-419f-bfdc-2a519fd047fc}:whitehorse.ca": "eebf5caa-f86f-419f-bfdc-2a519fd047fc",
+        "urn:emergency:uid:gis::A5:{f24a2f93-162c-4977-88ab-a424dd9e9898}:whitehorse.ca": "f24a2f93-162c-4977-88ab-a424dd9e9898"
+      },
+      "expected_count": 36,
+      "coverage_policy": "partial",
+      "coverage_note": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+      "evidence": [
+        {
+          "publisher": "Government of Yukon on behalf of City of Whitehorse",
+          "url": "https://www.arcgis.com/home/item.html?id=1e0abb1657404b808ed40c9284ed923a",
+          "claim": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "unapproved_parent_ids": [],
+      "minimum_parent_fraction": 0.06,
+      "max_sibling_overlap_fraction": 2e-05,
+      "topology_evidence": [
+        {
+          "publisher": "Government of Yukon on behalf of City of Whitehorse",
+          "url": "https://www.arcgis.com/home/item.html?id=1e0abb1657404b808ed40c9284ed923a",
+          "claim": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+          "reviewed_on": "2026-09-18"
+        }
+      ],
+      "unapproved_overlap_ids": [
+        "urn:emergency:uid:gis::A5:{013a8bf8-334f-4a18-9e00-c1fca84acdae}:whitehorse.ca",
+        "urn:emergency:uid:gis::A5:{5e9ef638-e37d-4411-b184-1635eeef88c1}:whitehorse.ca",
+        "urn:emergency:uid:gis::A5:{b1eec340-5853-4148-9eee-991cf76b368b}:whitehorse.ca",
+        "urn:emergency:uid:gis::A5:{df51c9cb-b833-41bb-a5e6-0f6e5369abe7}:whitehorse.ca"
+      ]
+    }
+  ],
+  "repair_review": [],
+  "unresolved": [
+    "Exhaustive municipal website searches and reconciliation of post-2025 municipal legal changes remain incomplete. Municipal geometry retains the national 2025-01-01 source unless separately evidenced.",
+    "Existing municipal repair candidates remain unapproved. Missing city-area layers do not establish that a municipality has no subdivisions."
+  ],
+  "audit": {
+    "inventory_complete": true,
+    "source_audit_complete": false,
+    "municipal_boundary_reconciliation": "pending",
+    "regional_policy": "Retain existing evidenced regional memberships and explicit exclusions; do not invent a region or substitute electoral wards.",
+    "regional_coverage": {
+      "province": "60",
+      "code": "YT",
+      "status": "partial",
+      "reason": "Klondike, Kluane and Southern Lakes contain 11 explicitly listed community CSDs. The remaining 22 CSDs stay directly under Yukon. Neither the territory-wide unorganized CSD nor Indigenous territories are assigned by inference. Outlines are community footprints; the nine wilderness-statistics regions are not substituted for the different visitor regions.",
+      "reference_url": "https://www.travelyukon.com/en/trade/maps",
+      "expected_region_count": 3,
+      "excluded_cd_ids": [],
+      "excluded_csd_ids": [
+        "6001003",
+        "6001004",
+        "6001007",
+        "6001008",
+        "6001009",
+        "6001010",
+        "6001022",
+        "6001032",
+        "6001037",
+        "6001038",
+        "6001041",
+        "6001043",
+        "6001045",
+        "6001046",
+        "6001047",
+        "6001050",
+        "6001052",
+        "6001055",
+        "6001057",
+        "6001059",
+        "6001060",
+        "6001065"
+      ],
+      "partially_assigned_cd_ids": [
+        "6001"
+      ],
+      "member_count": 11,
+      "unassigned_member_count": 22
+    },
+    "discovery_portal": "https://open.yukon.ca/data/municipal-boundaries",
+    "municipalities": [
+      {
+        "csd_id": "6001003",
+        "name": "Watson Lake",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001004",
+        "name": "Faro",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001006",
+        "name": "Teslin",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001007",
+        "name": "Teslin Post 13",
+        "source_type": "SG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001008",
+        "name": "Carcross 4",
+        "source_type": "SG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001009",
+        "name": "Whitehorse",
+        "source_type": "CY",
+        "status": "qualified_partial",
+        "evidence": [
+          {
+            "publisher": "Government of Yukon on behalf of City of Whitehorse",
+            "url": "https://www.arcgis.com/home/item.html?id=1e0abb1657404b808ed40c9284ed923a",
+            "claim": "36 named neighbourhood, subdivision and commercial areas under the territorial open licence. Coverage is approximately 7% of the large municipal extent. Four overlapping source areas remain unapproved; no hierarchy is inferred from containment. Correct service layer is 27; catalogue link 37 currently identifies the fire-response area.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001010",
+        "name": "Lake Laberge 1",
+        "source_type": "SG",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001012",
+        "name": "Carmacks",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001018",
+        "name": "Haines Junction",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001022",
+        "name": "Mayo",
+        "source_type": "VL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001029",
+        "name": "Dawson",
+        "source_type": "T",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001032",
+        "name": "Upper Liard",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001036",
+        "name": "Tagish",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001037",
+        "name": "Ross River",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001038",
+        "name": "Champagne Landing 10",
+        "source_type": "S-É",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001039",
+        "name": "Burwash Landing",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001041",
+        "name": "Pelly Crossing",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001042",
+        "name": "Beaver Creek",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001043",
+        "name": "Old Crow",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001044",
+        "name": "Mt. Lorne",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001045",
+        "name": "Yukon, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001046",
+        "name": "Swift River",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001047",
+        "name": "Johnsons Crossing",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001048",
+        "name": "Carcross",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001049",
+        "name": "Destruction Bay",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001050",
+        "name": "Stewart Crossing",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001052",
+        "name": "Keno Hill",
+        "source_type": "SÉ",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001055",
+        "name": "Ibex Valley",
+        "source_type": "HAM",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001057",
+        "name": "Teslin",
+        "source_type": "TL",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001058",
+        "name": "Marsh Lake",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001059",
+        "name": "Macpherson-Grizzly Valley",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001060",
+        "name": "Whitehorse, Unorganized",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      },
+      {
+        "csd_id": "6001065",
+        "name": "North Slope",
+        "source_type": "NO",
+        "status": "pending_municipal_site_review",
+        "evidence": [
+          {
+            "publisher": "Statistics Canada",
+            "url": "https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/lcsd000a25p_e.zip",
+            "claim": "Identity accounted for in the complete 2025 national baseline. Individual municipal source search remains pending.",
+            "reviewed_on": "2026-09-18"
+          }
+        ]
+      }
+    ]
+  }
+}
