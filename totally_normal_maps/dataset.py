@@ -168,6 +168,8 @@ class Dataset:
             self.summary['sources'].extend(refresh['sources'].values())
             self.summary['coverage']['quebec_refresh'] = refresh
             self.summary['historical_counts'] = dict(Counter(r['level'] for r in self.areas.values() if r.get('lifecycle_status') == 'superseded'))
+        if 'topology_reviews' in self.report:
+            self.summary['coverage']['topology_reviews'] = self.report['topology_reviews']
         if 'ontario_refresh' in self.report:
             refresh = self.report['ontario_refresh']
             self.summary['sources'].extend(refresh['sources'].values())

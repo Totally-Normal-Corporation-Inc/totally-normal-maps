@@ -99,6 +99,8 @@ def serving_report(report):
                                  'production_approval': 'not_evaluated'})
     if 'province_display_source' in report:
         output['province_display_source'] = source_metadata(report['province_display_source'])
+    if 'topology_reviews' in report:
+        output['topology_reviews'] = report['topology_reviews']
     if 'regions' in report:
         part = report['regions']
         output['regions'] = {key: part[key] for key in ('feature_count', 'province_counts', 'jurisdictions',

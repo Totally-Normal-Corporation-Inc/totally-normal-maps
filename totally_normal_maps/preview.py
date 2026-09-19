@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 from .catalogue import CatalogueError, PROVINCES
+from .web_security import MAP_CSP
 
 
 class PreviewHandler(SimpleHTTPRequestHandler):
@@ -38,7 +39,8 @@ class PreviewHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'")
+        self.send_header("Content-Security-Policy", MAP_CSP)
+        self.send_header("Referrer-Policy", "no-referrer")
         super().end_headers()
 
 

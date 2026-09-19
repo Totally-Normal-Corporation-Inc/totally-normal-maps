@@ -1,0 +1,17 @@
+{
+  "reviewed_on": "2026-09-19",
+  "manifest_sha256": "d6a24464415f5b2bab280eafd222e0520e755406c7fc473871e016ee01256b78",
+  "csd_id": "2498015",
+  "name": "Côte-Nord-du-Golfe-du-Saint-Laurent",
+  "region_id": "ca-qc-ra-09",
+  "enclave_id": "2498804",
+  "enclave_name": "Romaine 2",
+  "source_sha256": "24019f51977717058bf7215221b2e42d87eea92df120dda4dc1322966c635247",
+  "candidate_sha256": "0116982d9b51ce72d124ed401095b4fba96eb87f47991bc16856b31a75d421ea",
+  "enclave": {
+    "sha256": "6a613124858b2a372f8f544667f25106c845df11474b7e328909b8a732aaca9f"
+  },
+  "decision": "approve_topology_only",
+  "reason": "Split the self-touching exclusion ring at La Romaine into two valid holes. Their union and boundary equal the complete Romaine 2 polygon from the same pinned StatCan source. The exterior and area are unchanged, make_valid and buffer(0) agree, and no non-polygon coordinates are discarded.",
+  "scope": "Validation of this StatCan 2025 geometry only. Retains complete digital maritime extent. The independently recorded Québec SDA source disagreement remains unresolved; this is not a legal boundary determination or a change of source vintage."
+}

@@ -17,6 +17,8 @@ from typing import Annotated, Literal
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
+
+from .web_security import MAP_CSP
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
@@ -337,7 +339,8 @@ def create_app(settings=None):
         deployment = getattr(request.app.state, 'deployment', None)
         if deployment is None:
             raise HTTPException(404, 'No public website is bundled with this API.')
-        return RedirectResponse('/maps/' + deployment['website_manifest_sha256'] + '/index.html', status_code=307,
+        offline = '?background=none' if request.query_params.get('background') == 'none' else ''
+        return RedirectResponse('/maps/' + deployment['website_manifest_sha256'] + '/index.html' + offline, status_code=307,
                                 headers={'Cache-Control': 'no-store'})
 
     @app.api_route('/maps/{version}/{name:path}', methods=['GET', 'HEAD'], include_in_schema=False)
@@ -354,7 +357,7 @@ def create_app(settings=None):
             raise HTTPException(404, 'Public map asset unavailable.')
         headers = {'ETag': '"' + files[name]['sha256'] + '"',
                    'Cache-Control': 'public, max-age=31536000, immutable',
-                   'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"}
+                   'Content-Security-Policy': MAP_CSP}
         if request.headers.get('If-None-Match') == headers['ETag']:
             return Response(status_code=304, headers=headers)
         media = 'application/geo+json' if name.endswith('.geojson') else None

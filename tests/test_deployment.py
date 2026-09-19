@@ -171,10 +171,18 @@ class DeploymentTests(unittest.TestCase):
         home = client.get('/', follow_redirects=False)
         prefix = '/maps/'+self.record['website_manifest_sha256']+'/'
         self.assertEqual(home.headers['location'], prefix+'index.html')
+        self.assertEqual(client.get('/?background=none', follow_redirects=False).headers['location'],
+                         prefix+'index.html?background=none')
+        self.assertEqual(client.get('/?background=none&secret=not-forwarded', follow_redirects=False).headers['location'],
+                         prefix+'index.html?background=none')
         html = client.get(prefix+'index.html')
         self.assertEqual(html.status_code, 200)
         self.assertIn('Canada, area by area', html.text)
         self.assertIn("frame-ancestors 'none'", html.headers['content-security-policy'])
+        self.assertIn("img-src 'self' data: https://maps.geogratis.gc.ca https://geoappext.nrcan.gc.ca;", html.headers['content-security-policy'])
+        self.assertIn("connect-src 'self';", html.headers['content-security-policy'])
+        self.assertIn("script-src 'self';", html.headers['content-security-policy'])
+        self.assertEqual(html.headers['referrer-policy'], 'no-referrer')
         self.assertEqual(client.get(prefix+'catalogue.json').json()['dataset_version'], self.digest)
         for name in ('preview.js', 'leaflet.css', 'images/layers.png', '24.geojson', 'NOTICE.md'):
             self.assertEqual(client.get(prefix+name).status_code, 200)

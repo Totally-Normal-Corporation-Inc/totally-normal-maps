@@ -39,6 +39,12 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
   once. Apply equivalent privacy controls to external proxies and log collectors.
 - The old-style map preview remains loopback-only and serves a fixed asset allowlist.
   It is not a public administrative surface or a production authentication layer.
+- The optional online background sends image requests (including the visible map
+  extent and visitor IP) directly to `maps.geogratis.gc.ca` and
+  `geoappext.nrcan.gc.ca`. CSP allows only those additional image hosts; scripts and
+  fetch connections remain same-origin. Referrers are suppressed. API keys and
+  assignment data are never sent to the providers. `?background=none` starts with
+  no provider requests; selecting None removes the online layers.
 
 ## Data trust and integrity
 

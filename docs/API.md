@@ -157,6 +157,14 @@ and province/country full boundaries are not fabricated from display outlines.
 Requesting an unavailable representation returns 409. Country/province coordinate
 matches come from hierarchy relationships, not the 2021 overview map.
 
+In a release with `coverage.topology_reviews`, the narrowly reviewed La Romaine
+repair exposes full geometry for `ca-csd-2498015` and its region `ca-qc-ra-09`.
+The municipality has `assignment_status: validated_derived` and
+`repair.status: reviewed_topology`, with the original problem and pinned evidence.
+Its maritime extent is unchanged and provincial source reconciliation remains
+unresolved. Other unapproved candidates still return 409 for full geometry.
+See [the evidence and reproduction command](research/cote-nord-topology.md).
+
 The manifest's SHA-256 is `dataset_version`, also returned in
 `X-Maps-Dataset-Version`. To prevent mixing releases during an update, send:
 

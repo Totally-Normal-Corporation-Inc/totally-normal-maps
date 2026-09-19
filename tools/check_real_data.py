@@ -22,6 +22,8 @@ def main():
         refresh = meta['coverage'].get('quebec_refresh')
         ontario = meta['coverage'].get('ontario_refresh')
         jurisdictions = meta['coverage'].get('jurisdiction_refreshes', {})
+        topology = meta['coverage'].get('topology_reviews', [])
+        reviewed_ids = {'ca-csd-' + r['csd_id'] for r in topology}
         assert meta['counts'] == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
                                   'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
                                   sum(r['added_city_area_count'] for r in jurisdictions.values())}
@@ -157,13 +159,13 @@ def main():
                     assert not dataset.boundary(uid, 'full')['properties']['suitable_for_assignment']
                     continue
                 if not row['geometry_available']:
-                    assert uid in {'ca-csd-2423027','ca-csd-2472032','ca-csd-2485090','ca-csd-2498015'}
+                    assert uid in {'ca-csd-2423027','ca-csd-2472032','ca-csd-2485090','ca-csd-2498015'} - reviewed_ids
                     continue
                 point = dataset.geometries[uid].representative_point()
                 result = client.post('/v1/lookup', json={'longitude':point.x, 'latitude':point.y}).json()
                 assert uid in result['direct_match_ids'], uid
                 municipal_lookups += 1
-            assert municipal_lookups == 1270
+            assert municipal_lookups == 1270 + len(reviewed_ids)
             for merger in refresh['mergers']:
                 successor = dataset.geometries[merger['id']]
                 import shapely
@@ -185,6 +187,21 @@ def main():
         coverage = meta['coverage']['city_areas']
         assert next(r for r in coverage if r['parent_csd_id'] == '2409048')['coverage_policy'] == 'partial'
         unchanged = {}
+        for review in topology:
+            uid, region = 'ca-csd-' + review['csd_id'], review['region_id']
+            assert areas[uid]['assignment_status'] == 'validated_derived'
+            assert areas[uid]['repair']['status'] == 'reviewed_topology'
+            assert areas[uid]['repair']['area_change_m2'] == 0
+            assert region in dataset.geometries
+            enclave = dataset.geometries['ca-csd-' + review['enclave_id']]
+            # Check each reserve component, not just one representative point.
+            components = list(enclave.geoms) if hasattr(enclave, 'geoms') else [enclave]
+            for component in components:
+                point = component.representative_point()
+                result = dataset.lookup(point.x, point.y)
+                assert uid not in result['direct_match_ids']
+                assert 'ca-csd-' + review['enclave_id'] in result['direct_match_ids']
+            assert client.get(f'/v1/areas/{uid}/boundary?resolution=full').status_code == 200
         if args.baseline:
             # This also verifies the baseline manifest; never trust unchecked files.
             from totally_normal_maps.dataset import Dataset
@@ -194,9 +211,22 @@ def main():
                 for table in ('csd', 'city_area', 'region', 'csd_region'):
                     rows = old.execute(f'SELECT * FROM {table}').fetchall()
                     column = 'csd_id' if table == 'csd_region' else 'id'
+                    exempt = {r['csd_id' if table == 'csd' else 'region_id'] for r in topology} if table in {'csd', 'region'} else set()
+                    preserved = 0
                     for row in rows:
-                        assert new.execute(f'SELECT * FROM {table} WHERE {column}=?', (row[0],)).fetchone() == row, (table, row[0])
-                    unchanged[table] = len(rows)
+                        updated = new.execute(f'SELECT * FROM {table} WHERE {column}=?', (row[0],)).fetchone()
+                        if row[0] in exempt and baseline.version in {r['manifest_sha256'] for r in topology}:
+                            # Only record and full geometry may change; the prior
+                            # candidate must become the exact assignment boundary.
+                            columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
+                            old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
+                            assert old_row['geometry'] is None
+                            assert new_row['geometry'] == old_row['repair_candidate']
+                            assert {k:v for k,v in old_row.items() if k not in {'record','geometry'}} == {k:v for k,v in new_row.items() if k not in {'record','geometry'}}
+                        else:
+                            assert updated == row, (table, row[0])
+                            preserved += 1
+                    unchanged[table] = preserved
         print(json.dumps({'status': 'passed', 'counts': meta['counts'], 'city_area_lookups': city_lookups,
                           'quebec_municipal_lookups': municipal_lookups,
                           'ontario_municipal_region_lookups': ontario_lookups,

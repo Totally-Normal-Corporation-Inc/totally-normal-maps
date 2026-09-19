@@ -14,7 +14,7 @@ else:
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFESTS = {f'totally_normal_maps/{name}' for name in (
-    'statcan-2025.json', 'province-display-2021.json', 'regions-2026-09.json',
+    'statcan-2025.json', 'topology-review-2026-09.json', 'province-display-2021.json', 'regions-2026-09.json',
     'city-areas-quebec-2026-09.json', 'quebec-refresh-2026-09.json', 'ontario-refresh-2026-09.json',
     'jurisdiction-bc-2026-09.json',
     'jurisdiction-ab-2026-09.json',
@@ -64,14 +64,14 @@ def main():
     for name, rows in payload['results'].items():
         lines = files[name].decode().splitlines()
         for row in rows:
-            if (name == 'dataset.lock.json' and row['type'] == 'Hex High Entropy String'
+            if (name in {'dataset.lock.json', 'totally_normal_maps/topology-review-2026-09.json'} and row['type'] == 'Hex High Entropy String'
                     and DATASET_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
                 checksums += 1
                 continue
             # Reviewed public source/identity digests, not a blanket entropy exclusion.
             if (name in MANIFESTS and row['type'] == 'Hex High Entropy String'
                     and (CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1]) or
-                         (name == 'totally_normal_maps/ontario-refresh-2026-09.json' or name.startswith('totally_normal_maps/jurisdiction-')) and
+                         (name in {'totally_normal_maps/ontario-refresh-2026-09.json', 'totally_normal_maps/topology-review-2026-09.json'} or name.startswith('totally_normal_maps/jurisdiction-')) and
                          REPAIR_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1]))):
                 checksums += 1
                 continue
