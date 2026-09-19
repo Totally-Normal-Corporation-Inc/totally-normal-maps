@@ -49,7 +49,16 @@
     <section class="map-panel" aria-label="Canada boundary map">
       <nav id="breadcrumbs" aria-label="Map location"></nav>
       <div class="map-toolbar"><span id="map-status" role="status">Preparing map…</span><button id="back" type="button" hidden>Back up</button></div>
+      <div class="map-options" aria-label="Map appearance">
+        <label for="background">Background <select id="background"><option value="none">None · offline</option><option value="topographic" selected>Topographic · online</option></select></label>
+        <label for="background-opacity">Background opacity <input id="background-opacity" type="range" min="0" max="100" value="65" step="5"><output id="background-opacity-value" for="background-opacity">65%</output></label>
+        <label class="map-check"><input id="relief" type="checkbox"> Shaded relief</label>
+        <label for="boundary-opacity">Boundary fill <input id="boundary-opacity" type="range" min="0" max="70" value="20" step="5"><output id="opacity-value" for="boundary-opacity">20%</output></label>
+        <label class="map-check"><input id="region-labels" type="checkbox" checked> Region names</label>
+      </div>
+      <p id="background-status" class="background-status" role="status"></p>
       <div id="map" aria-label="Interactive province, regional, municipality and city-area boundaries"></div>
+      <p class="water-note">Click a muted surrounding area to switch focus. Boundaries can include water; orange dashed outlines need boundary review.</p>
       <div id="selection" aria-live="polite"><h2>Select an area</h2><p>Choose a result or a boundary to inspect its official identity.</p></div>
     </section>
   </main>

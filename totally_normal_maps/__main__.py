@@ -120,6 +120,10 @@ def main(argv=None):
     release.add_argument("--run", required=True, type=Path)
     release.add_argument("--output", required=True, type=Path)
     release.add_argument("--label", default="canada-review")
+    topology = commands.add_parser('repair-topology', help='Apply the pinned La Romaine topology review to a new release, offline')
+    topology.add_argument('--dataset', required=True, type=Path)
+    topology.add_argument('--source', required=True, type=Path)
+    topology.add_argument('--output', required=True, type=Path)
     fetch_release = commands.add_parser("fetch-release", help="Download a pinned serving release from S3")
     fetch_release.add_argument("--uri", required=True)
     fetch_release.add_argument("--manifest-sha256", required=True)
@@ -149,6 +153,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "download":
         report = download(args.output)
+    elif args.command == 'repair-topology':
+        from .topology_review import repair_release
+        report = repair_release(args.dataset, args.source, args.output)
     elif args.command == "download-regions":
         from .regions import PLAN, MAX_REGION_SOURCE_BYTES
         report = download(args.output, manifest=read_json(PLAN)["quebec_source"], max_bytes=MAX_REGION_SOURCE_BYTES)

@@ -2,6 +2,13 @@
 
 The MIT licence applies to original project code. It does not relicense sources.
 
+Optional online backgrounds: Natural Resources Canada, Atlas of Canada Toporama
+and Digital Relief (hillshade), used under the Open Government Licence – Canada:
+https://open.canada.ca/en/open-government-licence-canada
+Service images are requested live and are not packaged in dataset distributions.
+Boundary colours and optional translucent hillshade are visual overlays. No NRCan
+endorsement is implied. Attribution is displayed while the background is enabled.
+
 - Leaflet 1.9.4 is distributed under BSD-2-Clause. Its licence and copyright
   notice are retained in `totally_normal_maps/vendor/leaflet/LICENSE` and its JS.
   The JavaScript matches the upstream release with only the final source-map
@@ -54,6 +61,9 @@ retain the full publisher geometry; parent relationships and source differences
 are documented separately. Display boundaries are simplified separately. Candidate
 repairs are explicitly labelled and are excluded from normal coordinate matches.
 These transformations and cross-source differences are described in docs/research.
+The separately reviewed La Romaine topology repair splits an invalid exclusion ring
+without changing its area or extent; exact same-source reserve geometry corroborates
+the exclusions. Its evidence and original repair ledger remain in the derived release.
 The data publishers do not endorse the project. Preserve attribution and source
 licences when distributing source data, derived datasets or map displays.
 

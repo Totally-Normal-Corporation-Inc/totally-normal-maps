@@ -7,7 +7,7 @@ import argparse
 import json
 from pathlib import Path
 import re
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -16,6 +16,8 @@ def check_preview(url, output):
     parsed = urlsplit(url)
     if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost"}:
         raise ValueError("Use the local loopback preview URL.")
+    query = dict(parse_qsl(parsed.query)); query['background'] = 'none'
+    url = urlunsplit(parsed._replace(query=urlencode(query)))
     output.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path="/usr/bin/chromium", headless=True)

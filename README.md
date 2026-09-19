@@ -21,7 +21,9 @@ The corrected Ontario rebuild applies four municipal boundary updates and defers
 five municipalities across two adjustment groups after checking overlap against
 both extents. Earlier immutable releases are unchanged.
 The catalogue is **review-required**, not a fully qualified legal boundary service.
-58 municipal boundaries have separate unapproved repair candidates. Source-vintage
+The published baseline has 58 municipal repair candidates; the optional
+[La Romaine topology review](docs/research/cote-nord-topology.md) resolves one
+without changing its territory, leaving 57. Source-vintage
 differences and deferred regions remain explicit. An API response is not approval
 to replace a consumer's established geographic assignments.
 
@@ -43,7 +45,8 @@ Build a dataset using [the reproducible data workflow](docs/DATA.md), then:
 
 The API is at **http://127.0.0.1:8000**. Its interactive reference is `/docs` and
 machine-readable OpenAPI contract is `/openapi.json`. The Swagger documentation UI
-loads its assets from a public CDN; the separate offline map has no external assets.
+loads its assets from a public CDN. The map explorer bundles its code and boundaries;
+its optional topographic background loads images from Natural Resources Canada.
 
 Hosted geography endpoints require an API key sent as `Authorization: Bearer <key>`.
 Keys are issued manually per application; there is no billing or signup system.
@@ -63,6 +66,17 @@ curl 'http://127.0.0.1:8000/v1/lookup?longitude=-75.72&latitude=45.43'
 The standalone map retains country → province → region → municipality → city-area
 navigation, with quartiers/sectors nested under arrondissements where applicable.
 Missing regional levels are skipped without hiding municipalities.
+Surrounding areas remain visible as muted clickable outlines: switch directly
+between provinces, regions, municipalities or sibling city areas while browsing.
+The active area's children stay in front; the sidebar keeps its current scope.
+The default topographic background shows water, terrain, roads and place names.
+Use **Background opacity** to fade the map and relief together (65% by default,
+0% hides them). The slider changes the display without downloading tiles again.
+Use **Shaded relief** for additional terrain shading and **Boundary fill** to adjust
+transparency (0% leaves outlines). Region names appear when they fit without
+overlapping; smaller regions remain identifiable by hover or selection.
+Choose **None · offline**, or open `/?background=none`, for no external image requests.
+Background images are visual context, never boundary or coordinate-assignment data.
 
 ```bash
 .venv/bin/maps serve --run .local/canada/current --port 9010
@@ -110,6 +124,7 @@ Tests use synthetic geography and perform no source downloads or cloud calls.
 .venv/bin/python -m unittest tests.test_catalogue tests.test_regions tests.test_city_areas -q
 .venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_deployment tests.test_publication -q
 .venv/bin/python -m unittest tests.test_quebec_refresh tests.test_ontario_refresh -q
+.venv/bin/python -m unittest tests.test_topology_review -q
 .venv/bin/python -m unittest tests.test_jurisdiction_refresh tests.test_source_acquisition -q
 .venv/bin/python tools/check_publication.py
 .venv/bin/python tools/check_secrets.py
@@ -120,6 +135,16 @@ Real-data acceptance is separate:
 ```bash
 .venv/bin/python tools/check_real_data.py --dataset .local/releases/canada
 ```
+
+With a local map running and the optional browser dependencies installed:
+
+```bash
+.venv/bin/python tools/check_map_appearance.py --url http://127.0.0.1:9010
+.venv/bin/python tools/check_map_siblings.py --url http://127.0.0.1:9010
+```
+
+These browser checks use local boundaries and mocked background images; they make
+no requests to map providers.
 
 Docker is optional. The repository contains no deployment credentials, company
 account configuration, original application history or consumer database exports.
