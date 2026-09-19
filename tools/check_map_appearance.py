@@ -32,11 +32,22 @@ def check(url, output):
         page.goto(url, wait_until='networkidle')
         expect(page.locator('#background-status')).to_contain_text('Online background')
         assert any('toporama_en' in t for t in tiles)
+        expect(page.locator('#background-opacity-value')).to_have_text('65%')
+        tiles_before = len(tiles)
+        for value in ('0', '35', '100', '65'):
+            page.locator('#background-opacity').fill(value)
+            expect(page.locator('#background-opacity-value')).to_have_text(value+'%')
+            assert page.locator('.leaflet-tile-pane').evaluate('(pane) => Number(getComputedStyle(pane).opacity)') == int(value)/100
+            assert page.evaluate('drawn.getLayers().every(l => l.options.fillOpacity === .2)')
+        assert len(tiles) == tiles_before  # Opacity does not refetch map images.
         page.locator('#relief').check()
         expect(page.locator('#background-status')).to_contain_text('shaded relief')
         assert any('WMSServer' in t and 'layers=4' in t for t in tiles)
+        page.locator('#background-opacity').fill('35')
+        assert page.locator('.leaflet-tile-pane').evaluate('(pane) => getComputedStyle(pane).opacity') == '0.35'
         page.locator('#background').select_option('none')
         expect(page.locator('#relief')).to_be_disabled()
+        expect(page.locator('#background-opacity')).to_be_disabled()
         expect(page.locator('#background-status')).to_contain_text('Offline view')
         assert page.locator('.leaflet-tile-pane img').count() == 0
         page.locator('#province').select_option('24')
@@ -65,7 +76,7 @@ def check(url, output):
         expect(page.locator('.region-name-text[data-region-id]')).to_have_count(0)
         page.locator('#region-labels').check()
         assert labels_fit()
-        page.evaluate('map.fitBounds([[44.8,-80],[50.2,-67]], {padding: [25,25], animate: false})')
+        page.evaluate('() => { map.fitBounds([[44.8,-80],[50.2,-67]], {padding: [25,25], animate: false}); }')
         expect(page.locator('.region-name-text[data-region-id="ca-qc-ra-07"]')).to_be_visible()
         assert labels_fit()
         assert page.locator('.region-name-text[data-region-id]').count() >= 5
@@ -81,7 +92,7 @@ def check(url, output):
         page.set_viewport_size({'width': 390, 'height': 844})
         page.wait_for_function('() => map.getSize().x < 500')
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-        page.evaluate('map.fitBounds(drawn.getBounds(), {padding: [25,25], animate: false})')
+        page.evaluate('() => { map.fitBounds(drawn.getBounds(), {padding: [25,25], animate: false}); }')
         if page.locator('.region-name-text[data-region-id]').count(): assert labels_fit()
         page.screenshot(path=str(output/'labels-mobile.png'), full_page=True)
         page.locator('#results [data-area-id="ca-qc-ra-09"]').click()
@@ -93,6 +104,8 @@ def check(url, output):
         # A failed provider remains non-blocking and is clearly explained.
         page.route('https://maps.geogratis.gc.ca/**', lambda r: r.abort())
         page.locator('#background').select_option('topographic')
+        expect(page.locator('#background-opacity')).to_have_value('35')
+        assert page.locator('.leaflet-tile-pane').evaluate('(pane) => getComputedStyle(pane).opacity') == '0.35'
         expect(page.locator('#background-status')).to_contain_text('tiles are unavailable')
         expect(page.locator('#map path[data-area-id]')).to_have_count(54)
         page.locator('#background').select_option('none')
@@ -103,7 +116,7 @@ def check(url, output):
         assert len(tiles) == tile_count
         assert not errors, errors
         browser.close()
-    print('Passed: background, relief, offline mode, provider failure, opacity, region labels, desktop/mobile, repaired boundary details.')
+    print('Passed: background/relief opacity without refetch, offline mode, provider failure, independent boundary fill, region labels, desktop/mobile, repaired boundary details.')
 
 
 if __name__ == '__main__':

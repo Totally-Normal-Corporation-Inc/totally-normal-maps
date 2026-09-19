@@ -3,6 +3,8 @@
 const el = id => document.getElementById(id);
 const normal = text => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const map = L.map("map", {crs: L.CRS.EPSG4326, minZoom: 1, zoomSnap: 0});
+map.createPane("surroundingAreas").style.zIndex = 380;
+const surroundingAreas = L.featureGroup().addTo(map);
 const contextOutline = L.featureGroup().addTo(map);
 const drawn = L.featureGroup().addTo(map);
 map.createPane("regionNames").style.pointerEvents = "none";
@@ -10,6 +12,7 @@ map.getPane("regionNames").style.zIndex = 620;
 const regionNames = L.layerGroup().addTo(map);
 let backgroundLayer = null, reliefLayer = null, backgroundGeneration = 0;
 let boundaryOpacity = .2;
+let backgroundOpacity = .65, selectionGeneration = 0;
 const viewCanada = () => map.fitBounds([[41, -142], [84, -50]], {padding: [10, 10], animate: false});
 viewCanada();
 map.attributionControl.setPrefix(false);
@@ -61,8 +64,30 @@ function currentRows() {
   if (!province) return data.provinces;
   if (region) return data.areas.filter(row => row.region_id === region);
   // Ungrouped municipalities stay directly reachable, without inventing a region.
+  return provinceChildren(province);
+}
+function provinceChildren(province) {
   return [...data.regions.filter(row => row.province === province),
     ...data.areas.filter(row => row.province === province && !row.region_id)];
+}
+function siblings(row) {
+  if (row.level === "province") return data.provinces;
+  if (row.level === "region" || row.level === "municipality" && !row.region_id) return provinceChildren(row.province);
+  if (row.level === "municipality") return data.areas.filter(other => other.region_id === row.region_id);
+  return (cityChildren.get(row.parent_area_id || row.parent_csd_id) || [])
+    .filter(other => (other.scheme || "default") === (row.scheme || "default"));
+}
+function surroundingRows() {
+  const rows = new Map();
+  // Preserve each ancestor's siblings, from provinces down to city areas.
+  for (const id of Object.values(locationState).filter(Boolean)) {
+    for (const row of siblings(byId.get(id))) if (row.id !== id) rows.set(row.id, row);
+  }
+  return [...rows.values()];
+}
+function boundaryKey(row) {
+  return row.level === "province" ? "provinces" : row.level === "region" ? `regions-${row.province}` :
+    row.level === "city_area" ? `city-areas-${row.province}` : row.province;
 }
 function matchingRows() {
   const query = normal(el("search").value.trim());
@@ -78,6 +103,19 @@ function style(feature) {
     fillColor: colour, dashArray: repair ? "4 3" : null,
     fillOpacity: boundaryOpacity === 0 ? 0 : Math.min(.75, boundaryOpacity + (active ? .15 : 0))};
 }
+function surroundingStyle(feature) {
+  const row = byId.get(feature.properties.id);
+  return {color: row.assignment_status?.startsWith("unreviewed_") ? "#ad6328" : "#7f9189",
+    weight: 1, opacity: .75, fillColor: "#aab9b0", fillOpacity: boundaryOpacity * .25,
+    dashArray: row.assignment_status?.startsWith("unreviewed_") ? "4 3" : null};
+}
+
+function setBackgroundOpacity() {
+  backgroundOpacity = Number(el("background-opacity").value) / 100;
+  el("background-opacity-value").value = `${Math.round(backgroundOpacity * 100)}%`;
+  // Fade the composed background once, keeping the terrain blend consistent.
+  map.getPane("tilePane").style.opacity = backgroundOpacity;
+}
 
 function setBackground() {
   const version = ++backgroundGeneration;
@@ -86,6 +124,7 @@ function setBackground() {
   backgroundLayer = reliefLayer = null;
   const online = el("background").value === "topographic";
   el("relief").disabled = !online;
+  el("background-opacity").disabled = !online;
   if (!online) { el("background-status").textContent = "Offline view · boundary files only"; return; }
   el("background-status").textContent = "Loading Natural Resources Canada background…";
   let failed = false;
@@ -227,13 +266,21 @@ function showDetails(row) {
     el("selection").append(line(`${reviewed ? "Reviewed topology repair" : "Unreviewed repair"} · Area change ${row.repair.area_change_m2.toFixed(3)} m² · Parts ${row.repair.source_parts} → ${row.repair.candidate_parts} · Holes ${row.repair.source_holes} → ${row.repair.candidate_holes}`, reviewed ? "" : "issue"));
   }
 }
-function openRow(id) {
+async function openRow(id) {
   const row = byId.get(id);
   if (!row) return;
   if (row.level === "province") navigate(row.id);
   else if (row.level === "region") navigate(row.province, row.id);
   else if (hasChildren(row)) navigate(row.province, row.region_id || "", row.level === "city_area" ? row.parent_csd_id : row.id, row.level === "city_area" ? row.id : "");
   else {
+    const parent = {province: row.province, region: row.region_id || "",
+      city: row.level === "city_area" ? row.parent_csd_id : "",
+      area: row.level === "city_area" ? row.parent_area_id || "" : ""};
+    const refreshed = Object.keys(parent).some(key => parent[key] !== locationState[key]) ?
+      navigate(parent.province, parent.region, parent.city, parent.area) : Promise.resolve();
+    const request = ++selectionGeneration;
+    await refreshed;
+    if (request !== selectionGeneration) return;
     selected = id;
     showDetails(row);
     drawn.eachLayer(layer => layer.setStyle(style(layer.feature)));
@@ -301,34 +348,38 @@ function coverageNote() {
       !entry || entry.status === "deferred" ? "No regional layer selected. Showing municipalities directly." :
         `${countText(entry.expected_region_count, "region")}${entry.unassigned_member_count ? ` · ${countText(entry.unassigned_member_count, "municipality", "municipalities")} shown directly without a regional grouping` : ""}. Click to explore.`;
 }
+function bindArea(feature, child, surrounding = false) {
+  const row = byId.get(feature.properties.id);
+  const label = document.createElement("span");
+  label.textContent = surrounding ? `${row.name} · Click to switch` : row.level === "province" ? row.code :
+    `${row.name} · ${row.level === "city_area" ? row.type : row.code}`;
+  child.bindTooltip(label, !surrounding && row.level === "province" ?
+    {permanent: true, direction: "center", className: "province-label"} : {sticky: true});
+  child.on("click", () => openRow(row.id));
+  child.on("add", () => {
+    if (!surrounding && row.label_point) child.getTooltip().setLatLng(row.label_point);
+    else if (!surrounding && row.level === "province") child.getTooltip().setLatLng(child.getBounds().getCenter());
+    const path = child.getElement(), key = surrounding ? "contextAreaId" : "areaId";
+    if (!path || path.dataset[key]) return;
+    path.dataset[key] = row.id;
+    path.setAttribute("role", "button");
+    path.setAttribute("tabindex", "0");
+    path.setAttribute("aria-label", `${surrounding ? "Switch to" :
+      (row.level === "city_area" || row.level === "municipality") && !hasChildren(row) ? "Inspect" : "Open"} ${row.name}`);
+    path.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); event.stopPropagation(); openRow(row.id);
+      }
+    });
+  });
+}
 async function boundaryLayer(key) {
   if (layers.has(key)) return layers.get(key);
   if (!loading.has(key)) {
     loading.set(key, getJSON(`${key}.geojson`).then(geojson => {
       const layer = L.geoJSON(geojson, {
         style, smoothFactor: .2,
-        onEachFeature: (feature, child) => {
-          const row = byId.get(feature.properties.id);
-          const label = document.createElement("span");
-          label.textContent = row.level === "province" ? row.code : `${row.name} · ${row.level === "city_area" ? row.type : row.code}`;
-          child.bindTooltip(label, row.level === "province" ? {permanent: true, direction: "center", className: "province-label"} : {sticky: true});
-          child.on("click", () => openRow(row.id));
-          child.on("add", () => {
-            if (row.label_point) child.getTooltip().setLatLng(row.label_point);
-            else if (row.level === "province") child.getTooltip().setLatLng(child.getBounds().getCenter());
-            const path = child.getElement();
-            if (!path || path.dataset.areaId) return;
-            path.dataset.areaId = row.id;
-            path.setAttribute("role", "button");
-            path.setAttribute("tabindex", "0");
-            path.setAttribute("aria-label", `${(row.level === "city_area" || row.level === "municipality") && !hasChildren(row) ? "Inspect" : "Open"} ${row.name}`);
-            path.addEventListener("keydown", event => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault(); event.stopPropagation(); openRow(row.id);
-              }
-            });
-          });
-        }
+        onEachFeature: (feature, child) => bindArea(feature, child)
       });
       layers.set(key, layer);
       return layer;
@@ -340,13 +391,14 @@ async function showMap(fit = false) {
   const current = ++generation;
   const {province, region, city, area} = locationState;
   const rows = matchingRows(), ids = new Set(rows.map(r => r.id));
-  drawn.clearLayers(); contextOutline.clearLayers(); regionNames.clearLayers();
+  const surrounding = surroundingRows();
+  drawn.clearLayers(); contextOutline.clearLayers(); regionNames.clearLayers(); surroundingAreas.clearLayers();
   el("map-status").textContent = "Loading boundaries…";
   try {
     const keys = city ? [province, `city-areas-${province}`] : !province ? ["provinces"] : region ? [province, `regions-${province}`] :
       ["provinces", ...(rows.some(r => r.level === "region") ? [`regions-${province}`] : []),
         ...(rows.some(r => r.level === "municipality") ? [province] : [])];
-    const available = await Promise.all(keys.map(boundaryLayer));
+    const available = await Promise.all([...new Set([...keys, ...surrounding.map(boundaryKey)])].map(boundaryLayer));
     if (current !== generation) return;
     for (const layer of available) layer.eachLayer(child => {
       const id = child.feature.properties.id;
@@ -355,6 +407,17 @@ async function showMap(fit = false) {
       }
       if (ids.has(id)) { child.setStyle(style(child.feature)); drawn.addLayer(child); }
     });
+    // Coarse outlines sit behind finer context and all active children. Clones
+    // avoid moving the cached interactive layer into two groups at once.
+    const features = new Map();
+    for (const layer of available) layer.eachLayer(child => features.set(child.feature.properties.id, child.feature));
+    for (const row of surrounding) {
+      const feature = features.get(row.id);
+      if (feature && !ids.has(row.id)) {
+        L.geoJSON(feature, {pane: "surroundingAreas", style: surroundingStyle, smoothFactor: .2,
+          onEachFeature: (f, child) => bindArea(f, child, true)}).eachLayer(child => surroundingAreas.addLayer(child));
+      }
+    }
     const visible = drawn.getLayers().map(layer => byId.get(layer.feature.properties.id));
     const missing = rows.length - visible.length;
     el("map-status").textContent = describeRows(visible, true) + (missing ? ` · ${missing} without an available outline` : "");
@@ -370,6 +433,7 @@ async function showMap(fit = false) {
   }
 }
 function refresh(fit = false) {
+  ++selectionGeneration;
   clearTimeout(searchTimer);
   shown = 100; selected = null;
   showDetails(byId.get(locationState.area || locationState.city || locationState.region || locationState.province));
@@ -404,13 +468,16 @@ async function start() {
   const requestedBackground = new URLSearchParams(location.search).get("background");
   if (requestedBackground === "none") el("background").value = "none";
   el("background").addEventListener("change", setBackground);
+  el("background-opacity").addEventListener("input", setBackgroundOpacity);
   el("relief").addEventListener("change", setBackground);
   el("region-labels").addEventListener("change", drawRegionNames);
   el("boundary-opacity").addEventListener("input", () => {
     boundaryOpacity = Number(el("boundary-opacity").value) / 100;
     el("opacity-value").value = `${Math.round(boundaryOpacity * 100)}%`;
     drawn.eachLayer(layer => layer.setStyle(style(layer.feature)));
+    surroundingAreas.eachLayer(layer => layer.setStyle(surroundingStyle(layer.feature)));
   });
+  setBackgroundOpacity();
   setBackground();
   data = await getJSON("catalogue.json");
   data.regions = data.regions || [];

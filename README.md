@@ -66,7 +66,12 @@ curl 'http://127.0.0.1:8000/v1/lookup?longitude=-75.72&latitude=45.43'
 The standalone map retains country → province → region → municipality → city-area
 navigation, with quartiers/sectors nested under arrondissements where applicable.
 Missing regional levels are skipped without hiding municipalities.
+Surrounding areas remain visible as muted clickable outlines: switch directly
+between provinces, regions, municipalities or sibling city areas while browsing.
+The active area's children stay in front; the sidebar keeps its current scope.
 The default topographic background shows water, terrain, roads and place names.
+Use **Background opacity** to fade the map and relief together (65% by default,
+0% hides them). The slider changes the display without downloading tiles again.
 Use **Shaded relief** for additional terrain shading and **Boundary fill** to adjust
 transparency (0% leaves outlines). Region names appear when they fit without
 overlapping; smaller regions remain identifiable by hover or selection.
@@ -130,6 +135,16 @@ Real-data acceptance is separate:
 ```bash
 .venv/bin/python tools/check_real_data.py --dataset .local/releases/canada
 ```
+
+With a local map running and the optional browser dependencies installed:
+
+```bash
+.venv/bin/python tools/check_map_appearance.py --url http://127.0.0.1:9010
+.venv/bin/python tools/check_map_siblings.py --url http://127.0.0.1:9010
+```
+
+These browser checks use local boundaries and mocked background images; they make
+no requests to map providers.
 
 Docker is optional. The repository contains no deployment credentials, company
 account configuration, original application history or consumer database exports.
