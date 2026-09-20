@@ -11,6 +11,17 @@ from totally_normal_maps.dataset import Dataset
 from totally_normal_maps.distribution import read_lock, unpack_dataset
 
 
+def check_redistribution(report):
+    unresolved = [f'{part}/{key}' for part in ('electoral', 'municipal_elections')
+                  for key, source in report.get(part, {}).get('sources', {}).items()
+                  if source.get('redistribution_status') != 'permitted']
+    if unresolved:
+        sample = ', '.join(unresolved[:8])
+        raise CatalogueError(f'Public upload blocked: {len(unresolved)} electoral source redistribution '
+                             f'permissions remain unconfirmed ({sample}). Review the sources in '
+                             'report.json and rebuild the release with evidenced permissions first.')
+
+
 def publication_command(lock, archive, lock_path, notes, commit):
     if re.fullmatch(r'[0-9a-f]{40}', commit) is None:
         raise CatalogueError('Use the exact reviewed 40-character Git commit for the dataset tag.')
@@ -42,11 +53,7 @@ def main():
             'Counts: `' + json.dumps(data.summary['counts'], sort_keys=True) + '`\n')
         command = publication_command(lock, archive, lock_path, notes, args.commit)
         if args.publish:
-            unresolved = [key for part in ('electoral', 'municipal_elections')
-                          for key, source in data.report.get(part, {}).get('sources', {}).items()
-                          if source.get('redistribution_status') != 'permitted']
-            if unresolved:
-                raise CatalogueError('Electoral source redistribution remains unconfirmed: ' + ', '.join(unresolved))
+            check_redistribution(data.report)
             existing = subprocess.check_output(['git', 'ls-remote', '--tags',
                 'https://github.com/' + lock['repository'] + '.git', 'refs/tags/' + lock['tag']], text=True)
             if existing.strip():

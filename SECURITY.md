@@ -88,6 +88,13 @@ Dataset publication requires an explicit local `--publish` command and uses
 separate `dataset-*` prerelease tags. Never replace an existing tag or attachment;
 enable GitHub immutable releases for server-side enforcement.
 
+`./package.sh` is an explicit publication command: it invokes that publisher,
+verifies the public download and creates a one-file deployment-lock PR. It requires
+clean, synchronized main and passing CI, preserves the source redistribution
+guard, and merges only through ordinary repository permissions and protections.
+Its `--check` mode is offline and performs no GitHub writes. The script selects
+data by the reviewed `dataset.source.json` pin, never by local modification time.
+
 Production promotion belongs to a separate private workflow. Use short-lived cloud
 authentication restricted to its repository and environment. Pin the reviewed image
 digest and dataset manifest digest. A public contributor cannot deploy by changing

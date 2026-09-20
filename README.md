@@ -115,6 +115,13 @@ and change the lock through a PR. See [the release workflow](docs/RELEASING.md).
 Ordinary PR CI tests a synthetic bundle offline; private deployment automation
 owns production promotion.
 
+For data updates, run `./package.sh` from clean, synchronized `main`. It verifies
+the release selected in `dataset.source.json`, versions and uploads the data,
+merges its lock-update PR after CI, and prints the exact commit to deploy.
+`./package.sh --check` checks local data without publishing. Source redistribution
+permissions must be confirmed; the current municipal review release still has
+unresolved source permissions. See [one-command publication](docs/RELEASING.md#one-command-data-publication).
+
 ## Documentation
 
 - [API contract, examples and lookup semantics](docs/API.md)

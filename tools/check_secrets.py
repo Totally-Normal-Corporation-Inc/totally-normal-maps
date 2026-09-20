@@ -31,6 +31,7 @@ CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|inventory_sha256|shape_sha256|identit
 REPAIR_CHECKSUM_LINE = re.compile(r'\s*"(?:source_sha256|candidate_sha256)": "[0-9a-f]{64}",?\s*')
 MUNICIPAL_COMMIT_LINE = re.compile(r'\s*"represent_repository_commit": "[0-9a-f]{40}",?\s*')
 DATASET_CHECKSUM_LINE = re.compile(r'\s*"(?:archive_sha256|manifest_sha256)": "[0-9a-f]{64}",?\s*')
+SOURCE_CHECKSUM_LINE = re.compile(r'\s*"manifest_sha256": "[0-9a-f]{64}",?\s*')
 
 
 def main():
@@ -65,6 +66,10 @@ def main():
     for name, rows in payload['results'].items():
         lines = files[name].decode().splitlines()
         for row in rows:
+            if (name == 'dataset.source.json' and row['type'] == 'Hex High Entropy String'
+                    and SOURCE_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
+                checksums += 1
+                continue
             if (name in {'dataset.lock.json', 'totally_normal_maps/topology-review-2026-09.json'} and row['type'] == 'Hex High Entropy String'
                     and DATASET_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
                 checksums += 1
