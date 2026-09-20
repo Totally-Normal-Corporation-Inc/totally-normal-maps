@@ -60,6 +60,16 @@ council. Regional and county schemes need particular care around separately
 governed communities. Some source licence permissions remain unconfirmed; the
 local review release is not approved for public redistribution.
 
+On 2026-09-20 the maintainer accepted application of the
+[DGEQ open-data licence](https://dgeq.org/licence.html) to the 282 DGEQ municipal
+source records acquired through Represent, with its exact French attribution
+and non-endorsement statement. The plan records that maintainer review and marks
+only those sources permitted; it does not claim a separate publisher confirmation.
+The rebuilt release preserves their acquisition hashes, editions and boundaries.
+Required source statements appear in the map footer and travel in report.json
+and NOTICE.md. The remaining public-release blockers are 103 other municipal
+source records and seven provincial/territorial source records (110 total).
+
 Every active municipal/statistical area has an explicit coverage entry at
 `/v1/municipal-coverage`; province totals never imply complete municipal coverage.
 The pinned plan's `source_inventory.decisions` is the exhaustive source review

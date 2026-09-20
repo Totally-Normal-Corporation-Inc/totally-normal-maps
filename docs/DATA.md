@@ -399,6 +399,21 @@ election/snapshot dates, source decisions and evidence for at-large coverage.
 `municipal-elections` reads only already acquired files and creates a new release;
 it never downloads, modifies its input release, or approves a geometry repair.
 
+The 2026-09-20 DGEQ licence review changes source licence metadata and required
+attribution only. It rebuilds all municipal editions from the same electoral
+baseline and unchanged source files, preserving the previous release:
+
+```bash
+.venv/bin/maps municipal-elections \
+  --dataset .local/releases/canada-electoral-audited-v2-20260919 \
+  --source-dir .local/municipal-source-bundle-final \
+  --output .local/releases/canada-municipal-elections-dgeq-20260920
+```
+
+The review records the maintainer's acceptance of the DGEQ open-data licence for
+282 source records. It does not approve source geometry repairs, change reference
+editions into current editions, or qualify unrelated publishers for redistribution.
+
 ```bash
 .venv/bin/maps download-municipal --source lake-country-current --output .local/municipal-sources/lake-country-current.geojson
 .venv/bin/maps municipal-elections --dataset .local/releases/base --source-dir .local/municipal-sources --output .local/releases/municipal

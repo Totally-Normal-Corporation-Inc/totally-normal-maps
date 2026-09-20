@@ -50,7 +50,10 @@ redistribution status without GitHub access or publication, on any branch, use:
 ```
 
 **The current municipal source selection is blocked from public upload:** its
-report still records unconfirmed redistribution permissions. The command reports
+report still records 110 unconfirmed redistribution permissions after the
+2026-09-20 maintainer review of the 282 DGEQ municipal source records. Their exact
+French attribution is preserved in the source metadata, map and NOTICE.md.
+The command reports remaining blockers
 that before packaging or uploading. Resolve those source reviews, rebuild the
 data and update the reviewed source pin; automatic hash calculation is not a
 licence approval. This preserves the existing publisher's guard.

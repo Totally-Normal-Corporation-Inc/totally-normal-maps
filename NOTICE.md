@@ -165,6 +165,12 @@ ouvertes du directeur général des élections disponible à l'adresse Web dgeq.
 L'octroi de la licence n'implique aucune approbation par le directeur général des
 élections de l'utilisation des données ouvertes qui en est faite.
 
+This statement also accompanies the 282 DGEQ municipal boundary sources obtained
+through Represent. Their application of the DGEQ open-data licence was accepted
+in the maintainer's 2026-09-20 licence review. The statement is retained in each
+source's metadata and displayed in the map footer without opening the detailed
+source credits. This review does not change the licences of other publishers.
+
 The local electoral review also includes products from Elections Saskatchewan,
 Elections Manitoba, Elections Nova Scotia / Government of Nova Scotia, Government
 of Prince Edward Island, GNWT Centre for Geomatics, and Elections Nunavut. Exact

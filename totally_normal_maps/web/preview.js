@@ -640,6 +640,8 @@ async function start() {
   el("attribution").textContent += ` ${regionalSources.map(s => `Regional grouping reference: ${s.authority}, ${s.release}.`).join(" ")}`;
   const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {}), ...Object.values(data.report.electoral?.sources || {}), ...Object.values(data.report.municipal_elections?.sources || {}),
     ...Object.values(data.report.jurisdiction_refreshes || {}).flatMap(report => Object.values(report.sources || {}))];
+  const statements = new Set(additionalSources.map(item => item.attribution_statement).filter(Boolean));
+  el("required-attributions").replaceChildren(...[...statements].map(statement => line(statement)));
   const credited = new Set();
   for (const item of additionalSources) {
     const key = `${item.authority}|${item.licence}`;
