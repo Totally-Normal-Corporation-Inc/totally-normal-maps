@@ -69,7 +69,9 @@ def checked_release(root, expected_sha256=None):
 
 def source_metadata(source):
     metadata = {key: source[key] for key in ('authority', 'family', 'release', 'reference_date',
-                'retrieved_at', 'retrieved_on', 'url', 'dataset_url', 'licence', 'sha256', 'scope', 'attribution_statement') if key in source}
+                'retrieved_at', 'retrieved_on', 'url', 'dataset_url', 'licence', 'sha256', 'scope', 'attribution_statement',
+                'redistribution_status', 'licence_review', 'licence_evidence', 'publication_decision',
+                'publication_disclaimer', 'attribution_display', 'coordinate_operation', 'source_spec_sha256') if key in source}
     if source.get('authority') == 'Statistics Canada':
         metadata['attribution'] = (f"Adapted from Statistics Canada, {source['family']}, {source['reference_date']}. "
                                    'This does not constitute an endorsement by Statistics Canada of this product.')

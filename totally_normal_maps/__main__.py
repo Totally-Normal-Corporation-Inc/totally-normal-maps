@@ -120,6 +120,24 @@ def main(argv=None):
     release.add_argument("--run", required=True, type=Path)
     release.add_argument("--output", required=True, type=Path)
     release.add_argument("--label", default="canada-review")
+    electoral = commands.add_parser('electoral', help='Add pinned electoral editions to a new immutable release, offline')
+    electoral.add_argument('--dataset', required=True, type=Path)
+    electoral.add_argument('--source-dir', required=True, type=Path)
+    electoral.add_argument('--output', required=True, type=Path)
+    electoral.add_argument('--plan', type=Path)
+    municipal = commands.add_parser('municipal-elections', help='Add pinned municipal electoral editions and coverage to a new release, offline')
+    municipal.add_argument('--dataset', required=True, type=Path)
+    municipal.add_argument('--source-dir', required=True, type=Path)
+    municipal.add_argument('--output', required=True, type=Path)
+    municipal.add_argument('--plan', type=Path)
+    municipal_fetch = commands.add_parser('download-municipal', help='Download one pinned municipal electoral source')
+    municipal_fetch.add_argument('--source', required=True)
+    municipal_fetch.add_argument('--output', required=True, type=Path)
+    municipal_fetch.add_argument('--plan', type=Path)
+    electoral_fetch = commands.add_parser('download-electoral', help='Download one pinned electoral source')
+    electoral_fetch.add_argument('--source', required=True)
+    electoral_fetch.add_argument('--output', required=True, type=Path)
+    electoral_fetch.add_argument('--plan', type=Path)
     topology = commands.add_parser('repair-topology', help='Apply the pinned La Romaine topology review to a new release, offline')
     topology.add_argument('--dataset', required=True, type=Path)
     topology.add_argument('--source', required=True, type=Path)
@@ -153,6 +171,24 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "download":
         report = download(args.output)
+    elif args.command == 'download-municipal':
+        from .municipal_elections import PLAN
+        from .source_acquisition import download_source
+        plan = read_json(args.plan or PLAN)
+        if args.source not in plan['sources']: raise CatalogueError('Unknown municipal source.')
+        report = download_source(plan['sources'][args.source], args.output)
+    elif args.command == 'municipal-elections':
+        from .municipal_elections import build_municipal
+        report = build_municipal(args.dataset, args.source_dir, args.output, plan_path=args.plan)
+    elif args.command == 'electoral':
+        from .electoral import build_electoral
+        report = build_electoral(args.dataset, args.source_dir, args.output, plan_path=args.plan)
+    elif args.command == 'download-electoral':
+        from .electoral import PLAN
+        from .source_acquisition import download_source
+        plan = read_json(args.plan or PLAN)
+        if args.source not in plan['sources']: raise CatalogueError('Unknown electoral source.')
+        report = download_source(plan['sources'][args.source], args.output)
     elif args.command == 'repair-topology':
         from .topology_review import repair_release
         report = repair_release(args.dataset, args.source, args.output)

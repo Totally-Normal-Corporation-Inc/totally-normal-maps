@@ -29,7 +29,8 @@ from .dataset import Dataset
 LOG = logging.getLogger('totally_normal_maps.api')
 MAX_BODY_BYTES = 128 * 1024
 MAX_RESPONSE_BYTES = 16 * 1024 * 1024
-Level = Literal['country', 'province', 'region', 'municipality', 'city_area']
+Level = Literal['country', 'province', 'region', 'municipality', 'city_area', 'electoral_district']
+Layer = Literal['administrative', 'federal', 'provincial', 'municipal']
 
 
 @dataclass(frozen=True)
@@ -233,9 +234,14 @@ class PointInput(BaseModel):
     latitude: Annotated[float, Field(strict=True, ge=-90, le=90, allow_inf_nan=False)]
 
 
+class LookupInput(PointInput):
+    layers: Annotated[list[Layer], Field(min_length=1, max_length=4)] = ['administrative']
+    editions: dict[Layer, Annotated[list[str], Field(min_length=1, max_length=30)]] = {}
+
+
 class BatchInput(BaseModel):
     model_config = ConfigDict(extra='forbid')
-    points: Annotated[list[PointInput], Field(min_length=1, max_length=100)]
+    points: Annotated[list[LookupInput], Field(min_length=1, max_length=100)]
 
 
 class Match(Area):
@@ -254,6 +260,11 @@ class LookupResult(BaseModel):
     review_candidate_ids: list[str]
     unlocated_missing_geometry_ids: list[str]
     hierarchy_geometry_disagreements: list[dict[str, str]]
+    layers: dict[str, 'LookupResult'] | None = None
+    layer: Layer | None = None
+    selected_editions: list[str] | None = None
+    coverage: dict | None = None
+    municipal_coverage: list[dict] | None = None
 
 
 class BatchResult(BaseModel):
@@ -291,6 +302,10 @@ def create_app(settings=None):
     async def validation_error(request, exc):
         return JSONResponse({'error': 'Invalid request.', 'details': [
             {k: issue[k] for k in ('loc', 'msg', 'type')} for issue in exc.errors()]}, status_code=422)
+
+    @app.exception_handler(CatalogueError)
+    async def geography_selection_error(request, exc):
+        return JSONResponse({'error': str(exc)}, status_code=422)
 
     @app.exception_handler(Exception)
     async def unexpected_error(request, exc):
@@ -371,15 +386,53 @@ def create_app(settings=None):
     def countries(request: Request):
         return dataset(request).page(level='country')
 
+    @app.get('/v1/layers', tags=['Areas'])
+    def geography_layers(request: Request):
+        data = dataset(request)
+        return {'dataset_version': data.version, 'items': data.summary['layers']}
+
+    @app.get('/v1/municipal-coverage', tags=['Areas'])
+    def municipal_coverage(request: Request, province: str | None = Query(None, pattern=r'^\d{2}$'),
+                           status: str | None = Query(None, max_length=30),
+                           offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+        from .catalogue import PROVINCES
+        from .municipal_elections import COVERAGE
+        if province is not None and province not in PROVINCES: raise HTTPException(422,'Unknown province.')
+        if status is not None and status not in COVERAGE: raise HTTPException(422,'Unknown coverage status.')
+        data = dataset(request)
+        rows = [r for r in data.municipal_coverage.values() if (province is None or r['province']==province)
+                and (status is None or r['status']==status)]
+        return {'dataset_version':data.version,'total':len(rows),'offset':offset,'limit':limit,
+                'next_offset':offset+limit if offset+limit<len(rows) else None,'items':rows[offset:offset+limit]}
+
     @app.get('/v1/areas', response_model=AreaPage, tags=['Areas'])
     def areas(request: Request, parent_id: str | None = Query(None, max_length=100),
               level: Level | None = None, q: str | None = Query(None, min_length=1, max_length=120),
               offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
-              include_historical: bool = False):
+              include_historical: bool = False, layer: Layer = 'administrative',
+              edition: list[str] | None = Query(None, max_length=30),
+              within_id: str | None = Query(None, max_length=100)):
         data = dataset(request)
         if parent_id is not None:
             area(data, parent_id)
-        return data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit, include_historical=include_historical)
+        if within_id is not None: area(data, within_id)
+        return data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit, include_historical=include_historical, layer=layer, editions=edition, within_id=within_id)
+
+    @app.get('/v1/areas/boundaries', tags=['Boundaries'])
+    def area_boundaries(request: Request, layer: Layer = 'administrative',
+                        level: Level | None = None, within_id: str | None = Query(None, max_length=100),
+                        edition: list[str] | None = Query(None, max_length=30),
+                        offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+        data = dataset(request)
+        if within_id is not None: area(data, within_id)
+        page = data.page(layer=layer, editions=edition, within_id=within_id,
+                         level=level or ('electoral_district' if layer != 'administrative' else None),
+                         offset=offset, limit=limit)
+        return geo_response({'type': 'FeatureCollection',
+            'features': [data.boundary(r['id']) for r in page['items'] if r['display_available']],
+            'dataset_version': data.version, 'total': page['total'], 'offset': offset, 'limit': limit,
+            'next_offset': page['next_offset'],
+            'unavailable_ids': [r['id'] for r in page['items'] if not r['display_available']]}, request)
 
     @app.get('/v1/areas/{area_id}', response_model=AreaDetail, tags=['Areas'])
     def detail(area_id: str, request: Request):
@@ -387,10 +440,11 @@ def create_app(settings=None):
         return {'dataset_version': data.version, 'area': area(data, area_id)}
 
     @app.get('/v1/areas/{area_id}/children', response_model=AreaPage, tags=['Areas'])
-    def children(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+    def children(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
+                 layer: Layer = 'administrative', edition: list[str] | None = Query(None, max_length=30)):
         data = dataset(request)
         area(data, area_id)
-        return data.page(parent_id=area_id, offset=offset, limit=limit)
+        return data.page(parent_id=area_id, offset=offset, limit=limit, layer=layer, editions=edition)
 
     @app.get('/v1/areas/{area_id}/ancestors', tags=['Areas'])
     def ancestors(area_id: str, request: Request):
@@ -409,28 +463,36 @@ def create_app(settings=None):
         return geo_response(payload, request)
 
     @app.get('/v1/areas/{area_id}/children/boundaries', tags=['Boundaries'], responses={200: {'content': {'application/geo+json': {}}}})
-    def children_boundaries(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+    def children_boundaries(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
+                 layer: Layer = 'administrative', edition: list[str] | None = Query(None, max_length=30)):
         data = dataset(request)
         area(data, area_id)
-        page = data.page(parent_id=area_id, offset=offset, limit=limit)
+        page = data.page(parent_id=area_id, offset=offset, limit=limit, layer=layer, editions=edition)
         features = [data.boundary(r['id']) for r in page['items'] if r['display_available']]
         return geo_response({'type': 'FeatureCollection', 'features': features,
             'dataset_version': data.version, 'total': page['total'], 'offset': offset, 'limit': limit,
             'next_offset': page['next_offset'], 'unavailable_ids': [r['id'] for r in page['items'] if not r['display_available']]}, request)
 
-    @app.get('/v1/lookup', response_model=LookupResult, tags=['Lookup'])
+    @app.get('/v1/lookup', response_model=LookupResult, response_model_exclude_unset=True, tags=['Lookup'])
     def lookup(request: Request, longitude: float = Query(..., ge=-180, le=180, allow_inf_nan=False),
-               latitude: float = Query(..., ge=-90, le=90, allow_inf_nan=False)):
-        return dataset(request).lookup(longitude, latitude)
+               latitude: float = Query(..., ge=-90, le=90, allow_inf_nan=False),
+               layer: list[Layer] | None = Query(None, max_length=4),
+               edition: list[str] | None = Query(None, max_length=30)):
+        data = dataset(request)
+        editions = {}
+        for uid in edition or []:
+            if uid not in data.editions: raise HTTPException(422, 'Unknown electoral edition.')
+            editions.setdefault(data.editions[uid]['layer'], []).append(uid)
+        return data.lookup(longitude, latitude, layers=layer, editions=editions)
 
-    @app.post('/v1/lookup', response_model=LookupResult, tags=['Lookup'])
-    def lookup_post(point: PointInput, request: Request):
-        return dataset(request).lookup(point.longitude, point.latitude)
+    @app.post('/v1/lookup', response_model=LookupResult, response_model_exclude_unset=True, tags=['Lookup'])
+    def lookup_post(point: LookupInput, request: Request):
+        return dataset(request).lookup(point.longitude, point.latitude, layers=point.layers, editions=point.editions)
 
-    @app.post('/v1/lookup/batch', response_model=BatchResult, tags=['Lookup'])
+    @app.post('/v1/lookup/batch', response_model=BatchResult, response_model_exclude_unset=True, tags=['Lookup'])
     def batch(points: BatchInput, request: Request):
         data = dataset(request)
-        return {'dataset_version': data.version, 'results': [data.lookup(p.longitude, p.latitude) for p in points.points]}
+        return {'dataset_version': data.version, 'results': [data.lookup(p.longitude, p.latitude, layers=p.layers, editions=p.editions) for p in points.points]}
 
     original_openapi = app.openapi
 

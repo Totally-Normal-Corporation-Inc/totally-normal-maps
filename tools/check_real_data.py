@@ -24,7 +24,8 @@ def main():
         jurisdictions = meta['coverage'].get('jurisdiction_refreshes', {})
         topology = meta['coverage'].get('topology_reviews', [])
         reviewed_ids = {'ca-csd-' + r['csd_id'] for r in topology}
-        assert meta['counts'] == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
+        administrative_counts = {k:v for k,v in meta['counts'].items() if k != 'electoral_district'}
+        assert administrative_counts == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
                                   'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
                                   sum(r['added_city_area_count'] for r in jurisdictions.values())}
         def children(uid):

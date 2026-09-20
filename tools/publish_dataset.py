@@ -9,6 +9,18 @@ import tempfile
 from totally_normal_maps.catalogue import CatalogueError
 from totally_normal_maps.dataset import Dataset
 from totally_normal_maps.distribution import read_lock, unpack_dataset
+from totally_normal_maps.licensing import redistribution_approved
+
+
+def check_redistribution(report):
+    unresolved = [f'{part}/{key}' for part in ('electoral', 'municipal_elections')
+                  for key, source in report.get(part, {}).get('sources', {}).items()
+                  if not redistribution_approved(source)]
+    if unresolved:
+        sample = ', '.join(unresolved[:8])
+        raise CatalogueError(f'Public upload blocked: {len(unresolved)} electoral sources lack redistribution '
+                             f'permission or a documented government-source publication decision ({sample}). '
+                             'Review the sources in report.json and rebuild the release first.')
 
 
 def publication_command(lock, archive, lock_path, notes, commit):
@@ -42,6 +54,7 @@ def main():
             'Counts: `' + json.dumps(data.summary['counts'], sort_keys=True) + '`\n')
         command = publication_command(lock, archive, lock_path, notes, args.commit)
         if args.publish:
+            check_redistribution(data.report)
             existing = subprocess.check_output(['git', 'ls-remote', '--tags',
                 'https://github.com/' + lock['repository'] + '.git', 'refs/tags/' + lock['tag']], text=True)
             if existing.strip():

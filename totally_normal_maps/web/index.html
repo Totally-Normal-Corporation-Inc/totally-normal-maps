@@ -11,7 +11,7 @@
 </head>
 <body>
   <header>
-    <div><p class="eyebrow">Totally Normal Maps / Geography preview</p><h1>Canada, area by area</h1><p>Explore provinces, regions, municipalities and city areas.</p></div>
+    <div><p class="eyebrow">Totally Normal Maps / Geography preview</p><h1>Canada, area by area</h1><p>Explore communities and municipal, federal, provincial and territorial electoral districts.</p></div>
     <span class="badge">Geography only</span>
   </header>
   <section class="summary" aria-label="Dataset summary">
@@ -24,6 +24,10 @@
   <main>
     <aside aria-label="Find an area">
       <div class="gx-fgrid gx-fgrid--2">
+        <div class="gx-w-lg gx-fspan-all"><label for="map-layer">Map layer</label><select id="map-layer"><option value="administrative">Regions and cities</option><option value="federal">Federal electoral districts</option><option value="provincial">Provincial / territorial electoral districts</option><option value="municipal">Municipal elections</option></select></div>
+        <div id="municipal-control" class="gx-w-lg gx-fspan-all" hidden><label for="municipal-authority">Municipality / local authority</label><select id="municipal-authority"></select></div>
+        <div id="edition-control" class="gx-w-lg gx-fspan-all" hidden><label for="edition">Boundary edition</label><select id="edition"></select></div>
+        <div class="gx-w-lg gx-fspan-all"><label for="comparison-layer">Comparison outlines</label><select id="comparison-layer"><option value="">None</option><option value="administrative">Regions and cities</option><option value="federal">Federal electoral districts</option><option value="provincial">Provincial / territorial electoral districts</option><option value="municipal">Municipal elections</option></select></div>
         <div class="gx-w-lg gx-fspan-all"><label for="province">Jump to a province / territory</label><select id="province" class="gx-w-lg"><option value="">Canada</option></select></div>
         <div class="gx-w-lg gx-fspan-all"><label for="search">Search this level</label><input id="search" type="search" placeholder="Find a province or territory" autocomplete="off"></div>
         <div id="city-scheme-control" class="gx-w-lg gx-fspan-all" hidden><label for="city-scheme">City-area boundaries</label><select id="city-scheme" class="gx-w-lg"></select></div>
@@ -34,6 +38,8 @@
       <div id="results" aria-label="Matching areas"></div>
       <button id="more" type="button" hidden>Show more areas</button>
       <details class="reading-guide"><summary>What this map tells us</summary>
+        <p>Municipal elections includes council wards, districts and regional electoral divisions. Choose a municipality to see its coverage, including places that elect councillors at large. Reference editions are dated snapshots whose current applicability is unverified. A municipality may also elect some representatives at large; ward polygons do not describe every council seat.</p>
+        <p>Choose a map layer to explore communities or electoral districts. Electoral layers show all selected districts from Canada, or the districts in one province. Editions identify the boundary set and electoral event. Comparison outlines use the default edition for each province.</p>
         <p>Click a province to see its regions, then a region to see its municipalities. Provinces without regions open directly to municipalities. Use the breadcrumb trail or Back up to return.</p>
         <p>Municipalities without a regional grouping appear alongside the regions in their province. Municipal-level areas also include rural and northern statistical equivalents; their official type codes are retained.</p>
         <p>Open a city with areas to see its communities, neighbourhoods, arrondissements, sectors or quartiers. A community or arrondissement may open to areas within it. Where a city has separate boundary schemes, use the city-area selector. The coverage list identifies included sources and missing boundaries.</p>
@@ -48,25 +54,31 @@
     </aside>
     <section class="map-panel" aria-label="Canada boundary map">
       <nav id="breadcrumbs" aria-label="Map location"></nav>
-      <div class="map-toolbar"><span id="map-status" role="status">Preparing map…</span><button id="back" type="button" hidden>Back up</button></div>
+      <div class="map-toolbar"><span id="map-status" role="status">Preparing map…</span><button id="retry-boundaries" type="button" hidden>Retry boundaries</button><button id="back" type="button" hidden>Back up</button></div>
       <div class="map-options" aria-label="Map appearance">
         <label for="background">Background <select id="background"><option value="none">None · offline</option><option value="topographic" selected>Topographic · online</option></select></label>
         <label for="background-opacity">Background opacity <input id="background-opacity" type="range" min="0" max="100" value="65" step="5"><output id="background-opacity-value" for="background-opacity">65%</output></label>
         <label class="map-check"><input id="relief" type="checkbox"> Shaded relief</label>
         <label for="boundary-opacity">Boundary fill <input id="boundary-opacity" type="range" min="0" max="70" value="20" step="5"><output id="opacity-value" for="boundary-opacity">20%</output></label>
-        <label class="map-check"><input id="region-labels" type="checkbox" checked> Region names</label>
+        <label class="map-check"><input id="region-labels" type="checkbox" checked> Area names</label>
       </div>
       <p id="background-status" class="background-status" role="status"></p>
-      <div id="map" aria-label="Interactive province, regional, municipality and city-area boundaries"></div>
+      <div id="map" aria-label="Interactive administrative and electoral boundaries"></div>
+      <p id="comparison-note" class="background-status" hidden></p>
       <p class="water-note">Click a muted surrounding area to switch focus. Boundaries can include water; orange dashed outlines need boundary review.</p>
       <div id="selection" aria-live="polite"><h2>Select an area</h2><p>Choose a result or a boundary to inspect its official identity.</p></div>
     </section>
   </main>
   <footer>
+    <p id="source-summary"></p>
+    <div id="required-attributions"></div>
+    <a id="dataset-notices" href="NOTICE.md" target="_blank" rel="noreferrer" hidden>Full data notices and licence terms</a>
+    <details><summary>Data sources, attribution and licences</summary><div class="source-details">
     <span id="attribution">Dataset attribution is loading.</span>
     <a id="licence" href="https://www.statcan.gc.ca/en/terms-conditions/open-licence" target="_blank" rel="noreferrer">Source licence</a>
     <a id="quebec-licence" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" hidden>Québec source licence</a>
     <span id="additional-licences"></span>
+    </div></details>
   </footer>
   <noscript>This local map needs JavaScript. The run directory also contains a report.json for review.</noscript>
 </body>

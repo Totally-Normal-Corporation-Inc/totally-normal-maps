@@ -13,6 +13,8 @@ from shapely.strtree import STRtree
 from .catalogue import CatalogueError, PROVINCES, geometry_issue, read_json
 from .releases import MAX_FILE_BYTES, checked_release, source_metadata
 from .jurisdiction_migrations import load_migrations
+from .layers import LAYERS, load_electoral, selected_editions, selection_coverage, in_layer, layer_inventory
+from .municipal_elections import load_municipal, lookup_coverage, layer_coverage
 
 
 def normalize(value):
@@ -46,7 +48,7 @@ class Dataset:
             if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
                 raise CatalogueError('Invalid serving database.')
             tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision'} or 'csd' not in tables:
+            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area'} or 'csd' not in tables:
                 raise CatalogueError('Unexpected serving database tables.')
             memberships = dict(db.execute('SELECT csd_id, region_id FROM csd_region')) if 'csd_region' in tables else {}
             self.source_ids = {}
@@ -104,6 +106,8 @@ class Dataset:
             if 'boundary_revision' in tables:
                 self.load_boundary_revisions(db)
             load_migrations(self, db, 'jurisdiction_revision' in tables)
+            load_electoral(self, db, 'electoral_area' in tables)
+            load_municipal(self, db, 'municipal_electoral_area' in tables)
         counts = Counter(r['level'] for r in self.areas.values() if r.get('lifecycle_status') != 'superseded')
         expected_municipalities = self.report.get('quebec_refresh', {}).get('active_municipality_count', self.report['feature_count'])
         migrations = [r['migrations'] for r in self.report.get('jurisdiction_refreshes', {}).values() if 'migrations' in r]
@@ -124,6 +128,7 @@ class Dataset:
                 if item.get('lifecycle_status') != 'superseded':
                     self.children[parent].append(uid)
             item['geometry_available'] = uid in self.geometries
+        default_editions = {layer:selected_editions(self,layer) for layer in LAYERS}
         for uid in self.areas:
             ancestors = self.ancestors(uid)  # also rejects cycles before accepting traffic
             if self.areas[uid]['level'] == 'city_area':
@@ -132,11 +137,15 @@ class Dataset:
                         self.areas[municipal].get('lifecycle_status') == 'superseded' or
                         self.areas[municipal]['province_id'] != self.areas[uid]['province_id']):
                     raise CatalogueError('Invalid city-area municipal ancestry.')
-            self.areas[uid]['child_count'] = len(self.children[uid])
+            self.areas[uid]['child_count'] = sum(self.areas[c].get('layer') in {'administrative','shared'} for c in self.children[uid])
+            if self.editions:
+                self.areas[uid]['child_counts_by_layer'] = {
+                    layer: sum(in_layer(self.areas[c], layer, default_editions[layer])
+                               for c in self.children[uid]) for layer in LAYERS}
         for children in self.children.values():
             children.sort(key=lambda uid: (normalize(self.areas[uid]['name']), uid))
         self.ordered = sorted(self.areas, key=lambda uid: (normalize(self.areas[uid]['name']), uid))
-        self.search_text = {uid: normalize(' '.join([r['name'], uid, r['source_id'], r.get('code', ''), *r['aliases']]))
+        self.search_text = {uid: normalize(' '.join([r['name'], uid, r['source_id'], r.get('code', ''), r.get('authority_name', ''), *r['aliases']]))
                             for uid, r in self.areas.items()}
         self.load_displays()
         self.geometry_ids = sorted(uid for uid in self.geometries if self.areas[uid].get('lifecycle_status') != 'superseded')
@@ -180,6 +189,13 @@ class Dataset:
                 self.summary['sources'].extend(refresh['sources'].values())
         if any(r.get('lifecycle_status') == 'superseded' for r in self.areas.values()):
             self.summary['historical_counts'] = dict(Counter(r['level'] for r in self.areas.values() if r.get('lifecycle_status') == 'superseded'))
+        self.summary['layers'] = layer_inventory(self)
+        if 'electoral' in self.report:
+            self.summary['coverage']['electoral'] = self.report['electoral']
+            self.summary['sources'].extend(self.report['electoral']['sources'].values())
+        if 'municipal_elections' in self.report:
+            self.summary['coverage']['municipal_elections'] = self.report['municipal_elections']
+            self.summary['sources'].extend(self.report['municipal_elections']['sources'].values())
         self.summary['sources'] = [source_metadata(source) for source in self.summary['sources']]
 
     def load_boundary_revisions(self, db):
@@ -301,6 +317,7 @@ class Dataset:
     def add(self, item):
         if item['id'] in self.areas:
             raise CatalogueError('Duplicate area identity.')
+        item.setdefault('layer', 'administrative' if item['level'] not in {'country', 'province'} else 'shared')
         item.setdefault('aliases', [])
         item.setdefault('issues', [])
         item['country_id'] = 'ca'
@@ -324,7 +341,7 @@ class Dataset:
             if collection.get('type') != 'FeatureCollection' or not isinstance(collection.get('features'), list):
                 raise CatalogueError('Invalid display collection.')
             level = ('province' if name == 'display/provinces.geojson' else 'region' if '/regions-' in name
-                     else 'city_area' if '/city-areas-' in name else 'municipality')
+                     else 'city_area' if '/city-areas-' in name else 'electoral_district' if '/electoral-' in name or '/municipal-' in name else 'municipality')
             for feature in collection['features']:
                 source_id = feature['properties']['id']
                 if level == 'province':
@@ -348,15 +365,19 @@ class Dataset:
         for uid, area in self.areas.items():
             area['display_available'] = uid in self.displays
 
-    def page(self, *, parent_id=None, level=None, query=None, offset=0, limit=100, include_historical=False):
+    def page(self, *, parent_id=None, level=None, query=None, offset=0, limit=100, include_historical=False, layer='administrative', editions=None, within_id=None):
         if parent_id is not None and parent_id not in self.areas:
             raise KeyError(parent_id)
         selected = ([uid for uid in self.ordered if self.areas[uid]['parent_id'] == parent_id]
                     if parent_id is not None and include_historical else
                     self.children[parent_id] if parent_id is not None else self.ordered)
+        chosen = selected_editions(self, layer, editions)
+        if within_id is not None and within_id not in self.areas: raise KeyError(within_id)
         term = normalize(query or '')
         selected = [uid for uid in selected if (level is None or self.areas[uid]['level'] == level)
                     and (include_historical or self.areas[uid].get('lifecycle_status') != 'superseded')
+                    and in_layer(self.areas[uid], layer, chosen)
+                    and (within_id is None or within_id in {a['id'] for a in self.ancestors(uid)})
                     and (not term or term in self.search_text[uid])]
         return {'dataset_version': self.version, 'total': len(selected), 'offset': offset, 'limit': limit,
                 'next_offset': offset + limit if offset + limit < len(selected) else None,
@@ -371,7 +392,32 @@ class Dataset:
                 'suitable_for_assignment': resolution == 'full' and area.get('lifecycle_status') != 'superseded', 'geography_qualified': False},
                 'geometry': geometry, 'dataset_version': self.version, 'sources': self.summary['sources']}
 
-    def lookup(self, longitude, latitude):
+    def lookup(self, longitude, latitude, *, layers=None, editions=None):
+        requested = ['administrative'] if layers is None else layers
+        if (not isinstance(requested, (list, tuple)) or not requested or len(requested) > len(LAYERS)
+                or any(not isinstance(layer, str) for layer in requested)
+                or len(set(requested)) != len(requested) or set(requested) - LAYERS.keys()):
+            raise CatalogueError('Unknown or repeated lookup layer.')
+        editions = {} if editions is None else editions
+        if not isinstance(editions, dict): raise CatalogueError('Expected an edition map keyed by layer.')
+        if set(editions) - set(requested): raise CatalogueError('Edition supplied for an unrequested layer.')
+        results = {layer: self._lookup_layer(longitude, latitude, layer, editions.get(layer)) for layer in requested}
+        if len(requested) == 1 and requested[0] == 'administrative': return results['administrative']
+        statuses = {r['status'] for r in results.values()}
+        status = next((s for s in ('review_required', 'ambiguous', 'matched', 'no_match') if s in statuses))
+        matches = {m['id']: m for result in results.values() for m in result['matches']}
+        return {'dataset_version': self.version, 'qualification': 'review_required',
+                'longitude': longitude, 'latitude': latitude, 'status': status,
+                'ambiguous': any(r['ambiguous'] for r in results.values()), 'matches': list(matches.values()),
+                **{key: sorted({uid for r in results.values() for uid in r[key]}) for key in
+                   ('direct_match_ids', 'review_candidate_ids', 'unlocated_missing_geometry_ids')},
+                'hierarchy_geometry_disagreements': [d for r in results.values() for d in r['hierarchy_geometry_disagreements']],
+                'layers': results}
+
+    def _lookup_layer(self, longitude, latitude, layer, editions):
+        chosen = selected_editions(self, layer, editions)
+        accepts = lambda uid: (in_layer(self.areas[uid], layer, chosen) and
+                               (layer != 'municipal' or self.areas[uid].get('layer') == 'municipal'))
         if (type(longitude) not in (float, int) or type(latitude) not in (float, int)
                 or not math.isfinite(longitude) or not math.isfinite(latitude)
                 or abs(longitude) > 180 or abs(latitude) > 90):
@@ -379,11 +425,14 @@ class Dataset:
         point = Point(longitude, latitude)
         direct = sorted(self.geometry_ids[int(i)] for i in self.tree.query(point, predicate='covered_by'))
         pending = sorted(self.pending_ids[int(i)] for i in self.pending_tree.query(point, predicate='covered_by'))
+        direct = [uid for uid in direct if accepts(uid)]
+        pending = [uid for uid in pending if accepts(uid)]
+        unknown = [uid for uid in self.unknown_ids if accepts(uid)]
         related, disagreements = set(direct), []
         for uid in direct:
             for ancestor in self.ancestors(uid):
                 related.add(ancestor['id'])
-                if ancestor['id'] in self.geometries and ancestor['id'] not in direct:
+                if ancestor['id'] in self.geometries and not self.geometries[ancestor['id']].covers(point):
                     disagreements.append({'area_id': uid, 'ancestor_id': ancestor['id']})
         # A quartier and its arrondissement are expected to both cover a point.
         # Multiple incomparable areas at the same level still mean ambiguity.
@@ -393,15 +442,31 @@ class Dataset:
         # Independent publisher schemes (e.g. Toronto former municipalities and
         # neighbourhoods) can both match. Same-scheme siblings remain ambiguous.
         counts = Counter((self.areas[uid]['level'], self.areas[uid].get('scheme', 'default')
-                          if self.areas[uid]['level'] == 'city_area' else '') for uid in leaves)
+                          if self.areas[uid]['level'] == 'city_area' else self.areas[uid].get('edition', '')) for uid in leaves)
         ambiguous = any(n > 1 for n in counts.values())
-        status = ('review_required' if pending or self.unknown_ids or disagreements else
+        status = ('review_required' if pending or unknown or disagreements else
                   'ambiguous' if ambiguous else 'matched' if direct else 'no_match')
-        order = {'country': 0, 'province': 1, 'region': 2, 'municipality': 3, 'city_area': 4}
+        coverage = (layer_coverage(self,chosen,explicit=editions is not None) if layer == 'municipal' else
+                    selection_coverage(self.editions, self.edition_coverage, chosen, explicit=editions is not None)
+                    if layer != 'administrative' else {})
+        municipal_coverage = []
+        if layer == 'municipal':
+            municipal_coverage, uncertain = lookup_coverage(self,point,chosen,direct,explicit=editions is not None)
+            if uncertain: status = 'review_required'
+        if layer in {'federal','provincial'} and not direct and any(c['status'] in {'partial', 'unavailable'} for c in coverage.values()):
+            status = 'review_required'
+        if layer in {'federal','provincial'}:
+            matched_editions = {self.areas[uid].get('edition') for uid in direct}
+            if any(spec['status'] in {'partial', 'unavailable'} for uid in chosen - matched_editions
+                   for spec in self.edition_coverage[uid].values()):
+                status = 'review_required'
+        order = {'country': 0, 'province': 1, 'region': 2, 'municipality': 3, 'city_area': 4, 'electoral_district': 5}
         return {'dataset_version': self.version, 'qualification': 'review_required', 'status': status,
                 'longitude': longitude, 'latitude': latitude, 'ambiguous': ambiguous,
                 'matches': [{**self.areas[uid], 'match_basis': 'geometry' if uid in direct else 'hierarchy'}
                             for uid in sorted(related, key=lambda uid: (order[self.areas[uid]['level']], uid))],
                 'direct_match_ids': direct, 'review_candidate_ids': pending,
-                'unlocated_missing_geometry_ids': self.unknown_ids,
-                'hierarchy_geometry_disagreements': disagreements}
+                'unlocated_missing_geometry_ids': unknown,
+                'hierarchy_geometry_disagreements': disagreements,
+                **({'layer': layer, 'selected_editions': sorted(chosen), 'coverage': coverage} if layer != 'administrative' else {}),
+                **({'municipal_coverage': municipal_coverage} if layer == 'municipal' else {})}

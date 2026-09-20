@@ -6,6 +6,80 @@ into one image. Any deployment system can build an exact `main` commit with pass
 CI; a manual `app-*` release is optional. This repository has no cloud credentials
 or company deployment configuration.
 
+## One-command data publication
+
+After merging your code, switch to `main`, pull it, then run:
+
+```bash
+./package.sh
+```
+
+Prerequisites: the README's Python environment, Git with a configured commit
+identity, an authenticated GitHub CLI (`gh auth login`), and the local serving
+release selected by [dataset.source.json](../dataset.source.json). The source file
+pins both its path under `.local/releases/` and the independently reviewed manifest
+SHA-256. It currently selects the municipal dataset with unlicensed sources
+excluded. The command checks
+every serving file against that manifest; it never guesses which local directory
+is newest or silently changes the reviewed pin. When adopting new data, update
+this small source selection as part of its reviewed code PR.
+
+The script requires a clean `main` that exactly matches `origin/main` and waits
+for that commit's `ci.yml` push checks. It then:
+
+1. Checks source redistribution permissions and creates a serving-data ZIP with
+   attribution, SHA-256 checksum and deployment lock under `.local/packages/`.
+2. Calculates a stable `dataset-<content fingerprint>-r1` version from the dataset
+   manifest and NOTICE.md. Identical inputs reuse the version; data or attribution
+   changes get a new version. Application code changes alone do not need new data.
+3. Publishes a new GitHub dataset prerelease targeting the exact code commit, or
+   verifies an already published matching version. It downloads the public ZIP
+   through the same anonymous, checksummed path the Docker build uses.
+4. Pushes a branch containing **only** the new `dataset.lock.json`, opens its PR,
+   waits for CI and requests a normal squash merge. It never force-pushes or
+   bypasses required reviews, checks or merge queues.
+5. Waits for CI on the merged `main` commit, fast-forwards the unchanged local
+   checkout to it, and prints the exact commit to deploy. A local `receipt.json`
+   records that commit, release tag and digests. Build the normal Dockerfile at
+   that commit: it downloads the data automatically. No `app-*` release is needed.
+
+The command is intended to perform GitHub writes. To check local integrity and
+redistribution status without GitHub access or publication, on any branch, use:
+
+```bash
+./package.sh --check
+```
+
+**The selected release excludes the 36 private MuniSoft Saskatchewan division
+datasets (213 boundaries).** They remain on standby, with `unavailable` municipal
+coverage and a licensing explanation. No deferred geometry is included in the
+database, display files or deployable ZIP. The default import plan also excludes
+them; research and excluded inventory counts remain available for later work.
+This removes their publication block without changing their licence status or
+disabling the publication guard. Other approved western Canadian data is retained.
+
+The 2026-09-20 review approved the 74
+remaining government records: 39 have reviewed redistribution terms, and 35
+retain unconfirmed exact licence applicability with a separate maintainer
+publication decision, evidence, source credit and contact disclaimer. The 282
+DGEQ records retain their exact French attribution. See the
+[complete decisions and remaining list](research/government-source-licences.md).
+
+The command reports remaining blockers before packaging or uploading. It accepts
+`permitted` sources or complete, explicit government-source publication decisions;
+missing notices/evidence and unresolved private sources still fail. Hashes never
+constitute a licence approval. The original publisher metadata and every decision
+travel in report.json; the public notice travels in the ZIP and website.
+
+Interrupted runs reuse the verified package, release and PR. If main advanced,
+pull it before rerunning. If GitHub requires another person's approval, the
+script stops with the PR URL; obtain that approval and rerun. Failed CI must be
+fixed or rerun successfully. Each CI/merge stage waits up to 30 minutes; use
+`--timeout SECONDS` to change this. A partial or mismatched existing release is
+never overwritten: inspect it, then use `./package.sh --revision 2` (or the next
+revision) when a genuinely new immutable package version is needed. Revision
+numbers do not bypass source permissions or integrity checks.
+
 ## Publish a dataset once
 
 First complete geography, attribution and real-data acceptance using the existing

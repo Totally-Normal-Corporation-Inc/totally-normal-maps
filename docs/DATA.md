@@ -114,7 +114,8 @@ available for rollback; do not mutate an adopted release in place.
 .venv/bin/maps serve --run .local/canada/current --port 9010
 ```
 
-The preview runs entirely from local assets, without remote tiles or scripts. An
+The preview bundles its boundaries and scripts. Select **None · offline** or use
+`/?background=none` to disable its optional NRCan background requests. An
 optional Playwright check covers all cities, hierarchy navigation, search, keyboard
 selection, deferred/partial coverage and mobile layout:
 
@@ -309,3 +310,172 @@ through `include_historical=true`, but never participate in current point lookup
 No provincial publisher identity is represented as an invented Statistics Canada
 CSD code. The eleven supplied plans currently import city areas and audit gaps;
 they do not claim completed post-2025 municipal change reconciliation.
+
+## Parallel electoral releases
+
+The electoral importer takes an existing verified serving release and creates a
+new one, preserving every administrative table and existing edition. It adds an
+`electoral_area` table, edition/source metadata and province-partitioned display
+files. Imports never download data or approve repairs. A later edition uses a new
+namespace; a changed source uses a new source key to preserve older provenance.
+The report retains import-plan digests. Default selections are release metadata,
+not date-driven server behaviour.
+
+```bash
+.venv/bin/maps download-electoral --source fed --output .local/electoral-sources/federal.zip
+# Obtain the remaining filenames using the source keys in electoral-2026-09.json.
+.venv/bin/maps electoral --dataset .local/releases/canada \
+  --source-dir .local/electoral-sources --output .local/releases/canada-electoral
+.venv/bin/maps verify-release --dataset .local/releases/canada-electoral
+.venv/bin/python tools/check_electoral_data.py --dataset .local/releases/canada-electoral \
+  --baseline .local/releases/canada
+```
+
+The importer accepts `--plan` for a separately qualified future edition. A failed
+checksum, changed identity inventory or duplicate edition rejects the import;
+use a fresh output directory outside the input release. Source pins include the
+complete parsing specification (CRS, coordinate operation, identity mapping and
+field selection), as well as the source bytes. Reusing a source key requires an
+identical specification digest. Releases created before that digest was recorded
+require a new source key when importing another edition from that source.
+
+Geometry validity is checked in the publisher's original CRS before reprojection;
+rounding cannot approve an invalid source. A collapsed repair retains its identity
+and uncertainty bounds without becoming assignment geometry. Import validation
+runs each assignable district's representative point through the actual lookup
+engine and rejects the output if that district is absent from its results.
+A successful command does not remove the dataset's
+`review_required` qualification. Seven initial electoral polygons have display
+repair candidates but no assignment geometry.
+
+Read [the complete source inventory and reuse qualification](research/electoral-layers.md).
+This review covers all 13 jurisdictions. Exact licence applicability for six
+jurisdictions remains unconfirmed; the 2026-09-20 maintainer government-source
+decision permits publication with evidence, attribution and the contact notice.
+See [the recorded decisions](research/government-source-licences.md). Local
+packaging does not publish or change the existing public `dataset.lock.json`.
+
+An existing upcoming edition can become the default in a new release using an
+evidenced metadata-only plan, passed to the same `maps electoral --plan` command:
+
+```json
+{
+  "schema_version": 1,
+  "reviewed_on": "2027-01-01",
+  "release_label": "example-edition-activation",
+  "sources": {},
+  "editions": [],
+  "edition_updates": [
+    {
+      "id": "example-upcoming",
+      "status": "current",
+      "default": true,
+      "effective_date": "2027-01-01",
+      "evidence_url": "https://example.org/official-activation-notice"
+    },
+    {
+      "id": "example-previous",
+      "status": "historical",
+      "default": false,
+      "valid_to": "2027-01-01",
+      "evidence_url": "https://example.org/official-activation-notice"
+    }
+  ]
+}
+```
+
+These are illustrative IDs and evidence URLs; use the installed edition IDs and
+an actual authority notice. Updates may change status, default selection, label,
+electoral event, validity dates and evidence URL. They preserve district identities,
+source pins and geometry bytes; the input release remains unchanged. A default
+replacement clears the prior default but does not infer its lifecycle status.
+Optional plan `coverage` entries must refer to an installed compatible edition;
+missing jurisdictions are derived from the selected inventory.
+
+## Municipal elections
+
+The pinned municipal plan is `totally_normal_maps/municipal-elections-2026-09.json`.
+It records source checksums, publisher identity fields, explicit authority joins,
+election/snapshot dates, source decisions and evidence for at-large coverage.
+`municipal-elections` reads only already acquired files and creates a new release;
+it never downloads, modifies its input release, or approves a geometry repair.
+
+The earlier 2026-09-20 DGEQ licence review changed source licence metadata and
+required attribution only. It rebuilt all municipal editions from the same
+electoral baseline and unchanged source files, preserving the previous release.
+Reproducing that historical build requires its original pinned plan:
+
+```bash
+.venv/bin/maps municipal-elections \
+  --dataset .local/releases/canada-electoral-audited-v2-20260919 \
+  --source-dir .local/municipal-source-bundle-final \
+  --plan .local/government-licences-20260920/previous-municipal-elections-2026-09.json \
+  --output .local/releases/canada-municipal-elections-dgeq-20260920
+```
+
+The review records the maintainer's acceptance of the DGEQ open-data licence for
+282 source records. It does not approve source geometry repairs, change reference
+editions into current editions, or qualify unrelated publishers for redistribution.
+
+The government-source review produces a new immutable release without
+reimporting geometry. Previous plans must match the source specification pins in
+the input release; only licence metadata, notices and publication decisions can
+change. The selected release is now rebuilt with the 36 unlicensed MuniSoft
+sources on standby. First apply the electoral licence review to the pre-municipal
+baseline, then import only the active municipal sources:
+
+```bash
+.venv/bin/python -m tools.review_source_licences \
+  --dataset .local/releases/canada-electoral-audited-v2-20260919 \
+  --expected-sha256 9f65f49423d7f07c882c66729abca375d77cd688a2f32b0eb10ba96b95f7900e \
+  --previous-electoral-plan .local/government-licences-20260920/previous-electoral-2026-09.json \
+  --electoral-plan totally_normal_maps/electoral-2026-09.json \
+  --output .local/releases/canada-electoral-licence-review-20260920 \
+  --label canada-electoral-licence-review-20260920
+.venv/bin/maps municipal-elections \
+  --dataset .local/releases/canada-electoral-licence-review-20260920 \
+  --source-dir .local/municipal-source-bundle-final \
+  --output .local/releases/canada-municipal-licensed-20260920
+```
+
+Use new output directories when reproducing these commands. The preceding immutable
+releases are retained locally. The [source review](research/government-source-licences.md)
+lists all 74 government decisions and the 36 deferred private source records.
+The original source and edition pins remain in the prior plan and Git history;
+`source_inventory.decisions` records each `standby_licensing` decision, its excluded
+edition and district count. They are absent from the active `sources` and `editions`
+lists and do not need to be downloaded for this build. Their 36 coverage entries
+use `unavailable`, a dated licensing note and zero published districts. Their
+administrative boundaries remain available.
+
+Build from the pre-municipal baseline as shown: municipal imports are additive,
+so importing a reduced plan on top of an older municipal release cannot remove
+its boundaries. After acceptance, update `dataset.source.json` to the new path and
+manifest SHA-256, then run `./package.sh --check`. Never select an older unrestricted
+local review release for publication.
+
+```bash
+.venv/bin/maps download-municipal --source lake-country-current --output .local/municipal-sources/lake-country-current.geojson
+.venv/bin/maps municipal-elections --dataset .local/releases/base --source-dir .local/municipal-sources --output .local/releases/municipal
+```
+
+Source filenames must match the plan. Live publishers can change: a changed
+snapshot must be requalified and receive new checksums/version evidence, rather
+than bypassing integrity checks. Represent acquisition joins the full-shape
+response to a separately pinned identity inventory; ambiguous names, pagination,
+missing IDs and changed snapshots are rejected. Its simplified endpoint is never
+used. ArcGIS acquisition verifies object inventories and snapshot stability.
+
+Some provincial feeds contain multipart records, polling areas, or at-large
+features. Only explicit grouping rules may union parts of a ward. PEI polling
+areas are grouped by municipality and council district number; open/at-large
+areas do not become wards. Nova Scotia council polling districts are a distinct
+representation scheme. NB rural advisory wards and BC regional electoral areas
+retain distinct kinds. County/regional browsing envelopes do not establish the
+legal electorate of incorporated towns or Indigenous governments.
+
+The public Python package contains code and source manifests, not downloaded
+geometries. Local downloads and intermediate builds stay under the gitignored
+`.local/` directory inside this repository. Redistribution permission is recorded
+per source, separately from explicit government-source publication decisions.
+The publication tool rejects unresolved sources without such a documented decision.
