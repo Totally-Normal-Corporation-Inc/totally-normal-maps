@@ -125,3 +125,66 @@ These are complete publisher polygons, separately simplified for display. Invali
 geometry and unresolved parent/overlap cases are excluded from normal assignment.
 Source licences remain separate from the MIT code licence. See
 `docs/research/jurisdiction-refresh.md` for exact scope and unfinished qualification.
+
+## Optional electoral geography
+
+Electoral source and edition evidence accompanies the dataset in `report.json`.
+Complete source polygons are transformed to WGS84; display copies are simplified.
+Candidate repairs are unapproved and excluded from point assignment. Nunavut uses
+the explicitly recorded EPSG 1842 coordinate approximation. No authority endorses
+these transformations or this project.
+
+- Elections Canada, federal electoral districts under the 2023 representation
+  orders, September 2026 names. Contains information licensed under the Open
+  Government Licence – Canada: https://open.canada.ca/en/open-government-licence-canada
+- Directeur général des élections du Québec / Élections Québec, 2026 Assembly
+  electoral map and historical 2017 boundaries (2022 snapshot). Specific open-data
+  licence: https://dgeq.org/licence.html
+- Elections Ontario, electoral districts, 2022 downloadable snapshot of the
+  2018 boundaries. Open Use Data Product Licence Agreement:
+  https://www.elections.on.ca/en/voting-in-ontario/electoral-district-shapefiles/open-use-data-product-licence-agreement.html
+- Elections BC, 2023 electoral districts, boundary set 11. Contains information
+  licenced under the Elections BC Open Data Licence:
+  https://www.elections.bc.ca/docs/EBC-Open-Data-Licence.pdf
+- Government of Alberta, 2019 provincial electoral divisions. Contains information
+  licensed under the Open Government Licence – Alberta: https://open.alberta.ca/licence
+- Elections New Brunswick / Service New Brunswick, 2023 provincial districts.
+  Contains information licensed under the Open Government Licence – New Brunswick.
+  Product and reuse evidence: https://www.gnb.ca/en/campaign/geonb/data-catalogue/electoral-provincial.html
+- Government of Newfoundland and Labrador, 2015 electoral districts. Contains
+  information licensed under the Open Government Licence – Newfoundland and Labrador:
+  https://opendata.gov.nl.ca/public/opendata/page/?page-id=licence
+- Government of Yukon / Elections Yukon, 2024 electoral districts. Contains
+  information licensed under the Open Government Licence – Yukon:
+  https://yukon.ca/en/your-government/open-government/open-government-licence-yukon
+
+Required Québec attribution:
+
+Comprend des données ouvertes octroyées sous la licence d'utilisation des données
+ouvertes du directeur général des élections disponible à l'adresse Web dgeq.org.
+L'octroi de la licence n'implique aucune approbation par le directeur général des
+élections de l'utilisation des données ouvertes qui en est faite.
+
+The local electoral review also includes products from Elections Saskatchewan,
+Elections Manitoba, Elections Nova Scotia / Government of Nova Scotia, Government
+of Prince Edward Island, GNWT Centre for Geomatics, and Elections Nunavut. Exact
+product redistribution permission remains unconfirmed for these six jurisdictions.
+Their public availability does not imply an open licence. Preserve the individual
+source links, copyright notices and unresolved reuse status in the release report;
+the public dataset publication command blocks these products pending qualification.
+See `docs/research/electoral-layers.md` and `electoral-2026-09.json` for provenance.
+
+Municipal electoral source releases may additionally contain data from Open North
+Represent and the municipal/provincial authorities identified in the release's
+`municipal_elections.sources` inventory. Represent is an aggregator; its inclusion
+is not a blanket redistribution licence for every upstream dataset. Individual
+source URLs, licences, dates and reuse status are retained in the report and map.
+
+Contains information licensed under the Open Government Licence – Nova Scotia
+and the Open Government Licence – British Columbia. Québec municipal sources
+identified as CC BY 4.0 retain attribution to each publishing municipality.
+Additional city source terms, including Calgary and Lake Country, must be reviewed
+as recorded in the release. These sources do not endorse this project. Adaptations
+include identity normalization, coordinate transformation, expressly documented
+multipart unions and separate simplified display boundaries. Source polygons may
+include water. Unapproved repairs are display candidates only.

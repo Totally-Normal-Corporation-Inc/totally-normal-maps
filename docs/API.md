@@ -21,7 +21,9 @@ display files and does not need an API key. There are no subscriptions or billin
 | GET/HEAD | `/maps/{website_version}/{asset}` | Combined deployments: allowlisted public display assets |
 | GET | `/v1/datasets/current` | Version, source attribution, counts, coverage and limitations |
 | GET | `/v1/countries` | Available countries (currently Canada) |
+| GET | `/v1/layers` | Geography families, boundary editions and coverage |
 | GET | `/v1/areas` | Search/filter all area metadata |
+| GET | `/v1/areas/boundaries` | National or scoped display FeatureCollection, filtered by layer/edition |
 | GET | `/v1/areas/{id}` | One area |
 | GET | `/v1/areas/{id}/children` | Next browsing level |
 | GET | `/v1/areas/{id}/ancestors` | Ordered country-to-parent chain |
@@ -48,7 +50,7 @@ empty page. Countries and administrative kinds can be extended in future release
 the current builder and serving-release schema explicitly support Canada only.
 
 Levels are navigation roles: `country`, `province`, `region`, `municipality`,
-`city_area`. `kind` and `source_type` retain distinctions such as territory,
+`city_area`, `electoral_district`. `kind` and `source_type` retain distinctions such as territory,
 statistical municipal equivalent, regional district, arrondissement or sector.
 
 ## Identity and hierarchy
@@ -150,6 +152,65 @@ Every response retains `qualification: review_required` where applicable. A
 geometrically valid polygon is not a legal-boundary or dataset-quality approval.
 
 ## Boundaries and versions
+
+### Parallel electoral layers
+
+The existing browsing and lookup defaults remain administrative. Select
+`layer=federal` or `layer=provincial` for electoral browsing. The latter includes
+territorial districts. Every district has a province/territory parent; a national
+view aggregates those branches without extra identities or parents.
+
+```bash
+curl 'http://127.0.0.1:8000/v1/layers'
+curl 'http://127.0.0.1:8000/v1/areas?layer=federal&level=electoral_district&within_id=ca'
+curl 'http://127.0.0.1:8000/v1/areas/ca-qc/children?layer=provincial'
+curl 'http://127.0.0.1:8000/v1/areas/boundaries?layer=federal&within_id=ca-qc'
+curl 'http://127.0.0.1:8000/v1/areas?layer=provincial&edition=qc-2017&level=electoral_district'
+curl -X POST 'http://127.0.0.1:8000/v1/lookup' \
+  -H 'Content-Type: application/json' \
+  --data '{"longitude":-75.72,"latitude":45.43,"layers":["administrative","federal","provincial"]}'
+```
+
+Area browsing, children and display collections accept repeated `edition` values.
+`within_id` selects descendants of an existing country/province or other area;
+it is hierarchy membership, not polygon clipping. `parent_id` means immediate
+children. `child_count` retains the administrative count, while
+`child_counts_by_layer` reports counts under each family's default editions.
+
+An omitted edition selects explicit defaults pinned by the dataset, independent
+of the server date. Historical/upcoming editions require their IDs. Administrative
+`include_historical` does not select electoral editions. An unknown edition or
+one belonging to another layer returns 422. IDs include the boundary-set namespace,
+such as `ca-fed-2023-24001`; names are attributes. `identity_basis` distinguishes
+official codes, publisher feature IDs and stable catalogue mappings. Inspect
+authority, `boundary_set`, electoral event, nullable effective date and source
+evidence; a reused district number does not prove legal continuity.
+
+POST lookups accept `layers` and an optional `editions` map, for example
+`{"provincial":["qc-2017","qc-2026"]}`. Include that family in `layers`.
+Each batch point accepts the same fields. GET uses repeated `layer` and `edition`
+parameters. Selecting electoral layers adds a `layers` object with an independent
+lookup result for each requested family. The top-level result aggregates IDs and
+uses the highest-severity status; consumers should inspect individual results.
+
+Each electoral result's `coverage` describes the selected editions, with entries
+for all 13 jurisdictions. Each entry includes `editions`, a single `edition` when
+applicable, `expected_count`, `unavailable_count`, `status` and a coverage note.
+Historical selections use their own inventories and notes. An explicitly scoped
+selection marks other jurisdictions `not_selected`; missing default coverage is
+`unavailable` and cannot produce a confident `no_match`. A match in one edition
+does not hide a missing match in another selected edition with partial coverage.
+The release report retains this inventory in `coverage.electoral.edition_coverage`.
+Empty or duplicate layer/edition selections return 422.
+
+One administrative, one federal and one provincial match is expected. Ambiguity
+is evaluated within the same layer and edition, including exact shared boundaries.
+Comparing editions does not itself cause ambiguity. A pending administrative
+repair does not make an otherwise valid electoral result uncertain. Unapproved
+electoral repairs remain review candidates, never direct matches, and full-boundary
+requests return 409. Coverage and topology limits are in `coverage.electoral`.
+
+### Geometry and release pinning
 
 Display polygons may be simplified or labelled unapproved repair candidates. They
 are for rendering only. Full boundaries are unavailable for unapproved repairs,
@@ -265,3 +326,43 @@ return 409. Its bounding box is uncertainty evidence only. These states do not
 approve a geometry repair or infer hierarchy from containment. City-area reports
 separate repair, parent and overlap review counts, and explicitly identify whether
 coverage measurements include unapproved candidates.
+
+### Municipal electoral geography
+
+Releases with municipal electoral data add `layer=municipal` to the existing
+area, children, boundary and lookup endpoints. Municipal wards are independent
+of administrative neighbourhoods, federal districts and provincial districts.
+Their `parent_id` and `authority_id` identify the municipality or regional
+browsing authority. `source_id` retains the publisher's district identity;
+`authority_name`, `scheme`, `edition` and `source_date` describe its context.
+
+`GET /v1/municipal-coverage?province=24&status=reference&limit=100` provides the
+complete, paginated authority inventory. Filters are optional. Statuses are
+`included`, `reference`, `partial`, `at_large`, `unverified`, `unavailable` and
+`historical_only`. The inventory includes municipal/statistical equivalents;
+these are not all incorporated municipalities or ordinary municipal councils.
+Absence of ward data is never treated as evidence of at-large representation.
+
+Municipal editions have `current`, `reference`, `historical` or `upcoming`
+status. Defaults are chosen independently for each authority and representation
+scheme. Reference defaults are available for exploration, but a default lookup
+using them returns `review_required`. An explicit edition selects that dated
+snapshot without asserting current applicability. `municipal_coverage` in the
+municipal lookup result explains the local coverage. An evidenced at-large
+municipality has no fabricated ward polygon; its administrative outline remains
+available from the administrative layer. Unknown coverage returns
+`review_required`, rather than a confident negative.
+
+A point may be queried in all four layers in one request:
+
+```json
+{"longitude":-73.57,"latitude":45.50,"layers":["administrative","federal","provincial","municipal"]}
+```
+
+Use `/v1/areas?layer=municipal&level=electoral_district&within_id=ca-qc` to list
+Québec districts, or a municipality's ID in `parent_id` for its direct wards.
+The existing maximum of 30 explicit edition IDs per request still applies;
+omitting editions uses all relevant defaults. Districts with invalid source
+geometry remain unavailable at `resolution=full`; unapproved display candidates
+cannot become coordinate matches. Political boundaries are not clipped to
+coastlines or to a different publisher's municipal outline.

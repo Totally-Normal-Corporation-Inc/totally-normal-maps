@@ -27,3 +27,6 @@ recursive-include totally_normal_maps/vendor/leaflet/images *.png
 global-exclude __pycache__ *.pyc *.pyo .env .env.* credentials* secrets* *.pem *.key *.p12 *.pfx *.sqlite3 *.db *.zip *.gpkg *.sql *.dump *.log *.tfstate*
 prune .local
 prune .venv
+
+include totally_normal_maps/electoral-2026-09.json
+include totally_normal_maps/municipal-elections-2026-09.json

@@ -5,6 +5,9 @@ const normal = text => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toL
 const map = L.map("map", {crs: L.CRS.EPSG4326, minZoom: 1, zoomSnap: 0});
 map.createPane("surroundingAreas").style.zIndex = 380;
 const surroundingAreas = L.featureGroup().addTo(map);
+map.createPane("comparison").style.zIndex = 450;
+map.getPane("comparison").style.pointerEvents = "none";
+const comparisonOutlines = L.layerGroup().addTo(map);
 const contextOutline = L.featureGroup().addTo(map);
 const drawn = L.featureGroup().addTo(map);
 map.createPane("regionNames").style.pointerEvents = "none";
@@ -22,6 +25,43 @@ let data, selected = null, shown = 100, generation = 0, searchTimer;
 let locationState = {province: "", region: "", city: "", area: ""};
 const layers = new Map(), loading = new Map(), byId = new Map();
 const cityChildren = new Map(), cityCoverage = new Map();
+const activeFamily = () => el("map-layer").value;
+const electoralEditions = () => [...(data.report.electoral?.editions || []), ...(data.report.municipal_elections?.editions || [])];
+const municipalCoverage = () => data.report.municipal_elections?.coverage || {};
+const coverageLabel = status => ({included: "Wards available", reference: "Reference boundaries", at_large: "Elected at large", unverified: "Not yet verified", unavailable: "Boundaries unavailable", partial: "Partial coverage", historical_only: "Historical editions only"})[status] || status;
+function updateMunicipalAuthorities() {
+  const control = el("municipal-authority");
+  el("municipal-control").hidden = activeFamily() !== "municipal";
+  control.replaceChildren(new Option("All available local boundaries", ""));
+  const rows = Object.values(municipalCoverage()).filter(r => !locationState.province || r.province === locationState.province)
+    .sort((a,b) => a.name.localeCompare(b.name) || a.authority_id.localeCompare(b.authority_id));
+  for (const r of rows) control.append(new Option(`${r.name} · ${byId.get(r.province).code} · ${coverageLabel(r.status)}`, r.authority_id));
+  control.value = locationState.city;
+}
+function electoralRows(family, province = locationState.province, edition = "") {
+  const chosen = new Set(electoralEditions().filter(e => e.layer === family &&
+    (edition ? e.id === edition : e.default)).map(e => e.id));
+  return data.electoral_areas.filter(r => r.layer === family && chosen.has(r.edition) && (!province || r.province === province) &&
+    (family !== "municipal" || activeFamily() !== "municipal" || !locationState.city || r.authority_id === locationState.city));
+}
+function updateEditions() {
+  const old = el("edition").value;
+  const choices = electoralEditions().filter(e => e.layer === activeFamily() &&
+    (!locationState.province || e.provinces.includes(locationState.province)) &&
+    (activeFamily() !== "municipal" || !locationState.city || e.authority_id === locationState.city));
+  el("edition").replaceChildren(new Option(activeFamily() === "municipal" ? "Latest available · per local authority" : "Default editions · per province", ""));
+  for (const e of choices) el("edition").append(new Option(`${e.label} · ${e.status}`, e.id));
+  if (choices.some(e => e.id === old)) el("edition").value = old;
+  el("edition-control").hidden = activeFamily() === "administrative";
+  for (const option of el("comparison-layer").options) option.disabled = option.value === activeFamily();
+  if (el("comparison-layer").value === activeFamily()) el("comparison-layer").value = "";
+}
+function comparisonRows() {
+  const family = el("comparison-layer").value, p = locationState.province;
+  if (!family) return [];
+  if (family !== "administrative") return electoralRows(family);
+  return p ? provinceChildren(p) : data.provinces;
+}
 const hasChildren = row => cityChildren.has(row.id);
 const areaCounts = rows => [...new Set(rows.map(r => r.type))].map(type => countText(rows.filter(r => r.type === type).length, type.toLowerCase())).join(" · ");
 
@@ -48,16 +88,18 @@ function countText(count, singular, plural = `${singular}s`) {
   return `${count.toLocaleString()} ${count === 1 ? singular : plural}`;
 }
 function describeRows(rows, boundaries = false) {
-  const counts = {province: 0, region: 0, municipality: 0, city_area: 0};
+  const counts = {province: 0, region: 0, municipality: 0, city_area: 0, electoral_district: 0};
   rows.forEach(row => counts[row.level]++);
   const parts = [];
   if (counts.province) parts.push(countText(counts.province, "province / territory", "provinces / territories"));
   if (counts.region) parts.push(countText(counts.region, "region"));
   if (counts.municipality) parts.push(countText(counts.municipality, "municipality", "municipalities"));
   if (counts.city_area) parts.push(areaCounts(rows.filter(row => row.level === "city_area")));
+  if (counts.electoral_district) parts.push(countText(counts.electoral_district, "electoral district"));
   return (parts.join(" · ") || "0 areas") + (boundaries ? " · Simplified boundaries" : "");
 }
 function currentRows() {
+  if (activeFamily() !== "administrative") return electoralRows(activeFamily(), locationState.province, el("edition").value);
   const {province, region, city, area} = locationState;
   if (area) return cityChildren.get(area) || [];
   if (city) return (cityChildren.get(city) || []).filter(r => !el("city-scheme").value || (r.scheme || "default") === el("city-scheme").value);
@@ -78,6 +120,9 @@ function siblings(row) {
     .filter(other => (other.scheme || "default") === (row.scheme || "default"));
 }
 function surroundingRows() {
+  if (activeFamily() !== "administrative") return [
+    ...data.provinces.filter(r => r.id !== locationState.province),
+    ...(activeFamily() === "municipal" && locationState.province ? data.areas.filter(r => r.province === locationState.province && r.id !== locationState.city) : [])];
   const rows = new Map();
   // Preserve each ancestor's siblings, from provinces down to city areas.
   for (const id of Object.values(locationState).filter(Boolean)) {
@@ -86,7 +131,7 @@ function surroundingRows() {
   return [...rows.values()];
 }
 function boundaryKey(row) {
-  return row.level === "province" ? "provinces" : row.level === "region" ? `regions-${row.province}` :
+  return row.level === "electoral_district" ? `${row.layer === "municipal" ? "municipal" : "electoral"}-${row.province}` : row.level === "province" ? "provinces" : row.level === "region" ? `regions-${row.province}` :
     row.level === "city_area" ? `city-areas-${row.province}` : row.province;
 }
 function matchingRows() {
@@ -184,10 +229,14 @@ function drawRegionNames() {
   regionNames.clearLayers();
   if (!data || !el("region-labels").checked) return;
   const size = map.getSize(), occupied = [];
-  const visible = drawn.getLayers().filter(layer => byId.get(layer.feature.properties.id)?.level === "region");
+  const visible = drawn.getLayers().filter(layer => byId.get(layer.feature.properties.id)?.level === "region" || byId.get(layer.feature.properties.id)?.level === "electoral_district");
   // Larger regions get first choice; tiny regions remain identifiable on hover.
   visible.sort((a, b) => b.getBounds().getNorthEast().distanceTo(b.getBounds().getSouthWest()) - a.getBounds().getNorthEast().distanceTo(a.getBounds().getSouthWest()));
   for (const layer of visible) {
+    const bounds = layer.getBounds();
+    if (!map.getBounds().intersects(bounds)) continue;
+    const northwest = map.latLngToContainerPoint(bounds.getNorthWest()), southeast = map.latLngToContainerPoint(bounds.getSouthEast());
+    if (southeast.x - northwest.x < 30 || southeast.y - northwest.y < 14) continue;
     const row = byId.get(layer.feature.properties.id);
     const label = document.createElement("span"); label.className = "region-name-text"; label.textContent = row.name;
     label.style.visibility = "hidden"; el("map").append(label);
@@ -223,10 +272,30 @@ function showDetails(row) {
   heading.textContent = row?.name || "Explore Canada";
   el("selection").replaceChildren(heading);
   if (!row) {
-    el("selection").append(line("Choose a province or territory on the map or in the list to open the next level."));
+    el("selection").append(line(activeFamily() === "administrative" ?
+      "Choose a province or territory on the map or in the list to open the next level." :
+      "Choose an electoral district on the map or in the list. Select a province to narrow the view."));
     return;
   }
-  if (row.level === "province") {
+  if (row.level === "electoral_district") {
+    const edition = electoralEditions().find(e => e.id === row.edition);
+    el("selection").append(line(`${row.type} · ${byId.get(row.province).name} · Source identifier: ${row.source_id}`),
+      line(`${edition.label} · ${edition.status} · ${edition.electoral_event}`),
+      line(`Source: ${edition.authority}.`),
+      ...(row.authority_name ? [line(`Local authority: ${row.authority_name}`)] : []));
+    if (edition.status === "reference") el("selection").append(line(`Reference snapshot ${edition.source_date || "(date unavailable)"}; applicability to the current election is unverified.`, "issue"));
+    const evidence = document.createElement("a"); evidence.textContent = "Boundary source and edition evidence";
+    if (new URL(edition.evidence_url).protocol === "https:") evidence.href = edition.evidence_url;
+    evidence.target = "_blank"; evidence.rel = "noreferrer"; el("selection").append(evidence);
+    if (row.assignment_status !== "validated_source") el("selection").append(line(
+      row.assignment_status === "missing_geometry" ? "Boundary unavailable pending source review." :
+      "Outline shown for review; this district is unavailable for point assignment.", "issue"));
+  } else if (activeFamily() === "municipal" && municipalCoverage()[row.id]) {
+    const coverage = municipalCoverage()[row.id];
+    el("selection").append(line(coverageLabel(coverage.status)), line(coverage.note), line(`${coverage.district_count} districts in the latest available editions.`));
+  } else if (row.level === "province" && activeFamily() !== "administrative") {
+    el("selection").append(line(`${countText(currentRows().length, "electoral district")} in the selected layer and edition.`));
+  } else if (row.level === "province") {
     const regions = data.regions.filter(r => r.province === row.id);
     el("selection").append(line(`${row.code} · ${countText(row.count, "municipal-level area")}`),
       line(regions.length ? "Choose a region to open its municipalities. Municipalities without a region can be selected directly." :
@@ -269,12 +338,13 @@ function showDetails(row) {
 async function openRow(id) {
   const row = byId.get(id);
   if (!row) return;
-  if (row.level === "province") navigate(row.id);
+  if (activeFamily() === "municipal" && municipalCoverage()[row.id]) navigate(row.province, "", row.id);
+  else if (row.level === "province") navigate(row.id);
   else if (row.level === "region") navigate(row.province, row.id);
   else if (hasChildren(row)) navigate(row.province, row.region_id || "", row.level === "city_area" ? row.parent_csd_id : row.id, row.level === "city_area" ? row.id : "");
   else {
     const parent = {province: row.province, region: row.region_id || "",
-      city: row.level === "city_area" ? row.parent_csd_id : "",
+      city: row.layer === "municipal" ? row.authority_id : row.level === "city_area" ? row.parent_csd_id : "",
       area: row.level === "city_area" ? row.parent_area_id || "" : ""};
     const refreshed = Object.keys(parent).some(key => parent[key] !== locationState[key]) ?
       navigate(parent.province, parent.region, parent.city, parent.area) : Promise.resolve();
@@ -296,11 +366,12 @@ function renderResults() {
     const item = button("", () => openRow(row.id));
     item.className = "result";
     item.dataset.areaId = row.id;
-    if ((row.level === "city_area" || row.level === "municipality") && !hasChildren(row)) item.setAttribute("aria-pressed", String(row.id === selected));
+    if ((row.level === "city_area" || row.level === "municipality" || row.level === "electoral_district") && !hasChildren(row)) item.setAttribute("aria-pressed", String(row.id === selected));
     const title = document.createElement("span"), name = document.createElement("strong"), note = document.createElement("small"), code = document.createElement("span");
     name.textContent = row.name;
     note.textContent = (row.level === "province" ? `${countText(row.count, "municipal-level area")} · Open →` :
       row.level === "region" ? `${row.member_count} areas · ${row.type}${row.coverage_policy === "selected_members" ? " · Partial coverage" : ""} · Open →` :
+      row.level === "electoral_district" ? `${row.authority_name ? row.authority_name + " · " : ""}${row.type} · ${row.source_id} · ${row.edition_status}` :
       row.level === "city_area" ? `${row.type}${hasChildren(row) ? ` · ${areaCounts(cityChildren.get(row.id))} · Open →` : row.geometry_status === "unavailable" ? " · Boundary unavailable" : ` · ${row.source_id}`}` :
       hasChildren(row) ? `${areaCounts(cityChildren.get(row.id))} · Open →` :
         `${row.id} · ${row.type}${!row.region_id ? " · No regional grouping" : ""}`) + (row.issues.length ? " · Review needed" : "");
@@ -336,10 +407,39 @@ function renderNavigation() {
   });
   el("back").hidden = !province;
   el("back").textContent = area ? `Back to ${byId.get(city).name}` : city ? `Back to ${regionLabel || byId.get(province).name}` : region ? `Back to ${byId.get(province).name}` : "Back to Canada";
-  el("search").placeholder = city ? "Find a city area or source ID" : !province ? "Find a province or territory" : region || !data.regions.some(r => r.province === province) ?
+  el("search").placeholder = activeFamily() !== "administrative" ? "Find an electoral district or source ID" : city ? "Find a city area or source ID" : !province ? "Find a province or territory" : region || !data.regions.some(r => r.province === province) ?
     "Find a municipality or source ID" : "Find a region or municipality";
 }
 function coverageNote() {
+  if (activeFamily() === "municipal") {
+    const scope = municipalCoverage()[locationState.city];
+    const selected = electoralEditions().find(e => e.id === el("edition").value);
+    const inventory = Object.values(municipalCoverage()).filter(r => !locationState.province || r.province === locationState.province);
+    const count = status => inventory.filter(r => r.status === status).length;
+    el("coverage-note").textContent = selected ? `${selected.label} · ${selected.status} · ${currentRows().length} districts. ${selected.status === "reference" ? "Current applicability is unverified." : ""}` : scope ?
+      `${scope.name} · ${coverageLabel(scope.status)}. ${scope.note}` :
+      `${count("included")} authorities with current boundaries · ${count("reference")} with reference snapshots · ${count("at_large")} elected at large · ${count("unverified")} not yet verified. Select a local authority to inspect coverage.`;
+    return;
+  }
+  if (activeFamily() !== "administrative") {
+    const scope = locationState.province ? byId.get(locationState.province).name : "Canada";
+    const visibleEditions = new Set(currentRows().map(r => r.edition));
+    const editions = electoralEditions().filter(e => visibleEditions.has(e.id));
+    const inventory = data.report.electoral?.edition_coverage || {};
+    const scopeProvinces = locationState.province ? [locationState.province] : data.provinces.map(p => p.id);
+    const gaps = scopeProvinces.flatMap(p => {
+      const selected = editions.filter(e => e.provinces.includes(p));
+      if (!selected.length) return el("edition").value ? [] : [[p, {note: "No default edition available."}]];
+      return selected.flatMap(e => inventory[e.id]?.[p]?.status === "partial" || inventory[e.id]?.[p]?.status === "unavailable" ?
+        [[p, inventory[e.id][p]]] : []);
+    });
+    const pending = currentRows().filter(r => r.assignment_status !== "validated_source").length;
+    el("coverage-note").textContent = `${scope} · ${countText(currentRows().length, "electoral district")} · ` +
+      editions.map(e => `${e.label} (${e.status})`).join("; ") +
+      (gaps.length ? ` · Coverage notes: ${gaps.map(([p, v]) => `${byId.get(p)?.name}: ${v.note}`).join("; ")}` : "") +
+      (pending ? ` · ${pending} district boundaries need review before point assignment.` : "");
+    return;
+  }
   const {province, region, city, area} = locationState;
   const entry = data.report.regions?.jurisdictions.find(j => j.province === province);
   el("coverage-note").textContent = city ? `${byId.get(area || city).name} · ${areaCounts(cityChildren.get(area || city))}. The outer line shows the parent boundary.` :
@@ -365,7 +465,7 @@ function bindArea(feature, child, surrounding = false) {
     path.setAttribute("role", "button");
     path.setAttribute("tabindex", "0");
     path.setAttribute("aria-label", `${surrounding ? "Switch to" :
-      (row.level === "city_area" || row.level === "municipality") && !hasChildren(row) ? "Inspect" : "Open"} ${row.name}`);
+      (row.level === "city_area" || row.level === "municipality" || row.level === "electoral_district") && !hasChildren(row) ? "Inspect" : "Open"} ${row.name}`);
     path.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault(); event.stopPropagation(); openRow(row.id);
@@ -391,15 +491,25 @@ async function showMap(fit = false) {
   const current = ++generation;
   const {province, region, city, area} = locationState;
   const rows = matchingRows(), ids = new Set(rows.map(r => r.id));
-  const surrounding = surroundingRows();
+  const surrounding = surroundingRows(), comparison = comparisonRows();
+  const compared = new Set(comparison.map(r => r.edition).filter(Boolean));
+  const comparisonLabels = electoralEditions().filter(e => compared.has(e.id)).map(e => `${e.label} (${e.status})`);
+  el("comparison-note").hidden = !el("comparison-layer").value;
+  el("comparison-note").textContent = "Purple dashed outlines: " +
+    (comparisonLabels.length === 1 ? comparisonLabels[0] : el("comparison-layer").selectedOptions[0].text +
+      (comparisonLabels.length ? " · default editions per province" : ""));
+  comparisonOutlines.clearLayers();
   drawn.clearLayers(); contextOutline.clearLayers(); regionNames.clearLayers(); surroundingAreas.clearLayers();
   el("map-status").textContent = "Loading boundaries…";
   try {
-    const keys = city ? [province, `city-areas-${province}`] : !province ? ["provinces"] : region ? [province, `regions-${province}`] :
+    const keys = activeFamily() !== "administrative" ? ["provinces", ...rows.map(boundaryKey), ...(city ? [boundaryKey(byId.get(city))] : [])] : city ? [province, `city-areas-${province}`] : !province ? ["provinces"] : region ? [province, `regions-${province}`] :
       ["provinces", ...(rows.some(r => r.level === "region") ? [`regions-${province}`] : []),
         ...(rows.some(r => r.level === "municipality") ? [province] : [])];
-    const available = await Promise.all([...new Set([...keys, ...surrounding.map(boundaryKey)])].map(boundaryLayer));
+    const loads = await Promise.allSettled([...new Set([...keys, ...surrounding.map(boundaryKey), ...comparison.map(boundaryKey)])].map(boundaryLayer));
     if (current !== generation) return;
+    const available = loads.filter(result => result.status === "fulfilled").map(result => result.value);
+    const failed = loads.some(result => result.status === "rejected");
+    el("retry-boundaries").hidden = !failed;
     for (const layer of available) layer.eachLayer(child => {
       const id = child.feature.properties.id;
       if (id === (area || city || region || province)) {
@@ -411,6 +521,11 @@ async function showMap(fit = false) {
     // avoid moving the cached interactive layer into two groups at once.
     const features = new Map();
     for (const layer of available) layer.eachLayer(child => features.set(child.feature.properties.id, child.feature));
+    for (const row of comparison) {
+      const feature = features.get(row.id);
+      if (feature) L.geoJSON(feature, {pane: "comparison", interactive: false,
+        style: {color: "#705796", weight: 1.5, dashArray: "5 4", fill: false, opacity: .85}}).addTo(comparisonOutlines);
+    }
     for (const row of surrounding) {
       const feature = features.get(row.id);
       if (feature && !ids.has(row.id)) {
@@ -420,7 +535,8 @@ async function showMap(fit = false) {
     }
     const visible = drawn.getLayers().map(layer => byId.get(layer.feature.properties.id));
     const missing = rows.length - visible.length;
-    el("map-status").textContent = describeRows(visible, true) + (missing ? ` · ${missing} without an available outline` : "");
+    el("map-status").textContent = describeRows(visible, true) + (missing ? ` · ${missing} without an available outline` : "") +
+      (failed ? " · Some boundaries failed to load. Retry to restore them." : "");
     if (fit) {
       map.invalidateSize({pan: false});
       if (province) fitRow(byId.get(area || city || region || province));
@@ -440,14 +556,18 @@ function refresh(fit = false) {
   renderNavigation(); coverageNote(); renderResults();
   return showMap(fit);
 }
-function navigate(province = "", region = "", city = "", area = "") {
+function navigate(province = "", region = "", city = "", area = "", fit = true) {
+  if (activeFamily() !== "administrative") { region = ""; area = ""; if (activeFamily() !== "municipal") city = ""; }
   if (province && byId.get(province)?.level !== "province") return;
   if (region && (byId.get(region)?.level !== "region" || byId.get(region).province !== province)) return;
-  if (city && (!cityChildren.has(city) || byId.get(city)?.province !== province || (byId.get(city).region_id || "") !== region)) return;
+  if (city && activeFamily() === "municipal" && (!municipalCoverage()[city] || byId.get(city)?.province !== province)) return;
+  if (city && activeFamily() !== "municipal" && (!cityChildren.has(city) || byId.get(city)?.province !== province || (byId.get(city).region_id || "") !== region)) return;
   if (area && (!cityChildren.has(area) || byId.get(area)?.parent_csd_id !== city)) return;
   clearTimeout(searchTimer);
   locationState = {province, region, city, area};
-  const children = city && !area ? cityChildren.get(city) || [] : [];
+  updateMunicipalAuthorities();
+  updateEditions();
+  const children = activeFamily() === "administrative" && city && !area ? cityChildren.get(city) || [] : [];
   const schemes = [...new Set(children.map(r => r.scheme || "default"))].sort((a, b) =>
     a === "former_municipality" ? -1 : b === "former_municipality" ? 1 : a.localeCompare(b));
   el("city-scheme").replaceChildren();
@@ -460,7 +580,7 @@ function navigate(province = "", region = "", city = "", area = "") {
   }
   el("province").value = province;
   el("search").value = ""; el("issues-only").checked = false;
-  const refreshed = refresh(true);
+  const refreshed = refresh(fit);
   el("results").closest("aside").scrollTop = 0;
   return refreshed;
 }
@@ -480,9 +600,10 @@ async function start() {
   setBackgroundOpacity();
   setBackground();
   data = await getJSON("catalogue.json");
+  data.electoral_areas = data.electoral_areas || [];
   data.regions = data.regions || [];
   data.city_areas = data.city_areas || [];
-  for (const [rows, level] of [[data.areas, "municipality"], [data.regions, "region"], [data.provinces, "province"], [data.city_areas, "city_area"]]) {
+  for (const [rows, level] of [[data.areas, "municipality"], [data.regions, "region"], [data.provinces, "province"], [data.city_areas, "city_area"], [data.electoral_areas, "electoral_district"]]) {
     for (const row of rows) { row.level = level; row.issues = row.issues || []; byId.set(row.id, row); }
     rows.sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
   }
@@ -499,6 +620,7 @@ async function start() {
     if (!cityCoverage.has(row.parent_csd_id)) cityCoverage.set(row.parent_csd_id, []);
     cityCoverage.get(row.parent_csd_id).push(row);
   }
+  for (const row of data.electoral_areas) row.searchText = normal(`${row.name} ${row.id} ${row.source_id} ${row.catalogue_code || ""} ${row.authority_name || ""} ${row.code} ${(row.aliases || []).join(" ")}`);
   for (const row of data.areas) row.searchText = normal(`${row.name} ${row.id} ${row.code} ${(row.aliases || []).join(" ")} ${byId.get(row.region_id)?.name || ""} ${(cityChildren.get(row.id) || []).map(a => a.searchText).join(" ")}`);
   for (const row of data.regions) row.searchText = normal(`${row.name} ${row.id} ${row.code} ${(row.aliases || []).join(" ")} ${data.areas.filter(a => a.region_id === row.id).map(a => a.searchText).join(" ")}`);
   for (const row of data.provinces) row.searchText = normal(`${row.name} ${row.code} ${data.regions.filter(r => r.province === row.id).map(r => r.searchText).join(" ")} ${data.areas.filter(a => a.province === row.id).map(a => a.searchText).join(" ")}`);
@@ -513,9 +635,10 @@ async function start() {
   const regionalSources = (data.report.regions?.sources || []).slice(1);
   const statcanCredit = s => `Adapted from Statistics Canada, ${s.family}, ${s.reference_date}. This does not constitute an endorsement by Statistics Canada of this product.`;
   el("attribution").textContent = source.authority === "Statistics Canada" ? statcanCredit(source) : `Source: ${source.authority}, ${source.family}, ${source.reference_date}.`;
+  el("source-summary").textContent = el("attribution").textContent;
   if (data.report.province_display_source) el("attribution").textContent += ` Province overview (display only): ${statcanCredit(data.report.province_display_source)}`;
   el("attribution").textContent += ` ${regionalSources.map(s => `Regional grouping reference: ${s.authority}, ${s.release}.`).join(" ")}`;
-  const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {}),
+  const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {}), ...Object.values(data.report.electoral?.sources || {}), ...Object.values(data.report.municipal_elections?.sources || {}),
     ...Object.values(data.report.jurisdiction_refreshes || {}).flatMap(report => Object.values(report.sources || {}))];
   const credited = new Set();
   for (const item of additionalSources) {
@@ -525,9 +648,9 @@ async function start() {
     el("attribution").textContent += ` Additional geography: ${item.authority}.`;
     if (item.authority === "City of Toronto") el("attribution").textContent += " Contains information licensed under the Open Government Licence – Toronto.";
     if (item.attribution) el("attribution").textContent += ` ${item.attribution}`;
-    if (item.attribution_statement) el("attribution").textContent += ` ${item.attribution_statement}`;
+    else if (item.attribution_statement) el("attribution").textContent += ` ${item.attribution_statement}`;
     const link = document.createElement("a"), url = new URL(item.licence, location.href);
-    link.textContent = `${item.authority} licence`;
+    link.textContent = `${item.authority} ${item.redistribution_status === "unconfirmed" ? "reuse information (unconfirmed)" : "licence"}`;
     if (url.protocol === "https:") link.href = url.href;
     link.target = "_blank"; link.rel = "noreferrer";
     el("additional-licences").append(link, document.createTextNode(" "));
@@ -557,6 +680,17 @@ async function start() {
     el("city-area-decisions").append(line(`${byId.get(province).name} · ${report.added_city_area_count} added areas · ${pending} municipal source searches pending.`));
   }
   if (!data.city_areas.length) el("city-area-decisions").append(line("No city areas added to this run yet."));
+  updateMunicipalAuthorities();
+  updateEditions();
+  el("municipal-authority").addEventListener("change", () => {
+    el("edition").value = "";
+    const row = byId.get(el("municipal-authority").value);
+    navigate(row?.province || locationState.province, "", row?.id || "");
+  });
+  el("map-layer").addEventListener("change", () => { el("edition").value = ""; navigate(locationState.province, "", "", "", false); });
+  el("edition").addEventListener("change", () => refresh());
+  el("comparison-layer").addEventListener("change", () => showMap());
+  el("retry-boundaries").addEventListener("click", () => showMap());
   el("search").addEventListener("input", () => { clearTimeout(searchTimer); searchTimer = setTimeout(() => refresh(), 150); });
   el("issues-only").addEventListener("change", () => refresh());
   el("city-scheme").addEventListener("change", () => refresh());

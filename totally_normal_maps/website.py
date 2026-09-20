@@ -10,12 +10,13 @@ from shapely import get_num_coordinates
 
 from .catalogue import CatalogueError, PROVINCES, ROOT, new_directory, read_json, sha256, write_json
 from .releases import MAX_FILE_BYTES, MAX_MANIFEST_BYTES, MAX_RELEASE_BYTES, HEX
+from .layers import layer_inventory
 
 WEB_ASSETS = {'index.html', 'preview.js', 'preview.css', 'leaflet.js', 'leaflet.css',
               'leaflet-LICENSE.txt', 'NOTICE.md'}
 IMAGE_ASSETS = {'images/' + name for name in ('layers-2x.png', 'layers.png', 'marker-icon-2x.png', 'marker-icon.png', 'marker-shadow.png')}
-GEO_ASSETS = {'provinces.geojson', *(p + '.geojson' for p in PROVINCES),
-              *('regions-' + p + '.geojson' for p in PROVINCES), *('city-areas-' + p + '.geojson' for p in PROVINCES)}
+GEO_ASSETS = {'provinces.geojson', *(p + '.geojson' for p in PROVINCES), *('municipal-' + p + '.geojson' for p in PROVINCES),
+              *('regions-' + p + '.geojson' for p in PROVINCES), *('city-areas-' + p + '.geojson' for p in PROVINCES), *('electoral-' + p + '.geojson' for p in PROVINCES)}
 PUBLIC_ASSETS = WEB_ASSETS | IMAGE_ASSETS | GEO_ASSETS | {'catalogue.json'}
 
 
@@ -40,7 +41,7 @@ def website_catalogue(dataset):
                 original = json.loads(record)
                 details['ca-csd-' + uid if table == 'csd' else uid] = {
                     k: original[k] for k in ('source', 'vertices') if k in original}
-    groups = {'provinces': [], 'regions': [], 'areas': [], 'city_areas': []}
+    groups = {'provinces': [], 'regions': [], 'areas': [], 'city_areas': [], 'electoral_areas': []}
     for uid, area in sorted(dataset.areas.items()):
         level = area['level']
         if level == 'country': continue
@@ -48,7 +49,10 @@ def website_catalogue(dataset):
         row = {k: area[k] for k in ('name', 'source_id', 'kind', 'assignment_status', 'aliases', 'issues',
                'bbox', 'evidence', 'coverage_note', 'coverage_policy', 'boundary_basis', 'parent_overlap',
                'scheme', 'repair', 'lifecycle_status', 'valid_to', 'successor_ids', 'predecessor_ids',
-               'effective_date', 'update_status', 'comparison', 'uncertainty_basis') if k in area}
+               'effective_date', 'update_status', 'comparison', 'uncertainty_basis', 'layer', 'edition',
+               'boundary_set', 'authority', 'electoral_event', 'edition_status', 'source', 'identity_basis', 'catalogue_code',
+               'authority_id', 'authority_name', 'source_date') if k in area}
+        if row.get('authority_id'): row['authority_id'] = ids[row['authority_id']]
         row.update(details.get(uid, {}))
         if level != 'province' and uid in dataset.geometries:
             row['vertices'] = int(get_num_coordinates(dataset.geometries[uid]))
@@ -61,15 +65,25 @@ def website_catalogue(dataset):
             parent = dataset.areas[area['parent_id']]
             row['region_id'] = parent['id'] if parent['level'] == 'region' else None
         elif level == 'region':
-            row['member_count'] = len(dataset.children[uid])
+            row['member_count'] = area['child_count']
         elif level == 'city_area':
             city = dataset.areas[area['municipality_id']]
             row.update(parent_csd_id=ids[city['id']], parent_name=city['name'],
                        region_id=city['parent_id'] if dataset.areas[city['parent_id']]['level'] == 'region' else None)
             if dataset.areas[area['parent_id']]['level'] == 'city_area': row['parent_area_id'] = area['parent_id']
             if area['assignment_status'] == 'missing_geometry': row['geometry_status'] = 'unavailable'
-        groups[{'province': 'provinces', 'region': 'regions', 'municipality': 'areas', 'city_area': 'city_areas'}[level]].append(row)
-    return {**groups, 'dataset_version': dataset.version, 'report': dataset.report}
+        groups[{'province': 'provinces', 'region': 'regions', 'municipality': 'areas', 'city_area': 'city_areas', 'electoral_district': 'electoral_areas'}[level]].append(row)
+    report = dict(dataset.report)
+    if 'electoral' in report:
+        report['electoral'] = {**report['electoral'], 'edition_coverage': dataset.edition_coverage,
+                              'coverage': {layer['id']: layer['coverage'] for layer in layer_inventory(dataset)
+                                           if layer['id'] in {'federal', 'provincial'}}}
+    if 'municipal_elections' in report:
+        part = report['municipal_elections']
+        report['municipal_elections'] = {**part,
+            'editions': [{**e, 'authority_id': ids[e['authority_id']]} for e in part['editions']],
+            'coverage': {ids[uid]: {**r, 'authority_id': ids[uid]} for uid,r in part['coverage'].items()}}
+    return {**groups, 'dataset_version': dataset.version, 'report': report}
 
 
 def export_website(dataset, output, *, notice):

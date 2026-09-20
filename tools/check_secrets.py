@@ -14,7 +14,7 @@ else:
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFESTS = {f'totally_normal_maps/{name}' for name in (
-    'statcan-2025.json', 'topology-review-2026-09.json', 'province-display-2021.json', 'regions-2026-09.json',
+    'municipal-elections-2026-09.json', 'electoral-2026-09.json', 'statcan-2025.json', 'topology-review-2026-09.json', 'province-display-2021.json', 'regions-2026-09.json',
     'city-areas-quebec-2026-09.json', 'quebec-refresh-2026-09.json', 'ontario-refresh-2026-09.json',
     'jurisdiction-bc-2026-09.json',
     'jurisdiction-ab-2026-09.json',
@@ -27,8 +27,9 @@ MANIFESTS = {f'totally_normal_maps/{name}' for name in (
     'jurisdiction-yt-2026-09.json',
     'jurisdiction-nt-2026-09.json',
     'jurisdiction-nu-2026-09.json')}
-CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256|parent_catalogue_sha256|parent_report_sha256)": "[0-9a-f]{64}",?\s*')
+CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|inventory_sha256|shape_sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256|parent_catalogue_sha256|parent_report_sha256)": "[0-9a-f]{64}",?\s*')
 REPAIR_CHECKSUM_LINE = re.compile(r'\s*"(?:source_sha256|candidate_sha256)": "[0-9a-f]{64}",?\s*')
+MUNICIPAL_COMMIT_LINE = re.compile(r'\s*"represent_repository_commit": "[0-9a-f]{40}",?\s*')
 DATASET_CHECKSUM_LINE = re.compile(r'\s*"(?:archive_sha256|manifest_sha256)": "[0-9a-f]{64}",?\s*')
 
 
@@ -66,6 +67,10 @@ def main():
         for row in rows:
             if (name in {'dataset.lock.json', 'totally_normal_maps/topology-review-2026-09.json'} and row['type'] == 'Hex High Entropy String'
                     and DATASET_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
+                checksums += 1
+                continue
+            if (name == 'totally_normal_maps/municipal-elections-2026-09.json' and row['type'] == 'Hex High Entropy String'
+                    and MUNICIPAL_COMMIT_LINE.fullmatch(lines[row['line_number'] - 1])):
                 checksums += 1
                 continue
             # Reviewed public source/identity digests, not a blanket entropy exclusion.

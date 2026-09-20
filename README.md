@@ -2,6 +2,8 @@
 
 Standalone reference geography: countries, provinces/territories, regions,
 municipalities and city areas, with an HTTP API and a public map explorer.
+Parallel federal and provincial/territorial electoral layers use independent
+province branches and explicitly versioned boundary editions.
 Python 3.13+. No Django, database server, Docker or cloud account is needed locally.
 
 **Current coverage with the Québec and Ontario refreshes:** Canada, 13 provinces/territories,
@@ -26,6 +28,12 @@ The published baseline has 58 municipal repair candidates; the optional
 without changing its territory, leaving 57. Source-vintage
 differences and deferred regions remain explicit. An API response is not approval
 to replace a consumer's established geographic assignments.
+
+The optional [electoral release](docs/research/electoral-layers.md) adds 343 federal
+districts and 783 current provincial/territorial districts across all 13 jurisdictions,
+plus 125 historical Québec districts. Seven polygons have unapproved display
+repairs and are excluded from point assignment. Exact source reuse remains
+unconfirmed for six jurisdictions; the supplied public dataset lock is unchanged.
 
 ## Start locally
 
@@ -78,6 +86,13 @@ overlapping; smaller regions remain identifiable by hover or selection.
 Choose **None · offline**, or open `/?background=none`, for no external image requests.
 Background images are visual context, never boundary or coordinate-assignment data.
 
+With an electoral release, **Map layer** switches between regions/cities, federal
+districts and provincial/territorial districts. Browse the whole country or one
+province, search district names, and click sibling districts without going back.
+**Boundary edition** selects the release's explicit defaults or a retained edition;
+**Comparison outlines** adds purple dashed boundaries from another layer's defaults.
+District names appear when they fit. Layer switching preserves the map view.
+
 ```bash
 .venv/bin/maps serve --run .local/canada/current --port 9010
 ```
@@ -125,6 +140,7 @@ Tests use synthetic geography and perform no source downloads or cloud calls.
 .venv/bin/python -m unittest tests.test_api tests.test_releases tests.test_deployment tests.test_publication -q
 .venv/bin/python -m unittest tests.test_quebec_refresh tests.test_ontario_refresh -q
 .venv/bin/python -m unittest tests.test_topology_review -q
+.venv/bin/python -m unittest tests.test_electoral tests.test_electoral_review -q
 .venv/bin/python -m unittest tests.test_jurisdiction_refresh tests.test_source_acquisition -q
 .venv/bin/python tools/check_publication.py
 .venv/bin/python tools/check_secrets.py
@@ -141,6 +157,7 @@ With a local map running and the optional browser dependencies installed:
 ```bash
 .venv/bin/python tools/check_map_appearance.py --url http://127.0.0.1:9010
 .venv/bin/python tools/check_map_siblings.py --url http://127.0.0.1:9010
+.venv/bin/python tools/check_map_electoral.py --url http://127.0.0.1:9010
 ```
 
 These browser checks use local boundaries and mocked background images; they make
@@ -171,3 +188,13 @@ against that same commit before uploading either archive:
 
 Keep source data and consumer inventories under ignored `.local/`, outside the
 Python package. See [the public-release review](docs/PUBLIC_RELEASE_REVIEW.md).
+
+Municipal electoral releases add **Municipal elections** as a fourth layer.
+Choose a municipality/local authority to see council wards, regional electoral
+areas, dated reference boundaries, or an explicit coverage gap. At-large councils
+are identified without inventing wards. Neighbouring municipalities remain
+clickable; ward names appear where they fit. **Boundary edition** distinguishes
+current and reference snapshots, and the existing background opacity and
+comparison controls also work with this layer. See the
+[municipal data workflow](docs/DATA.md#municipal-elections) and
+[API coverage semantics](docs/API.md#municipal-electoral-geography).

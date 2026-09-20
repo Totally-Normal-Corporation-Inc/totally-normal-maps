@@ -42,6 +42,11 @@ def main():
             'Counts: `' + json.dumps(data.summary['counts'], sort_keys=True) + '`\n')
         command = publication_command(lock, archive, lock_path, notes, args.commit)
         if args.publish:
+            unresolved = [key for part in ('electoral', 'municipal_elections')
+                          for key, source in data.report.get(part, {}).get('sources', {}).items()
+                          if source.get('redistribution_status') != 'permitted']
+            if unresolved:
+                raise CatalogueError('Electoral source redistribution remains unconfirmed: ' + ', '.join(unresolved))
             existing = subprocess.check_output(['git', 'ls-remote', '--tags',
                 'https://github.com/' + lock['repository'] + '.git', 'refs/tags/' + lock['tag']], text=True)
             if existing.strip():
