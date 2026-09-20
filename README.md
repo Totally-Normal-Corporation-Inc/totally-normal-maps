@@ -33,7 +33,9 @@ The optional [electoral release](docs/research/electoral-layers.md) adds 343 fed
 districts and 783 current provincial/territorial districts across all 13 jurisdictions,
 plus 125 historical Québec districts. Seven polygons have unapproved display
 repairs and are excluded from point assignment. Exact source reuse remains
-unconfirmed for six jurisdictions; the supplied public dataset lock is unchanged.
+unconfirmed for six jurisdictions, with publication approved under the recorded
+[government-source decision](docs/research/government-source-licences.md).
+The supplied public dataset lock is unchanged.
 
 ## Start locally
 
@@ -119,8 +121,11 @@ For data updates, run `./package.sh` from clean, synchronized `main`. It verifie
 the release selected in `dataset.source.json`, versions and uploads the data,
 merges its lock-update PR after CI, and prints the exact commit to deploy.
 `./package.sh --check` checks local data without publishing. Source redistribution
-permissions must be confirmed; the current municipal review release still has
-unresolved source permissions. See [one-command publication](docs/RELEASING.md#one-command-data-publication).
+permissions or explicit government-source publication decisions must be recorded.
+The selected release excludes the 36 unlicensed MuniSoft municipal division
+sources (213 boundaries); those municipalities have explicit coverage gaps and
+remain on standby. Approved data elsewhere in western Canada remains included.
+See [one-command publication](docs/RELEASING.md#one-command-data-publication).
 
 ## Documentation
 

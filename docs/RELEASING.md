@@ -18,7 +18,8 @@ Prerequisites: the README's Python environment, Git with a configured commit
 identity, an authenticated GitHub CLI (`gh auth login`), and the local serving
 release selected by [dataset.source.json](../dataset.source.json). The source file
 pins both its path under `.local/releases/` and the independently reviewed manifest
-SHA-256. It currently selects the municipal review dataset. The command checks
+SHA-256. It currently selects the municipal dataset with unlicensed sources
+excluded. The command checks
 every serving file against that manifest; it never guesses which local directory
 is newest or silently changes the reviewed pin. When adopting new data, update
 this small source selection as part of its reviewed code PR.
@@ -49,14 +50,26 @@ redistribution status without GitHub access or publication, on any branch, use:
 ./package.sh --check
 ```
 
-**The current municipal source selection is blocked from public upload:** its
-report still records 110 unconfirmed redistribution permissions after the
-2026-09-20 maintainer review of the 282 DGEQ municipal source records. Their exact
-French attribution is preserved in the source metadata, map and NOTICE.md.
-The command reports remaining blockers
-that before packaging or uploading. Resolve those source reviews, rebuild the
-data and update the reviewed source pin; automatic hash calculation is not a
-licence approval. This preserves the existing publisher's guard.
+**The selected release excludes the 36 private MuniSoft Saskatchewan division
+datasets (213 boundaries).** They remain on standby, with `unavailable` municipal
+coverage and a licensing explanation. No deferred geometry is included in the
+database, display files or deployable ZIP. The default import plan also excludes
+them; research and excluded inventory counts remain available for later work.
+This removes their publication block without changing their licence status or
+disabling the publication guard. Other approved western Canadian data is retained.
+
+The 2026-09-20 review approved the 74
+remaining government records: 39 have reviewed redistribution terms, and 35
+retain unconfirmed exact licence applicability with a separate maintainer
+publication decision, evidence, source credit and contact disclaimer. The 282
+DGEQ records retain their exact French attribution. See the
+[complete decisions and remaining list](research/government-source-licences.md).
+
+The command reports remaining blockers before packaging or uploading. It accepts
+`permitted` sources or complete, explicit government-source publication decisions;
+missing notices/evidence and unresolved private sources still fail. Hashes never
+constitute a licence approval. The original publisher metadata and every decision
+travel in report.json; the public notice travels in the ZIP and website.
 
 Interrupted runs reuse the verified package, release and PR. If main advanced,
 pull it before rerunning. If GitHub requires another person's approval, the

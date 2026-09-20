@@ -1,5 +1,5 @@
 {
   "schema_version": 1,
-  "directory": ".local/releases/canada-municipal-elections-dgeq-20260920",
-  "manifest_sha256": "9dba66ab26621b866f838865a4081e56e32a6a6d0ee868469f94a9ccbd3a033c"
+  "directory": ".local/releases/canada-municipal-licensed-20260920",
+  "manifest_sha256": "44bc84d770608c083313456bcc60adc30f3bb102dfe37ae1d7a20f4f13396fd9"
 }

@@ -349,10 +349,11 @@ A successful command does not remove the dataset's
 repair candidates but no assignment geometry.
 
 Read [the complete source inventory and reuse qualification](research/electoral-layers.md).
-This local review covers all 13 jurisdictions; redistribution of six exact source
-products remains unconfirmed. `tools/publish_dataset.py --publish` rejects such
-sources. Local packaging/deployment works without publishing or changing the
-repository's existing public `dataset.lock.json`.
+This review covers all 13 jurisdictions. Exact licence applicability for six
+jurisdictions remains unconfirmed; the 2026-09-20 maintainer government-source
+decision permits publication with evidence, attribution and the contact notice.
+See [the recorded decisions](research/government-source-licences.md). Local
+packaging does not publish or change the existing public `dataset.lock.json`.
 
 An existing upcoming edition can become the default in a new release using an
 evidenced metadata-only plan, passed to the same `maps electoral --plan` command:
@@ -399,20 +400,59 @@ election/snapshot dates, source decisions and evidence for at-large coverage.
 `municipal-elections` reads only already acquired files and creates a new release;
 it never downloads, modifies its input release, or approves a geometry repair.
 
-The 2026-09-20 DGEQ licence review changes source licence metadata and required
-attribution only. It rebuilds all municipal editions from the same electoral
-baseline and unchanged source files, preserving the previous release:
+The earlier 2026-09-20 DGEQ licence review changed source licence metadata and
+required attribution only. It rebuilt all municipal editions from the same
+electoral baseline and unchanged source files, preserving the previous release.
+Reproducing that historical build requires its original pinned plan:
 
 ```bash
 .venv/bin/maps municipal-elections \
   --dataset .local/releases/canada-electoral-audited-v2-20260919 \
   --source-dir .local/municipal-source-bundle-final \
+  --plan .local/government-licences-20260920/previous-municipal-elections-2026-09.json \
   --output .local/releases/canada-municipal-elections-dgeq-20260920
 ```
 
 The review records the maintainer's acceptance of the DGEQ open-data licence for
 282 source records. It does not approve source geometry repairs, change reference
 editions into current editions, or qualify unrelated publishers for redistribution.
+
+The government-source review produces a new immutable release without
+reimporting geometry. Previous plans must match the source specification pins in
+the input release; only licence metadata, notices and publication decisions can
+change. The selected release is now rebuilt with the 36 unlicensed MuniSoft
+sources on standby. First apply the electoral licence review to the pre-municipal
+baseline, then import only the active municipal sources:
+
+```bash
+.venv/bin/python -m tools.review_source_licences \
+  --dataset .local/releases/canada-electoral-audited-v2-20260919 \
+  --expected-sha256 9f65f49423d7f07c882c66729abca375d77cd688a2f32b0eb10ba96b95f7900e \
+  --previous-electoral-plan .local/government-licences-20260920/previous-electoral-2026-09.json \
+  --electoral-plan totally_normal_maps/electoral-2026-09.json \
+  --output .local/releases/canada-electoral-licence-review-20260920 \
+  --label canada-electoral-licence-review-20260920
+.venv/bin/maps municipal-elections \
+  --dataset .local/releases/canada-electoral-licence-review-20260920 \
+  --source-dir .local/municipal-source-bundle-final \
+  --output .local/releases/canada-municipal-licensed-20260920
+```
+
+Use new output directories when reproducing these commands. The preceding immutable
+releases are retained locally. The [source review](research/government-source-licences.md)
+lists all 74 government decisions and the 36 deferred private source records.
+The original source and edition pins remain in the prior plan and Git history;
+`source_inventory.decisions` records each `standby_licensing` decision, its excluded
+edition and district count. They are absent from the active `sources` and `editions`
+lists and do not need to be downloaded for this build. Their 36 coverage entries
+use `unavailable`, a dated licensing note and zero published districts. Their
+administrative boundaries remain available.
+
+Build from the pre-municipal baseline as shown: municipal imports are additive,
+so importing a reduced plan on top of an older municipal release cannot remove
+its boundaries. After acceptance, update `dataset.source.json` to the new path and
+manifest SHA-256, then run `./package.sh --check`. Never select an older unrestricted
+local review release for publication.
 
 ```bash
 .venv/bin/maps download-municipal --source lake-country-current --output .local/municipal-sources/lake-country-current.geojson
@@ -437,4 +477,5 @@ legal electorate of incorporated towns or Indigenous governments.
 The public Python package contains code and source manifests, not downloaded
 geometries. Local downloads and intermediate builds stay under the gitignored
 `.local/` directory inside this repository. Redistribution permission is recorded
-per source; the publication tool rejects releases with unconfirmed source reuse.
+per source, separately from explicit government-source publication decisions.
+The publication tool rejects unresolved sources without such a documented decision.

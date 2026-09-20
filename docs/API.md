@@ -342,6 +342,10 @@ complete, paginated authority inventory. Filters are optional. Statuses are
 `historical_only`. The inventory includes municipal/statistical equivalents;
 these are not all incorporated municipalities or ordinary municipal councils.
 Absence of ward data is never treated as evidence of at-large representation.
+The 36 Saskatchewan authorities whose MuniSoft division sources are on standby
+use `unavailable`, zero published districts and empty edition lists. Their notes
+explain the pending licensing decision. Their administrative municipal boundaries
+remain available; municipal lookups in those gaps remain `review_required`.
 
 Municipal editions have `current`, `reference`, `historical` or `upcoming`
 status. Defaults are chosen independently for each authority and representation

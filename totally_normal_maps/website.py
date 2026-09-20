@@ -100,7 +100,7 @@ def export_website(dataset, output, *, notice):
         for name in dataset.manifest['files']:
             if name.startswith('display/'):
                 shutil.copyfile(dataset.root / name, staging / Path(name).name)
-        write_json(staging / 'catalogue.json', website_catalogue(dataset))
+        write_json(staging / 'catalogue.json', {**website_catalogue(dataset), 'notice_url': 'NOTICE.md'})
         files = {str(p.relative_to(staging)): {'sha256': sha256(p), 'bytes': p.stat().st_size}
                  for p in sorted(staging.rglob('*')) if p.is_file()}
         write_json(staging / 'site-manifest.json', {'schema_version': 1, 'dataset_manifest_sha256': dataset.version, 'files': files})

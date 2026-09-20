@@ -380,9 +380,13 @@ function renderResults() {
     el("results").append(item);
   }
   if (!rows.length) {
-    el("results").append(line("No areas match these filters."), button("Clear filters", () => {
-      el("search").value = ""; el("issues-only").checked = false; refresh();
-    }));
+    if (activeFamily() === "municipal" && municipalCoverage()[locationState.city]?.status === "unavailable" && !currentRows().length) {
+      el("results").append(line("No electoral boundaries are published for this authority."));
+    } else {
+      el("results").append(line("No areas match these filters."), button("Clear filters", () => {
+        el("search").value = ""; el("issues-only").checked = false; refresh();
+      }));
+    }
   }
   el("more").hidden = rows.length <= shown;
 }
@@ -418,7 +422,7 @@ function coverageNote() {
     const count = status => inventory.filter(r => r.status === status).length;
     el("coverage-note").textContent = selected ? `${selected.label} · ${selected.status} · ${currentRows().length} districts. ${selected.status === "reference" ? "Current applicability is unverified." : ""}` : scope ?
       `${scope.name} · ${coverageLabel(scope.status)}. ${scope.note}` :
-      `${count("included")} authorities with current boundaries · ${count("reference")} with reference snapshots · ${count("at_large")} elected at large · ${count("unverified")} not yet verified. Select a local authority to inspect coverage.`;
+      `${count("included")} authorities with current boundaries · ${count("reference")} with reference snapshots · ${count("at_large")} elected at large · ${count("unavailable")} with boundaries unavailable · ${count("unverified")} not yet verified. Select a local authority to inspect coverage.`;
     return;
   }
   if (activeFamily() !== "administrative") {
@@ -640,11 +644,14 @@ async function start() {
   el("attribution").textContent += ` ${regionalSources.map(s => `Regional grouping reference: ${s.authority}, ${s.release}.`).join(" ")}`;
   const additionalSources = [...Object.values(data.report.city_areas?.sources || {}), ...Object.values(data.report.ontario_refresh?.sources || {}), ...Object.values(data.report.electoral?.sources || {}), ...Object.values(data.report.municipal_elections?.sources || {}),
     ...Object.values(data.report.jurisdiction_refreshes || {}).flatMap(report => Object.values(report.sources || {}))];
-  const statements = new Set(additionalSources.map(item => item.attribution_statement).filter(Boolean));
+  const statements = new Set(additionalSources.filter(item => item.attribution_display !== "details")
+    .map(item => item.attribution_statement).filter(Boolean));
+  additionalSources.forEach(item => { if (item.publication_disclaimer) statements.add(item.publication_disclaimer); });
   el("required-attributions").replaceChildren(...[...statements].map(statement => line(statement)));
+  el("dataset-notices").hidden = data.notice_url !== "NOTICE.md";
   const credited = new Set();
   for (const item of additionalSources) {
-    const key = `${item.authority}|${item.licence}`;
+    const key = `${item.authority}|${item.licence}|${item.attribution_statement || ""}`;
     if (credited.has(key)) continue;
     credited.add(key);
     el("attribution").textContent += ` Additional geography: ${item.authority}.`;
@@ -656,6 +663,15 @@ async function start() {
     if (url.protocol === "https:") link.href = url.href;
     link.target = "_blank"; link.rel = "noreferrer";
     el("additional-licences").append(link, document.createTextNode(" "));
+    if (item.publication_decision || item.licence_evidence) {
+      const sourceLink = document.createElement("a");
+      const citation = item.dataset_url && item.dataset_url !== "https://represent.opennorth.ca/" ? item.dataset_url : item.url;
+      const sourceUrl = new URL(citation, location.href);
+      sourceLink.textContent = `${item.authority} source`;
+      if (sourceUrl.protocol === "https:") sourceLink.href = sourceUrl.href;
+      sourceLink.target = "_blank"; sourceLink.rel = "noreferrer";
+      el("additional-licences").append(sourceLink, document.createTextNode(" "));
+    }
   }
   const licence = new URL(source.licence, location.href);
   if (licence.protocol === "https:") el("licence").href = licence.href;

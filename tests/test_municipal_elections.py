@@ -69,6 +69,37 @@ class MunicipalTests(unittest.TestCase):
         self.assertEqual(r['layers']['municipal']['municipal_coverage'][0]['selection_statuses'],['current'])
         self.assertFalse(data.editions['mun-test']['default'])
 
+    def test_standby_rebuild_omits_districts_and_preserves_uncertainty(self):
+        plan = copy.deepcopy(self.plan)
+        plan.update(sources={}, editions=[])
+        note = 'Municipal electoral divisions are on standby pending redistribution permission.'
+        plan['coverage']['ca-csd-2401001'] = {'status': 'unavailable', 'reviewed_on': '2026-09-20',
+            'evidence_url': 'https://example.test/wards', 'note': note}
+        path = self.root / 'standby-plan.json'; write_json(path, plan)
+        release = self.root / 'standby'
+        # A fresh build must succeed even without the deferred source files.
+        build_municipal(self.base, self.root / 'no-downloaded-sources', release, plan_path=path)
+        data = Dataset(release)
+        self.assertNotIn('ca-mun-test-1', data.areas)
+        self.assertNotIn('mun-test', data.editions)
+        self.assertEqual(data.report['municipal_elections']['sources'], {})
+        coverage = data.municipal_coverage['ca-csd-2401001']
+        self.assertEqual((coverage['status'], coverage['district_count'], coverage['editions']),
+                         ('unavailable', 0, []))
+        point = data.geometries['ca-csd-2401001'].representative_point()
+        result = data.lookup(point.x, point.y, layers=['municipal'])
+        self.assertEqual(result['status'], 'review_required')
+        self.assertEqual(result['direct_match_ids'], [])
+        self.assertEqual(result['layers']['municipal']['municipal_coverage'][0]['note'], note)
+        before = Dataset(self.base).lookup(-110.5, 50)
+        self.assertEqual(before, {**data.lookup(-110.5, 50), 'dataset_version': before['dataset_version']})
+        output = self.root / 'standby-website'
+        export_website(data, output, notice=Path('NOTICE.md'))
+        catalogue = json.loads((output / 'catalogue.json').read_text())
+        self.assertFalse(any(r['layer'] == 'municipal' for r in catalogue['electoral_areas']))
+        self.assertEqual(catalogue['report']['municipal_elections']['coverage']['2401001']['note'], note)
+        self.assertFalse(list((release / 'display').glob('municipal-*.geojson')))
+
     def test_tampered_source_and_at_large_evidence_rejected(self):
         for name,change in [('hash',lambda p:p['sources']['wards'].update(sha256='0'*64)),
                             ('atlarge',lambda p:p['coverage']['ca-csd-3501001'].pop('evidence_url')),

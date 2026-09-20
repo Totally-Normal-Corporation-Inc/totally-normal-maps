@@ -102,11 +102,14 @@ or catalogue evidence recorded in the plan.
 
 Reuse of the exact Manitoba, Saskatchewan, Nova Scotia, PEI, NWT and Nunavut products
 remains **unconfirmed**. Generic government terms are not automatically treated as
-permission from an independent electoral authority. These products are included for
-local geographic review, with their publisher attribution and unresolved status.
-The public dataset publication command refuses these sources until their reuse
-evidence is resolved in a newly reviewed plan and release. Local packaging and
-review do not publish data. No publisher has been contacted on the user's behalf.
+permission from an independent electoral authority. The 2026-09-20 maintainer
+direction approves publication of these government sources with source credits,
+the good-faith contact notice and the uncertainty retained. A separate
+`publication_decision` records that approval without changing the unconfirmed
+licence status. See the [government review](government-source-licences.md).
+The selected municipal release excludes the unresolved private MuniSoft sources
+with explicit coverage gaps; those sources are on standby and no longer block
+that bundle. No publisher has been contacted on the user's behalf.
 
 ## Reproduce and verify
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_on": "2026-09-19",
-  "release_label": "canada-electoral-review-20260919",
+  "reviewed_on": "2026-09-20",
+  "release_label": "canada-government-source-review-20260920",
   "sources": {
     "fed": {
       "filename": "federal.zip",
@@ -213,8 +213,27 @@
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
-      "url": "https://cdn.elections.sk.ca/maps-ge30/ESK_KML_Shape_Files_Mar2024.zip"
+      "licence_review": "2026-09-20: No dataset-specific redistribution licence or exact applicable terms verified in this review. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
+      "url": "https://cdn.elections.sk.ca/maps-ge30/ESK_KML_Shape_Files_Mar2024.zip",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.elections.sk.ca/candidates-political-parties/maps/",
+          "reviewed_on": "2026-09-20",
+          "finding": "Original recorded licence/terms link checked; retained here as review evidence.",
+          "retrieved_content_sha256": "0eb1e79e628581a2364ae4ae02d33dd5f36c2f7786027dfac0cf0912ac184f47",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Elections Saskatchewan. No publisher endorsement is implied.",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "mb-rural": {
       "filename": "mb.zip",
@@ -243,8 +262,34 @@
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
-      "url": "https://electionsmanitoba.ca/downloads/2018_Final_ED_Manitoba_Public_Urban.zip"
+      "licence_review": "2026-09-20: The provincial copyright page now describes OpenMB reuse with attribution. Elections Manitoba is a separate source; its website information page does not confirm that OpenMB covers the exact boundary ZIP. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
+      "url": "https://electionsmanitoba.ca/downloads/2018_Final_ED_Manitoba_Public_Urban.zip",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.gov.mb.ca/legal/copyright.html",
+          "reviewed_on": "2026-09-20",
+          "finding": "The provincial copyright page now describes OpenMB reuse with attribution. Elections Manitoba is a separate source; its website information page does not confirm that OpenMB covers the exact boundary ZIP.",
+          "retrieved_content_sha256": "c96819fd6dd7e514f16ca0d9e324ceb9bfd989853d45cfcccf7fc61105a05d28",
+          "http_status": 200
+        },
+        {
+          "url": "https://electionsmanitoba.ca/En/About/Information",
+          "reviewed_on": "2026-09-20",
+          "finding": "Additional official source or terms checked; exact-source licence applicability is recorded in licence_review.",
+          "retrieved_content_sha256": "148e14bada61e4685ea503a90b33471b7a4f98a74b38764eb74fb0040a02f3fa",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Elections Manitoba. No publisher endorsement is implied. OpenMB attribution, where applicable: Contains information from the Manitoba government, licensed under the OpenMB Information and Data Use Licence (Manitoba.ca/OpenMB).",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "mb-urban": {
       "filename": "mb-urban.zip",
@@ -273,8 +318,34 @@
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
-      "url": "https://electionsmanitoba.ca/downloads/2018_Final_ED_Winnipeg_Public_Urban.zip"
+      "licence_review": "2026-09-20: The provincial copyright page now describes OpenMB reuse with attribution. Elections Manitoba is a separate source; its website information page does not confirm that OpenMB covers the exact boundary ZIP. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
+      "url": "https://electionsmanitoba.ca/downloads/2018_Final_ED_Winnipeg_Public_Urban.zip",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.gov.mb.ca/legal/copyright.html",
+          "reviewed_on": "2026-09-20",
+          "finding": "The provincial copyright page now describes OpenMB reuse with attribution. Elections Manitoba is a separate source; its website information page does not confirm that OpenMB covers the exact boundary ZIP.",
+          "retrieved_content_sha256": "c96819fd6dd7e514f16ca0d9e324ceb9bfd989853d45cfcccf7fc61105a05d28",
+          "http_status": 200
+        },
+        {
+          "url": "https://electionsmanitoba.ca/En/About/Information",
+          "reviewed_on": "2026-09-20",
+          "finding": "Additional official source or terms checked; exact-source licence applicability is recorded in licence_review.",
+          "retrieved_content_sha256": "148e14bada61e4685ea503a90b33471b7a4f98a74b38764eb74fb0040a02f3fa",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Elections Manitoba. No publisher endorsement is implied. OpenMB attribution, where applicable: Contains information from the Manitoba government, licensed under the OpenMB Information and Data Use Licence (Manitoba.ca/OpenMB).",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "nb": {
       "filename": "nb.zip",
@@ -320,19 +391,50 @@
       "province": "12",
       "authority": "Elections Nova Scotia",
       "dataset_url": "https://enstools.electionsnovascotia.ca/edinfo/",
-      "licence": "https://novascotia.ca/copyright",
+      "licence": "https://www.novascotia.ca/copyright",
       "redistribution_status": "unconfirmed",
       "family": "Electoral district boundaries",
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
+      "licence_review": "2026-09-20: General website terms restrict modification and commercial reproduction unless other terms apply. The exact electoral service has no explicit licence grant in its metadata. This remains unconfirmed; the maintainer decision is not a claim that general terms were satisfied or waived. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
       "acquisition": {
         "kind": "arcgis",
         "layer_url": "https://nsgiwa.novascotia.ca/arcgis/rest/services/BND/BND_ElectoralBoundaries_UT83/MapServer/4",
         "layer_name": "ED2026_Analysis"
       },
-      "url": "https://nsgiwa.novascotia.ca/arcgis/rest/services/BND/BND_ElectoralBoundaries_UT83/MapServer/4"
+      "url": "https://nsgiwa.novascotia.ca/arcgis/rest/services/BND/BND_ElectoralBoundaries_UT83/MapServer/4",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://novascotia.ca/copyright",
+          "reviewed_on": "2026-09-20",
+          "finding": "Original recorded licence/terms link checked; retained here as review evidence.",
+          "retrieved_content_sha256": "d0f1760b9a000d94ce80da0246b5f86a0fe1fe7c627fa2862bad489605e8b90f",
+          "http_status": 200
+        },
+        {
+          "url": "https://www.novascotia.ca/copyright",
+          "reviewed_on": "2026-09-20",
+          "finding": "General website terms restrict modification and commercial reproduction unless other terms apply. The exact electoral service has no explicit licence grant in its metadata. This remains unconfirmed; the maintainer decision is not a claim that general terms were satisfied or waived."
+        },
+        {
+          "url": "https://nsgiwa.novascotia.ca/arcgis/rest/services/BND/BND_ElectoralBoundaries_UT83/MapServer/4?f=pjson",
+          "reviewed_on": "2026-09-20",
+          "finding": "Additional official source or terms checked; exact-source licence applicability is recorded in licence_review.",
+          "retrieved_content_sha256": "f0e9926ba74ef7c5a9a9368cff481e15aac497fdcf7507216a7441c4975fbd5f",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Elections Nova Scotia. No publisher endorsement is implied. Adapted from Elections Nova Scotia / Government of Nova Scotia electoral boundaries. Crown copyright acknowledged. This is a modified, unofficial representation.",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "pe": {
       "filename": "pe-current.geojson",
@@ -354,19 +456,45 @@
       "province": "11",
       "authority": "Government of Prince Edward Island",
       "dataset_url": "https://gis.princeedwardisland.ca/server/rest/services/Hosted/prov_electoral_districts_2017/FeatureServer",
-      "licence": "https://www.princeedwardisland.ca/en/information/finance/gis-products-and-price-list",
+      "licence": "https://www.princeedwardisland.ca/en/information/finance/open-government-licence-prince-edward-island",
       "redistribution_status": "unconfirmed",
       "family": "Electoral district boundaries",
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
+      "licence_review": "2026-09-20: The provincial open-government licence permits redistribution with attribution; the exact GIS layer has no explicit licence binding in the retrieved service metadata. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
       "acquisition": {
         "kind": "arcgis",
         "layer_url": "https://gis.princeedwardisland.ca/server/rest/services/Hosted/prov_electoral_districts_2017/FeatureServer/0",
         "layer_name": "c2017_Provincial_El_Dissolve_v3"
       },
-      "url": "https://gis.princeedwardisland.ca/server/rest/services/Hosted/prov_electoral_districts_2017/FeatureServer/0"
+      "url": "https://gis.princeedwardisland.ca/server/rest/services/Hosted/prov_electoral_districts_2017/FeatureServer/0",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.princeedwardisland.ca/en/information/finance/gis-products-and-price-list",
+          "reviewed_on": "2026-09-20",
+          "finding": "Original recorded licence/terms link checked; retained here as review evidence.",
+          "retrieved_content_sha256": "34ea4d1f624de1df946c295b511a2bd7893e0379c2b10c957fb391ece73c5819",
+          "http_status": 200
+        },
+        {
+          "url": "https://www.princeedwardisland.ca/en/information/finance/open-government-licence-prince-edward-island",
+          "reviewed_on": "2026-09-20",
+          "finding": "The provincial open-government licence permits redistribution with attribution; the exact GIS layer has no explicit licence binding in the retrieved service metadata.",
+          "retrieved_content_sha256": "62035a5db81fc044a58354028c183d149af6afabe827c89ccb9ee594995daa2c",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Government of Prince Edward Island. No publisher endorsement is implied. Open-data attribution, where applicable: Contains information licensed under the Open Government Licence – Prince Edward Island.",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "nl": {
       "filename": "nl2.zip",
@@ -514,13 +642,32 @@
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
+      "licence_review": "2026-09-20: The open-government licence was found; its applicability to the exact electoral layer is unconfirmed. The layer credits Elections NWT and NWTCG. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
       "acquisition": {
         "kind": "arcgis",
         "layer_url": "https://www.apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/Boundaries_LCC/MapServer/2",
         "layer_name": "Electoral District"
       },
-      "url": "https://www.apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/Boundaries_LCC/MapServer/2"
+      "url": "https://www.apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/Boundaries_LCC/MapServer/2",
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.gov.nt.ca/en/open-government-licence-northwest-territories",
+          "reviewed_on": "2026-09-20",
+          "finding": "The open-government licence was found; its applicability to the exact electoral layer is unconfirmed. The layer credits Elections NWT and NWTCG.",
+          "retrieved_content_sha256": "f7eebf301b4f771c0324a419d0f3c9b35f6af56b2a250284db9d7e15f7e6d50d",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Government of the Northwest Territories. No publisher endorsement is implied. Open-data attribution, where applicable: Contient des renseignements visés par la licence du gouvernement ouvert des Territoires du Nord-Ouest. Copyright: Elections NWT, NWTCG.",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
+      }
     },
     "nu": {
       "filename": "nu.zip",
@@ -574,13 +721,32 @@
       "release": "Pinned source snapshot 2026-09-19",
       "reference_date": "2026-09-19",
       "scope": "Full publisher district geometry; display simplification is separate. No voter eligibility determination.",
-      "licence_review": "Official public boundary download/service located. A licence explicitly permitting redistribution of this exact product remains unconfirmed; local review only, do not publish this dataset.",
+      "licence_review": "2026-09-20: No dataset-specific redistribution licence or exact applicable terms verified in this review. Publication approved by the maintainer for this government source. Source identity, edition, acquisition checksum and geometry are unchanged. Publisher permission for the exact product remains unconfirmed; the good-faith notice does not grant additional rights.",
       "url": "https://www.elections.nu.ca/en/file-download/download/public/2034",
       "coordinate_operation": {
         "epsg": 1842,
         "accuracy_metres": 2.0,
         "evidence": "https://epsg.org/transformation_1842/NAD83-CSRS-to-WGS-84-1.html",
         "reason": "Explicit EPSG NAD83(CSRS) to WGS 84 (1), 2 m approximation. The 1 m Helmert alternative crosses the geographic pole for a Quttiktuq vertex at 89.99999949 degrees, creating a longitude discontinuity and invalid planar geometry. No source vertices are clipped or moved by a geometry repair. This catalogue is unsuitable for legal-boundary or sub-metre work."
+      },
+      "publication_disclaimer": "We publish publicly available government boundary data in good faith and acknowledge the sources identified in our data credits. If you believe any data or attribution raises a licensing issue, please contact info@totallynormal.io. We will review the issue promptly and take the steps needed to comply with applicable licence terms, rules and regulations, including correcting attribution, updating the data or removing affected material where required. This project is independent and is not endorsed by the source authorities.",
+      "licence_evidence": [
+        {
+          "url": "https://www.elections.nu.ca/en/document/maps-constituencies-gis-2025",
+          "reviewed_on": "2026-09-20",
+          "finding": "Original recorded licence/terms link checked; retained here as review evidence.",
+          "retrieved_content_sha256": "360c1e8d0227df469f5a568b56ad50f6ca0cb5c9af16e88411bd42a97281fe95",
+          "http_status": 200
+        }
+      ],
+      "attribution_statement": "Source: Elections Nunavut. No publisher endorsement is implied.",
+      "attribution_display": "details",
+      "publication_decision": {
+        "status": "approved_by_maintainer",
+        "source_type": "government",
+        "reviewed_on": "2026-09-20",
+        "basis": "Explicit maintainer direction on 2026-09-20 to proceed with government sources, preserve applicable notices and source citations, and publish with a good-faith contact and compliance notice where exact licence terms remain unverified.",
+        "contact": "info@totallynormal.io"
       }
     }
   },
