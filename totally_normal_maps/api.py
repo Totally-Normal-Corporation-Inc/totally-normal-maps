@@ -25,12 +25,36 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .catalogue import CatalogueError
 from .dataset import Dataset
+from .reference import (ReferenceIndex, ReferenceError, Summary, Page, CoverageItem,
+                        SourceItem, EditionItem, EvidenceItem)
 
 LOG = logging.getLogger('totally_normal_maps.api')
 MAX_BODY_BYTES = 128 * 1024
 MAX_RESPONSE_BYTES = 16 * 1024 * 1024
 Level = Literal['country', 'province', 'region', 'municipality', 'city_area', 'electoral_district']
 Layer = Literal['administrative', 'federal', 'provincial', 'municipal']
+REFERENCE_RESPONSES = {
+    304: {'description': 'Authenticated representation unchanged; dataset precondition passed'},
+    401: {'description': 'Valid bearer token required'},
+    404: {'description': 'Unknown area or evidence record'},
+    412: {'description': 'Dataset version or continuation is stale'},
+    422: {'description': 'Unsupported selection or invalid continuation'},
+    429: {'description': 'Request limit reached'},
+    503: {'description': 'Dataset or bounded reference representation unavailable'},
+}
+
+
+def etag_matches(header, etag):
+    """GET If-None-Match uses weak comparison and supports lists and wildcard."""
+    if header is None:
+        return False
+    header = header.strip()
+    if header == '*':
+        return True
+    token = r'(?:W/)?"[\x21\x23-\x7e\x80-\xff]*"'
+    if not re.fullmatch(r'\s*' + token + r'\s*(?:,\s*' + token + r'\s*)*', header):
+        return False
+    return any(value.removeprefix('W/') == etag for value in re.findall(token, header))
 
 
 @dataclass(frozen=True)
@@ -286,9 +310,17 @@ def create_app(settings=None):
             app.state.dataset, app.state.deployment, app.state.site = data, deployment, site
         else:
             app.state.dataset = await asyncio.to_thread(Dataset, settings.dataset, settings.manifest_sha256)
+        app.state.references = None
+        try:
+            app.state.references = await asyncio.to_thread(ReferenceIndex, app.state.dataset)
+        except Exception:
+            # A reference-index failure must not disable the established lookup
+            # API or masquerade as successful, empty evidence.
+            LOG.exception('Reference evidence index could not be prepared')
         LOG.info('Serving geography release %s (%d areas)', app.state.dataset.version, len(app.state.dataset.areas))
         yield
         del app.state.dataset
+        del app.state.references
 
     app = FastAPI(title='Totally Normal Maps', version='1.0.0', lifespan=lifespan,
                   description='Read-only reference geography. API v1; independently versioned, review-required datasets. Coordinates use WGS84 longitude/latitude. Public source code does not grant access to a hosted service.',
@@ -307,17 +339,42 @@ def create_app(settings=None):
     async def geography_selection_error(request, exc):
         return JSONResponse({'error': str(exc)}, status_code=422)
 
+    @app.exception_handler(ReferenceError)
+    async def reference_error(request, exc):
+        return JSONResponse({'error': exc.message}, status_code=exc.status, headers={'Cache-Control': 'no-store'})
+
     @app.exception_handler(Exception)
     async def unexpected_error(request, exc):
         LOG.error('Unhandled API failure', exc_info=(type(exc), exc, exc.__traceback__))
         return JSONResponse({'error': 'Internal service error.'}, status_code=500, headers={'Cache-Control': 'no-store'})
 
     def dataset(request):
-        data = request.app.state.dataset
+        data = getattr(request.app.state, 'dataset', None)
+        if data is None:
+            raise HTTPException(503, 'Dataset not loaded.')
         expected = request.headers.get('If-Match')
         if expected is not None and expected != f'"{data.version}"':
             raise HTTPException(412, 'Dataset version differs from If-Match; use the quoted dataset_version.')
         return data
+
+    def references(request, allowed):
+        dataset(request)  # Version preconditions always precede cache shortcuts.
+        if set(request.query_params) - set(allowed):
+            raise HTTPException(422, 'Unsupported reference query parameter.')
+        for key in allowed:
+            if key != 'edition' and len(request.query_params.getlist(key)) > 1:
+                raise HTTPException(422, 'Repeated reference query parameter.')
+        index = getattr(request.app.state, 'references', None)
+        if index is None:
+            raise HTTPException(503, 'Reference evidence is unavailable.')
+        return index
+
+    def reference_response(result, request):
+        body, etag = result
+        headers = {'ETag': etag, 'Cache-Control': 'private, no-cache', 'Vary': 'Authorization'}
+        if etag_matches(request.headers.get('If-None-Match'), etag):
+            return Response(status_code=304, headers=headers)
+        return Response(body, media_type='application/json', headers=headers)
 
     def area(data, uid):
         if uid not in data.areas:
@@ -382,6 +439,49 @@ def create_app(settings=None):
     def current(request: Request):
         return dataset(request).summary
 
+    @app.get('/v1/datasets/current/summary', response_model=Summary, tags=['Dataset'],
+             responses=REFERENCE_RESPONSES, summary='Compact selected dataset summary (maximum 16 KiB)')
+    def reference_summary(request: Request, layer: Layer = 'administrative',
+                          edition: list[str] | None = Query(None, max_length=30)):
+        index = references(request, {'layer', 'edition'})
+        return reference_response(index.summary(layer, edition), request)
+
+    @app.get('/v1/datasets/current/coverage', response_model=Page[CoverageItem], tags=['Dataset'],
+             responses=REFERENCE_RESPONSES, summary='Scoped coverage evidence references (maximum 128 KiB)')
+    def reference_coverage(request: Request, area_id: str = Query(..., min_length=1, max_length=100),
+            layer: Layer = 'administrative', include_descendants: bool = False,
+            edition: list[str] | None = Query(None, max_length=30), limit: int = Query(50, ge=1, le=100),
+            cursor: str | None = Query(None, min_length=1, max_length=512)):
+        index = references(request, {'layer', 'area_id', 'include_descendants', 'edition', 'limit', 'cursor'})
+        return reference_response(index.records('coverage', layer=layer, area_id=area_id,
+            descendants=include_descendants, editions=edition, limit=limit, cursor=cursor), request)
+
+    @app.get('/v1/datasets/current/sources', response_model=Page[SourceItem], tags=['Dataset'],
+             responses=REFERENCE_RESPONSES, summary='Scoped, deduplicated source credits (maximum 128 KiB)')
+    def reference_sources(request: Request, area_id: str = Query(..., min_length=1, max_length=100),
+            layer: Layer = 'administrative', include_descendants: bool = False,
+            edition: list[str] | None = Query(None, max_length=30), limit: int = Query(50, ge=1, le=100),
+            cursor: str | None = Query(None, min_length=1, max_length=512)):
+        index = references(request, {'layer', 'area_id', 'include_descendants', 'edition', 'limit', 'cursor'})
+        return reference_response(index.records('sources', layer=layer, area_id=area_id,
+            descendants=include_descendants, editions=edition, limit=limit, cursor=cursor), request)
+
+    @app.get('/v1/datasets/current/editions', response_model=Page[EditionItem], tags=['Dataset'],
+             responses=REFERENCE_RESPONSES, summary='Discover retained boundary editions without the full layer report')
+    def reference_editions(request: Request, layer: Layer = 'administrative',
+            area_id: str = Query('ca', min_length=1, max_length=100), include_descendants: bool = True,
+            limit: int = Query(50, ge=1, le=100), cursor: str | None = Query(None, min_length=1, max_length=512)):
+        index = references(request, {'layer', 'area_id', 'include_descendants', 'limit', 'cursor'})
+        return reference_response(index.records('editions', layer=layer, area_id=area_id,
+            descendants=include_descendants, limit=limit, cursor=cursor), request)
+
+    @app.get('/v1/datasets/current/evidence/{evidence_id}', response_model=Page[EvidenceItem], tags=['Dataset'],
+             responses=REFERENCE_RESPONSES, summary='One paginated evidence node; nested values are linked, never expanded')
+    def reference_evidence(evidence_id: str, request: Request, limit: int = Query(50, ge=1, le=100),
+            cursor: str | None = Query(None, min_length=1, max_length=512)):
+        index = references(request, {'limit', 'cursor'})
+        return reference_response(index.evidence(evidence_id, limit, cursor), request)
+
     @app.get('/v1/countries', response_model=AreaPage, tags=['Areas'])
     def countries(request: Request):
         return dataset(request).page(level='country')
@@ -422,14 +522,17 @@ def create_app(settings=None):
     def area_boundaries(request: Request, layer: Layer = 'administrative',
                         level: Level | None = None, within_id: str | None = Query(None, max_length=100),
                         edition: list[str] | None = Query(None, max_length=30),
-                        offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500)):
+                        offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
+                        representation: Literal['legacy', 'compact'] = 'legacy'):
         data = dataset(request)
         if within_id is not None: area(data, within_id)
         page = data.page(layer=layer, editions=edition, within_id=within_id,
                          level=level or ('electoral_district' if layer != 'administrative' else None),
                          offset=offset, limit=limit)
+        index = references(request, {'layer', 'level', 'within_id', 'edition', 'offset', 'limit', 'representation'}) if representation == 'compact' else None
+        features = [data.boundary(r['id']) for r in page['items'] if r['display_available']]
         return geo_response({'type': 'FeatureCollection',
-            'features': [data.boundary(r['id']) for r in page['items'] if r['display_available']],
+            'features': [index.compact_boundary(f) for f in features] if index else features,
             'dataset_version': data.version, 'total': page['total'], 'offset': offset, 'limit': limit,
             'next_offset': page['next_offset'],
             'unavailable_ids': [r['id'] for r in page['items'] if not r['display_available']]}, request)
@@ -453,22 +556,29 @@ def create_app(settings=None):
         return {'dataset_version': data.version, 'items': data.ancestors(area_id)}
 
     @app.get('/v1/areas/{area_id}/boundary', tags=['Boundaries'], responses={200: {'content': {'application/geo+json': {}}}, 409: {'description': 'Boundary unavailable'}})
-    def boundary(area_id: str, request: Request, resolution: Literal['display', 'full'] = 'display'):
+    def boundary(area_id: str, request: Request, resolution: Literal['display', 'full'] = 'display',
+                 representation: Literal['legacy', 'compact'] = 'legacy'):
         data = dataset(request)
         area(data, area_id)
         try:
             payload = data.boundary(area_id, resolution)
         except CatalogueError as exc:
             raise HTTPException(409, str(exc)) from None
+        if representation == 'compact':
+            payload = references(request, {'resolution', 'representation'}).compact_boundary(payload)
         return geo_response(payload, request)
 
     @app.get('/v1/areas/{area_id}/children/boundaries', tags=['Boundaries'], responses={200: {'content': {'application/geo+json': {}}}})
     def children_boundaries(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
-                 layer: Layer = 'administrative', edition: list[str] | None = Query(None, max_length=30)):
+                 layer: Layer = 'administrative', edition: list[str] | None = Query(None, max_length=30),
+                 representation: Literal['legacy', 'compact'] = 'legacy'):
         data = dataset(request)
         area(data, area_id)
         page = data.page(parent_id=area_id, offset=offset, limit=limit, layer=layer, editions=edition)
         features = [data.boundary(r['id']) for r in page['items'] if r['display_available']]
+        if representation == 'compact':
+            index = references(request, {'layer', 'edition', 'offset', 'limit', 'representation'})
+            features = [index.compact_boundary(f) for f in features]
         return geo_response({'type': 'FeatureCollection', 'features': features,
             'dataset_version': data.version, 'total': page['total'], 'offset': offset, 'limit': limit,
             'next_offset': page['next_offset'], 'unavailable_ids': [r['id'] for r in page['items'] if not r['display_available']]}, request)
@@ -503,6 +613,14 @@ def create_app(settings=None):
             if path.startswith('/v1/'):
                 for method in methods.values():
                     method['security'] = [{'BearerAuth': []}]
+                    if path.startswith('/v1/datasets/current/'):
+                        parameters = method.setdefault('parameters', [])
+                        for name, description in (
+                            ('If-Match', 'Quoted dataset_version precondition, not the representation ETag. Mismatch returns 412 before cache validation.'),
+                            ('If-None-Match', 'Representation ETag(s); authenticated GET supports weak comparison and 304.')):
+                            if not any(p['name'] == name and p['in'] == 'header' for p in parameters):
+                                parameters.append({'name': name, 'in': 'header', 'required': False,
+                                                   'schema': {'type': 'string'}, 'description': description})
         return spec
     app.openapi = openapi
     return app

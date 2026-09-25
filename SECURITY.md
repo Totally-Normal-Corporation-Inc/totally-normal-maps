@@ -23,7 +23,12 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
   keys out of browser JavaScript, public assets, URLs and request logs.
 - Combined deployments serve only checksummed, allowlisted display assets under
   versioned `/maps/` URLs. Website responses permit public immutable caching;
-  protected API responses remain `no-store`. The raw database is never a static asset.
+  protected API responses remain `no-store` except the five bounded reference GETs
+  under `/v1/datasets/current/`. Those use `private, no-cache` and `Vary: Authorization`:
+  authentication, rate limits and the dataset precondition run before every 304.
+  Shared caches must not store them. Private reference storage must retain version,
+  scope and credential isolation. Coordinate lookup bodies are never cached.
+  The raw database is never a static asset.
 - Use TLS at the gateway. Tokens are independent per consumer and compared without
   ordinary string timing comparisons. The service never requires cloud write access
   or consumer database credentials.

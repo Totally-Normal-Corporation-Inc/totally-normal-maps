@@ -139,6 +139,12 @@ The first pinned distribution, `dataset-2026-09-18-review`, was published on
    traffic to the new image. Record the image digest and deployment fingerprints.
    Rollback selects the previous complete image digest.
 
+For the compact reference API update, reuse the existing dataset lock/attachment.
+After deploying the selected code, run the [read-only reference acceptance
+command](REFERENCE_API.md#verification-and-delivery) with a server-held key. It
+checks decoded payload limits and authenticated conditional responses without
+downloading a full report or changing production data.
+
 Optionally run **Release combined application** on `main` with a new `app-*` tag
 such as `app-2026.09.18.1`. It tests code, audits dependencies, builds the real
 combined image, and checks the website and protected API before publishing the
