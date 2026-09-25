@@ -58,6 +58,11 @@ machine-readable OpenAPI contract is `/openapi.json`. The Swagger documentation 
 loads its assets from a public CDN. The map explorer bundles its code and boundaries;
 its optional topographic background loads images from Natural Resources Canada.
 
+Point lookup needs no metadata request first. For reference information, use the
+[16 KiB summary and paginated scoped evidence](docs/REFERENCE_API.md), including
+edition discovery and optional compact boundary metadata. Existing full reports
+remain available as explicit large responses.
+
 Hosted geography endpoints require an API key sent as `Authorization: Bearer <key>`.
 Keys are issued manually per application; there is no billing or signup system.
 The map explorer uses separate display files and needs no visitor account or API

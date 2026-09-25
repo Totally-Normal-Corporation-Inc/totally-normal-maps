@@ -20,6 +20,11 @@ display files and does not need an API key. There are no subscriptions or billin
 | GET | `/` | Combined deployments: redirect to the public map explorer |
 | GET/HEAD | `/maps/{website_version}/{asset}` | Combined deployments: allowlisted public display assets |
 | GET | `/v1/datasets/current` | Version, source attribution, counts, coverage and limitations |
+| GET | `/v1/datasets/current/summary` | Bounded national summary for a selected layer/edition (16 KiB) |
+| GET | `/v1/datasets/current/coverage` | Scoped, paginated evidence references |
+| GET | `/v1/datasets/current/sources` | Scoped, deduplicated credits and full-source evidence links |
+| GET | `/v1/datasets/current/editions` | Paginated retained-edition discovery |
+| GET | `/v1/datasets/current/evidence/{id}` | Bounded pages of a detailed evidence node |
 | GET | `/v1/countries` | Available countries (currently Canada) |
 | GET | `/v1/layers` | Geography families, boundary editions and coverage |
 | GET | `/v1/areas` | Search/filter all area metadata |
@@ -31,6 +36,13 @@ display files and does not need an API key. There are no subscriptions or billin
 | GET | `/v1/areas/{id}/children/boundaries` | Paginated GeoJSON FeatureCollection, display shapes only |
 | GET/POST | `/v1/lookup` | WGS84 coordinate lookup |
 | POST | `/v1/lookup/batch` | Up to 100 coordinate lookups, preserving input order |
+
+Lookup works directly without any initial metadata request. For small reference
+questions, use the [compact summary and scoped evidence API](REFERENCE_API.md).
+Its pages are limited to 128 KiB decoded JSON and its summary to 16 KiB. Existing
+full reports and `/v1/layers` remain unchanged and may be large. Boundary routes
+offer opt-in `representation=compact` to replace repeated global source metadata
+with evidence links while retaining exact geometry and uncertainty.
 
 In a combined deployment, `/readyz` also returns `deployment_version`,
 `dataset_manifest_sha256`, `website_manifest_sha256` and `code_sha256` for promotion
@@ -238,8 +250,10 @@ to an explicitly retained old deployment; the API does not silently switch datas
 per request. API `/v1` and dataset versions have independent lifecycles.
 
 Boundary responses include content-derived ETags and support `If-None-Match`/304.
-Default responses are `Cache-Control: no-store` to avoid shared-cache leakage for
-authenticated deployments. A private deployment can separately publish licensed,
+Existing responses are `Cache-Control: no-store`. The new compact reference GETs
+alone use `private, no-cache` with credential isolation and authenticated conditional
+validation; see [their cache contract](REFERENCE_API.md#conditional-requests-and-cache-policy).
+A private deployment can separately publish licensed,
 immutable display files through a CDN with its chosen access/cache policy.
 
 Dataset metadata and boundary Features include `sources` with attribution,
