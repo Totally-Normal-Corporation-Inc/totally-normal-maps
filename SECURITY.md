@@ -35,6 +35,12 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
 - No arbitrary URLs, SQL, uploaded geometry or filesystem paths are accepted in
   API requests. Bound request bodies, batches, pages, query strings, response sizes
   and server concurrency. Rate limits are per client/process, not a distributed quota.
+- Circle discovery accepts a point and bounded radius, uses full immutable
+  geometry, and caches no coordinate results. It permits two computations per
+  process, with cooperative time/vertex/distance budgets and 128 KiB responses.
+  Budget exhaustion returns 503; uncertain coverage returns 409, never a successful
+  partial result. Continuations require a dataset precondition; clients can also
+  pin the calculation revision. See [the circle contract](docs/CIRCLE_API.md).
 - Proxy headers are disabled. Authentication never trusts X-Forwarded-For. Configure
   gateway-level rate limits across replicas rather than enabling spoofable IP headers.
 - Minimal health checks intentionally allow load-balancer IP Host headers. Geography

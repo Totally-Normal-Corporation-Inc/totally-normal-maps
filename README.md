@@ -135,6 +135,7 @@ See [one-command publication](docs/RELEASING.md#one-command-data-publication).
 ## Documentation
 
 - [API contract, examples and lookup semantics](docs/API.md)
+- [Municipal circle discovery, coverage and distance rules](docs/CIRCLE_API.md)
 - [Source downloads, builds, releases and benchmarks](docs/DATA.md)
 - [Combined website, API and dataset deployment](docs/DEPLOYMENT.md)
 - [Dataset attachments and application release workflow](docs/RELEASING.md)
