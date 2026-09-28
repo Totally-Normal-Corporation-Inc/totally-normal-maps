@@ -98,6 +98,19 @@ class CircleGeometryTests(unittest.TestCase):
                 x, y, _ = GEOD.fwd(lon, lat, bearing, 100000)
                 self.assertTrue(any(b.covers(Point(x, y)) for b in bounds), (lon, lat, bearing))
 
+    def test_known_geodesic_witnesses_across_latitudes_and_bearings(self):
+        # Independent witnesses from the forward geodesic calculation, including
+        # a pole-crossing and antimeridian query. Tiny filled polygons contain
+        # each witness, so every tangent or nearer polygon must be included.
+        for lon, lat in ((-75, 45), (-100, 80), (179.99, 50), (20, 89.8), (-40, -80)):
+            for radius in (1000, 100000):
+                shapes = {}
+                for bearing in range(0, 360, 30):
+                    x, y, _ = GEOD.fwd(lon, lat, bearing, radius)
+                    shapes[str(bearing)] = box(x - 1e-7, y - 1e-7, x + 1e-7, y + 1e-7)
+                with self.subTest(lon=lon, lat=lat, radius=radius):
+                    self.assertEqual(self.ids(shapes, request(lon, lat, radius)), sorted(shapes))
+
     def test_unapproved_repair_uses_whole_envelope_not_candidate_mask(self):
         invalid = Polygon([(-75.1, 44.9), (-74.9, 45.1), (-74.9, 44.9), (-75.1, 45.1), (-75.1, 44.9)])
         candidate, ledger = propose_repair(invalid)
@@ -295,11 +308,16 @@ class CircleAPITests(unittest.TestCase):
         with patch('totally_normal_maps.api.CIRCLE_RESPONSE_BYTES', 1):
             response = self.post()
             self.assertEqual(response.status_code, 503)
+            self.assertEqual(response.headers.get('retry-after'), '5')
             self.assertNotIn('items', response.json())
         body = request(-109.5, 50.5, 1000).model_dump()
         response = self.client.post(self.path, json=body,
                                     headers=[('If-Circle-Revision', '1'), ('If-Circle-Revision', '1')])
         self.assertEqual(response.status_code, 422)
+        for first in ('"' + self.digest + '"', '"' + 'f' * 64 + '"'):
+            response = self.client.post(self.path, json=body,
+                headers=[('If-Match', first), ('If-Match', '"' + self.digest + '"')])
+            self.assertEqual(response.status_code, 422)
 
     def test_index_startup_failure_preserves_other_routes_and_openapi(self):
         with patch('totally_normal_maps.api.CircleIndex', side_effect=RuntimeError('synthetic failure')):

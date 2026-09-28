@@ -69,6 +69,13 @@ and per-file hashes. They stage complete data before an atomic local publish. Th
 are no HTTP-triggered S3 fetches. SQLite uses read-only/query-only access and untrusted
 schema execution is disabled; assignment queries operate on in-memory indexes.
 
+Population preparation is an offline operator action: pinned source files and a
+complete territory-bound crosswalk produce a new immutable release atomically.
+Counts and provenance are validated at startup; stale geographic bindings fail
+closed. Ordinary catalogue reads use stored metadata and never fetch population
+sources. No population write endpoint, browser key or shared response cache is
+introduced. See [the population workflow](docs/POPULATION.md).
+
 Combined builds fetch only the GitHub Release attachment named in the committed
 dataset lock, over HTTPS. The exact ZIP size, ZIP hash and independent inner
 manifest hash are required. Extraction rejects unexpected members, duplicates,

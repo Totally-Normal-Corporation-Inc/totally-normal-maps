@@ -55,8 +55,10 @@ unchanged across pages. Changing offset alone is the intended continuation.
 `If-Circle-Revision: 1` is an optional calculation precondition. A different value
 returns 412, even when the dataset did not change. Consumers should send it on
 every page and validate `representation_revision`, query and dataset version on
-every response. Changes affecting population, uncertainty or numerical semantics
-require a revision increment. Representation revision belongs in consumer cache
+every response. Changes to the rules for eligible areas, uncertainty or numerical
+semantics require a revision increment. Census population metadata does not affect
+circle membership; population-only data releases change the dataset version while
+retaining the circle calculation revision. Representation revision belongs in consumer cache
 keys alongside the exact point, radius, dataset and local publication epoch.
 
 ## Successful response
@@ -265,7 +267,7 @@ or outage fails acceptance; none is treated as an empty success. Supply
 more than one page; if coverage changes, review the fixture explicitly.
 
 Gati integration differences from the proposed handoff are `area_intersects_circle`,
-409 incomplete coverage, explicit qualification/distance/population fields,
+409 incomplete coverage, explicit qualification/distance/coverage fields,
 required version pinning on continuations, and optional `If-Circle-Revision`.
 Refresh Gati's separately imported catalogue to the served dataset, validate its
 local IDs, and test GPS/postcode discovery in development before enabling it.

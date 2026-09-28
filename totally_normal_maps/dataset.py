@@ -48,7 +48,7 @@ class Dataset:
             if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
                 raise CatalogueError('Invalid serving database.')
             tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area'} or 'csd' not in tables:
+            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area', 'area_population', 'population_source'} or 'csd' not in tables:
                 raise CatalogueError('Unexpected serving database tables.')
             memberships = dict(db.execute('SELECT csd_id, region_id FROM csd_region')) if 'csd_region' in tables else {}
             self.source_ids = {}
@@ -197,6 +197,8 @@ class Dataset:
             self.summary['coverage']['municipal_elections'] = self.report['municipal_elections']
             self.summary['sources'].extend(self.report['municipal_elections']['sources'].values())
         self.summary['sources'] = [source_metadata(source) for source in self.summary['sources']]
+        from .population import load_population
+        load_population(self)
 
     def load_boundary_revisions(self, db):
         """Scoped source revisions; preserve unresolved repairs and previous extents."""

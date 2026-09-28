@@ -25,6 +25,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .catalogue import CatalogueError
 from .dataset import Dataset
+from .population import Population, Unavailable, metadata as population_metadata, metadata_page as population_page
 from .circle import (CircleIndex, CircleInput, CircleResult, CircleIncomplete, CircleUnavailable,
                      REVISION as CIRCLE_REVISION, MAX_RESPONSE_BYTES as CIRCLE_RESPONSE_BYTES)
 from .reference import (ReferenceIndex, ReferenceError, Summary, Page, CoverageItem,
@@ -240,18 +241,23 @@ class Area(BaseModel):
     issues: list[str]
 
 
+class CatalogueArea(Area):
+    population: Population | None = None
+    population_unavailable_reason: Unavailable | None = 'no_source'
+
+
 class AreaPage(BaseModel):
     dataset_version: str
     total: int
     offset: int
     limit: int
     next_offset: int | None
-    items: list[Area]
+    items: list[CatalogueArea]
 
 
 class AreaDetail(BaseModel):
     dataset_version: str
-    area: Area
+    area: CatalogueArea
 
 
 class PointInput(BaseModel):
@@ -492,7 +498,8 @@ def create_app(settings=None):
 
     @app.get('/v1/countries', response_model=AreaPage, tags=['Areas'])
     def countries(request: Request):
-        return dataset(request).page(level='country')
+        data = dataset(request)
+        return population_page(data, data.page(level='country'))
 
     @app.get('/v1/layers', tags=['Areas'])
     def geography_layers(request: Request):
@@ -524,7 +531,7 @@ def create_app(settings=None):
         if parent_id is not None:
             area(data, parent_id)
         if within_id is not None: area(data, within_id)
-        return data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit, include_historical=include_historical, layer=layer, editions=edition, within_id=within_id)
+        return population_page(data, data.page(parent_id=parent_id, level=level, query=q, offset=offset, limit=limit, include_historical=include_historical, layer=layer, editions=edition, within_id=within_id))
 
     @app.get('/v1/areas/boundaries', tags=['Boundaries'])
     def area_boundaries(request: Request, layer: Layer = 'administrative',
@@ -548,20 +555,20 @@ def create_app(settings=None):
     @app.get('/v1/areas/{area_id}', response_model=AreaDetail, tags=['Areas'])
     def detail(area_id: str, request: Request):
         data = dataset(request)
-        return {'dataset_version': data.version, 'area': area(data, area_id)}
+        return {'dataset_version': data.version, 'area': population_metadata(data, area(data, area_id))}
 
     @app.get('/v1/areas/{area_id}/children', response_model=AreaPage, tags=['Areas'])
     def children(area_id: str, request: Request, offset: int = Query(0, ge=0, le=100_000), limit: int = Query(100, ge=1, le=500),
                  layer: Layer = 'administrative', edition: list[str] | None = Query(None, max_length=30)):
         data = dataset(request)
         area(data, area_id)
-        return data.page(parent_id=area_id, offset=offset, limit=limit, layer=layer, editions=edition)
+        return population_page(data, data.page(parent_id=area_id, offset=offset, limit=limit, layer=layer, editions=edition))
 
     @app.get('/v1/areas/{area_id}/ancestors', tags=['Areas'])
     def ancestors(area_id: str, request: Request):
         data = dataset(request)
         area(data, area_id)
-        return {'dataset_version': data.version, 'items': data.ancestors(area_id)}
+        return {'dataset_version': data.version, 'items': [population_metadata(data, row) for row in data.ancestors(area_id)]}
 
     @app.get('/v1/areas/{area_id}/boundary', tags=['Boundaries'], responses={200: {'content': {'application/geo+json': {}}}, 409: {'description': 'Boundary unavailable'}})
     def boundary(area_id: str, request: Request, resolution: Literal['display', 'full'] = 'display',
@@ -622,11 +629,11 @@ def create_app(settings=None):
                          429: {'description': 'Request limit reached; respect Retry-After'},
                          503: {'description': 'Circle index, computation budget or concurrency slot unavailable'}})
     def circle_lookup(point: CircleInput, request: Request):
+        if any(len(request.headers.getlist(k)) > 1 for k in ('If-Match', 'If-Circle-Revision')):
+            raise HTTPException(422, 'Repeated circle precondition header.')
         data = dataset(request)
         if request.query_params:
             raise HTTPException(422, 'Circle inputs belong in the JSON body.')
-        if any(len(request.headers.getlist(k)) > 1 for k in ('If-Match', 'If-Circle-Revision')):
-            raise HTTPException(422, 'Repeated circle precondition header.')
         if point.offset and request.headers.get('If-Match') is None:
             raise HTTPException(428, 'Circle continuation requires the quoted dataset_version in If-Match.')
         revision = request.headers.get('If-Circle-Revision')
@@ -643,7 +650,7 @@ def create_app(settings=None):
                                 headers={'Cache-Control': 'no-store', 'Retry-After': '5'})
         body = result.model_dump_json().encode('utf-8')
         if len(body) > CIRCLE_RESPONSE_BYTES:
-            raise HTTPException(503, 'Circle response exceeds its byte budget.')
+            raise HTTPException(503, 'Circle response exceeds its byte budget.', headers={'Retry-After': '5'})
         return Response(body, media_type='application/json',
                         status_code=409 if isinstance(result, CircleIncomplete) else 200,
                         headers={'Cache-Control': 'no-store'})

@@ -45,6 +45,18 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     fetch = commands.add_parser("download", help="Download and verify the pinned official ZIP")
     fetch.add_argument("--output", required=True, type=Path)
+    population = commands.add_parser('population-import', help='Prepare an immutable population-enriched serving release offline')
+    population.add_argument('--dataset', required=True, type=Path)
+    population.add_argument('--manifest-sha256', required=True)
+    population.add_argument('--plan', required=True, type=Path)
+    population.add_argument('--source-dir', required=True, type=Path)
+    population.add_argument('--output', required=True, type=Path)
+    population.add_argument('--retrieval-date-correction-reason',
+                            help='Explicitly correct stored source retrieval dates; keep ordinary refresh attempts separate')
+    pop_download = commands.add_parser('download-population', help='Download one checksum-pinned official population input')
+    pop_download.add_argument('--plan', required=True, type=Path)
+    pop_download.add_argument('--source', required=True)
+    pop_download.add_argument('--output', required=True, type=Path)
     region_fetch = commands.add_parser("download-regions", help="Download the pinned Québec crosswalk reference")
     region_fetch.add_argument("--output", required=True, type=Path)
     province_fetch = commands.add_parser("download-provinces", help="Download the pinned cartographic country overview")
@@ -171,6 +183,21 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "download":
         report = download(args.output)
+    elif args.command == 'population-import':
+        from .population import import_population
+        report = import_population(args.dataset, args.output, plan_path=args.plan, source_dir=args.source_dir,
+                                   expected_sha256=args.manifest_sha256, retrieval_date_correction_reason=args.retrieval_date_correction_reason)
+    elif args.command == 'download-population':
+        from .population import Source, validate, MAX_SOURCE_BYTES as POPULATION_MAX_BYTES
+        spec = read_json(args.plan)
+        sources = spec['sources']
+        if args.source == 'census_boundaries' and 'boundary_source' in spec:
+            report = download(args.output, manifest=spec['boundary_source'], max_bytes=POPULATION_MAX_BYTES)
+        elif args.source not in sources:
+            raise CatalogueError('Unknown population source.')
+        else:
+            source = validate(Source, sources[args.source])
+            report = download(args.output, manifest={'url': source.download_url, 'sha256': source.sha256}, max_bytes=POPULATION_MAX_BYTES)
     elif args.command == 'download-municipal':
         from .municipal_elections import PLAN
         from .source_acquisition import download_source
