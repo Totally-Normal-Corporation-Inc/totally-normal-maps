@@ -23,13 +23,24 @@ Rotate/revoke an exposed credential; deleting a Git commit is insufficient.
   keys out of browser JavaScript, public assets, URLs and request logs.
 - Combined deployments serve only checksummed, allowlisted display assets under
   versioned `/maps/` URLs. Website responses permit public immutable caching;
-  protected API responses remain `no-store`. The raw database is never a static asset.
+  protected API responses remain `no-store` except the five bounded reference GETs
+  under `/v1/datasets/current/`. Those use `private, no-cache` and `Vary: Authorization`:
+  authentication, rate limits and the dataset precondition run before every 304.
+  Shared caches must not store them. Private reference storage must retain version,
+  scope and credential isolation. Coordinate lookup bodies are never cached.
+  The raw database is never a static asset.
 - Use TLS at the gateway. Tokens are independent per consumer and compared without
   ordinary string timing comparisons. The service never requires cloud write access
   or consumer database credentials.
 - No arbitrary URLs, SQL, uploaded geometry or filesystem paths are accepted in
   API requests. Bound request bodies, batches, pages, query strings, response sizes
   and server concurrency. Rate limits are per client/process, not a distributed quota.
+- Circle discovery accepts a point and bounded radius, uses full immutable
+  geometry, and caches no coordinate results. It permits two computations per
+  process, with cooperative time/vertex/distance budgets and 128 KiB responses.
+  Budget exhaustion returns 503; uncertain coverage returns 409, never a successful
+  partial result. Continuations require a dataset precondition; clients can also
+  pin the calculation revision. See [the circle contract](docs/CIRCLE_API.md).
 - Proxy headers are disabled. Authentication never trusts X-Forwarded-For. Configure
   gateway-level rate limits across replicas rather than enabling spoofable IP headers.
 - Minimal health checks intentionally allow load-balancer IP Host headers. Geography
