@@ -342,10 +342,13 @@ manifest currently lets consumers skip reclassification on population-only updat
 Gati must use its full version refresh initially. A future optimization must retain
 the dataset version as the update signal and be coordinated separately.
 
-**Prepared and tested locally; not published or deployed.** The selected
-`dataset.source.json` and production `dataset.lock.json` remain unchanged. Production
-activation needs the new code **and a newly reviewed data bundle** through the
-normal [release procedure](RELEASING.md). New code accepts old bundles and reports
+**Prepared, tested and selected for publication.** `dataset.source.json` pins
+`canada-population-20260928` at manifest SHA-256
+`e64e5b9f92f7722320f68841ee20d110232a7ada5f5941fce4e6d9bd1e283201`.
+The normal [release procedure](RELEASING.md) publishes that immutable attachment
+and updates `dataset.lock.json` before deployment. Publication does not deploy the
+service: production activation needs the new code **and the pinned data bundle**.
+New code accepts old bundles and reports
 `no_source`; old code rejects the new SQLite tables, so deploy paired code/data and
 roll back the complete previous bundle. There is no in-place production migration,
 new infrastructure, visitor credential or automatic refresh schedule. Coordinate

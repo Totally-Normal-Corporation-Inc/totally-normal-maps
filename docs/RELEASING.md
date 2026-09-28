@@ -18,8 +18,8 @@ Prerequisites: the README's Python environment, Git with a configured commit
 identity, an authenticated GitHub CLI (`gh auth login`), and the local serving
 release selected by [dataset.source.json](../dataset.source.json). The source file
 pins both its path under `.local/releases/` and the independently reviewed manifest
-SHA-256. It currently selects the municipal dataset with unlicensed sources
-excluded. The command checks
+SHA-256. It currently selects the population-enriched municipal dataset, retaining
+the exclusion of unlicensed municipal division sources. The command checks
 every serving file against that manifest; it never guesses which local directory
 is newest or silently changes the reviewed pin. When adopting new data, update
 this small source selection as part of its reviewed code PR.
@@ -154,8 +154,9 @@ or new repair approval is implied by this feature.
 
 Population metadata requires a newly prepared dataset as well as the new code.
 Follow [population preparation, acceptance and activation](POPULATION.md) before
-changing `dataset.source.json` or publishing. The old dataset remains selected
-until that explicit operator step. Coordinate the version change with consumers:
+changing `dataset.source.json` or publishing. The source selection now pins the
+reviewed 2026-09-28 population snapshot; `package.sh` publishes it and updates the
+deployment lock through its normal PR procedure. Coordinate the version change with consumers:
 Gati currently reclassifies places after any dataset update, even when geometry is
 unchanged. Old application code cannot load the added population SQLite tables;
 deploy and roll back code and data together.
