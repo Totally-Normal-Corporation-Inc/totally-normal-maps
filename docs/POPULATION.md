@@ -16,6 +16,12 @@ circle results and boundary properties retain their existing representations.
 The live application's generated `/openapi.json` describes `CatalogueArea` and
 `Population`; no new population endpoint or per-item request is needed.
 
+The full `GET /v1/datasets/current` report includes the validated population
+coverage aggregates in `coverage.population` (`by_level` and `by_province`) and
+population source credits in its top-level `sources` inventory. Releases without
+population retain their previous full-report shape. The compact `/summary` remains
+bounded to 16 KiB; boundary attribution continues to describe geometry sources.
+
 Real local acceptance example, Gatineau (other existing area fields omitted):
 
 ```json

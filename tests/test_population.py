@@ -370,6 +370,35 @@ class PopulationAPITests(unittest.TestCase):
             old.headers['Authorization'] = 'Bearer ' + 'x' * 40
             self.assertNotEqual(old.get(url).headers['etag'], response.headers['etag'])
 
+    def test_full_dataset_report_includes_population_coverage_and_credits(self):
+        response = self.client.get('/v1/datasets/current')
+        self.assertEqual(response.status_code, 200)
+        value = response.json()
+        population = self.client.app.state.dataset.report['population']
+        self.assertEqual(value['dataset_version'], self.version)
+        self.assertEqual(value['coverage']['population'], population['coverage'])
+        counts = value['coverage']['population']['by_level']['municipality']
+        self.assertEqual(counts['zero'], 1)
+        self.assertEqual(counts['suppressed'], 1)
+        self.assertEqual(counts['incompatible_boundary'], 1)
+        credits = [s for s in value['sources'] if s.get('family') == '98-10-0002-01']
+        self.assertEqual(len(credits), 1)
+        source = population['sources']['census']
+        for key in ('authority', 'family', 'release', 'reference_date', 'retrieved_on', 'url', 'licence', 'sha256', 'attribution'):
+            self.assertEqual(credits[0][key], source[key])
+        self.assertEqual(value['sources'][:-1], self.base.summary['sources'])
+        self.assertEqual({k: v for k, v in value['coverage'].items() if k != 'population'}, self.base.summary['coverage'])
+        self.assertNotIn('population', self.base.summary['coverage'])
+        # Adding aggregate evidence to the full report must not expand routine
+        # summary or boundary payloads with population reports/source inventories.
+        compact = self.client.get('/v1/datasets/current/summary?layer=administrative')
+        self.assertLessEqual(len(compact.content), 16 * 1024)
+        self.assertEqual(compact.json()['representation_revision'], 1)
+        self.assertNotIn('sources', compact.json())
+        self.assertNotIn('by_province', compact.text)
+        boundary = self.client.get('/v1/areas/' + self.ids[0] + '/boundary').json()
+        self.assertEqual(boundary['sources'], self.base.boundary(self.ids[0])['sources'])
+
     def test_scoped_provenance_and_openapi(self):
         uid = self.ids[0]
         sources = self.client.get('/v1/datasets/current/sources', params={'layer': 'administrative', 'area_id': uid}).json()
