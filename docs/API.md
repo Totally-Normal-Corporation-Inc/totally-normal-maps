@@ -36,6 +36,7 @@ display files and does not need an API key. There are no subscriptions or billin
 | GET | `/v1/areas/{id}/children/boundaries` | Paginated GeoJSON FeatureCollection, display shapes only |
 | GET/POST | `/v1/lookup` | WGS84 coordinate lookup |
 | POST | `/v1/lookup/batch` | Up to 100 coordinate lookups, preserving input order |
+| POST | `/v1/lookup/circle` | All active municipal areas intersecting a WGS84 circle, paginated IDs (128 KiB) |
 
 Lookup works directly without any initial metadata request. For small reference
 questions, use the [compact summary and scoped evidence API](REFERENCE_API.md).
@@ -43,6 +44,12 @@ Its pages are limited to 128 KiB decoded JSON and its summary to 16 KiB. Existin
 full reports and `/v1/layers` remain unchanged and may be large. Boundary routes
 offer opt-in `representation=compact` to replace repeated global source metadata
 with evidence links while retaining exact geometry and uncertainty.
+
+[Municipal circle discovery](CIRCLE_API.md) uses full assignment geometry and
+WGS84 distance for radii of 1–100 km. It supports containment, touching, holes,
+multipart areas and cross-province queries, with explicit 409 responses where
+missing or disputed municipal geometry prevents complete coverage. Continuations
+require the dataset version; `If-Circle-Revision` can also pin the calculation.
 
 In a combined deployment, `/readyz` also returns `deployment_version`,
 `dataset_manifest_sha256`, `website_manifest_sha256` and `code_sha256` for promotion

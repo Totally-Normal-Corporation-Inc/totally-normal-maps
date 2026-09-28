@@ -145,6 +145,13 @@ command](REFERENCE_API.md#verification-and-delivery) with a server-held key. It
 checks decoded payload limits and authenticated conditional responses without
 downloading a full report or changing production data.
 
+Municipal circle discovery is also a code-only update using the existing pinned
+dataset. Its [offline data audit and read-only HTTP acceptance](CIRCLE_API.md#verification-and-release)
+check source uncertainty envelopes, complete pagination and version/revision
+preconditions. Run the HTTP check after deploying the selected application commit;
+publishing code alone does not enable the endpoint in production. No data rebuild
+or new repair approval is implied by this feature.
+
 Optionally run **Release combined application** on `main` with a new `app-*` tag
 such as `app-2026.09.18.1`. It tests code, audits dependencies, builds the real
 combined image, and checks the website and protected API before publishing the

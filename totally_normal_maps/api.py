@@ -25,6 +25,8 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .catalogue import CatalogueError
 from .dataset import Dataset
+from .circle import (CircleIndex, CircleInput, CircleResult, CircleIncomplete, CircleUnavailable,
+                     REVISION as CIRCLE_REVISION, MAX_RESPONSE_BYTES as CIRCLE_RESPONSE_BYTES)
 from .reference import (ReferenceIndex, ReferenceError, Summary, Page, CoverageItem,
                         SourceItem, EditionItem, EvidenceItem)
 
@@ -317,16 +319,22 @@ def create_app(settings=None):
             # A reference-index failure must not disable the established lookup
             # API or masquerade as successful, empty evidence.
             LOG.exception('Reference evidence index could not be prepared')
+        app.state.circles = None
+        try:
+            app.state.circles = await asyncio.to_thread(CircleIndex, app.state.dataset)
+        except Exception:
+            LOG.exception('Municipal circle index could not be prepared')
         LOG.info('Serving geography release %s (%d areas)', app.state.dataset.version, len(app.state.dataset.areas))
         yield
         del app.state.dataset
         del app.state.references
+        del app.state.circles
 
     app = FastAPI(title='Totally Normal Maps', version='1.0.0', lifespan=lifespan,
                   description='Read-only reference geography. API v1; independently versioned, review-required datasets. Coordinates use WGS84 longitude/latitude. Public source code does not grant access to a hosted service.',
                   redoc_url=None)
     app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins),
-                       allow_methods=['GET', 'POST'], allow_headers=['Authorization', 'Content-Type', 'If-Match', 'If-None-Match'],
+                       allow_methods=['GET', 'POST'], allow_headers=['Authorization', 'Content-Type', 'If-Match', 'If-None-Match', 'If-Circle-Revision'],
                        expose_headers=['X-Maps-Dataset-Version', 'ETag'], allow_credentials=False)
     app.add_middleware(AccessMiddleware, settings=settings)
 
@@ -604,6 +612,42 @@ def create_app(settings=None):
         data = dataset(request)
         return {'dataset_version': data.version, 'results': [data.lookup(p.longitude, p.latitude, layers=p.layers, editions=p.editions) for p in points.points]}
 
+    @app.post('/v1/lookup/circle', response_model=CircleResult, tags=['Lookup'],
+              summary='All active catalogue municipalities intersecting a WGS84 circle (maximum 128 KiB)',
+              responses={401: {'description': 'Valid bearer token required'},
+                         409: {'description': 'Municipal coverage cannot be established for this circle', 'model': CircleIncomplete},
+                         412: {'description': 'Dataset or circle revision precondition differs'},
+                         413: {'description': 'Request body exceeds its byte limit'},
+                         428: {'description': 'Continuation pages require a dataset If-Match precondition'},
+                         429: {'description': 'Request limit reached; respect Retry-After'},
+                         503: {'description': 'Circle index, computation budget or concurrency slot unavailable'}})
+    def circle_lookup(point: CircleInput, request: Request):
+        data = dataset(request)
+        if request.query_params:
+            raise HTTPException(422, 'Circle inputs belong in the JSON body.')
+        if any(len(request.headers.getlist(k)) > 1 for k in ('If-Match', 'If-Circle-Revision')):
+            raise HTTPException(422, 'Repeated circle precondition header.')
+        if point.offset and request.headers.get('If-Match') is None:
+            raise HTTPException(428, 'Circle continuation requires the quoted dataset_version in If-Match.')
+        revision = request.headers.get('If-Circle-Revision')
+        if revision is not None and revision != str(CIRCLE_REVISION):
+            raise HTTPException(412, 'Circle calculation revision differs.')
+        index = getattr(request.app.state, 'circles', None)
+        if index is None:
+            raise HTTPException(503, 'Municipal circle discovery is unavailable.', headers={'Retry-After': '5'})
+        try:
+            result = index.lookup(point)
+        except CircleUnavailable as exc:
+            return JSONResponse({'error': exc.code, 'dataset_version': data.version,
+                                 'representation_revision': CIRCLE_REVISION}, status_code=503,
+                                headers={'Cache-Control': 'no-store', 'Retry-After': '5'})
+        body = result.model_dump_json().encode('utf-8')
+        if len(body) > CIRCLE_RESPONSE_BYTES:
+            raise HTTPException(503, 'Circle response exceeds its byte budget.')
+        return Response(body, media_type='application/json',
+                        status_code=409 if isinstance(result, CircleIncomplete) else 200,
+                        headers={'Cache-Control': 'no-store'})
+
     original_openapi = app.openapi
 
     def openapi():
@@ -621,6 +665,14 @@ def create_app(settings=None):
                             if not any(p['name'] == name and p['in'] == 'header' for p in parameters):
                                 parameters.append({'name': name, 'in': 'header', 'required': False,
                                                    'schema': {'type': 'string'}, 'description': description})
+                    if path == '/v1/lookup/circle':
+                        parameters = method.setdefault('parameters', [])
+                        for name, description in (
+                            ('If-Match', 'Quoted dataset_version; required when offset > 0. Mismatch returns 412.'),
+                            ('If-Circle-Revision', 'Optional circle calculation revision precondition, currently 1. Mismatch returns 412.')):
+                            if not any(p['name'] == name and p['in'] == 'header' for p in parameters):
+                                parameters.append({'name': name, 'in': 'header', 'required': False,
+                                    'schema': {'type': 'string'}, 'description': description})
         return spec
     app.openapi = openapi
     return app
