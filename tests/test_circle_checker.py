@@ -70,8 +70,20 @@ class CircleCheckerTests(unittest.TestCase):
                 value['dataset_version'] = 'e' * 64
 
         for mutate in (duplicate, short, mixed, lambda v: v.update(representation_revision=2),
+                       lambda v: v.update(representation_revision=True), lambda v: v.update(offset=False),
                        lambda v: v.update(coverage_complete=False), lambda v: v.pop('qualification')):
             with self.subTest(mutate=mutate), self.assertRaises(CheckFailure):
+                check(Adapter(self.client, mutate))
+
+    def test_empty_probe_requires_the_same_complete_contract(self):
+        for change in (lambda v: v.pop('query'), lambda v: v.pop('qualification'),
+                       lambda v: v.update(total=False), lambda v: v.pop('next_offset'),
+                       lambda v: v.update(match_semantics='bbox_only'),
+                       lambda v: v['query'].update(latitude=False)):
+            def mutate(value):
+                if value.get('total') == 0:
+                    change(value)
+            with self.subTest(change=change), self.assertRaises(CheckFailure):
                 check(Adapter(self.client, mutate))
 
     def test_incomplete_coverage_is_never_cached_as_empty(self):

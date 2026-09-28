@@ -1,4 +1,4 @@
-# Third-party code and geographical data
+# Third-party code, geographical and population data
 
 The MIT licence applies to original project code. It does not relicense sources.
 
@@ -14,7 +14,11 @@ endorsement is implied. Attribution is displayed while the background is enabled
   The JavaScript matches the upstream release with only the final source-map
   reference removed; the source map is not distributed. CSS and images are unchanged.
 - Statistics Canada: 2025 Census Subdivision Digital Boundary File and 2021
-  Province/Territory Generalized Cartographic Boundary File. These are used
+  Province/Territory Generalized Cartographic Boundary File; 2021 Census
+  Subdivision Digital Boundary File; population table 98-10-0002-01 (2021 Census);
+  Interim Lists of Changes to Municipal Boundaries, Status, and Names, 2022–2025.
+  Population sources and supporting crosswalk inputs are identified in
+  `totally_normal_maps/population-2021.json`. These are used
   under the Statistics Canada Open Licence:
   https://www.statcan.gc.ca/en/terms-conditions/open-licence
   This project is independent and is not endorsed by Statistics Canada.
@@ -50,6 +54,23 @@ of this product.
 
 When redistributing unchanged source archives, retain the source notice required
 by the Statistics Canada Open Licence, including the product and reference date.
+
+Adapted from Statistics Canada, Population and dwelling counts: Canada and census
+subdivisions (municipalities), Table 98-10-0002-01, 2021 Census, reference date
+2021-05-11 (snapshot 2026-09-28). This does not constitute an endorsement by
+Statistics Canada of this product.
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201
+
+Adapted from Statistics Canada, Interim List of Changes to Municipal Boundaries,
+Status, and Names, 2022, 2023, 2024 and 2025 editions (2021 population affected
+by official geographic changes). This does not constitute an endorsement by
+Statistics Canada of this product.
+https://www150.statcan.gc.ca/n1/en/catalogue/92F0009X
+
+Adapted from Statistics Canada, Census Subdivision Boundary File (digital),
+2021-01-01, used to qualify population geography. This does not constitute an
+endorsement by Statistics Canada of this product. Population counts are not
+current-year estimates; unavailable or incompatible territories remain explicit.
 
 ## Transformations and redistribution
 

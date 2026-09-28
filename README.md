@@ -37,6 +37,12 @@ unconfirmed for six jurisdictions, with publication approved under the recorded
 [government-source decision](docs/research/government-source-licences.md).
 The supplied public dataset lock is unchanged.
 
+The optional [population snapshot](docs/POPULATION.md) adds sourced 2021 census
+counts to catalogue metadata without changing ordering or geography. Its initial
+local release qualifies 2,535 of 5,050 municipalities; other entries retain
+explicit missing reasons. Import, coverage limits and activation are documented
+separately. It has not changed the published dataset lock.
+
 ## Start locally
 
 ```bash

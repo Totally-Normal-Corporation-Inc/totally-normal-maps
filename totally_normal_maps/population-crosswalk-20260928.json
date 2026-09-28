@@ -1,0 +1,47 @@
+{
+  "base_dataset_version": "44bc84d770608c083313456bcc60adc30f3bb102dfe37ae1d7a20f4f13396fd9",
+  "matches": {
+    "ca-csd-2481017": {
+      "source": "census2021",
+      "record_id": "2021A00052481017",
+      "target_sha256": "198616c12e08af9523d87ea1838de9459bd9da2295df837f757a499209c4d005",
+      "basis": "official_adjustment",
+      "geography_reference": "statcan-csd-2025-01-01",
+      "adjustments": [
+        {
+          "source": "interim2023",
+          "record_id": "2a89d2d01d1b4a263fff06ed27a7fbaf800f68ba8a9a0044166b27d5ed40619d",
+          "direction": "loss"
+        }
+      ],
+      "evidence": [
+        "Statistics Canada transaction 240028: Chelsea gains, Gatineau loses territory effective 2022-04-16; 2021 population affected is explicitly zero.",
+        "https://www150.statcan.gc.ca/n1/pub/92f0009x/2023001/tbl/tbl01-eng.htm",
+        "The 2022-2025 interim lists contain no other transactions for these two CSDs.",
+        "Current assignment polygons equal the pinned 2025 national source polygons.",
+        "Independent native-CRS check: combined 2021/2025 outer territories mutually cover within 1 mm; directional transfer check passes within 2 mm. Count basis is official transaction 240028."
+      ]
+    },
+    "ca-csd-2482025": {
+      "source": "census2021",
+      "record_id": "2021A00052482025",
+      "target_sha256": "100f819c5911218e1a8d57cd9c5c23c50f3ed3b1902d0b629c3c2665e83f28a6",
+      "basis": "official_adjustment",
+      "geography_reference": "statcan-csd-2025-01-01",
+      "adjustments": [
+        {
+          "source": "interim2023",
+          "record_id": "2a89d2d01d1b4a263fff06ed27a7fbaf800f68ba8a9a0044166b27d5ed40619d",
+          "direction": "gain"
+        }
+      ],
+      "evidence": [
+        "Statistics Canada transaction 240028: Chelsea gains, Gatineau loses territory effective 2022-04-16; 2021 population affected is explicitly zero.",
+        "https://www150.statcan.gc.ca/n1/pub/92f0009x/2023001/tbl/tbl01-eng.htm",
+        "The 2022-2025 interim lists contain no other transactions for these two CSDs.",
+        "Current assignment polygons equal the pinned 2025 national source polygons.",
+        "Independent native-CRS check: combined 2021/2025 outer territories mutually cover within 1 mm; directional transfer check passes within 2 mm. Count basis is official transaction 240028."
+      ]
+    }
+  }
+}

@@ -48,7 +48,7 @@ class Dataset:
             if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
                 raise CatalogueError('Invalid serving database.')
             tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area'} or 'csd' not in tables:
+            if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area', 'area_population', 'population_source'} or 'csd' not in tables:
                 raise CatalogueError('Unexpected serving database tables.')
             memberships = dict(db.execute('SELECT csd_id, region_id FROM csd_region')) if 'csd_region' in tables else {}
             self.source_ids = {}
@@ -151,6 +151,8 @@ class Dataset:
         self.geometry_ids = sorted(uid for uid in self.geometries if self.areas[uid].get('lifecycle_status') != 'superseded')
         self.tree = STRtree([self.geometries[uid] for uid in self.geometry_ids])
         self.pending_tree = STRtree(self.pending_shapes)
+        from .population import load_population
+        load_population(self)
         self.summary = {'dataset_version': self.version, 'label': self.manifest['label'],
                         'country': 'CA', 'qualification': 'review_required', 'counts': dict(counts),
                         'assignment_geometries': len(self.geometry_ids),
@@ -197,6 +199,16 @@ class Dataset:
             self.summary['coverage']['municipal_elections'] = self.report['municipal_elections']
             self.summary['sources'].extend(self.report['municipal_elections']['sources'].values())
         self.summary['sources'] = [source_metadata(source) for source in self.summary['sources']]
+        # Boundary attribution describes geometry, not census population facts.
+        self.boundary_sources = self.summary['sources']
+        if 'population' in self.report:
+            population = self.report['population']
+            self.summary['coverage']['population'] = population['coverage']
+            self.summary['sources'] = [*self.boundary_sources, *[
+                {**source_metadata(source), 'modifications': (
+                    'Census population counts matched to evidenced catalogue territories; '
+                    'official population transfers applied only where explicitly reviewed.')}
+                for source in population['sources'].values()]]
 
     def load_boundary_revisions(self, db):
         """Scoped source revisions; preserve unresolved repairs and previous extents."""
@@ -390,7 +402,7 @@ class Dataset:
             raise CatalogueError('The requested boundary representation is unavailable; review coverage and geometry status.')
         return {'type': 'Feature', 'id': uid, 'properties': {**area, 'resolution': resolution,
                 'suitable_for_assignment': resolution == 'full' and area.get('lifecycle_status') != 'superseded', 'geography_qualified': False},
-                'geometry': geometry, 'dataset_version': self.version, 'sources': self.summary['sources']}
+                'geometry': geometry, 'dataset_version': self.version, 'sources': self.boundary_sources}
 
     def lookup(self, longitude, latitude, *, layers=None, editions=None):
         requested = ['administrative'] if layers is None else layers

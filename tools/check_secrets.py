@@ -26,7 +26,8 @@ MANIFESTS = {f'totally_normal_maps/{name}' for name in (
     'jurisdiction-nl-2026-09.json',
     'jurisdiction-yt-2026-09.json',
     'jurisdiction-nt-2026-09.json',
-    'jurisdiction-nu-2026-09.json')}
+    'jurisdiction-nu-2026-09.json', 'population-2021.json')}
+POPULATION_CHECKSUM_LINE = re.compile(r'\s*"(?:base_dataset_version|target_sha256|record_id)": "[0-9a-f]{64}",?\s*')
 CHECKSUM_LINE = re.compile(r'\s*"(?:sha256|inventory_sha256|shape_sha256|identity_sha256|base_source_sha256|base_identity_sha256|member_identity_sha256|parent_catalogue_sha256|parent_report_sha256)": "[0-9a-f]{64}",?\s*')
 REPAIR_CHECKSUM_LINE = re.compile(r'\s*"(?:source_sha256|candidate_sha256)": "[0-9a-f]{64}",?\s*')
 MUNICIPAL_COMMIT_LINE = re.compile(r'\s*"represent_repository_commit": "[0-9a-f]{40}",?\s*')
@@ -67,6 +68,10 @@ def main():
     for name, rows in payload['results'].items():
         lines = files[name].decode().splitlines()
         for row in rows:
+            if (name == 'totally_normal_maps/population-crosswalk-20260928.json' and row['type'] == 'Hex High Entropy String'
+                    and POPULATION_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
+                checksums += 1
+                continue
             if (name == 'dataset.source.json' and row['type'] == 'Hex High Entropy String'
                     and SOURCE_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
                 checksums += 1

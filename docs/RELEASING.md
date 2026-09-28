@@ -152,6 +152,14 @@ preconditions. Run the HTTP check after deploying the selected application commi
 publishing code alone does not enable the endpoint in production. No data rebuild
 or new repair approval is implied by this feature.
 
+Population metadata requires a newly prepared dataset as well as the new code.
+Follow [population preparation, acceptance and activation](POPULATION.md) before
+changing `dataset.source.json` or publishing. The old dataset remains selected
+until that explicit operator step. Coordinate the version change with consumers:
+Gati currently reclassifies places after any dataset update, even when geometry is
+unchanged. Old application code cannot load the added population SQLite tables;
+deploy and roll back code and data together.
+
 Optionally run **Release combined application** on `main` with a new `app-*` tag
 such as `app-2026.09.18.1`. It tests code, audits dependencies, builds the real
 combined image, and checks the website and protected API before publishing the

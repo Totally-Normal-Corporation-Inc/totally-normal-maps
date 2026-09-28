@@ -191,6 +191,7 @@ class ReferenceIndex:
         self._register_sources()
         self._register_coverage()
         self._register_area_sources()
+        self._register_population()
         for uid in self.sources:
             if not self.usages[uid]:
                 self.usages[uid].add(('ca', 'administrative', None, 'unscoped_report_source'))
@@ -282,6 +283,13 @@ class ReferenceIndex:
         if uid:
             for scope in scopes:
                 self.usages[uid].add((scope, 'administrative', None, role))
+
+    def _register_population(self):
+        for area_id, record in getattr(self.data, 'populations', {}).items():
+            uid = self.node(('population', 'areas', area_id), record)
+            self.coverage.append(Record(uid, 'population', 'administrative', frozenset({area_id})))
+            for key in record['source_keys']:
+                self._source_reference(('population',), key, {area_id}, 'population')
 
     def _register_coverage(self):
         def walk(value, path, scopes, prefix, root=False):

@@ -68,6 +68,14 @@ An unknown area or parent is a 404; an existing parent without children has an
 empty page. Countries and administrative kinds can be extended in future releases;
 the current builder and serving-release schema explicitly support Canada only.
 
+Catalogue metadata adds nullable `population` and `population_unavailable_reason`
+on area pages/details, children, ancestors and countries. Stored counts include
+census year, method, source identity, geographic vintage and bounded quality flags;
+known zero is distinct from unavailable. Existing bundles return `no_source`.
+See the [exact population contract, examples and coverage](POPULATION.md). Sorting
+remains a consumer choice; lookup/boundary representations are unchanged. Population
+updates change the dataset version while summary representation revision stays 1.
+
 Levels are navigation roles: `country`, `province`, `region`, `municipality`,
 `city_area`, `electoral_district`. `kind` and `source_type` retain distinctions such as territory,
 statistical municipal equivalent, regional district, arrondissement or sector.
