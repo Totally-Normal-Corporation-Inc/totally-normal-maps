@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "repository": "Totally-Normal-Corporation-Inc/totally-normal-maps",
-  "tag": "dataset-93b6b00d115817a446e5-r1",
+  "tag": "dataset-388612f803bffed9b9cc-r1",
   "asset": "canada-municipal-licensed-20260920.zip",
-  "archive_bytes": 206912636,
-  "archive_sha256": "c22e61e0a09af1e45e5a8a169576e532a3dfdb5b92c33390b4d95383a5b1c68f",
-  "manifest_sha256": "44bc84d770608c083313456bcc60adc30f3bb102dfe37ae1d7a20f4f13396fd9"
+  "archive_bytes": 207321844,
+  "archive_sha256": "8e66cdbd6203bd099f32f3e06663f8e5f35ea2b8aef3f552c5af0bbe79727700",
+  "manifest_sha256": "e64e5b9f92f7722320f68841ee20d110232a7ada5f5941fce4e6d9bd1e283201"
 }
