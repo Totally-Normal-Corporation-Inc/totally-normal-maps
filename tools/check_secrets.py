@@ -14,7 +14,7 @@ else:
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFESTS = {f'totally_normal_maps/{name}' for name in (
-    'municipal-elections-2026-09.json', 'electoral-2026-09.json', 'statcan-2025.json', 'topology-review-2026-09.json', 'province-display-2021.json', 'regions-2026-09.json',
+    'display-groups-2021.json', 'municipal-elections-2026-09.json', 'electoral-2026-09.json', 'statcan-2025.json', 'topology-review-2026-09.json', 'province-display-2021.json', 'regions-2026-09.json',
     'city-areas-quebec-2026-09.json', 'quebec-refresh-2026-09.json', 'ontario-refresh-2026-09.json',
     'jurisdiction-bc-2026-09.json',
     'jurisdiction-ab-2026-09.json',

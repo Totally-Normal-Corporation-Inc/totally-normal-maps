@@ -12,7 +12,7 @@ from urllib.request import HTTPRedirectHandler, build_opener
 from zipfile import BadZipFile, ZIP_DEFLATED, ZIP_STORED, ZipFile, ZipInfo
 
 from .catalogue import CatalogueError, new_directory, read_json, sha256, write_json
-from .releases import HEX, MAX_FILES, MAX_MANIFEST_BYTES, MAX_RELEASE_BYTES, checked_release, validate_manifest
+from .releases import HEX, MAX_PACKAGE_FILES, MAX_PACKAGE_MANIFEST_BYTES, MAX_MANIFEST_BYTES, MAX_RELEASE_BYTES, checked_release, validate_manifest
 
 MAX_ARCHIVE_BYTES = MAX_RELEASE_BYTES + 1024 * 1024
 MAX_NOTICE_BYTES = 128 * 1024
@@ -128,15 +128,15 @@ def _extract_archive(archive, lock, staging):
     with ZipFile(archive) as package:
         entries = package.infolist()
         names = [i.filename for i in entries]
-        if (len(entries) > MAX_FILES + 3 or len(names) != len(set(names))
-                or sum(i.file_size for i in entries) > MAX_RELEASE_BYTES + MAX_MANIFEST_BYTES + 2 * MAX_NOTICE_BYTES
+        if (len(entries) > MAX_PACKAGE_FILES + 3 or len(names) != len(set(names))
+                or sum(i.file_size for i in entries) > MAX_RELEASE_BYTES + MAX_PACKAGE_MANIFEST_BYTES + 2 * MAX_NOTICE_BYTES
                 or any(i.orig_filename != i.filename or i.is_dir() or '\\' in i.filename
                        or i.filename.startswith('/') or '..' in i.filename.split('/')
                        or i.flag_bits & 1 or i.compress_type not in {ZIP_STORED, ZIP_DEFLATED}
                        or stat.S_IFMT(i.external_attr >> 16) not in {0, stat.S_IFREG} for i in entries)
                 or 'dataset/manifest.json' not in names):
             raise CatalogueError('Invalid dataset archive layout or byte budget.')
-        if package.getinfo('dataset/manifest.json').file_size > MAX_MANIFEST_BYTES:
+        if package.getinfo('dataset/manifest.json').file_size > MAX_PACKAGE_MANIFEST_BYTES:
             raise CatalogueError('Oversized dataset manifest.')
         content = package.read('dataset/manifest.json')
         if hashlib.sha256(content).hexdigest() != lock['manifest_sha256']:

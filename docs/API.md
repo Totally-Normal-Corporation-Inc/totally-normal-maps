@@ -399,3 +399,14 @@ omitting editions uses all relevant defaults. Districts with invalid source
 geometry remain unavailable at `resolution=full`; unapproved display candidates
 cannot become coordinate matches. Political boundaries are not clipped to
 coastlines or to a different publisher's municipal outline.
+
+## Prepared administrative display packages
+
+`GET/HEAD /v1/areas/{area_id}/display-package?layer=administrative` returns a bounded,
+version-pinned descriptor. Municipality requests can select a shared agglomeration
+artifact while retaining their own viewport. `GET/HEAD
+/v1/display-packages/{geometry_sha256}.geojson` serves allowlisted prepared identity
+or gzip bytes with the same authentication and dataset precondition. See the
+[complete package contract](DISPLAY_PACKAGES.md) for revisions, grouping provenance,
+limits, conditional reads, errors and an executable consumer example. Existing
+boundary routes and all assignment/circle semantics remain unchanged.

@@ -1,0 +1,2256 @@
+{
+  "schema_version": 1,
+  "membership_vintage": "2021-01-01",
+  "basis": "StatCan SAC 2021 membership, applied by exact catalogue identity; delivery grouping only, not a current legal metropolitan boundary.",
+  "sources": [
+    {
+      "url": "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVDStruct&TVD=1348193&CVD=1348194&CPV=A&CST=01012021&CLV=1&MLV=3",
+      "sha256": "829b7a110fba84dbd22ebc17a2abd62de3f77923eb3d8befcc8f0250002499e8",
+      "authority": "Statistics Canada",
+      "licence": "https://www.statcan.gc.ca/en/terms-conditions/open-licence",
+      "attribution": "Adapted from Statistics Canada, Statistical Area Classification, 2021. This does not constitute an endorsement by Statistics Canada of this product."
+    },
+    {
+      "url": "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVDStruct&TVD=1348193&CVD=1348194&CPV=B&CST=01012021&CLV=1&MLV=3",
+      "sha256": "fa5f47af43293f9c3aad6724d665d8c1aa2942792fcdb9fdda48adaf11f5c2dc",
+      "authority": "Statistics Canada",
+      "licence": "https://www.statcan.gc.ca/en/terms-conditions/open-licence",
+      "attribution": "Adapted from Statistics Canada, Statistical Area Classification, 2021. This does not constitute an endorsement by Statistics Canada of this product."
+    }
+  ],
+  "groups": [
+    {
+      "id": "ca-sac-2021-001",
+      "name": "St. John's",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-1001472",
+        "ca-csd-1001485",
+        "ca-csd-1001504",
+        "ca-csd-1001505",
+        "ca-csd-1001507",
+        "ca-csd-1001509",
+        "ca-csd-1001511",
+        "ca-csd-1001512",
+        "ca-csd-1001517",
+        "ca-csd-1001519",
+        "ca-csd-1001542",
+        "ca-csd-1001551",
+        "ca-csd-1001557",
+        "ca-csd-1001559"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-205",
+      "name": "Halifax",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-1208008",
+        "ca-csd-1208014",
+        "ca-csd-1209019",
+        "ca-csd-1209034",
+        "ca-csd-1209037",
+        "ca-csd-1209038",
+        "ca-csd-1209800"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-305",
+      "name": "Moncton",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-1306001",
+        "ca-csd-1306008",
+        "ca-csd-1306011",
+        "ca-csd-1306014",
+        "ca-csd-1306020",
+        "ca-csd-1306025",
+        "ca-csd-1307011",
+        "ca-csd-1307012",
+        "ca-csd-1307013",
+        "ca-csd-1307014",
+        "ca-csd-1307019",
+        "ca-csd-1307022",
+        "ca-csd-1307028",
+        "ca-csd-1307045",
+        "ca-csd-1308008"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-310",
+      "name": "Saint John",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-1301001",
+        "ca-csd-1301002",
+        "ca-csd-1301004",
+        "ca-csd-1301006",
+        "ca-csd-1301016",
+        "ca-csd-1302008",
+        "ca-csd-1304001",
+        "ca-csd-1305004",
+        "ca-csd-1305006",
+        "ca-csd-1305007",
+        "ca-csd-1305008",
+        "ca-csd-1305011",
+        "ca-csd-1305014",
+        "ca-csd-1305015",
+        "ca-csd-1305016",
+        "ca-csd-1305038",
+        "ca-csd-1305045",
+        "ca-csd-1305057"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-320",
+      "name": "Fredericton",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-1303004",
+        "ca-csd-1303005",
+        "ca-csd-1303008",
+        "ca-csd-1303016",
+        "ca-csd-1310001",
+        "ca-csd-1310002",
+        "ca-csd-1310004",
+        "ca-csd-1310005",
+        "ca-csd-1310016",
+        "ca-csd-1310017",
+        "ca-csd-1310018",
+        "ca-csd-1310019",
+        "ca-csd-1310021",
+        "ca-csd-1310026",
+        "ca-csd-1310028",
+        "ca-csd-1310031",
+        "ca-csd-1310032",
+        "ca-csd-1310034"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-408",
+      "name": "Saguenay",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2494068",
+        "ca-csd-2494220",
+        "ca-csd-2494225",
+        "ca-csd-2494230",
+        "ca-csd-2494235",
+        "ca-csd-2494240",
+        "ca-csd-2494245",
+        "ca-csd-2494250",
+        "ca-csd-2494260",
+        "ca-csd-2494265"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-421",
+      "name": "Québec",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2419068",
+        "ca-csd-2419105",
+        "ca-csd-2420005",
+        "ca-csd-2420010",
+        "ca-csd-2420015",
+        "ca-csd-2420020",
+        "ca-csd-2420025",
+        "ca-csd-2420030",
+        "ca-csd-2421035",
+        "ca-csd-2421040",
+        "ca-csd-2421045",
+        "ca-csd-2422005",
+        "ca-csd-2422010",
+        "ca-csd-2422015",
+        "ca-csd-2422020",
+        "ca-csd-2422025",
+        "ca-csd-2422030",
+        "ca-csd-2422035",
+        "ca-csd-2422040",
+        "ca-csd-2422045",
+        "ca-csd-2423015",
+        "ca-csd-2423027",
+        "ca-csd-2423057",
+        "ca-csd-2423072",
+        "ca-csd-2423802",
+        "ca-csd-2425213",
+        "ca-csd-2426070",
+        "ca-csd-2433090",
+        "ca-csd-2433095",
+        "ca-csd-2434007"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-433",
+      "name": "Sherbrooke",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2441055",
+        "ca-csd-2442005",
+        "ca-csd-2442025",
+        "ca-csd-2442095",
+        "ca-csd-2443027",
+        "ca-csd-2444071",
+        "ca-csd-2444080",
+        "ca-csd-2445050",
+        "ca-csd-2445055",
+        "ca-csd-2445072",
+        "ca-csd-2445115"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-442",
+      "name": "Trois-Rivières",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2437067",
+        "ca-csd-2437220",
+        "ca-csd-2437225",
+        "ca-csd-2437230",
+        "ca-csd-2438010",
+        "ca-csd-2438802",
+        "ca-csd-2451020"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-447",
+      "name": "Drummondville",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2449020",
+        "ca-csd-2449025",
+        "ca-csd-2449030",
+        "ca-csd-2449040",
+        "ca-csd-2449048",
+        "ca-csd-2449058",
+        "ca-csd-2449070",
+        "ca-csd-2449075",
+        "ca-csd-2449080",
+        "ca-csd-2449095",
+        "ca-csd-2449100",
+        "ca-csd-2449125"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-462",
+      "name": "Montréal",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2452007",
+        "ca-csd-2455057",
+        "ca-csd-2455065",
+        "ca-csd-2456083",
+        "ca-csd-2457005",
+        "ca-csd-2457010",
+        "ca-csd-2457020",
+        "ca-csd-2457025",
+        "ca-csd-2457030",
+        "ca-csd-2457035",
+        "ca-csd-2457040",
+        "ca-csd-2457045",
+        "ca-csd-2458007",
+        "ca-csd-2458012",
+        "ca-csd-2458033",
+        "ca-csd-2458037",
+        "ca-csd-2458227",
+        "ca-csd-2459010",
+        "ca-csd-2459015",
+        "ca-csd-2459020",
+        "ca-csd-2459025",
+        "ca-csd-2460005",
+        "ca-csd-2460013",
+        "ca-csd-2460020",
+        "ca-csd-2460028",
+        "ca-csd-2460037",
+        "ca-csd-2463035",
+        "ca-csd-2463048",
+        "ca-csd-2464008",
+        "ca-csd-2464015",
+        "ca-csd-2465005",
+        "ca-csd-2466007",
+        "ca-csd-2466023",
+        "ca-csd-2466032",
+        "ca-csd-2466047",
+        "ca-csd-2466058",
+        "ca-csd-2466062",
+        "ca-csd-2466072",
+        "ca-csd-2466087",
+        "ca-csd-2466092",
+        "ca-csd-2466097",
+        "ca-csd-2466102",
+        "ca-csd-2466107",
+        "ca-csd-2466112",
+        "ca-csd-2466117",
+        "ca-csd-2466127",
+        "ca-csd-2466142",
+        "ca-csd-2467005",
+        "ca-csd-2467010",
+        "ca-csd-2467015",
+        "ca-csd-2467020",
+        "ca-csd-2467025",
+        "ca-csd-2467030",
+        "ca-csd-2467035",
+        "ca-csd-2467040",
+        "ca-csd-2467045",
+        "ca-csd-2467050",
+        "ca-csd-2467055",
+        "ca-csd-2467802",
+        "ca-csd-2470022",
+        "ca-csd-2471025",
+        "ca-csd-2471033",
+        "ca-csd-2471040",
+        "ca-csd-2471050",
+        "ca-csd-2471055",
+        "ca-csd-2471060",
+        "ca-csd-2471065",
+        "ca-csd-2471070",
+        "ca-csd-2471075",
+        "ca-csd-2471083",
+        "ca-csd-2471090",
+        "ca-csd-2471095",
+        "ca-csd-2471100",
+        "ca-csd-2471105",
+        "ca-csd-2472005",
+        "ca-csd-2472010",
+        "ca-csd-2472015",
+        "ca-csd-2472020",
+        "ca-csd-2472025",
+        "ca-csd-2472032",
+        "ca-csd-2472043",
+        "ca-csd-2472802",
+        "ca-csd-2473005",
+        "ca-csd-2473010",
+        "ca-csd-2473015",
+        "ca-csd-2473020",
+        "ca-csd-2473025",
+        "ca-csd-2473030",
+        "ca-csd-2473035",
+        "ca-csd-2474005",
+        "ca-csd-2475005",
+        "ca-csd-2475017",
+        "ca-csd-2476025"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-505",
+      "name": "Ottawa - Gatineau",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-2480050",
+        "ca-csd-2480055",
+        "ca-csd-2480060",
+        "ca-csd-2480065",
+        "ca-csd-2480085",
+        "ca-csd-2480087",
+        "ca-csd-2480140",
+        "ca-csd-2480145",
+        "ca-csd-2481017",
+        "ca-csd-2482005",
+        "ca-csd-2482015",
+        "ca-csd-2482020",
+        "ca-csd-2482025",
+        "ca-csd-2482030",
+        "ca-csd-2482035",
+        "ca-csd-2483005",
+        "ca-csd-3502036",
+        "ca-csd-3502048",
+        "ca-csd-3506008",
+        "ca-csd-3507065",
+        "ca-csd-3509024",
+        "ca-csd-3509028",
+        "ca-csd-3509030",
+        "ca-csd-3547002",
+        "ca-csd-3547003"
+      ],
+      "identity_updates": [
+        {
+          "previous_id": "ca-csd-2482010",
+          "current_id": "ca-csd-2480087",
+          "evidence_url": "https://www150.statcan.gc.ca/n1/pub/92f0009x/2022001/tbl/tbl01-eng.htm",
+          "transaction": "240018",
+          "effective_date": "2021-12-22",
+          "reason": "SGC code change for Notre-Dame-de-la-Salette; preserve the same municipality in the delivery grouping."
+        }
+      ]
+    },
+    {
+      "id": "ca-sac-2021-521",
+      "name": "Kingston",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3510005",
+        "ca-csd-3510010",
+        "ca-csd-3510020",
+        "ca-csd-3511005"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-522",
+      "name": "Belleville - Quinte West",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3512001",
+        "ca-csd-3512005",
+        "ca-csd-3512015",
+        "ca-csd-3512020"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-529",
+      "name": "Peterborough",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3515005",
+        "ca-csd-3515008",
+        "ca-csd-3515013",
+        "ca-csd-3515014",
+        "ca-csd-3515015",
+        "ca-csd-3515019",
+        "ca-csd-3515023"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-532",
+      "name": "Oshawa",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3518009",
+        "ca-csd-3518013",
+        "ca-csd-3518017"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-535",
+      "name": "Toronto",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3518001",
+        "ca-csd-3518005",
+        "ca-csd-3518029",
+        "ca-csd-3519028",
+        "ca-csd-3519036",
+        "ca-csd-3519038",
+        "ca-csd-3519044",
+        "ca-csd-3519046",
+        "ca-csd-3519048",
+        "ca-csd-3519049",
+        "ca-csd-3519054",
+        "ca-csd-3519070",
+        "ca-csd-3519076",
+        "ca-csd-3520005",
+        "ca-csd-3521005",
+        "ca-csd-3521010",
+        "ca-csd-3521024",
+        "ca-csd-3522012",
+        "ca-csd-3522014",
+        "ca-csd-3524001",
+        "ca-csd-3524009",
+        "ca-csd-3524015",
+        "ca-csd-3543007",
+        "ca-csd-3543014"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-537",
+      "name": "Hamilton",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3524002",
+        "ca-csd-3525005",
+        "ca-csd-3526065"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-539",
+      "name": "St. Catharines - Niagara",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3526003",
+        "ca-csd-3526011",
+        "ca-csd-3526014",
+        "ca-csd-3526028",
+        "ca-csd-3526032",
+        "ca-csd-3526037",
+        "ca-csd-3526043",
+        "ca-csd-3526047",
+        "ca-csd-3526053",
+        "ca-csd-3526057"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-541",
+      "name": "Kitchener - Cambridge - Waterloo",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3530004",
+        "ca-csd-3530010",
+        "ca-csd-3530013",
+        "ca-csd-3530016",
+        "ca-csd-3530020",
+        "ca-csd-3530035"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-543",
+      "name": "Brantford",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3529005",
+        "ca-csd-3529006",
+        "ca-csd-3529020"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-550",
+      "name": "Guelph",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3523001",
+        "ca-csd-3523008",
+        "ca-csd-3523009"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-555",
+      "name": "London",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3534020",
+        "ca-csd-3534021",
+        "ca-csd-3534024",
+        "ca-csd-3539015",
+        "ca-csd-3539027",
+        "ca-csd-3539033",
+        "ca-csd-3539036",
+        "ca-csd-3539047"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-559",
+      "name": "Windsor",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3537003",
+        "ca-csd-3537013",
+        "ca-csd-3537016",
+        "ca-csd-3537028",
+        "ca-csd-3537034",
+        "ca-csd-3537039",
+        "ca-csd-3537048",
+        "ca-csd-3537064"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-568",
+      "name": "Barrie",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3543009",
+        "ca-csd-3543017",
+        "ca-csd-3543042"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-580",
+      "name": "Greater Sudbury",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3552004",
+        "ca-csd-3552013",
+        "ca-csd-3552051",
+        "ca-csd-3553005",
+        "ca-csd-3553040"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-595",
+      "name": "Thunder Bay",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-3558001",
+        "ca-csd-3558003",
+        "ca-csd-3558004",
+        "ca-csd-3558011",
+        "ca-csd-3558012",
+        "ca-csd-3558016",
+        "ca-csd-3558019",
+        "ca-csd-3558028"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-602",
+      "name": "Winnipeg",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4602046",
+        "ca-csd-4602069",
+        "ca-csd-4602075",
+        "ca-csd-4610035",
+        "ca-csd-4610052",
+        "ca-csd-4611040",
+        "ca-csd-4611042",
+        "ca-csd-4612047",
+        "ca-csd-4613032",
+        "ca-csd-4613037",
+        "ca-csd-4613056",
+        "ca-csd-4613062",
+        "ca-csd-4614015"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-705",
+      "name": "Regina",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4706011",
+        "ca-csd-4706021",
+        "ca-csd-4706022",
+        "ca-csd-4706023",
+        "ca-csd-4706026",
+        "ca-csd-4706027",
+        "ca-csd-4706028",
+        "ca-csd-4706029",
+        "ca-csd-4706030",
+        "ca-csd-4706031",
+        "ca-csd-4706032",
+        "ca-csd-4706033",
+        "ca-csd-4706053",
+        "ca-csd-4706054",
+        "ca-csd-4706055",
+        "ca-csd-4706056",
+        "ca-csd-4706057",
+        "ca-csd-4706058",
+        "ca-csd-4706078"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-725",
+      "name": "Saskatoon",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4711060",
+        "ca-csd-4711061",
+        "ca-csd-4711063",
+        "ca-csd-4711064",
+        "ca-csd-4711065",
+        "ca-csd-4711066",
+        "ca-csd-4711067",
+        "ca-csd-4711068",
+        "ca-csd-4711069",
+        "ca-csd-4711070",
+        "ca-csd-4711071",
+        "ca-csd-4711072",
+        "ca-csd-4711073",
+        "ca-csd-4711075",
+        "ca-csd-4711076",
+        "ca-csd-4711077",
+        "ca-csd-4711078",
+        "ca-csd-4711079",
+        "ca-csd-4711828",
+        "ca-csd-4712054",
+        "ca-csd-4712056",
+        "ca-csd-4712058",
+        "ca-csd-4712059",
+        "ca-csd-4715018",
+        "ca-csd-4715019"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-810",
+      "name": "Lethbridge",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4802011",
+        "ca-csd-4802012",
+        "ca-csd-4802013",
+        "ca-csd-4802014",
+        "ca-csd-4802016",
+        "ca-csd-4802018",
+        "ca-csd-4802019"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-825",
+      "name": "Calgary",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4806014",
+        "ca-csd-4806016",
+        "ca-csd-4806017",
+        "ca-csd-4806019",
+        "ca-csd-4806021",
+        "ca-csd-4806022",
+        "ca-csd-4806024",
+        "ca-csd-4806026",
+        "ca-csd-4806804"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-830",
+      "name": "Red Deer",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4808011"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-835",
+      "name": "Edmonton",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-4810066",
+        "ca-csd-4811012",
+        "ca-csd-4811013",
+        "ca-csd-4811016",
+        "ca-csd-4811018",
+        "ca-csd-4811019",
+        "ca-csd-4811020",
+        "ca-csd-4811021",
+        "ca-csd-4811022",
+        "ca-csd-4811023",
+        "ca-csd-4811024",
+        "ca-csd-4811034",
+        "ca-csd-4811038",
+        "ca-csd-4811039",
+        "ca-csd-4811041",
+        "ca-csd-4811042",
+        "ca-csd-4811044",
+        "ca-csd-4811046",
+        "ca-csd-4811048",
+        "ca-csd-4811049",
+        "ca-csd-4811052",
+        "ca-csd-4811056",
+        "ca-csd-4811059",
+        "ca-csd-4811061",
+        "ca-csd-4811062",
+        "ca-csd-4811064",
+        "ca-csd-4811065",
+        "ca-csd-4811066",
+        "ca-csd-4811068",
+        "ca-csd-4811069",
+        "ca-csd-4811804",
+        "ca-csd-4811805",
+        "ca-csd-4811806",
+        "ca-csd-4811807"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-915",
+      "name": "Kelowna",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5935010",
+        "ca-csd-5935012",
+        "ca-csd-5935016",
+        "ca-csd-5935018",
+        "ca-csd-5935020",
+        "ca-csd-5935029",
+        "ca-csd-5935801",
+        "ca-csd-5935802",
+        "ca-csd-5935803"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-925",
+      "name": "Kamloops",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5933035",
+        "ca-csd-5933039",
+        "ca-csd-5933042",
+        "ca-csd-5933044",
+        "ca-csd-5933045",
+        "ca-csd-5933054",
+        "ca-csd-5933877",
+        "ca-csd-5933880",
+        "ca-csd-5933884"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-930",
+      "name": "Chilliwack",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5909020",
+        "ca-csd-5909027",
+        "ca-csd-5909032",
+        "ca-csd-5909034",
+        "ca-csd-5909035",
+        "ca-csd-5909036",
+        "ca-csd-5909821",
+        "ca-csd-5909824",
+        "ca-csd-5909825",
+        "ca-csd-5909826",
+        "ca-csd-5909827",
+        "ca-csd-5909830",
+        "ca-csd-5909831",
+        "ca-csd-5909832",
+        "ca-csd-5909833",
+        "ca-csd-5909834",
+        "ca-csd-5909835",
+        "ca-csd-5909837",
+        "ca-csd-5909838",
+        "ca-csd-5909844",
+        "ca-csd-5909884",
+        "ca-csd-5909885"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-932",
+      "name": "Abbotsford - Mission",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5909052",
+        "ca-csd-5909056",
+        "ca-csd-5909856",
+        "ca-csd-5909877",
+        "ca-csd-5909878"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-933",
+      "name": "Vancouver",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5915001",
+        "ca-csd-5915002",
+        "ca-csd-5915004",
+        "ca-csd-5915007",
+        "ca-csd-5915011",
+        "ca-csd-5915015",
+        "ca-csd-5915020",
+        "ca-csd-5915022",
+        "ca-csd-5915025",
+        "ca-csd-5915029",
+        "ca-csd-5915034",
+        "ca-csd-5915036",
+        "ca-csd-5915038",
+        "ca-csd-5915039",
+        "ca-csd-5915043",
+        "ca-csd-5915046",
+        "ca-csd-5915051",
+        "ca-csd-5915055",
+        "ca-csd-5915062",
+        "ca-csd-5915065",
+        "ca-csd-5915070",
+        "ca-csd-5915075",
+        "ca-csd-5915801",
+        "ca-csd-5915802",
+        "ca-csd-5915803",
+        "ca-csd-5915804",
+        "ca-csd-5915805",
+        "ca-csd-5915806",
+        "ca-csd-5915807",
+        "ca-csd-5915808",
+        "ca-csd-5915809",
+        "ca-csd-5915810",
+        "ca-csd-5915811",
+        "ca-csd-5915813",
+        "ca-csd-5915816",
+        "ca-csd-5915825",
+        "ca-csd-5915830",
+        "ca-csd-5915840"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-935",
+      "name": "Victoria",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5917005",
+        "ca-csd-5917010",
+        "ca-csd-5917015",
+        "ca-csd-5917021",
+        "ca-csd-5917030",
+        "ca-csd-5917034",
+        "ca-csd-5917040",
+        "ca-csd-5917041",
+        "ca-csd-5917042",
+        "ca-csd-5917044",
+        "ca-csd-5917047",
+        "ca-csd-5917049",
+        "ca-csd-5917052",
+        "ca-csd-5917054",
+        "ca-csd-5917801",
+        "ca-csd-5917802",
+        "ca-csd-5917803",
+        "ca-csd-5917804",
+        "ca-csd-5917809",
+        "ca-csd-5917811",
+        "ca-csd-5917812",
+        "ca-csd-5917819"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-938",
+      "name": "Nanaimo",
+      "kind": "agglomeration",
+      "source_category": "A",
+      "municipality_ids": [
+        "ca-csd-5921007",
+        "ca-csd-5921008",
+        "ca-csd-5921010",
+        "ca-csd-5921016",
+        "ca-csd-5921804",
+        "ca-csd-5921805",
+        "ca-csd-5921807"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-010",
+      "name": "Grand Falls-Windsor",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1006017"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-011",
+      "name": "Gander",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1006008",
+        "ca-csd-1006009",
+        "ca-csd-1006011",
+        "ca-csd-1006012"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-015",
+      "name": "Corner Brook",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1005010",
+        "ca-csd-1005011",
+        "ca-csd-1005012",
+        "ca-csd-1005017",
+        "ca-csd-1005018",
+        "ca-csd-1005020",
+        "ca-csd-1005025",
+        "ca-csd-1005028",
+        "ca-csd-1005030",
+        "ca-csd-1005033"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-105",
+      "name": "Charlottetown",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1101052",
+        "ca-csd-1102010",
+        "ca-csd-1102015",
+        "ca-csd-1102017",
+        "ca-csd-1102022",
+        "ca-csd-1102030",
+        "ca-csd-1102037",
+        "ca-csd-1102040",
+        "ca-csd-1102043",
+        "ca-csd-1102050",
+        "ca-csd-1102055",
+        "ca-csd-1102057",
+        "ca-csd-1102059",
+        "ca-csd-1102061",
+        "ca-csd-1102064",
+        "ca-csd-1102067",
+        "ca-csd-1102068",
+        "ca-csd-1102069",
+        "ca-csd-1102070",
+        "ca-csd-1102073",
+        "ca-csd-1102075",
+        "ca-csd-1102080",
+        "ca-csd-1102085"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-110",
+      "name": "Summerside",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1103023",
+        "ca-csd-1103024",
+        "ca-csd-1103025",
+        "ca-csd-1103040"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-210",
+      "name": "Kentville",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1207011",
+        "ca-csd-1207012",
+        "ca-csd-1207016"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-215",
+      "name": "Truro",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1210001",
+        "ca-csd-1210003",
+        "ca-csd-1210006",
+        "ca-csd-1210008"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-220",
+      "name": "New Glasgow",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1212006",
+        "ca-csd-1212008",
+        "ca-csd-1212009",
+        "ca-csd-1212011",
+        "ca-csd-1212014",
+        "ca-csd-1212016",
+        "ca-csd-1212019",
+        "ca-csd-1212023"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-225",
+      "name": "Cape Breton",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1217008",
+        "ca-csd-1217020",
+        "ca-csd-1217030"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-328",
+      "name": "Bathurst",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1315008",
+        "ca-csd-1315010",
+        "ca-csd-1315011",
+        "ca-csd-1315012",
+        "ca-csd-1315013",
+        "ca-csd-1315014",
+        "ca-csd-1315015",
+        "ca-csd-1315037"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-329",
+      "name": "Miramichi",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1309004",
+        "ca-csd-1309006",
+        "ca-csd-1309011",
+        "ca-csd-1309014",
+        "ca-csd-1309023",
+        "ca-csd-1309026",
+        "ca-csd-1309028",
+        "ca-csd-1309031",
+        "ca-csd-1309033",
+        "ca-csd-1309034",
+        "ca-csd-1309035",
+        "ca-csd-1309050"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-330",
+      "name": "Campbellton",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1314012",
+        "ca-csd-1314013",
+        "ca-csd-1314014",
+        "ca-csd-1314015",
+        "ca-csd-2406030",
+        "ca-csd-2406804"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-335",
+      "name": "Edmundston",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-1313014",
+        "ca-csd-1313015",
+        "ca-csd-1313018",
+        "ca-csd-1313020",
+        "ca-csd-1313022",
+        "ca-csd-1313024",
+        "ca-csd-1313027"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-403",
+      "name": "Matane",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2408023",
+        "ca-csd-2408030",
+        "ca-csd-2408035",
+        "ca-csd-2408053",
+        "ca-csd-2408065",
+        "ca-csd-2408073"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-404",
+      "name": "Rimouski",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2410015",
+        "ca-csd-2410030",
+        "ca-csd-2410043",
+        "ca-csd-2410060"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-405",
+      "name": "Rivière-du-Loup",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2412015",
+        "ca-csd-2412020",
+        "ca-csd-2412057",
+        "ca-csd-2412065",
+        "ca-csd-2412072",
+        "ca-csd-2412080"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-406",
+      "name": "Baie-Comeau",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2496020",
+        "ca-csd-2496025",
+        "ca-csd-2496030",
+        "ca-csd-2496035",
+        "ca-csd-2496040"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-410",
+      "name": "Alma",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2493042"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-411",
+      "name": "Dolbeau-Mistassini",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2492015",
+        "ca-csd-2492022",
+        "ca-csd-2492065"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-412",
+      "name": "Sept-Îles",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2497007",
+        "ca-csd-2497802",
+        "ca-csd-2497804"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-423",
+      "name": "Sainte-Marie",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2426030"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-428",
+      "name": "Saint-Georges",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2429050",
+        "ca-csd-2429065",
+        "ca-csd-2429073",
+        "ca-csd-2429125"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-430",
+      "name": "Thetford Mines",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2431045",
+        "ca-csd-2431084",
+        "ca-csd-2431095"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-437",
+      "name": "Cowansville",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2446080"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-440",
+      "name": "Victoriaville",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2439030",
+        "ca-csd-2439060",
+        "ca-csd-2439062",
+        "ca-csd-2439135"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-444",
+      "name": "Shawinigan",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2436033"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-450",
+      "name": "Granby",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2446078",
+        "ca-csd-2447010",
+        "ca-csd-2447017",
+        "ca-csd-2447047",
+        "ca-csd-2455015"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-452",
+      "name": "Saint-Hyacinthe",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2454048",
+        "ca-csd-2454060"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-454",
+      "name": "Sorel-Tracy",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2453025",
+        "ca-csd-2453050",
+        "ca-csd-2453052",
+        "ca-csd-2453065"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-456",
+      "name": "Joliette",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2461005",
+        "ca-csd-2461025",
+        "ca-csd-2461030",
+        "ca-csd-2461035"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-465",
+      "name": "Salaberry-de-Valleyfield",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2470052"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-467",
+      "name": "Sainte-Agathe-des-Monts",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2478005",
+        "ca-csd-2478010",
+        "ca-csd-2478032"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-468",
+      "name": "Lachute",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2476020"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-480",
+      "name": "Val-d'Or",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2489008",
+        "ca-csd-2489804"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-481",
+      "name": "Amos",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2488040",
+        "ca-csd-2488050",
+        "ca-csd-2488055",
+        "ca-csd-2488060",
+        "ca-csd-2488065",
+        "ca-csd-2488070",
+        "ca-csd-2488075",
+        "ca-csd-2488085",
+        "ca-csd-2488802"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-485",
+      "name": "Rouyn-Noranda",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2486042"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-501",
+      "name": "Cornwall",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3501011",
+        "ca-csd-3501012"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-502",
+      "name": "Hawkesbury",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-2476055",
+        "ca-csd-3502008"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-512",
+      "name": "Brockville",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3507014",
+        "ca-csd-3507015"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-515",
+      "name": "Pembroke",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3547064",
+        "ca-csd-3547075"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-516",
+      "name": "Petawawa",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3547076"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-527",
+      "name": "Cobourg",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3514021"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-528",
+      "name": "Port Hope",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3514020"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-530",
+      "name": "Kawartha Lakes",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3516010"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-531",
+      "name": "Centre Wellington",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3523025"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-533",
+      "name": "Ingersoll",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3532018"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-544",
+      "name": "Woodstock",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3532042"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-546",
+      "name": "Tillsonburg",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3532004"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-547",
+      "name": "Norfolk",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3528052"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-553",
+      "name": "Stratford",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3531011"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-556",
+      "name": "Chatham-Kent",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3536020",
+        "ca-csd-3536029"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-562",
+      "name": "Sarnia",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3538003",
+        "ca-csd-3538025",
+        "ca-csd-3538030",
+        "ca-csd-3538031",
+        "ca-csd-3538035"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-563",
+      "name": "Essa",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3543021"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-565",
+      "name": "Wasaga Beach",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3543064"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-566",
+      "name": "Owen Sound",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3542053",
+        "ca-csd-3542059"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-567",
+      "name": "Collingwood",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3543031"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-569",
+      "name": "Orillia",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3543052"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-571",
+      "name": "Midland",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3543072",
+        "ca-csd-3543074"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-575",
+      "name": "North Bay",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3548027",
+        "ca-csd-3548031",
+        "ca-csd-3548034",
+        "ca-csd-3548044",
+        "ca-csd-3548094",
+        "ca-csd-3549060",
+        "ca-csd-3549066",
+        "ca-csd-3549071"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-582",
+      "name": "Elliot Lake",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3557041"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-586",
+      "name": "Timmins",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3556027"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-590",
+      "name": "Sault Ste. Marie",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3557011",
+        "ca-csd-3557051",
+        "ca-csd-3557061",
+        "ca-csd-3557066",
+        "ca-csd-3557074",
+        "ca-csd-3557075"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-598",
+      "name": "Kenora",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-3560010"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-603",
+      "name": "Winkler",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4603047",
+        "ca-csd-4603050",
+        "ca-csd-4603053"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-605",
+      "name": "Steinbach",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4602044"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-607",
+      "name": "Portage la Prairie",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4609029"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-610",
+      "name": "Brandon",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4607057",
+        "ca-csd-4607062",
+        "ca-csd-4607071",
+        "ca-csd-4607072"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-640",
+      "name": "Thompson",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4622026"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-710",
+      "name": "Yorkton",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4709006",
+        "ca-csd-4709009",
+        "ca-csd-4709011",
+        "ca-csd-4709012",
+        "ca-csd-4709014",
+        "ca-csd-4709016"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-715",
+      "name": "Moose Jaw",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4707038",
+        "ca-csd-4707039"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-720",
+      "name": "Swift Current",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4708001",
+        "ca-csd-4708004"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-735",
+      "name": "North Battleford",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4712078",
+        "ca-csd-4712079",
+        "ca-csd-4712837",
+        "ca-csd-4712870",
+        "ca-csd-4716027",
+        "ca-csd-4716029"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-745",
+      "name": "Prince Albert",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4715064",
+        "ca-csd-4715066",
+        "ca-csd-4715079",
+        "ca-csd-4715085",
+        "ca-csd-4715092",
+        "ca-csd-4715094",
+        "ca-csd-4715848"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-750",
+      "name": "Estevan",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4701021",
+        "ca-csd-4701022",
+        "ca-csd-4701024"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-755",
+      "name": "Weyburn",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4702044",
+        "ca-csd-4702047",
+        "ca-csd-4702048"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-805",
+      "name": "Medicine Hat",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4801003",
+        "ca-csd-4801006",
+        "ca-csd-4801018"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-806",
+      "name": "Brooks",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4802034"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-820",
+      "name": "Okotoks",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4806012"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-821",
+      "name": "High River",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4806006"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-826",
+      "name": "Strathmore",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4805018"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-828",
+      "name": "Canmore",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4815023"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-831",
+      "name": "Sylvan Lake",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4808005",
+        "ca-csd-4808012",
+        "ca-csd-4808013"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-832",
+      "name": "Lacombe",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4808031"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-833",
+      "name": "Camrose",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4810011"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-840",
+      "name": "Lloydminster",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4717022",
+        "ca-csd-4717024",
+        "ca-csd-4717026",
+        "ca-csd-4717028",
+        "ca-csd-4717029",
+        "ca-csd-4810039"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-850",
+      "name": "Grande Prairie",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4819012"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-860",
+      "name": "Wood Buffalo",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4816037",
+        "ca-csd-4816810",
+        "ca-csd-4816817",
+        "ca-csd-4816821",
+        "ca-csd-4816822",
+        "ca-csd-4816849",
+        "ca-csd-4816850",
+        "ca-csd-4816852",
+        "ca-csd-4816861"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-865",
+      "name": "Wetaskiwin",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-4811002"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-905",
+      "name": "Cranbrook",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5901022",
+        "ca-csd-5901035",
+        "ca-csd-5901802",
+        "ca-csd-5901805"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-907",
+      "name": "Nelson",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5903015",
+        "ca-csd-5903041",
+        "ca-csd-5903043"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-910",
+      "name": "Trail",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5905005",
+        "ca-csd-5905009",
+        "ca-csd-5905014",
+        "ca-csd-5905018",
+        "ca-csd-5905026"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-913",
+      "name": "Penticton",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5907041",
+        "ca-csd-5907047",
+        "ca-csd-5907048",
+        "ca-csd-5907051",
+        "ca-csd-5907803"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-918",
+      "name": "Vernon",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5937010",
+        "ca-csd-5937014",
+        "ca-csd-5937017",
+        "ca-csd-5937021",
+        "ca-csd-5937801",
+        "ca-csd-5937803"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-920",
+      "name": "Salmon Arm",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5939032",
+        "ca-csd-5939808",
+        "ca-csd-5939811"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-934",
+      "name": "Squamish",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5931006",
+        "ca-csd-5931802",
+        "ca-csd-5931806",
+        "ca-csd-5931807",
+        "ca-csd-5931808",
+        "ca-csd-5931809"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-936",
+      "name": "Ladysmith",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5919015",
+        "ca-csd-5919017",
+        "ca-csd-5919021",
+        "ca-csd-5919804",
+        "ca-csd-5919809",
+        "ca-csd-5919811",
+        "ca-csd-5919813",
+        "ca-csd-5919816",
+        "ca-csd-5919817"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-937",
+      "name": "Duncan",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5919008",
+        "ca-csd-5919012",
+        "ca-csd-5919013",
+        "ca-csd-5919051",
+        "ca-csd-5919801",
+        "ca-csd-5919802",
+        "ca-csd-5919803",
+        "ca-csd-5919808",
+        "ca-csd-5919818",
+        "ca-csd-5919821",
+        "ca-csd-5919822"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-939",
+      "name": "Parksville",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5921018",
+        "ca-csd-5921023",
+        "ca-csd-5921034"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-940",
+      "name": "Port Alberni",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5923008",
+        "ca-csd-5923035",
+        "ca-csd-5923037",
+        "ca-csd-5923039",
+        "ca-csd-5923801",
+        "ca-csd-5923802",
+        "ca-csd-5923816",
+        "ca-csd-5923822"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-943",
+      "name": "Courtenay",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5926005",
+        "ca-csd-5926010",
+        "ca-csd-5926014",
+        "ca-csd-5926021",
+        "ca-csd-5926022",
+        "ca-csd-5926801"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-944",
+      "name": "Campbell River",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5924034",
+        "ca-csd-5924042",
+        "ca-csd-5924804",
+        "ca-csd-5924812",
+        "ca-csd-5924840",
+        "ca-csd-5924843"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-945",
+      "name": "Powell River",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5927008",
+        "ca-csd-5927012",
+        "ca-csd-5927016",
+        "ca-csd-5927806"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-950",
+      "name": "Williams Lake",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5941009",
+        "ca-csd-5941010",
+        "ca-csd-5941012",
+        "ca-csd-5941014",
+        "ca-csd-5941801",
+        "ca-csd-5941805",
+        "ca-csd-5941806",
+        "ca-csd-5941807",
+        "ca-csd-5941810",
+        "ca-csd-5941811",
+        "ca-csd-5941812",
+        "ca-csd-5941868",
+        "ca-csd-5941872",
+        "ca-csd-5941873",
+        "ca-csd-5941885"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-952",
+      "name": "Quesnel",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5941013",
+        "ca-csd-5941019",
+        "ca-csd-5941021",
+        "ca-csd-5941025",
+        "ca-csd-5941026",
+        "ca-csd-5941027",
+        "ca-csd-5941809",
+        "ca-csd-5941833",
+        "ca-csd-5941835",
+        "ca-csd-5941837",
+        "ca-csd-5941852",
+        "ca-csd-5941864",
+        "ca-csd-5941866",
+        "ca-csd-5941881",
+        "ca-csd-5941882",
+        "ca-csd-5941886"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-955",
+      "name": "Prince Rupert",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5947007",
+        "ca-csd-5947012",
+        "ca-csd-5947016",
+        "ca-csd-5947809",
+        "ca-csd-5947810"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-965",
+      "name": "Terrace",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5949011",
+        "ca-csd-5949013",
+        "ca-csd-5949018",
+        "ca-csd-5949804",
+        "ca-csd-5949805",
+        "ca-csd-5949807",
+        "ca-csd-5949844"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-970",
+      "name": "Prince George",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5953023",
+        "ca-csd-5953038",
+        "ca-csd-5953042",
+        "ca-csd-5953044",
+        "ca-csd-5953048",
+        "ca-csd-5953801"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-975",
+      "name": "Dawson Creek",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5955005",
+        "ca-csd-5955014",
+        "ca-csd-5955021"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-977",
+      "name": "Fort St. John",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-5955030",
+        "ca-csd-5955034",
+        "ca-csd-5955042"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-990",
+      "name": "Whitehorse",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-6001009",
+        "ca-csd-6001010",
+        "ca-csd-6001044",
+        "ca-csd-6001055",
+        "ca-csd-6001058",
+        "ca-csd-6001059",
+        "ca-csd-6001060"
+      ]
+    },
+    {
+      "id": "ca-sac-2021-995",
+      "name": "Yellowknife",
+      "kind": "agglomeration",
+      "source_category": "B",
+      "municipality_ids": [
+        "ca-csd-6106023"
+      ]
+    }
+  ]
+}

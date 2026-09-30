@@ -191,6 +191,8 @@ def build_electoral(dataset, source_dir, output, *, plan_path=None, tolerance=10
     """Retain previous editions, rejecting replacement of an existing edition."""
     from .dataset import Dataset
     base = Dataset(dataset)
+    from .display_packages import require_unprepared
+    require_unprepared(base)
     if Path(output).resolve().is_relative_to(base.root):
         raise CatalogueError('Electoral output must be outside the immutable source release.')
     plan = read_json(plan_path or PLAN)

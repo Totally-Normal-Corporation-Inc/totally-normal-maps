@@ -43,6 +43,12 @@ def save_report(path, report):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    packages = commands.add_parser('prepare-display-packages', help='Prepare immutable shared display bundles offline')
+    packages.add_argument('--dataset', required=True, type=Path)
+    packages.add_argument('--manifest-sha256', required=True)
+    packages.add_argument('--output', required=True, type=Path)
+    packages.add_argument('--plan', type=Path)
+    packages.add_argument('--report', type=Path)
     fetch = commands.add_parser("download", help="Download and verify the pinned official ZIP")
     fetch.add_argument("--output", required=True, type=Path)
     population = commands.add_parser('population-import', help='Prepare an immutable population-enriched serving release offline')
@@ -183,6 +189,17 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "download":
         report = download(args.output)
+    elif args.command == 'prepare-display-packages':
+        from .display_packages import prepare, PLAN
+        if args.report:
+            report_path = args.report.resolve()
+            if any(report_path.is_relative_to(p.resolve()) for p in (args.dataset, args.output)):
+                raise CatalogueError('Build reports must be outside the input and output releases.')
+            if args.report.exists() or args.report.is_symlink():
+                raise CatalogueError('Build report already exists; reports are never overwritten.')
+        report = prepare(args.dataset, args.output, expected_sha256=args.manifest_sha256, plan_path=args.plan or PLAN)
+        if args.report: save_report(args.report, report)
+        report = {k:v for k,v in report.items() if k != 'bundles'}
     elif args.command == 'population-import':
         from .population import import_population
         report = import_population(args.dataset, args.output, plan_path=args.plan, source_dir=args.source_dir,

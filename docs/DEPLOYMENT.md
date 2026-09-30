@@ -194,3 +194,13 @@ a rollout. Private automation must verify readiness before switching traffic.
 Keep consumer memberships and manual corrections in the consumer's database.
 Use bounded retries and queue new classifications when this API is unavailable.
 The service never owns or rewrites those application records.
+
+## Display package delivery
+
+[Prepared packages](DISPLAY_PACKAGES.md) use the existing `/v1/` bearer-token path.
+Preserve `If-Match`, `If-None-Match`, `Accept-Encoding`, HEAD and 304 through ingress.
+Do not decompress/recompress responses without updating representation headers,
+and do not configure public caching for these authenticated resources. The provider
+serves precompressed gzip files directly. Package artifacts are outside the public
+website allowlist. No new service or environment variable is required; measure
+verified startup and per-worker memory before deploying a package-enabled image.

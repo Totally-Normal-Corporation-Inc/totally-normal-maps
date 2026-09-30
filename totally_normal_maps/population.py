@@ -493,6 +493,8 @@ def prepare_records(data, plan, facts):
 def import_population(dataset, output, *, plan_path, source_dir, expected_sha256, retrieval_date_correction_reason=None):
     from .dataset import Dataset
     data = Dataset(dataset, expected_sha256)
+    from .display_packages import require_unprepared
+    require_unprepared(data)
     plan = validate(Plan, read_json(plan_path, 32 * 1024 * 1024))
     require(plan.base_dataset_version == data.version, 'Population plan pins a different input dataset.')
     facts = {key: source_rows(Path(source_dir) / source.filename, source) for key, source in sorted(plan.sources.items())}
