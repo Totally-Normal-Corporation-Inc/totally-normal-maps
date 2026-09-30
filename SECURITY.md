@@ -145,3 +145,15 @@ The extraction is tested with synthetic datasets for integrity failures, immutab
 outputs, safe S3 paths, authentication, request bounds, raw-file isolation, lookup
 ambiguity and unapproved repairs. Real-data and browser acceptance are separate.
 See docs/MIGRATION.md for the completed checks and remaining deployment validation.
+
+## Prepared display packages
+
+Package files are authenticated reference data, covered by serving manifest schema 2.
+Startup verifies descriptor scope, source references, membership, canonical decoded
+hashes, gzip expansion, and exact display geometry before readiness. Requests use
+precomputed descriptor bytes and allowlisted files, never arbitrary paths or URLs.
+Authentication and the dataset precondition precede 304. Encoding variants have
+separate strong ETags; all package responses remain private/no-store. Authorized
+server-side ingestion may retain verified artifacts with their notices and current
+descriptor validation; this is not permission for shared HTTP caching. No coordinate
+lookup data is cached. See [the package contract](docs/DISPLAY_PACKAGES.md).

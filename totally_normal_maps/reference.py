@@ -474,6 +474,8 @@ class ReferenceIndex:
                        'counts': counts, 'limitations': limitations,
                        'links': {'coverage': coverage, 'sources': link('sources', **params),
                                  'editions': link('editions', layer=layer), 'full_report': BASE}}
+            if 'packages/index.json' in self.data.manifest['files']:
+                payload['links']['display_package_template'] = '/v1/areas/{area_id}/display-package?layer=administrative'
             return self._serialize(payload, Summary, SUMMARY_BYTES)
         return self._cached(key, build)
 

@@ -252,3 +252,12 @@ geographic-quality approval. Repeat after substantial dataset or loading changes
 ordinary code-only CI continues to use the offline synthetic fixture. Ingress,
 TLS, health-check routing and total task memory including other containers must
 also be verified by the deployment system in staging.
+
+## Prepared display packages
+
+Display packages require both updated code and a newly prepared schema-2 dataset.
+Follow [package preparation and acceptance](DISPLAY_PACKAGES.md) before selecting
+its source pin. The standard dataset ZIP/lock/image workflow remains, with every
+package file covered by the dataset manifest. New code accepts old releases;
+old code rejects schema 2. Roll back the complete previous image/dataset pair.
+Do not activate packages by modifying files beneath an existing dataset version.

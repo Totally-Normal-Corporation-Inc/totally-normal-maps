@@ -17,31 +17,45 @@ from .catalogue import CatalogueError, PROVINCES, new_directory, open_catalogue,
 MAX_RELEASE_BYTES = 1024 * 1024 * 1024
 MAX_FILE_BYTES = 512 * 1024 * 1024
 MAX_MANIFEST_BYTES = 128 * 1024
+MAX_PACKAGE_MANIFEST_BYTES = 8 * 1024 * 1024
 MAX_FILES = 100
+MAX_PACKAGE_FILES = 20_000
 HEX = re.compile(r'[0-9a-f]{64}')
 
 
-def allowed_file(name):
+def allowed_file(name, version=1):
+    if version == 2 and isinstance(name, str) and (name == "packages/index.json" or
+            re.fullmatch(r"packages/descriptors/[0-9a-f]{64}\.json", name) or
+            re.fullmatch(r"packages/objects/[0-9a-f]{64}\.geojson(?:\.gz)?", name)):
+        return True
     return (name in {'catalogue.sqlite3', 'report.json'} or
             isinstance(name, str) and re.fullmatch(r'display/[a-zA-Z0-9_-]{1,80}\.geojson', name) is not None)
 
 
 def validate_manifest(manifest):
-    if (not isinstance(manifest, dict) or manifest.get('schema_version') != 1
+    if (not isinstance(manifest, dict) or type(manifest.get('schema_version')) is not int or manifest.get('schema_version') not in {1, 2}
             or manifest.get('country') != 'CA' or manifest.get('qualification') != 'review_required'
             or not isinstance(manifest.get('label'), str) or not re.fullmatch(r'[A-Za-z0-9._-]{1,80}', manifest['label'])):
         raise CatalogueError('Unsupported serving manifest or qualification state.')
     entries = manifest.get('files')
-    if not isinstance(entries, dict) or not 3 <= len(entries) <= MAX_FILES:
+    if not isinstance(entries, dict) or not 3 <= len(entries) <= (MAX_FILES if manifest['schema_version'] == 1 else MAX_PACKAGE_FILES):
         raise CatalogueError('Invalid serving manifest file list.')
     if not {'catalogue.sqlite3', 'report.json', 'display/provinces.geojson'} <= entries.keys():
         raise CatalogueError('Serving release lacks required files.')
+    if manifest['schema_version'] == 2 and 'packages/index.json' not in entries:
+        raise CatalogueError('Package-enabled release requires its support inventory.')
     total = 0
     for name, item in entries.items():
-        if (not allowed_file(name) or not isinstance(item, dict)
+        if (not allowed_file(name, manifest['schema_version']) or not isinstance(item, dict)
                 or type(item.get('bytes')) is not int or not 0 < item['bytes'] <= MAX_FILE_BYTES
                 or not isinstance(item.get('sha256'), str) or HEX.fullmatch(item['sha256']) is None):
             raise CatalogueError('Invalid serving artifact entry.')
+        if name.startswith('packages/'):
+            maximum = (8 * 1024 * 1024 if name == 'packages/index.json' else
+                       256 * 1024 if name.startswith('packages/descriptors/') else
+                       4 * 1024 * 1024 + (4096 if name.endswith('.gz') else 0))
+            if item['bytes'] > maximum:
+                raise CatalogueError('Package artifact exceeds its representation budget.')
         total += item['bytes']
     if total > MAX_RELEASE_BYTES:
         raise CatalogueError('Serving release exceeds its byte budget.')
@@ -58,7 +72,9 @@ def checked_release(root, expected_sha256=None):
         raise CatalogueError('Missing serving manifest.')
     if expected_sha256 is not None and (HEX.fullmatch(expected_sha256) is None or sha256(manifest_path) != expected_sha256):
         raise CatalogueError('Serving manifest differs from the pinned digest.')
-    manifest = validate_manifest(read_json(manifest_path, MAX_MANIFEST_BYTES))
+    manifest = validate_manifest(read_json(manifest_path, MAX_PACKAGE_MANIFEST_BYTES))
+    if manifest['schema_version'] == 1 and manifest_path.stat().st_size > MAX_MANIFEST_BYTES:
+        raise CatalogueError('Oversized legacy manifest.')
     for name, item in manifest['files'].items():
         path = root / name
         if (any(part.is_symlink() for part in [path, *path.parents] if part != root.parent)
@@ -230,10 +246,10 @@ def fetch_s3(uri, destination, *, expected_sha256, client=None):
                 raise CatalogueError('Incomplete S3 object.')
 
     with new_directory(destination) as staging:
-        download(key, staging / 'manifest.json', MAX_MANIFEST_BYTES)
+        download(key, staging / 'manifest.json', MAX_PACKAGE_MANIFEST_BYTES)
         if sha256(staging / 'manifest.json') != expected_sha256:
             raise CatalogueError('S3 manifest differs from the trusted digest.')
-        manifest = validate_manifest(read_json(staging / 'manifest.json', MAX_MANIFEST_BYTES))
+        manifest = validate_manifest(read_json(staging / 'manifest.json', MAX_PACKAGE_MANIFEST_BYTES))
         for name, spec in manifest['files'].items():
             path = staging / name
             path.parent.mkdir(parents=True, exist_ok=True)

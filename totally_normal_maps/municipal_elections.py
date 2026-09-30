@@ -302,6 +302,8 @@ def district_rows(source_rows, source, edition):
 def build_municipal(dataset, source_dir, output, *, plan_path=None, tolerance=40):
     from .dataset import Dataset
     base = Dataset(dataset)
+    from .display_packages import require_unprepared
+    require_unprepared(base)
     if Path(output).resolve().is_relative_to(base.root): raise CatalogueError('Municipal output must be outside its input release.')
     plan_path = Path(plan_path or PLAN); plan = read_json(plan_path,MAX_FILE_BYTES)
     plan_hash = sha256(plan_path)

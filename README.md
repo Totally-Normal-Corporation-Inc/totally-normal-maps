@@ -223,3 +223,13 @@ current and reference snapshots, and the existing background opacity and
 comparison controls also work with this layer. See the
 [municipal data workflow](docs/DATA.md#municipal-elections) and
 [API coverage semantics](docs/API.md#municipal-electoral-geography).
+
+## Prepared display bundles
+
+[Display packages](docs/DISPLAY_PACKAGES.md) provide ready-made municipality,
+region and shared agglomeration outlines. Montréal/Laval/Longueuil reuse one
+geometry artifact; Ottawa/Gatineau reuse another, with each requested place's
+own viewport. Preparation is offline and produces a new immutable release;
+authenticated serving only delivers verified descriptors and prebuilt bytes.
+This is provider functionality: publication, deployment and consumer UI adoption
+remain separate. See the contract for dated membership and explicit coverage gaps.

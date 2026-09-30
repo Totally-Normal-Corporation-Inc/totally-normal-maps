@@ -479,3 +479,12 @@ geometries. Local downloads and intermediate builds stay under the gitignored
 `.local/` directory inside this repository. Redistribution permission is recorded
 per source, separately from explicit government-source publication decisions.
 The publication tool rejects unresolved sources without such a documented decision.
+
+## Final display package preparation
+
+After geography, electoral and population stages, run the offline
+[display-package preparation stage](DISPLAY_PACKAGES.md#build-verify-and-activate-separately).
+It creates a new immutable schema-2 serving release from existing display data,
+including shared agglomerations and municipality/region fallbacks. It does not
+acquire sources, simplify shapes or change assignment geometry. Preserve the
+pre-package input for future transformations; prepared packages are final artifacts.

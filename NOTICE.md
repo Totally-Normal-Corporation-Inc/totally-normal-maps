@@ -481,3 +481,14 @@ Definitions
 "Records" has the meaning of "record" as set out in the Freedom of Information and Protection of Privacy Act (Ontario). "You" means the natural or legal person or body of persons corporate or incorporate, acquiring rights under this Licence.
 Versioning
 17. This is version 2.0 of the Open Government Licence - Town of Grimsby. The Information Provider may make changes to the terms of this Licence from time to time and issue a new version of the Licence. Your use of the Information will be governed by the terms of the Licence in force as of the date you accessed the information.
+
+## Prepared display bundle membership
+
+Delivery groupings adapt Statistics Canada's Statistical Area Classification,
+2021 (41 census metropolitan areas and 111 census agglomerations), under the
+[Statistics Canada Open Licence](https://www.statcan.gc.ca/en/terms-conditions/open-licence).
+This does not constitute an endorsement by Statistics Canada of this product.
+The grouping plan records exact reference-page checksums and the evidenced
+Notre-Dame-de-la-Salette code update (2022 Interim List, transaction 240018).
+These are dated municipality delivery groups using existing Maps display shapes,
+not new legal metropolitan boundaries. Unresolved identity changes remain explicit.

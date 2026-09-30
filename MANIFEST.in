@@ -31,3 +31,5 @@ prune .venv
 
 include totally_normal_maps/electoral-2026-09.json
 include totally_normal_maps/municipal-elections-2026-09.json
+
+include totally_normal_maps/display-groups-2021.json

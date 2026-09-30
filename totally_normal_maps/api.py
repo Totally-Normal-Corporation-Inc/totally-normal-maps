@@ -18,6 +18,7 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
+from .display_packages import Descriptor as DisplayDescriptor, PackageError, negotiate_encoding
 from .web_security import MAP_CSP
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
@@ -219,6 +220,10 @@ class AccessMiddleware:
                 dataset = getattr(scope.get('app').state, 'dataset', None)
                 if dataset:
                     out.append((b'x-maps-dataset-version', dataset.version.encode()))
+                if path.startswith('/v1/display-packages/') or path.startswith('/v1/areas/') and path.endswith('/display-package'):
+                    LOG.debug('Display package route=%s status=%d dataset=%s',
+                              'artifact' if path.startswith('/v1/display-packages/') else 'descriptor',
+                              message['status'], dataset.version if dataset else 'unloaded')
                 message = {**message, 'headers': out}
             await send(message)
         return await self.host_checked(scope, bounded_receive, secure_send)
@@ -340,7 +345,7 @@ def create_app(settings=None):
                   description='Read-only reference geography. API v1; independently versioned, review-required datasets. Coordinates use WGS84 longitude/latitude. Public source code does not grant access to a hosted service.',
                   redoc_url=None)
     app.add_middleware(CORSMiddleware, allow_origins=list(settings.cors_origins),
-                       allow_methods=['GET', 'POST'], allow_headers=['Authorization', 'Content-Type', 'If-Match', 'If-None-Match', 'If-Circle-Revision'],
+                       allow_methods=['GET', 'HEAD', 'POST'], allow_headers=['Authorization', 'Content-Type', 'If-Match', 'If-None-Match', 'If-Circle-Revision'],
                        expose_headers=['X-Maps-Dataset-Version', 'ETag'], allow_credentials=False)
     app.add_middleware(AccessMiddleware, settings=settings)
 
@@ -348,6 +353,15 @@ def create_app(settings=None):
     async def validation_error(request, exc):
         return JSONResponse({'error': 'Invalid request.', 'details': [
             {k: issue[k] for k in ('loc', 'msg', 'type')} for issue in exc.errors()]}, status_code=422)
+
+    @app.exception_handler(PackageError)
+    async def package_error(request, exc):
+        if exc.status == 503:
+            LOG.error('Display package delivery failed for dataset %s',
+                      getattr(getattr(request.app.state, 'dataset', None), 'version', 'unloaded'),
+                      exc_info=(type(exc), exc, exc.__traceback__))
+        return JSONResponse({'error': exc.code, 'code': exc.code}, status_code=exc.status,
+                            headers={'Cache-Control': 'private, no-store'})
 
     @app.exception_handler(CatalogueError)
     async def geography_selection_error(request, exc):
@@ -552,6 +566,46 @@ def create_app(settings=None):
             'next_offset': page['next_offset'],
             'unavailable_ids': [r['id'] for r in page['items'] if not r['display_available']]}, request)
 
+    package_responses = {**REFERENCE_RESPONSES,
+        409: {'description': 'package_not_built or scope_too_large; no HTTP-triggered build'},
+        406: {'description': 'Neither gzip nor identity encoding is acceptable'}}
+
+    def package_data(request, allowed):
+        data = dataset(request)
+        if set(request.query_params) - set(allowed) or any(len(request.query_params.getlist(k)) != 1 for k in request.query_params):
+            raise PackageError(422, 'unsupported_parameter')
+        return data
+
+    @app.head('/v1/areas/{area_id}/display-package', response_model=DisplayDescriptor,
+              tags=['Display packages'], responses=package_responses)
+    @app.get('/v1/areas/{area_id}/display-package',
+                   response_model=DisplayDescriptor, tags=['Display packages'], responses=package_responses)
+    def display_package(area_id: str, request: Request, layer: Literal['administrative'] = 'administrative'):
+        data = package_data(request, {'layer'})
+        body, etag = data.packages.descriptor(area_id)
+        headers = {'ETag': etag, 'Cache-Control': 'private, no-store', 'Vary': 'Authorization'}
+        if etag_matches(request.headers.get('If-None-Match'), etag):
+            return Response(status_code=304, headers=headers)
+        headers['Content-Length'] = str(len(body))
+        return Response(b'' if request.method == 'HEAD' else body, media_type='application/json', headers=headers)
+
+    @app.head('/v1/display-packages/{geometry_sha256}.geojson', tags=['Display packages'], responses=package_responses)
+    @app.get('/v1/display-packages/{geometry_sha256}.geojson',
+                   tags=['Display packages'], responses={**package_responses, 200: {'content': {'application/geo+json': {}}}})
+    def display_artifact(geometry_sha256: str, request: Request):
+        data = package_data(request, set())
+        if 'range' in request.headers: raise PackageError(422, 'range_not_supported')
+        encoding = negotiate_encoding(request.headers.get('Accept-Encoding'))
+        path, spec = data.packages.artifact(geometry_sha256, encoding)
+        etag = '"' + spec['sha256'] + '"'
+        headers = {'ETag': etag, 'Cache-Control': 'private, no-store', 'Vary': 'Authorization, Accept-Encoding'}
+        if encoding == 'gzip': headers['Content-Encoding'] = 'gzip'
+        if etag_matches(request.headers.get('If-None-Match'), etag):
+            return Response(status_code=304, headers=headers)
+        headers.update({'Content-Length': str(spec['bytes']), 'Accept-Ranges': 'none'})
+        if request.method == 'HEAD': return Response(b'', media_type='application/geo+json', headers=headers)
+        return FileResponse(path, media_type='application/geo+json', headers=headers)
+
     @app.get('/v1/areas/{area_id}', response_model=AreaDetail, tags=['Areas'])
     def detail(area_id: str, request: Request):
         data = dataset(request)
@@ -664,7 +718,7 @@ def create_app(settings=None):
             if path.startswith('/v1/'):
                 for method in methods.values():
                     method['security'] = [{'BearerAuth': []}]
-                    if path.startswith('/v1/datasets/current/'):
+                    if path.startswith('/v1/datasets/current/') or 'display-package' in path:
                         parameters = method.setdefault('parameters', [])
                         for name, description in (
                             ('If-Match', 'Quoted dataset_version precondition, not the representation ETag. Mismatch returns 412 before cache validation.'),

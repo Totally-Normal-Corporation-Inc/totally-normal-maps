@@ -210,6 +210,9 @@ class Dataset:
                     'official population transfers applied only where explicitly reviewed.')}
                 for source in population['sources'].values()]]
 
+        from .display_packages import PackageIndex
+        self.packages = PackageIndex(self)
+
     def load_boundary_revisions(self, db):
         """Scoped source revisions; preserve unresolved repairs and previous extents."""
         refreshes = dict(self.report.get('jurisdiction_refreshes', {}))
