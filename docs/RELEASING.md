@@ -18,7 +18,8 @@ Prerequisites: the README's Python environment, Git with a configured commit
 identity, an authenticated GitHub CLI (`gh auth login`), and the local serving
 release selected by [dataset.source.json](../dataset.source.json). The source file
 pins both its path under `.local/releases/` and the independently reviewed manifest
-SHA-256. It currently selects the population-enriched municipal dataset, retaining
+SHA-256. It currently selects the population-enriched municipal dataset with
+prepared municipality, region and shared agglomeration display packages, retaining
 the exclusion of unlicensed municipal division sources. The command checks
 every serving file against that manifest; it never guesses which local directory
 is newest or silently changes the reviewed pin. When adopting new data, update
