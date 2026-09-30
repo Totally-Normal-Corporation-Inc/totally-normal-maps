@@ -280,7 +280,7 @@ service or runtime source permission is needed. Keep active and rollback images.
 
 After local acceptance, the separately authorized release process can select the
 new source pin, publish a new dataset attachment, update the deployment lock and
-build/deploy the paired image. This implementation does **not** change the current
+build/deploy the paired image. Preparation alone does **not** change
 `dataset.source.json` or `dataset.lock.json`, publish data, or deploy the service.
 
 ## Consumer example, fixtures and acceptance
