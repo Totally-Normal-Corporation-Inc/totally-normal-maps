@@ -34,7 +34,8 @@ def generate(output):
             fixture_manifest=encoded({'contract':'display-package-consumer-fixture.v1','areas':data.areas,'displays':data.displays})
             data.version=hashlib.sha256(fixture_manifest).hexdigest()
             base,body,compressed=base_descriptor(data,group['id'],'agglomeration',[QC,ON],grouping,Provenance(data))
-            descriptor,_=envelope(data,QC,base,{'bundle_id':group['id'],'reason':'preferred_agglomeration'})
+            descriptor,_=envelope(data,QC,base,{'bundle_id':group['id'],'reason':'preferred_agglomeration',
+                'preferred_bundle_id':group['id'],'preferred_unavailable_reason':None})
             parsed=json.loads(descriptor);validate_pair(parsed,compressed,'gzip') if body else validate_pair(parsed)
             directory=out/case;directory.mkdir()
             (directory/'fixture-manifest.json').write_bytes(fixture_manifest)

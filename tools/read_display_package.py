@@ -35,6 +35,26 @@ def validate_pair(descriptor,wire=None,encoding='identity'):
     require(descriptor['root_id']==descriptor['requested_area_id']
             and descriptor['root_level']==mapping[descriptor['root_id']]['level']
             and descriptor['scope_root_ids']==sorted(roots),'Invalid requested focus.')
+    require(all(mapping[u]['parent_id'] not in ids for u in roots),'Overlapping or cyclic scope roots.')
+    require(descriptor['selection'].get('bundle_id')==descriptor['bundle_id'],'Invalid bundle selection.')
+    selection=descriptor['selection'];basic={'bundle_id','reason'}
+    if descriptor['bundle_kind']=='agglomeration':
+        require(all(mapping[u]['level']=='municipality' for u in roots)
+                and descriptor['bundle_id'] not in ids and descriptor['grouping'] is not None,'Invalid agglomeration roots.')
+        require(selection=={'bundle_id':descriptor['bundle_id'],'reason':'preferred_agglomeration',
+                'preferred_bundle_id':descriptor['bundle_id'],'preferred_unavailable_reason':None},'Invalid preferred selection.')
+    else:
+        require(roots=={descriptor['root_id']} and descriptor['bundle_id']==descriptor['root_id']
+                and descriptor['bundle_kind']==descriptor['root_level'] and descriptor['grouping'] is None,'Invalid catalogue scope.')
+        if selection.get('reason')=='preferred_group_unavailable':
+            require(descriptor['bundle_kind']=='municipality'
+                    and set(selection)==basic|{'preferred_bundle_id','preferred_unavailable_reason'}
+                    and isinstance(selection['preferred_bundle_id'],str)
+                    and re.fullmatch(r'[a-zA-Z0-9_-]{1,100}',selection['preferred_bundle_id'])
+                    and selection['preferred_bundle_id'] not in ids
+                    and selection['preferred_unavailable_reason']=='membership_unresolved','Invalid fallback selection.')
+        else:
+            require(set(selection)==basic and selection.get('reason')=='catalogue_scope','Invalid catalogue selection.')
     sources={s['id'] for s in descriptor['sources']}
     require(len(sources)==len(descriptor['sources']) and set(descriptor['common_source_ids'])<=sources
             and all(set(r['source_ids'])<=sources for r in rows),'Invalid source references.')
@@ -46,6 +66,9 @@ def validate_pair(descriptor,wire=None,encoding='identity'):
             current=mapping[current]['parent_id']
             require(current in ids and current not in seen,'Incomplete or cyclic hierarchy.');seen.add(current)
             require(len(seen)<=11,'Hierarchy exceeds depth limit.')
+        if mapping[uid]['level']=='city_area':
+            require(mapping[uid]['municipality_id'] in seen
+                    and mapping[mapping[uid]['municipality_id']]['level']=='municipality','Invalid municipal ancestry.')
     available={r['id'] for r in rows if r['display_status']=='available'}
     require(descriptor['counts']=={'areas':len(ids),'available':len(available),'unavailable':len(ids)-len(available)},'Invalid counts.')
     require(descriptor['coverage']==('none' if not available else 'complete' if available==ids else 'partial'),'Invalid coverage.')

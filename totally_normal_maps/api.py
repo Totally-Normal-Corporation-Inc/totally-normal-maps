@@ -589,9 +589,12 @@ def create_app(settings=None):
         headers['Content-Length'] = str(len(body))
         return Response(b'' if request.method == 'HEAD' else body, media_type='application/json', headers=headers)
 
-    @app.head('/v1/display-packages/{geometry_sha256}.geojson', tags=['Display packages'], responses=package_responses)
+    artifact_responses = {**package_responses, 200: {'content': {'application/geo+json': {}}}}
+
+    @app.head('/v1/display-packages/{geometry_sha256}.geojson', response_class=FileResponse,
+              tags=['Display packages'], responses=artifact_responses)
     @app.get('/v1/display-packages/{geometry_sha256}.geojson',
-                   tags=['Display packages'], responses={**package_responses, 200: {'content': {'application/geo+json': {}}}})
+                   response_class=FileResponse, tags=['Display packages'], responses=artifact_responses)
     def display_artifact(geometry_sha256: str, request: Request):
         data = package_data(request, set())
         if 'range' in request.headers: raise PackageError(422, 'range_not_supported')
@@ -603,7 +606,8 @@ def create_app(settings=None):
         if etag_matches(request.headers.get('If-None-Match'), etag):
             return Response(status_code=304, headers=headers)
         headers.update({'Content-Length': str(spec['bytes']), 'Accept-Ranges': 'none'})
-        if request.method == 'HEAD': return Response(b'', media_type='application/geo+json', headers=headers)
+        # FileResponse handles HEAD without reading the body and supplies the same
+        # file metadata headers (including Last-Modified) as GET.
         return FileResponse(path, media_type='application/geo+json', headers=headers)
 
     @app.get('/v1/areas/{area_id}', response_model=AreaDetail, tags=['Areas'])

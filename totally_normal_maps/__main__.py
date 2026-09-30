@@ -191,6 +191,12 @@ def main(argv=None):
         report = download(args.output)
     elif args.command == 'prepare-display-packages':
         from .display_packages import prepare, PLAN
+        if args.report:
+            report_path = args.report.resolve()
+            if any(report_path.is_relative_to(p.resolve()) for p in (args.dataset, args.output)):
+                raise CatalogueError('Build reports must be outside the input and output releases.')
+            if args.report.exists() or args.report.is_symlink():
+                raise CatalogueError('Build report already exists; reports are never overwritten.')
         report = prepare(args.dataset, args.output, expected_sha256=args.manifest_sha256, plan_path=args.plan or PLAN)
         if args.report: save_report(args.report, report)
         report = {k:v for k,v in report.items() if k != 'bundles'}

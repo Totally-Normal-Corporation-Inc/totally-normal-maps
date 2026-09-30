@@ -272,6 +272,101 @@ class PackageTests(unittest.TestCase):
                 (root/packages.INDEX).write_bytes(encoded(index));reseal(root)
                 with self.assertRaises(CatalogueError):Dataset(root)
 
+    def test_base_descriptor_cannot_override_http_envelope(self):
+        for field, value in [('dataset_version', '0'*64), ('viewport_bbox', [0,0,1,1]),
+                             ('root_id', ON), ('selection', {})]:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as t:
+                root=Path(t)/'release';shutil.copytree(self.release,root)
+                index=json.loads((root/packages.INDEX).read_text())
+                record=index['bundles']['test-agglomeration'];old=record['descriptor']
+                base=json.loads((root/old).read_text());base[field]=value
+                raw=encoded(base);new='packages/descriptors/'+hashlib.sha256(raw).hexdigest()+'.json'
+                (root/new).write_bytes(raw);(root/old).unlink();record['descriptor']=new
+                manifest=json.loads((root/'manifest.json').read_text());manifest['files'].pop(old)
+                manifest['files'][new]={'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+                write_json(root/'manifest.json',manifest)
+                (root/packages.INDEX).write_bytes(encoded(index));reseal(root)
+                with self.assertRaisesRegex(CatalogueError,'base descriptor fields'):Dataset(root)
+
+    def test_consumer_requires_contract_fields_and_valid_root_forest(self):
+        from tools.read_display_package import validate_pair
+        d=json.loads(self.data.packages.descriptor(QC)[0])
+        path,_=self.data.packages.artifact(d['geometry']['sha256'],'gzip');wire=path.read_bytes()
+        for field in ['contract','representation_revision','layer','qualification','inventory_complete']:
+            bad=copy.deepcopy(d);bad.pop(field)
+            with self.subTest(field=field),self.assertRaises(ValueError):validate_pair(bad,wire,'gzip')
+        for field in ['contract','media_type']:
+            bad=copy.deepcopy(d);bad['geometry'].pop(field)
+            with self.subTest(geometry=field),self.assertRaises(ValueError):validate_pair(bad,wire,'gzip')
+        for field in ['suitable_for_assignment','qualification']:
+            bad=copy.deepcopy(d);bad['areas'][0].pop(field)
+            with self.subTest(area=field),self.assertRaises(ValueError):validate_pair(bad,wire,'gzip')
+        for field,value in [('inventory_complete',1),('representation_revision',True),('representation_revision',1.0)]:
+            bad=copy.deepcopy(d);bad[field]=value
+            with self.subTest(field=field,value=value),self.assertRaises(ValueError):validate_pair(bad,wire,'gzip')
+        bad=copy.deepcopy(d);bad['areas'][0]['suitable_for_assignment']=0
+        with self.assertRaises(ValueError):validate_pair(bad,wire,'gzip')
+        for mode in ['root_cycle','ancestry','selection','kind','selection_reason','preferred_metadata']:
+            bad=copy.deepcopy(d)
+            if mode=='root_cycle':
+                for row in bad['areas']:
+                    if row['id']==QC:row['parent_id']=ON
+                    if row['id']==ON:row['parent_id']=QC
+            elif mode=='ancestry':
+                next(row for row in bad['areas'] if row['level']=='city_area')['municipality_id']=ON
+            elif mode=='selection':bad['selection']['bundle_id']='wrong-group'
+            elif mode=='selection_reason':bad['selection']['reason']='unsupported-selection'
+            elif mode=='preferred_metadata':bad['selection'].pop('preferred_bundle_id')
+            else:bad['bundle_kind']='municipality'
+            with self.subTest(mode=mode),self.assertRaises(CatalogueError):validate_pair(bad,wire,'gzip')
+
+    def test_descriptor_admission_uses_exact_fallback_selection(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);p=plan(root,[QC,'ca-csd-9999999'])
+            data=Dataset(self.base);_,selections,_,_=packages.scope_plan(data,packages.read_plan(p))
+            base,_,_=packages.base_descriptor(data,QC,'municipality',[QC],None,packages.Provenance(data))
+            actual=len(packages.envelope(data,QC,base,selections[QC])[0])
+            with patch.object(packages,'MAX_DESCRIPTOR_BYTES',actual):
+                report=packages.prepare(self.base,root/'exact',expected_sha256=self.version,plan_path=p)
+                self.assertNotIn(QC,report['unsupported'])
+                self.assertEqual(len(Dataset(root/'exact').packages.descriptor(QC)[0]),actual)
+            with patch.object(packages,'MAX_DESCRIPTOR_BYTES',actual-1):
+                report=packages.prepare(self.base,root/'over',expected_sha256=self.version,plan_path=p)
+                self.assertEqual(report['unsupported'][QC]['limit'],'descriptor_bytes')
+                self.assertEqual(report['unsupported'][QC]['actual'],actual)
+                with self.assertRaises(packages.PackageError) as exc:Dataset(root/'over').packages.descriptor(QC)
+                self.assertEqual(exc.exception.code,'scope_too_large')
+
+    def test_group_identity_collision_and_oversized_membership(self):
+        p=json.loads(self.plan.read_text());p['groups'][0]['id']=QC
+        with self.assertRaisesRegex(CatalogueError,'conflicts'):packages.scope_plan(self.data,packages.validate_plan(p))
+        p=json.loads(self.plan.read_text());p['schema_version']=True
+        with self.assertRaises(CatalogueError):packages.validate_plan(p)
+        # Reference membership may exceed delivery admission; it must remain explicit.
+        p=json.loads(self.plan.read_text());data=copy.deepcopy(self.data)
+        members=[]
+        for i in range(packages.MAX_MEMBERS+1):
+            uid=f'synthetic-municipality-{i:04d}';members.append(uid)
+            data.areas[uid]={**data.areas[ON],'id':uid}
+        p['groups'][0]['municipality_ids']=members
+        _,_,specs,unresolved=packages.scope_plan(data,packages.validate_plan(p))
+        self.assertFalse(unresolved)
+        with self.assertRaises(packages.TooLarge) as exc:packages.scope_members(data,specs[-1][2])
+        self.assertEqual(exc.exception.limit,'members')
+
+    def test_cli_report_cannot_modify_immutable_releases(self):
+        from totally_normal_maps.__main__ import main
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);out=root/'prepared';existing=root/'existing.json';existing.write_text('keep')
+            alias=root/'alias';alias.symlink_to(self.base,target_is_directory=True)
+            for report in [self.base/'report-new.json',out/'report-new.json',alias/'report-new.json',existing]:
+                args=['maps','prepare-display-packages','--dataset',str(self.base),'--manifest-sha256',self.version,
+                      '--output',str(out),'--report',str(report)]
+                with self.subTest(report=report),patch('sys.argv',args),patch.object(packages,'prepare') as build:
+                    with self.assertRaises(CatalogueError):main()
+                    build.assert_not_called()
+            self.assertFalse(out.exists());self.assertEqual(existing.read_text(),'keep')
+
     def test_descriptor_limit_and_normal_depth_boundary(self):
         base,_,_=packages.base_descriptor(self.data,QC,'municipality',[QC],None,packages.Provenance(self.data))
         size=len(packages.envelope(self.data,QC,base,{'bundle_id':QC,'reason':'catalogue_scope'})[0])
@@ -314,6 +409,11 @@ class PackageHTTPTests(unittest.TestCase):
         identity=client.get(path,headers={'Accept-Encoding':'identity'});compressed=client.get(path,headers={'Accept-Encoding':'gzip'})
         self.assertEqual(identity.content,compressed.content);self.assertNotEqual(identity.headers['etag'],compressed.headers['etag'])
         self.assertEqual(compressed.headers['content-encoding'],'gzip')
+        for encoding in ['identity','gzip']:
+            get=client.get(path,headers={'Accept-Encoding':encoding})
+            head=client.head(path,headers={'Accept-Encoding':encoding})
+            self.assertEqual(dict(get.headers),dict(head.headers))
+            self.assertEqual(head.content,b'')
         self.assertEqual(hashlib.sha256(identity.content).hexdigest(),descriptor['geometry']['sha256'])
         self.assertEqual(client.get(path,headers={'Accept-Encoding':'identity;q=0,gzip;q=0'}).status_code,406)
         self.assertEqual(client.get(url+'?layer=federal').status_code,422)
@@ -362,6 +462,10 @@ class PackageHTTPTests(unittest.TestCase):
             for method in ['get','head']:
                 self.assertEqual(spec['paths'][path][method]['security'],[{'BearerAuth':[]}])
                 self.assertIn('If-Match',[p['name'] for p in spec['paths'][path][method]['parameters']])
+                if path.endswith('.geojson'):
+                    self.assertEqual(set(spec['paths'][path][method]['responses']['200']['content']),{'application/geo+json'})
+        self.assertTrue({'contract','representation_revision','inventory_complete','qualification','layer'}
+                        <= set(spec['components']['schemas']['Descriptor']['required']))
         path=c.get('/v1/areas/'+QC+'/display-package').json()['geometry']['path']
         with patch.object(packages.Path,'stat',side_effect=OSError('missing')):
             with self.assertLogs('totally_normal_maps.api',level='ERROR') as logs:r=c.get(path)

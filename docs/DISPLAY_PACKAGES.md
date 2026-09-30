@@ -63,6 +63,10 @@ To reproduce the membership plan from saved, checksum-matching reference HTML:
 
 This command is offline. Ordinary builds and tests never fetch those pages.
 Changing definitions requires a reviewed plan and a newly prepared release.
+Group IDs must not collide with catalogue IDs. The bounded membership plan may
+describe more than 500 municipalities in a group: that scope is explicitly
+unsupported under the unchanged delivery limits, rather than truncated or rejected
+as malformed source membership.
 
 ## HTTP contract
 
@@ -86,7 +90,8 @@ An old pin returns 412. Clients should pin both descriptor and artifact requests
 
 Both representations support `If-None-Match`, weak comparison, lists and `*`.
 GET and HEAD share ETag, content type, encoded Content-Length and cache headers;
-HEAD has no body. A 304 has no representation body or Content-Length.
+artifact responses also share Last-Modified. HEAD has no body. A 304 has no
+representation body or Content-Length.
 Descriptors use a strong hash of their actual serialized bytes. Artifacts use
 strong hashes of the selected identity/gzip file; the two ETags differ. The
 `geometry.sha256` always covers decoded canonical GeoJSON, independently of HTTP
@@ -104,6 +109,8 @@ an artifact does not permit silently serving obsolete membership after an update
 
 `contract` is `area-display-package.v1`; `representation_revision` is 1.
 The generated OpenAPI schema gives the typed JSON structure.
+Every listed contract field is required, including revision, qualification and
+inventory completeness; a consumer must not infer missing declarations from defaults.
 
 | Field | Meaning |
 |---|---|
@@ -234,12 +241,17 @@ builder, queue or selection based on population is introduced. Preparation write
 into the existing atomic staging-directory mechanism and refuses existing outputs.
 Failure leaves every previous release intact. Timings and machine measurements
 are written to the separate operator report, not the immutable content identity.
+`--report` must name a new file outside both the input and output releases.
+Descriptor admission measures the actual selection metadata, including explicit
+preferred-group fallback reasons, before committing any package files.
 
 The output uses **serving manifest schema 2**, covering every base descriptor,
 identity artifact, gzip artifact and the support index by size and SHA-256.
 Package paths are fixed allowlisted forms under `packages/`. Base descriptors do
 not embed the final manifest hash. Startup binds that hash into each serialized
 focus-specific HTTP envelope and computes its ETag once. Geometry remains file-backed.
+Stored descriptors reject HTTP envelope fields, so a release record cannot override
+its loaded dataset version, requested focus, viewport or selection.
 
 Schema 2 permits at most 20,000 files and an 8 MiB manifest; legacy schema 1 keeps
 its existing 100-file/128 KiB limits. The 1 GiB serving-data budget is unchanged.

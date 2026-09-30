@@ -16,7 +16,7 @@ import shutil
 import time
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from shapely.geometry import shape
 
 from .catalogue import CatalogueError, ROOT, geometry_issue, new_directory, read_json, sha256, write_json
@@ -63,16 +63,26 @@ def bound(value, maximum, name):
 class Model(BaseModel):
     model_config = ConfigDict(extra='forbid', strict=True)
 
+    @field_validator('inventory_complete', 'suitable_for_assignment', 'representation_revision',
+                     mode='before', check_fields=False)
+    @classmethod
+    def exact_contract_types(cls, value, info):
+        # Literal validation otherwise equates true/1 and false/0 even in strict mode.
+        expected = int if info.field_name == 'representation_revision' else bool
+        if type(value) is not expected:
+            raise ValueError('Contract declarations require their exact JSON types.')
+        return value
+
 
 class Encoding(Model):
     bytes: int = Field(gt=0, le=MAX_TRANSFER_BYTES)
 
 
 class Geometry(Model):
-    contract: Literal['area-display-geometry.v1'] = GEOMETRY_CONTRACT
+    contract: Literal['area-display-geometry.v1']
     sha256: str = Field(pattern=r'^[0-9a-f]{64}$')
     path: str = Field(pattern=r'^/v1/display-packages/[0-9a-f]{64}\.geojson$')
-    media_type: Literal['application/geo+json'] = 'application/geo+json'
+    media_type: Literal['application/geo+json']
     decoded_bytes: int = Field(gt=0, le=MAX_GEOMETRY_BYTES)
     feature_count: int = Field(gt=0, le=MAX_MEMBERS)
     vertex_count: int = Field(gt=0, le=MAX_VERTICES)
@@ -88,8 +98,8 @@ class Entry(Model):
     unavailable_reason: Literal['missing_geometry'] | None
     assignment_status: str
     provider_display_status: str | None
-    suitable_for_assignment: Literal[False] = False
-    qualification: Literal['review_required'] = 'review_required'
+    suitable_for_assignment: Literal[False]
+    qualification: Literal['review_required']
     issues: list
     evidence: dict
     source_ids: list[str]
@@ -101,27 +111,17 @@ class Counts(Model):
     unavailable: int = Field(ge=0, le=MAX_MEMBERS)
 
 
-class Descriptor(Model):
-    contract: Literal['area-display-package.v1'] = CONTRACT
-    representation_revision: Literal[1] = 1
-    dataset_version: str = Field(pattern=r'^[0-9a-f]{64}$')
-    requested_area_id: str
-    root_id: str
-    root_level: Literal['municipality', 'region']
-    layer: Literal['administrative'] = 'administrative'
+class BaseDescriptor(Model):
     bundle_id: str
     bundle_kind: Literal['agglomeration', 'municipality', 'region']
     scope_root_ids: list[str] = Field(min_length=1, max_length=MAX_MEMBERS)
     grouping: dict | None
-    selection: dict
     status: Literal['ready', 'unavailable']
     unavailable_reason: Literal['no_display_geometry'] | None
-    inventory_complete: Literal[True] = True
+    inventory_complete: Literal[True]
     coverage: Literal['complete', 'partial', 'none']
-    qualification: Literal['review_required'] = 'review_required'
+    qualification: Literal['review_required']
     counts: Counts
-    viewport_bbox: list[float] | None
-    viewport_basis: Literal['root_display', 'available_features'] | None
     bundle_bbox: list[float] | None
     areas: list[Entry] = Field(min_length=1, max_length=MAX_MEMBERS)
     geometry: Geometry | None
@@ -129,6 +129,19 @@ class Descriptor(Model):
     common_source_ids: list[str]
     attribution: list[str]
     source_mapping_complete: bool
+
+
+class Descriptor(BaseDescriptor):
+    selection: dict
+    contract: Literal['area-display-package.v1']
+    representation_revision: Literal[1]
+    dataset_version: str = Field(pattern=r'^[0-9a-f]{64}$')
+    requested_area_id: str
+    root_id: str
+    root_level: Literal['municipality', 'region']
+    layer: Literal['administrative']
+    viewport_bbox: list[float] | None
+    viewport_basis: Literal['root_display', 'available_features'] | None
 
 
 def eligible(data):
@@ -141,37 +154,37 @@ def read_plan(path):
 
 
 def validate_plan(plan):
-    require(set(plan) == {'schema_version', 'membership_vintage', 'basis', 'sources', 'groups'}
-            and plan['schema_version'] == 1 and isinstance(plan['groups'], list)
+    require(isinstance(plan, dict) and len(encoded(plan)) <= MAX_INDEX_BYTES and set(plan) == {'schema_version', 'membership_vintage', 'basis', 'sources', 'groups'}
+            and type(plan['schema_version']) is int and plan['schema_version'] == 1 and isinstance(plan['groups'], list)
             and len(plan['groups']) <= 500, 'invalid grouping plan')
     require(isinstance(plan['basis'], str) and len(plan['basis']) <= 2000
             and isinstance(plan['membership_vintage'], str) and len(plan['membership_vintage']) <= 40,
             'invalid membership provenance')
     require(isinstance(plan['sources'], list) and 1 <= len(plan['sources']) <= 20, 'missing grouping sources')
     for source in plan['sources']:
-        require(set(source) == {'url', 'sha256', 'authority', 'licence', 'attribution'}
+        require(isinstance(source, dict) and set(source) == {'url', 'sha256', 'authority', 'licence', 'attribution'}
                 and all(isinstance(v, str) and len(v) <= 4096 for v in source.values())
                 and source['url'].startswith('https://') and source['licence'].startswith('https://')
                 and HEX.fullmatch(source['sha256']), 'invalid grouping evidence')
     ids, members = set(), set()
     for g in plan['groups']:
-        require(set(g) - {'identity_updates'} == {'id', 'name', 'kind', 'source_category', 'municipality_ids'}
+        require(isinstance(g, dict) and set(g) - {'identity_updates'} == {'id', 'name', 'kind', 'source_category', 'municipality_ids'}
                 and isinstance(g['id'], str) and re.fullmatch(ID, g['id'])
                 and g['id'] not in ids and g['kind'] == 'agglomeration'
-                and g['source_category'] in {'A', 'B'} and isinstance(g['name'], str)
+                and isinstance(g['source_category'], str) and g['source_category'] in {'A', 'B'} and isinstance(g['name'], str)
                 and 0 < len(g['name']) <= 300, 'invalid or duplicate group')
-        updates = g.get('identity_updates', [])
-        require(isinstance(updates, list) and len(updates) <= MAX_MEMBERS, 'invalid identity updates')
-        for update in updates:
-            require(set(update) == {'previous_id','current_id','evidence_url','transaction','effective_date','reason'}
-                    and all(isinstance(v,str) and len(v) <= 1000 for v in update.values())
-                    and update['evidence_url'].startswith('https://') and update['current_id'] in g['municipality_ids']
-                    and update['previous_id'] not in g['municipality_ids'], 'invalid identity update evidence')
         ids.add(g['id']); roots = g['municipality_ids']
-        require(isinstance(roots, list) and 1 <= len(roots) <= MAX_MEMBERS
+        require(isinstance(roots, list) and len(roots) >= 1
                 and all(isinstance(u, str) and re.fullmatch(ID, u) for u in roots)
                 and roots == sorted(set(roots)) and not members.intersection(roots),
                 'overlapping or invalid preferred group membership')
+        updates = g.get('identity_updates', [])
+        require(isinstance(updates, list) and len(updates) <= MAX_MEMBERS, 'invalid identity updates')
+        for update in updates:
+            require(isinstance(update, dict) and set(update) == {'previous_id','current_id','evidence_url','transaction','effective_date','reason'}
+                    and all(isinstance(v,str) and len(v) <= 1000 for v in update.values())
+                    and update['evidence_url'].startswith('https://') and update['current_id'] in g['municipality_ids']
+                    and update['previous_id'] not in g['municipality_ids'], 'invalid identity update evidence')
         members.update(roots)
     return plan
 
@@ -350,6 +363,7 @@ def require_unprepared(data):
 
 def scope_plan(data, plan):
     roots = eligible(data)
+    require(all(g['id'] not in data.areas for g in plan['groups']), 'group identity conflicts with catalogue')
     selections = {u: {'bundle_id': u, 'reason': 'catalogue_scope'} for u in sorted(roots)}
     specs = [(u, data.areas[u]['level'], [u], None) for u in sorted(roots)]
     unresolved = {}
@@ -390,8 +404,9 @@ def prepare(dataset, output, *, expected_sha256, plan_path=PLAN):
             try:
                 base, body, compressed = base_descriptor(data, bid, kind, scope_roots, grouping, provenance)
                 # Every possible request envelope must fit, not just the bundle record.
-                max_descriptor = max(len(envelope(data, r, base, {'bundle_id': bid, 'reason': 'preferred_agglomeration',
-                    'preferred_bundle_id': bid, 'preferred_unavailable_reason': None}, '0'*64)[0]) for r in scope_roots)
+                max_descriptor = max(len(envelope(data, r, base,
+                    selections[r] if selections[r]['bundle_id'] == bid else {'bundle_id': bid, 'reason': 'catalogue_scope'},
+                    '0'*64)[0]) for r in scope_roots)
                 raw = encoded(base); name = 'packages/descriptors/' + hashlib.sha256(raw).hexdigest() + '.json'
                 (staging / name).write_bytes(raw)
                 if body:
@@ -444,7 +459,8 @@ class PackageIndex:
             return
         index = read_json(data.root / INDEX, MAX_INDEX_BYTES); self.index = index
         require(set(index) == {'schema_version', 'contract', 'base_files', 'plan', 'selections', 'bundles'}
-                and index['schema_version'] == 1 and index['contract'] == CONTRACT, 'invalid support index')
+                and type(index['schema_version']) is int and index['schema_version'] == 1
+                and index['contract'] == CONTRACT, 'invalid support index')
         require(index['base_files'] == {n:s for n,s in data.manifest['files'].items() if not n.startswith('packages/')},
                 'stale package input binding')
         require(set(index['selections']) == eligible(data), 'incomplete package support inventory')
@@ -472,7 +488,10 @@ class PackageIndex:
             name = record['descriptor']; require(name in data.manifest['files'] and re.fullmatch(r'packages/descriptors/[0-9a-f]{64}\.json', name), 'unlisted descriptor')
             raw = (data.root / name).read_bytes()
             require(len(raw) <= MAX_DESCRIPTOR_BYTES and hashlib.sha256(raw).hexdigest() == Path(name).stem, 'descriptor integrity')
-            base = json.loads(raw); require(encoded(base) == raw and base['bundle_id'] == bid, 'noncanonical descriptor')
+            base = json.loads(raw)
+            require(isinstance(base, dict) and set(base) == set(BaseDescriptor.model_fields), 'invalid base descriptor fields')
+            BaseDescriptor.model_validate(base)
+            require(encoded(base) == raw and base['bundle_id'] == bid, 'noncanonical descriptor')
             require(bid in expected_specs, 'unresolved membership was published')
             kind, scope_roots, grouping = expected_specs[bid]
             require(base['bundle_kind'] == kind and base['scope_root_ids'] == scope_roots and base['grouping'] == grouping,

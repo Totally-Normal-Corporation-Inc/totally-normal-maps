@@ -77,10 +77,31 @@ paths. Existing assignment/circle outputs and older endpoint contracts are teste
 Distribution extraction and combined deployment verification are exercised with
 synthetic package-enabled releases; package files remain outside the public site.
 
-Final regression command: `.venv/bin/python -m unittest discover -q` — **286 tests
+Initial regression command: `.venv/bin/python -m unittest discover -q` — **286 tests
 passed** in 77.42 seconds. Wheel/source-distribution checks and staged publication
 and offline secret checks are part of the implementation handoff; they do not
 upload anything.
+
+## Follow-up review
+
+Review tightened the existing contract without changing geographic content:
+
+- Descriptor admission measures actual selection/fallback metadata at the byte limit.
+- Required contract declarations cannot be omitted or substituted with numerically
+  equivalent JSON booleans/integers. Consumer validation checks root forests,
+  municipal ancestry and exact selection semantics; executable fixtures include
+  the complete preferred-selection metadata.
+- Stored descriptor fields cannot override the dataset-bound HTTP envelope.
+- Group identities cannot collide with catalogue identities. Oversized reference
+  memberships remain explicit unsupported scopes under the same delivery budgets.
+- Build-report paths cannot add files inside immutable input/output releases.
+- Artifact GET/HEAD metadata matches, and OpenAPI declares the actual GeoJSON
+  media type for both methods.
+
+A fresh local rebuild retained the exact previous manifest and all artifact
+identities, with the same 5,337 ready bundles and nine unresolved group definitions.
+This rebuild ran alongside regression tests and is a determinism check, not a new
+isolated performance benchmark. No data selection, publication or deployment changed.
 
 ## Serving measurements
 
