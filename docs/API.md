@@ -410,3 +410,24 @@ or gzip bytes with the same authentication and dataset precondition. See the
 [complete package contract](DISPLAY_PACKAGES.md) for revisions, grouping provenance,
 limits, conditional reads, errors and an executable consumer example. Existing
 boundary routes and all assignment/circle semantics remain unchanged.
+
+## Reviewed agglomeration catalogue
+
+`GET`/`HEAD /v1/display-groups/?offset=0&limit=25` returns `display-groups.v1`
+metadata from the checksummed release's grouping plan. The compact dataset summary
+advertises `links.display_groups` only when that plan is published. No geometry is
+fetched, built or downloaded by this endpoint. A code-only release can expose the
+existing immutable index; no new source-data release is needed.
+
+The envelope has `dataset_version`, grouping-plan SHA-256 `revision`, `offset`,
+`total`, `next_offset`, and `items`. Each item includes `id`, `name`, the complete
+`municipality_ids`, `membership_status` (`complete`/`unresolved`), `missing_ids`,
+`provenance` and `map` (`status`, `reason`, `anchor_id`, `bbox`). Membership remains
+complete when display geometry exceeds its budget. Unresolved identities are
+retained and flagged, never removed silently. Group names are the reviewed source
+names; these groups are not new administrative areas.
+
+Pages contain at most 25 groups/256 KiB. Continuations require dataset `If-Match`
+(428 absent, 412 mismatched); repeat/unknown query parameters return 422.
+Authentication, rate limits, ETag/304 and private/no-store rules match display
+packages. Missing published package metadata returns 409 `package_not_built`.
