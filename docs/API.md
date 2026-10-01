@@ -410,3 +410,40 @@ or gzip bytes with the same authentication and dataset precondition. See the
 [complete package contract](DISPLAY_PACKAGES.md) for revisions, grouping provenance,
 limits, conditional reads, errors and an executable consumer example. Existing
 boundary routes and all assignment/circle semantics remain unchanged.
+
+## Reviewed agglomeration catalogue
+
+`GET`/`HEAD /v1/display-groups/?offset=0&limit=25` returns `display-groups.v1`
+metadata from the checksummed release's grouping plan. The compact dataset summary
+advertises `links.display_groups` only when that plan is published. No geometry is
+fetched, built or downloaded by this endpoint. A code-only release can expose the
+existing immutable index; no new source-data release is needed.
+
+The envelope has `dataset_version`, grouping-plan SHA-256 `revision`, `offset`,
+`total`, `next_offset`, and `items`. Each item includes `id`, `name`, the complete
+`municipality_ids`, `membership_status` (`complete`/`unresolved`), `missing_ids`,
+`provenance` and `map` (`status`, `reason`, `anchor_id`, `bbox`). Membership remains
+complete when display geometry exceeds its budget. Unresolved identities are
+retained and flagged, never removed silently. Group names are the reviewed source
+names; these groups are not new administrative areas.
+
+Pages contain at most 25 groups/256 KiB, including the complete envelope. `limit`
+is an upper bound: a page can contain fewer groups to stay within the byte budget.
+Always follow `next_offset`, which identifies the next unserved group; do not
+increment by the requested limit. No members, missing IDs or provenance are trimmed.
+If one complete item cannot fit even by itself, the endpoint returns 413
+`group_page_too_large` rather than skipping it or returning an empty continuation.
+
+`map.status` is `ready`, `unavailable` or `unsupported`. Its `reason` is null for
+ready groups, `no_display_geometry` for unavailable groups, and
+`membership_unresolved` or `scope_too_large` for unsupported groups. `anchor_id`
+identifies a municipality whose descriptor can be requested; it is not a preferred
+city or centre point. `bbox` frames the whole group and is null when no reliable
+display extent is available. Ready maps may still have explicitly partial display
+coverage, detailed in the package descriptor.
+
+The GET/HEAD OpenAPI responses include typed page, item, provenance and map models.
+Continuations require dataset `If-Match`
+(428 absent, 412 mismatched); repeat/unknown query parameters return 422.
+Authentication, rate limits, ETag/304 and private/no-store rules match display
+packages. Missing published package metadata returns 409 `package_not_built`.

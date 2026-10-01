@@ -19,6 +19,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
 from .display_packages import Descriptor as DisplayDescriptor, PackageError, negotiate_encoding
+from .display_groups import DisplayGroupPage, GroupPageError
 from .web_security import MAP_CSP
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
@@ -576,6 +577,28 @@ def create_app(settings=None):
             raise PackageError(422, 'unsupported_parameter')
         return data
 
+    group_responses = {**REFERENCE_RESPONSES,
+        409: {'model': GroupPageError, 'description': 'package_not_built; no published package index'},
+        413: {'model': GroupPageError, 'description': 'group_page_too_large; one complete item cannot fit the page byte budget'},
+        428: {'description': 'Continuation requires the quoted dataset_version in If-Match'}}
+
+    @app.head('/v1/display-groups/', response_model=DisplayGroupPage,
+              tags=['Display packages'], responses=group_responses)
+    @app.get('/v1/display-groups/', response_model=DisplayGroupPage,
+             tags=['Display packages'], responses=group_responses)
+    def display_groups(request: Request, offset: int = Query(default=0, ge=0, le=10000),
+                       limit: int = Query(default=25, ge=1, le=25)):
+        from .display_groups import page
+        data = package_data(request, {'offset', 'limit'})
+        if offset and request.headers.get('If-Match') is None:
+            raise HTTPException(428, 'Continuation requires the quoted dataset_version in If-Match.')
+        body, etag = page(data, offset=offset, limit=limit)
+        headers = {'ETag': etag, 'Cache-Control': 'private, no-store', 'Vary': 'Authorization'}
+        if etag_matches(request.headers.get('If-None-Match'), etag):
+            return Response(status_code=304, headers=headers)
+        headers['Content-Length'] = str(len(body))
+        return Response(b'' if request.method == 'HEAD' else body, media_type='application/json', headers=headers)
+
     @app.head('/v1/areas/{area_id}/display-package', response_model=DisplayDescriptor,
               tags=['Display packages'], responses=package_responses)
     @app.get('/v1/areas/{area_id}/display-package',
@@ -722,7 +745,7 @@ def create_app(settings=None):
             if path.startswith('/v1/'):
                 for method in methods.values():
                     method['security'] = [{'BearerAuth': []}]
-                    if path.startswith('/v1/datasets/current/') or 'display-package' in path:
+                    if path.startswith('/v1/datasets/current/') or 'display-package' in path or path == '/v1/display-groups/':
                         parameters = method.setdefault('parameters', [])
                         for name, description in (
                             ('If-Match', 'Quoted dataset_version precondition, not the representation ETag. Mismatch returns 412 before cache validation.'),
