@@ -19,6 +19,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
 from .display_packages import Descriptor as DisplayDescriptor, PackageError, negotiate_encoding
+from .display_groups import DisplayGroupPage, GroupPageError
 from .web_security import MAP_CSP
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
@@ -576,8 +577,15 @@ def create_app(settings=None):
             raise PackageError(422, 'unsupported_parameter')
         return data
 
-    @app.head('/v1/display-groups/', tags=['Display packages'], responses=package_responses)
-    @app.get('/v1/display-groups/', tags=['Display packages'], responses=package_responses)
+    group_responses = {**REFERENCE_RESPONSES,
+        409: {'model': GroupPageError, 'description': 'package_not_built; no published package index'},
+        413: {'model': GroupPageError, 'description': 'group_page_too_large; one complete item cannot fit the page byte budget'},
+        428: {'description': 'Continuation requires the quoted dataset_version in If-Match'}}
+
+    @app.head('/v1/display-groups/', response_model=DisplayGroupPage,
+              tags=['Display packages'], responses=group_responses)
+    @app.get('/v1/display-groups/', response_model=DisplayGroupPage,
+             tags=['Display packages'], responses=group_responses)
     def display_groups(request: Request, offset: int = Query(default=0, ge=0, le=10000),
                        limit: int = Query(default=25, ge=1, le=25)):
         from .display_groups import page

@@ -427,7 +427,23 @@ complete when display geometry exceeds its budget. Unresolved identities are
 retained and flagged, never removed silently. Group names are the reviewed source
 names; these groups are not new administrative areas.
 
-Pages contain at most 25 groups/256 KiB. Continuations require dataset `If-Match`
+Pages contain at most 25 groups/256 KiB, including the complete envelope. `limit`
+is an upper bound: a page can contain fewer groups to stay within the byte budget.
+Always follow `next_offset`, which identifies the next unserved group; do not
+increment by the requested limit. No members, missing IDs or provenance are trimmed.
+If one complete item cannot fit even by itself, the endpoint returns 413
+`group_page_too_large` rather than skipping it or returning an empty continuation.
+
+`map.status` is `ready`, `unavailable` or `unsupported`. Its `reason` is null for
+ready groups, `no_display_geometry` for unavailable groups, and
+`membership_unresolved` or `scope_too_large` for unsupported groups. `anchor_id`
+identifies a municipality whose descriptor can be requested; it is not a preferred
+city or centre point. `bbox` frames the whole group and is null when no reliable
+display extent is available. Ready maps may still have explicitly partial display
+coverage, detailed in the package descriptor.
+
+The GET/HEAD OpenAPI responses include typed page, item, provenance and map models.
+Continuations require dataset `If-Match`
 (428 absent, 412 mismatched); repeat/unknown query parameters return 422.
 Authentication, rate limits, ETag/304 and private/no-store rules match display
 packages. Missing published package metadata returns 409 `package_not_built`.
