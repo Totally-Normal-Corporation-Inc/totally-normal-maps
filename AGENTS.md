@@ -19,3 +19,12 @@ Local development uses Python directly; Docker is optional deployment packaging.
 Production deployment belongs to private infrastructure automation. Do not push,
 publish packages/images/data, or change cloud resources unless requested.
 
+
+## Branch setup — owner preference
+
+- Create ordinary feature branches that Paul can publish with plain `git push`.
+  Never make a feature branch track `origin/main` or a differently named branch.
+  Use `git switch --no-track -c <branch>` when creating a new branch. Set
+  repository-local `push.default=simple`, `push.autoSetupRemote=true` and
+  `branch.autoSetupMerge=simple` so the first push sets up its same-name upstream.
+  Do not push automatically; remote-write authorization requirements still apply.
