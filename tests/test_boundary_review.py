@@ -244,6 +244,45 @@ class ReleaseReviewTests(unittest.TestCase):
         self.assertFalse(out.exists())
         self.assertEqual(Dataset(self.release).version, self.data.version)
 
+    def test_inventoried_approval_cannot_opt_out_by_mutating_its_record(self):
+        result = self.run_audit(); out = self.root / 'reviewed'
+        self.apply(result, out)
+        with closing(sqlite3.connect(out / 'catalogue.sqlite3')) as db:
+            original_text, original_geometry = db.execute(
+                'SELECT record, geometry FROM city_area WHERE id=?', (self.uid,)).fetchone()
+        for mutation in ('removed_status', 'changed_status', 'removed_repair', 'removed_link',
+                         'changed_geometry', 'removed_geometry', 'validated_source'):
+            with self.subTest(mutation=mutation):
+                record = json.loads(original_text); geometry = original_geometry
+                if mutation == 'removed_status': record['repair'].pop('status')
+                if mutation == 'changed_status': record['repair']['status'] = 'unreviewed'
+                if mutation == 'removed_repair': record.pop('repair')
+                if mutation == 'removed_link': record['repair'].pop('review')
+                if mutation == 'changed_geometry':
+                    record.pop('repair')
+                    geometry = box(-109.95, 50.1, -109.6, 50.5).wkb
+                if mutation == 'removed_geometry': geometry = None
+                if mutation == 'validated_source':
+                    record.pop('repair'); record['assignment_status'] = 'validated_source'
+                with closing(sqlite3.connect(out / 'catalogue.sqlite3')) as db, db:
+                    db.execute('UPDATE city_area SET record=?, geometry=? WHERE id=?',
+                               (json.dumps(record), geometry, self.uid))
+                seal(out)
+                with self.assertRaises(CatalogueError): Dataset(out)
+
+    def test_historical_approval_still_requires_its_proof_and_stored_row(self):
+        result = self.run_audit(); out = self.root / 'reviewed'
+        self.apply(result, out)
+        report = read_json(out / 'report.json')
+        report['boundary_review_history'] = [report.pop('boundary_review')]
+        report['boundary_review'] = {**result, 'inventory': [], 'counts': {}}
+        write_json(out / 'report.json', report); seal(out)
+        Dataset(out)  # A valid historical approval remains loadable.
+        with closing(sqlite3.connect(out / 'catalogue.sqlite3')) as db, db:
+            db.execute('DELETE FROM city_area WHERE id=?', (self.uid,))
+        seal(out)
+        with self.assertRaisesRegex(CatalogueError, 'lacks its stored assignment'): Dataset(out)
+
     def test_prepared_packages_must_be_rebuilt_after_repairs(self):
         # The guard itself must reject even before source processing begins.
         prepared = copy.copy(self.data)

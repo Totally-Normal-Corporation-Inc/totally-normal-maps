@@ -75,6 +75,31 @@ def metric_linework(geometry, crs):
     return transform(METRIC, dense)
 
 
+def validate_inventoried_reviews(db, tables, report):
+    """Every inventoried approval requires proof, regardless of record markers.
+
+    Inspect the original stored rows before later, separately verified revisions
+    are loaded. Historical batches remain binding on those original rows.
+    """
+    reviewed = set()
+    for batch in [report.get('boundary_review', {}), *report.get('boundary_review_history', [])]:
+        for item in batch.get('inventory', []):
+            if item.get('decision') not in APPROVALS:
+                continue
+            table, uid = item.get('table'), item.get('id')
+            require(table in TABLES and table in tables and isinstance(uid, str),
+                    'Invalid inventoried topology approval identity.')
+            require((table, uid) not in reviewed, 'Duplicate inventoried topology approval.')
+            row = db.execute(f'SELECT record, geometry FROM {table} WHERE id=?', (uid,)).fetchone()
+            require(row is not None and row['geometry'] is not None,
+                    'Inventoried topology approval lacks its stored assignment.')
+            record = json.loads(row['record'])
+            require(record.get('id') == uid and validated_review(record, shapely.from_wkb(row['geometry']), report),
+                    'Inventoried topology approval lacks valid audit proof.')
+            reviewed.add((table, uid))
+    return reviewed
+
+
 def validated_review(record, geometry, report):
     """Startup guard for a batch-reviewed assignment, not a generic status bypass."""
     repair = record.get('repair') or {}

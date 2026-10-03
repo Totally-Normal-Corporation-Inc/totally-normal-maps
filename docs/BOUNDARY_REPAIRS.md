@@ -194,6 +194,10 @@ per-area proofs; subsequent batches retain `boundary_review_history`. Startup
 rejects reviewed assignment bytes that differ from their approval. Sources,
 licences and historical qualifications remain available through existing scoped
 reference evidence resources.
+Startup requires proof for every approval in the current and historical audit
+inventories, independently of the stored record's repair marker. Missing rows,
+missing assignment geometry and removed or changed audit links fail validation;
+removing a repair marker cannot turn an approved record into an unchecked one.
 
 Prepared package inputs are rejected: rebuild the final packages after repairs.
 Geometry bytes may be reusable when only qualification changes; descriptors and

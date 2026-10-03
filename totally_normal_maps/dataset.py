@@ -50,6 +50,8 @@ class Dataset:
             tables = {r['name'] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
             if tables - {'csd', 'region', 'csd_region', 'city_area', 'area_revision', 'boundary_revision', 'jurisdiction_revision', 'electoral_area', 'municipal_electoral_area', 'area_population', 'population_source'} or 'csd' not in tables:
                 raise CatalogueError('Unexpected serving database tables.')
+            from .boundary_review import validate_inventoried_reviews
+            reviewed_assignments = validate_inventoried_reviews(db, tables, self.report)
             memberships = dict(db.execute('SELECT csd_id, region_id FROM csd_region')) if 'csd_region' in tables else {}
             self.source_ids = {}
             for table, level in [('csd', 'municipality'), ('region', 'region'), ('city_area', 'city_area')]:
@@ -82,10 +84,11 @@ class Dataset:
                         geometry = shapely.from_wkb(full)
                         if geometry_issue(geometry) or record['assignment_status'] not in {'validated_source', 'validated_derived'}:
                             raise CatalogueError('Invalid assignment geometry in serving release.')
-                        if record.get('repair', {}).get('status') == 'reviewed_topology_batch':
-                            from .boundary_review import validated_review
-                            if not validated_review(record, geometry, self.report):
-                                raise CatalogueError('Unverified batch topology repair.')
+                        # Inventory-driven proof was checked before loading any
+                        # assignments; a record marker cannot opt out of it.
+                        if (record.get('repair', {}).get('status') == 'reviewed_topology_batch'
+                                and (table, source['id']) not in reviewed_assignments):
+                            raise CatalogueError('Unverified batch topology repair.')
                         self.geometries[uid] = geometry
                         self.required_displays.add(uid)
                     else:
