@@ -8,6 +8,8 @@ The [2026-10-03 acceptance record](research/boundary-repairs-2026-10.md) reports
 the first batch, unresolved cases, immutable identities and measured build costs.
 The follow-up [municipal exclusion review](research/municipal-exclusions-2026-10.md)
 resolves the 13 municipal cases through exact source partitions.
+The [remaining-record review](research/remaining-boundaries-2026-10.md) accounts
+for the next 67 records individually, including repaired electoral hierarchy.
 
 Topology approval qualifies a particular source geometry for assignment. It does
 not reconcile different source vintages, certify legal boundaries, approve source
@@ -45,8 +47,55 @@ neighbours are checked separately from the original source snapshot.
   valid source neighbours retain their whole territory; the pending candidate
   relinquishes the shared sliver. Overlaps with unresolved peers are not arbitrated.
 - No already validated assignment is edited. Conflicts beyond these limits,
-  significant parent disagreements and non-polygon source assemblies remain
+  significant parent disagreements and unexplained non-polygon sources remain
   unresolved. A small total area alone does not authorize a long displaced line.
+
+The remaining-record review adds explicit, reproducible evidence rules:
+
+- For non-CSD sources, node the original ring linework, classify every bounded
+  face using the original coordinates' even/odd fill rule, and compare the
+  complete filled surface with the candidate, `buffer(0)` and the structure
+  repair. Exact agreement can substantiate source-defined exclusions without
+  assigning those exclusions to a neighbour. The CSD joint-review policy stays
+  unchanged.
+- Exactly balanced directed source segments can be discarded as retraces. Their
+  hashes are recorded; all filled-surface, method-disagreement and area checks
+  still apply. A thin positive-area finger is not a retraced line.
+- With that complete source-face proof, accumulated narrow overlap strips may
+  total up to **6,000 m²**, still subject to **0.01%**, **5 metres**, valid existing
+  owners and the combined affected-area budget. This measured exception admits
+  the PEI strips (largest approximately 5,127 m²), not broad boundary shifts.
+- A disappearing sliver of at most **100 m²**, already owned by validated peers,
+  need not leave an artificial perimeter behind. Only old linework exactly inside
+  the removed surface is exempted from the reverse displacement test. The
+  correction must still lie within five metres of original source linework;
+  method disagreement, relative area and combined area remain bounded.
+- An importer-created GeometryCollection of exclusively polygon parts may be
+  represented as a MultiPolygon for comparison, preserving every coordinate.
+  The pinned source ledger and its original assembly hash remain unchanged.
+
+Metric comparisons densify WGS84 edges for measurement only, including signed
+source-area and displacement checks. This prevents differences in edge segmentation
+from creating false projected-chord changes. Actual assignment coordinates are
+never densified. Original source ledgers remain historical evidence.
+
+`approve_source_child_union` is a separate source-partition decision, not a minor
+area exception. The pinned combined Montréal borough/district source declares
+borough.district codes. All child assignments must reproduce the source bytes;
+their complete union must agree exactly with both alternative source repairs.
+Ordinary peer overlap checks exclude only these proved children. A failed union
+or changed child retains the warning. The audit records every reparented child,
+its original metadata hash and unchanged geometry hash. Startup verifies the
+complete hierarchy and exact union. Existing child assignments remain identical.
+The Lachine repair uses this evidence; its display is regenerated with the existing
+40-metre municipal-electoral simplification. Other approved displays retain their
+existing coordinates. Editions, IDs, authority, attribution and applicability
+dates remain unchanged.
+
+Parent and overlap cases that cannot be resolved now include reproducible source
+hashes, projected outside areas, intersected municipal identities and peer
+containment/overlap measurements. Containment alone never manufactures parentage;
+an unmatched area is not automatically classified as water.
 
 `retain_unapproved` includes the individual failed check names. A retained parent
 or overlap warning is a source/relationship review, not necessarily malformed

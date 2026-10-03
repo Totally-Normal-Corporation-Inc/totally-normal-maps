@@ -26,12 +26,13 @@ def main():
         topology = meta['coverage'].get('topology_reviews', [])
         reviewed_ids = {'ca-csd-' + r['csd_id'] for r in topology}
         batch_review = client.app.state.dataset.report.get('boundary_review', {})
+        from totally_normal_maps.boundary_review import APPROVALS, digest
         batch_approved = {(r['table'], r['id']): r for r in batch_review.get('inventory', [])
-                          if r['decision'] in {'approve_topology_only', 'approve_minor_correction'}}
+                          if r['decision'] in APPROVALS}
         all_batch_approved = {(r['table'], r['id']): r for review in
                               [*client.app.state.dataset.report.get('boundary_review_history', []), batch_review]
                               for r in review.get('inventory', [])
-                              if r['decision'] in {'approve_topology_only', 'approve_minor_correction'}}
+                              if r['decision'] in APPROVALS}
         reviewed_ids.update(r['api_id'] for r in all_batch_approved.values() if r['api_id'].startswith('ca-csd-24'))
         administrative_counts = {k:v for k,v in meta['counts'].items() if k != 'electoral_district'}
         assert administrative_counts == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
@@ -225,7 +226,10 @@ def main():
             baseline = Dataset(args.baseline)
             with sqlite3.connect((baseline.root / 'catalogue.sqlite3').as_uri() + '?mode=ro', uri=True) as old, \
                     sqlite3.connect((client.app.state.dataset.root / 'catalogue.sqlite3').as_uri() + '?mode=ro', uri=True) as new:
-                for table in ('csd', 'city_area', 'region', 'csd_region'):
+                present = {r[0] for r in old.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+                for table in ('csd', 'city_area', 'region', 'csd_region', 'electoral_area', 'municipal_electoral_area'):
+                    if table not in present:
+                        continue
                     rows = old.execute(f'SELECT * FROM {table}').fetchall()
                     column = 'csd_id' if table == 'csd_region' else 'id'
                     exempt = {r['csd_id' if table == 'csd' else 'region_id'] for r in topology} if table in {'csd', 'region'} else set()
@@ -234,7 +238,19 @@ def main():
                         updated = new.execute(f'SELECT * FROM {table} WHERE {column}=?', (row[0],)).fetchone()
                         batch_change = (table, row[0]) in batch_approved or (table == 'region' and row[0] in
                             dataset.report.get('boundary_review_effects', {}).get('regions', {}))
-                        if batch_change and baseline.version == batch_review.get('dataset_version'):
+                        hierarchy = batch_review.get('municipal_hierarchy', {}).get('changes', {})
+                        if (table == 'municipal_electoral_area' and row[0] in hierarchy
+                                and baseline.version == batch_review.get('dataset_version')):
+                            columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
+                            old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
+                            original = json.loads(old_row['record']); current = json.loads(new_row['record'])
+                            assert digest(original) == hierarchy[row[0]]['record_sha256']
+                            assert current.pop('parent_review') == {'audit_sha256': digest(batch_review)}
+                            assert current['parent_id'] == hierarchy[row[0]]['parent_id']
+                            current['parent_id'] = original['parent_id']
+                            assert current == original
+                            assert {k:v for k,v in old_row.items() if k != 'record'} == {k:v for k,v in new_row.items() if k != 'record'}
+                        elif batch_change and baseline.version == batch_review.get('dataset_version'):
                             columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
                             old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
                             assert old_row['geometry'] is None
@@ -255,7 +271,17 @@ def main():
                             assert updated == row, (table, row[0])
                             preserved += 1
                     unchanged[table] = preserved
+        hierarchy_lookups = 0
+        for child_id, change in batch_review.get('municipal_hierarchy', {}).get('changes', {}).items():
+            child = dataset.areas[child_id]
+            point = dataset.geometries[child_id].representative_point()
+            result = dataset.lookup(point.x, point.y, layers=['municipal'], editions={'municipal': [child['edition']]})
+            assert {child_id, change['parent_id']} <= set(result['direct_match_ids'])
+            assert not result['ambiguous'], (child_id, result['direct_match_ids'])
+            assert child['parent_id'] == change['parent_id']
+            hierarchy_lookups += 1
         print(json.dumps({'status': 'passed', 'counts': meta['counts'], 'city_area_lookups': city_lookups,
+                          'reviewed_hierarchy_lookups': hierarchy_lookups,
                           'quebec_municipal_lookups': municipal_lookups,
                           'ontario_municipal_region_lookups': ontario_lookups,
                           'other_jurisdiction_municipal_region_lookups': jurisdiction_lookups,

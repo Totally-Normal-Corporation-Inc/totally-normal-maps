@@ -13,7 +13,7 @@ import shapely
 from shapely.geometry import MultiPolygon, Polygon, box
 from shapely.ops import transform
 
-from totally_normal_maps.boundary_review import surface_checks, minor_correction, current_overlap_correction, audit, apply_review, update_reports, WGS84, digest, validated_review
+from totally_normal_maps.boundary_review import surface_checks, minor_correction, current_overlap_correction, audit, apply_review, update_reports, WGS84, digest, validated_review, source_face_proof, retraced_segments
 from totally_normal_maps.catalogue import CatalogueError, propose_repair, read_json, write_json, sha256
 from totally_normal_maps.dataset import Dataset
 from tests.api_fixture import make_release
@@ -30,6 +30,39 @@ def seal(root):
 
 
 class SurfaceReviewTests(unittest.TestCase):
+    def test_source_faces_preserve_an_explicit_unowned_exclusion(self):
+        original = Polygon([(0, 0), (10, 0), (10, 10), (0, 10), (0, 0),
+                            (2, 2), (2, 4), (4, 4), (4, 2), (2, 2), (0, 0)])
+        candidate, _ = propose_repair(original)
+        proof = source_face_proof(original, candidate)
+        self.assertTrue(proof['verified'])
+        self.assertEqual(proof['excluded_faces'], 1)
+        self.assertFalse(source_face_proof(original, box(0, 0, 10, 10))['verified'])
+
+    def test_long_exact_retrace_can_be_removed_without_moving_territory(self):
+        original = Polygon([(0, 0), (1000, 0), (1000, 1000), (500, 1000),
+                            (500, 2000), (500, 1000), (0, 1000), (0, 0)])
+        candidate, _ = propose_repair(original)
+        evidence = surface_checks(original, candidate, {}, crs='EPSG:3347')
+        evidence['source_faces'] = source_face_proof(original, candidate)
+        fixed, review = minor_correction(original, candidate, {}, 'EPSG:3347', evidence)
+        self.assertTrue(all(review['checks'].values()), review)
+        self.assertTrue(fixed.equals(box(0, 0, 1000, 1000)))
+        self.assertEqual(review['total_affected_area_m2'], 0)
+
+    def test_a_thin_positive_area_spike_is_not_an_exact_retrace(self):
+        original = Polygon([(0, 0), (1000, 0), (1000, 1000), (501, 1000),
+                            (500, 2000), (500, 1000), (0, 1000), (0, 0)])
+        self.assertTrue(retraced_segments(original).is_empty)
+        self.assertFalse(source_face_proof(original, box(0, 0, 1000, 1000))['verified'])
+
+    def test_source_faces_reject_method_disagreement_and_overlapping_surfaces(self):
+        bowtie = Polygon([(0, 0), (10, 10), (10, 0), (0, 10), (0, 0)])
+        candidate, _ = propose_repair(bowtie)
+        self.assertFalse(source_face_proof(bowtie, candidate)['verified'])
+        overlapping = MultiPolygon([box(0, 0, 10, 10), box(5, 0, 15, 10)])
+        self.assertFalse(source_face_proof(overlapping, shapely.union_all(list(overlapping.geoms)))['verified'])
+
     def setUp(self):
         ring = [(2, 2), (4, 2), (4, 4), (6, 4), (6, 6), (4, 6), (4, 4), (2, 4), (2, 2)]
         self.original = Polygon(box(0, 0, 10, 10).exterior, [ring])
@@ -327,9 +360,10 @@ class MinorCorrectionTests(unittest.TestCase):
         self.assertTrue(all(evidence['checks'].values()))
         self.assertTrue(fixed.equals(box(0, 0, 1000, 1000)))
 
-    def test_long_zero_area_spike_is_not_automatically_minor(self):
+    def test_long_exact_retrace_requires_explicit_linework_evidence(self):
         _, evidence = self.review(6)
-        self.assertFalse(evidence['checks']['movement_bounded'])
+        self.assertTrue(evidence['checks']['movement_bounded'])
+        self.assertIn('retraced_linework_sha256', evidence)
 
     def test_tiny_overlap_goes_to_existing_valid_neighbour(self):
         neighbour = box(999.99, 0, 1100, 1000)
@@ -369,3 +403,141 @@ class MinorCorrectionTests(unittest.TestCase):
         self.assertTrue(fixed.equals(candidate))
         self.assertEqual(evidence['correction_area_m2'], 0)
         self.assertTrue(all(evidence['checks'].values()))
+
+class ReviewedParentTests(unittest.TestCase):
+    def setUp(self):
+        from totally_normal_maps.boundary_review import BOROUGH_SOURCE, BOROUGH_SHA256
+        self.original = {'id': 'child', 'source_id': '1.1', 'parent_id': 'city',
+                         'authority_id': 'city', 'edition': 'edition', 'source': BOROUGH_SOURCE}
+        self.geometry = box(0, 0, 1, 1).wkb
+        import hashlib
+        self.batch = {'inventory': [{'id': 'parent', 'decision': 'approve_minor_correction',
+            'evidence': {'source_child_partition': {'child_ids': ['child']}}}],
+            'municipal_hierarchy': {'contract': 'source-borough-partition.v1',
+                'source': BOROUGH_SOURCE, 'source_sha256': BOROUGH_SHA256,
+                'changes': {'child': {'parent_id': 'parent', 'previous_parent_id': 'city',
+                    'record_sha256': digest(self.original),
+                    'geometry_sha256': hashlib.sha256(self.geometry).hexdigest()}}}}
+        self.record = {**self.original, 'parent_id': 'parent', 'parent_review': {'audit_sha256': digest(self.batch)}}
+        self.report = {'boundary_review': self.batch,
+            'municipal_elections': {'sources': {BOROUGH_SOURCE: {'sha256': BOROUGH_SHA256}}}}
+        self.parents = {'parent': {'source_id': '1', 'parent_id': 'city', 'edition': 'edition', 'source': BOROUGH_SOURCE}}
+
+    def check(self):
+        from totally_normal_maps.boundary_review import validated_parent_review
+        return validated_parent_review(self.record, self.geometry, self.report, self.parents)
+
+    def test_exact_reviewed_parent_and_unchanged_child(self):
+        self.assertTrue(self.check())
+
+    def test_changed_geometry_fails(self):
+        self.geometry = box(0, 0, 2, 2).wkb
+        with self.assertRaises(CatalogueError): self.check()
+
+    def test_unrelated_metadata_change_fails(self):
+        self.record['name'] = 'changed'
+        with self.assertRaises(CatalogueError): self.check()
+
+    def test_cross_edition_parent_fails(self):
+        self.parents['parent']['edition'] = 'other'
+        with self.assertRaises(CatalogueError): self.check()
+
+    def test_changed_source_or_missing_child_evidence_fails(self):
+        self.batch['inventory'][0]['evidence']['source_child_partition']['child_ids'] = []
+        self.record['parent_review']['audit_sha256'] = digest(self.batch)
+        with self.assertRaises(CatalogueError): self.check()
+
+class ProvenSliverTests(unittest.TestCase):
+    def review(self, width, length, proven=True):
+        original = Polygon([(0, 0), (20000, 0), (20000, 20000),
+            (10000, 20000), (10000, 20001), (10000, 20000), (0, 20000), (0, 0)])
+        candidate, _ = propose_repair(original)
+        neighbours = {'owner': box(20000-width, 0, 20001, length)}
+        evidence = surface_checks(original, candidate, neighbours, crs='EPSG:3347')
+        if proven: evidence['source_faces'] = source_face_proof(original, candidate)
+        return minor_correction(original, candidate, neighbours, 'EPSG:3347', evidence)[1]
+
+    def test_accumulated_narrow_strips_require_source_proof(self):
+        self.assertTrue(all(self.review(2, 2000)['checks'].values()))
+        self.assertFalse(all(self.review(2, 2000, False)['checks'].values()))
+
+    def test_six_thousand_square_metre_limit(self):
+        self.assertTrue(all(self.review(2, 3000)['checks'].values()))
+        self.assertFalse(all(self.review(2, 3001)['checks'].values()))
+
+    def test_small_area_does_not_excuse_wide_strip(self):
+        self.assertFalse(all(self.review(10, 50)['checks'].values()))
+
+class OwnedMicroSliverTests(unittest.TestCase):
+    def review(self, width):
+        main = Polygon([(0, 0), (1000, 0), (1000, 1000), (500, 1000),
+                        (500, 1001), (500, 1000), (0, 1000), (0, 0)])
+        remote = Polygon([(0, 2000), (width, 2000), (0, 4000), (0, 2000)])
+        original = MultiPolygon([main, remote]); candidate, _ = propose_repair(original)
+        neighbours = {'valid_owner': box(-1, 1999, 1, 4001)}
+        evidence = surface_checks(original, candidate, neighbours, crs='EPSG:3347')
+        return minor_correction(original, candidate, neighbours, 'EPSG:3347', evidence)[1]
+
+    def test_tiny_removed_component_keeps_its_existing_validated_owner(self):
+        review = self.review(.0001)
+        self.assertTrue(all(review['checks'].values()), review)
+        self.assertAlmostEqual(review['owned_sliver_m2'], .1)
+
+    def test_larger_remote_component_does_not_bypass_movement_check(self):
+        self.assertFalse(all(self.review(.101)['checks'].values()))
+
+class SourceChildUnionTests(unittest.TestCase):
+    def run_review(self, mismatch=False):
+        from totally_normal_maps.boundary_review import BOROUGH_SOURCE, BOROUGH_SHA256
+        a = box(-75, 45, -74.99, 45.01)
+        b = box(-74.995, 45.005, -74.985, 45.015)
+        original = MultiPolygon([a, b]); candidate, ledger = propose_repair(original)
+        shapes = {'parent': original, 'child-a': a, 'child-b': b.difference(a)}
+        common = {'level': 'electoral_district', 'layer': 'municipal', 'edition': 'test',
+                  'source': BOROUGH_SOURCE, 'authority_id': 'city', 'parent_id': 'city'}
+        rows = {'csd': {}, 'municipal_electoral_area': {}}
+        for uid, g in shapes.items():
+            record = {**common, 'id': uid, 'name': uid,
+                      'source_id': {'parent': '1', 'child-a': '1.1', 'child-b': '1.2'}[uid],
+                      'assignment_status': 'unreviewed_repair' if uid == 'parent' else 'validated_source'}
+            if uid == 'parent': record['repair'] = ledger
+            rows['municipal_electoral_area'][uid] = {'id': uid, 'record': record,
+                'geometry': None if uid == 'parent' else g.wkb,
+                'repair_candidate': candidate.wkb if uid == 'parent' else None}
+        if mismatch:
+            rows['municipal_electoral_area']['child-b']['geometry'] = b.wkb
+        geoms = {u: shapely.from_wkb(r['geometry']) for u, r in rows['municipal_electoral_area'].items() if r['geometry']}
+        data = SimpleNamespace(version='a'*64, report={}, populations={},
+            areas={u:r['record'] for u,r in rows['municipal_electoral_area'].items()},
+            geometries=geoms, geometry_ids=list(geoms), tree=shapely.STRtree(list(geoms.values())))
+        with patch('totally_normal_maps.boundary_review.load_rows', return_value=rows), \
+             patch('totally_normal_maps.boundary_review.source_groups', return_value=iter([
+                 ('municipal_electoral_area', BOROUGH_SOURCE, BOROUGH_SHA256, 'EPSG:4326', shapes)])):
+            result, approved = audit(data)
+        return result, approved, rows, shapely.union_all([a, b])
+
+    def test_child_union_resolves_method_conflict_with_explicit_hierarchy(self):
+        result, approved, _, union = self.run_review()
+        self.assertEqual(result['inventory'][0]['decision'], 'approve_source_child_union')
+        self.assertTrue(approved['municipal_electoral_area', 'parent'].equals(union))
+        self.assertEqual(set(result['municipal_hierarchy']['changes']), {'child-a', 'child-b'})
+
+    def test_changed_child_assignment_cannot_supply_partition_proof(self):
+        result, approved, _, _ = self.run_review(mismatch=True)
+        self.assertEqual(approved, {})
+        self.assertEqual(result['inventory'][0]['decision'], 'retain_unapproved')
+
+    def test_startup_requires_complete_child_partition(self):
+        result, approved, rows, _ = self.run_review()
+        def record():
+            r = copy.deepcopy(rows['municipal_electoral_area']['parent']['record'])
+            r['assignment_status'] = 'validated_derived'
+            r['repair'].update(status='reviewed_topology_batch', review={'audit_sha256': digest(result),
+                'original_record_sha256': result['inventory'][0]['record_sha256'],
+                'decision': 'approve_source_child_union'})
+            return r
+        shape = approved['municipal_electoral_area', 'parent']
+        self.assertTrue(validated_review(record(), shape, {'boundary_review': result}))
+        del result['municipal_hierarchy']['changes']['child-b']
+        with self.assertRaisesRegex(CatalogueError, 'Incomplete source child partition'):
+            validated_review(record(), shape, {'boundary_review': result})

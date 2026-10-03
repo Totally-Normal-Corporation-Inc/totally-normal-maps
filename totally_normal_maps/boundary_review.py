@@ -33,8 +33,13 @@ MAX_OVERLAP_FRACTION = 1e-7
 MAX_MINOR_DISTANCE_M = 5.0
 MAX_MINOR_AREA_M2 = 100.0
 MAX_MINOR_AREA_FRACTION = 1e-4
-APPROVALS = {'approve_topology_only', 'approve_minor_correction'}
+MAX_PROVEN_SLIVER_AREA_M2 = 6000.0
+APPROVALS = {'approve_topology_only', 'approve_minor_correction', 'approve_source_child_union'}
 MEASUREMENT_SEGMENT_DEGREES = .00001
+# The publisher's combined borough/district edition uses borough.district codes.
+# This declaration applies only to this exact retained source, never other IDs.
+BOROUGH_SOURCE = 'rep-montreal-boroughs-and-districts'
+BOROUGH_SHA256 = 'b20f3dbc53857154c423eda0c3b4f766e695f7ab2f9708a647f838261c1dc01e'
 
 
 def require(condition, message):
@@ -59,6 +64,14 @@ def metric_wgs84_delta(geometry):
     surface = shapely.union_all(polygon_parts(geometry))
     dense = shapely.segmentize(surface, MEASUREMENT_SEGMENT_DEGREES)
     require(shapely.get_num_coordinates(dense) <= 3_000_000, 'Review measurement exceeds its vertex budget.')
+    return transform(METRIC, dense)
+
+
+def metric_linework(geometry, crs):
+    if crs == 'EPSG:3347':
+        return geometry
+    dense = shapely.segmentize(geometry, MEASUREMENT_SEGMENT_DEGREES)
+    require(shapely.get_num_coordinates(dense) <= 3_000_000, 'Review linework exceeds its vertex budget.')
     return transform(METRIC, dense)
 
 
@@ -88,10 +101,22 @@ def validated_review(record, geometry, report):
     matches = [r for r in batch['inventory'] if r['id'] == record['id'] and r['decision'] in APPROVALS]
     require(len(matches) == 1, 'Reviewed assignment lacks a unique approval.')
     item = matches[0]
+    children = item['evidence'].get('source_child_partition', {}).get('child_ids')
+    if children is not None or item['decision'] == 'approve_source_child_union':
+        hierarchy = batch.get('municipal_hierarchy', {})
+        require(hierarchy.get('contract') == 'source-borough-partition.v1'
+                and hierarchy.get('source_sha256') == BOROUGH_SHA256
+                and item.get('source_sha256') == BOROUGH_SHA256
+                and children and len(children) == len(set(children))
+                and set(children) == {u for u, change in hierarchy.get('changes', {}).items()
+                                      if change['parent_id'] == record['id']},
+                'Incomplete source child partition approval.')
     require(partition is not None or not any(p.get('basis') == 'same_source_partition'
             for p in item['evidence'].get('exclusion_evidence', [])),
             'Municipal partition evidence lacks its joint approval.')
-    checks = item['evidence']['checks'] if item['decision'] == 'approve_topology_only' else item['evidence']['minor_correction']['checks']
+    checks = (item['evidence']['checks'] if item['decision'] == 'approve_topology_only' else
+              item['evidence']['child_union_checks'] if item['decision'] == 'approve_source_child_union' else
+              item['evidence']['minor_correction']['checks'])
     require(item['assignment_sha256'] == hashlib.sha256(geometry.wkb).hexdigest()
             and item['source_geometry_sha256'] == repair.get('source_sha256')
             and item['candidate_sha256'] == repair.get('candidate_sha256')
@@ -99,6 +124,36 @@ def validated_review(record, geometry, report):
             and proof.get('decision') == item['decision'] and not item['reasons']
             and checks and all(v is True for v in checks.values()),
             'Assignment differs from the approved topology evidence.')
+    return True
+
+
+def validated_parent_review(record, geometry, report, records):
+    """Validate a source-proven electoral child without weakening authority checks."""
+    proof = record.get('parent_review')
+    if not proof:
+        return False
+    batches = [report.get('boundary_review', {}), *report.get('boundary_review_history', [])]
+    matches = [b for b in batches if digest(b) == proof.get('audit_sha256')]
+    require(len(matches) == 1, 'Missing reviewed municipal hierarchy audit.')
+    batch = matches[0]; hierarchy = batch.get('municipal_hierarchy', {})
+    item = hierarchy.get('changes', {}).get(record['id'], {})
+    parent = records.get(record.get('parent_id'), {})
+    approvals = [a for a in batch['inventory'] if a['id'] == record.get('parent_id') and a['decision'] in APPROVALS]
+    original = {k: v for k, v in record.items() if k != 'parent_review'}
+    original['parent_id'] = item.get('previous_parent_id')
+    require(hierarchy.get('contract') == 'source-borough-partition.v1'
+            and hierarchy.get('source') == record.get('source') == BOROUGH_SOURCE
+            and hierarchy.get('source_sha256') == BOROUGH_SHA256
+            and report['municipal_elections']['sources'][BOROUGH_SOURCE]['sha256'] == BOROUGH_SHA256
+            and item.get('parent_id') == record['parent_id']
+            and item.get('previous_parent_id') == record['authority_id']
+            and parent.get('parent_id') == record['authority_id']
+            and parent.get('edition') == record['edition'] and parent.get('source') == record['source']
+            and record['source_id'].startswith(parent.get('source_id', '') + '.')
+            and len(approvals) == 1 and record['id'] in approvals[0]['evidence']['source_child_partition']['child_ids']
+            and digest(original) == item.get('record_sha256')
+            and geometry is not None and hashlib.sha256(geometry).hexdigest() == item.get('geometry_sha256'),
+            'Municipal child differs from its source partition approval.')
     return True
 
 
@@ -206,7 +261,10 @@ def surface_checks(original, candidate, neighbours, *, crs, partition_members=No
     }
     # Only a round-off bound, never a licence to remove small territories. The
     # edge and independent-hole checks are required even below this bound.
-    delta = metric(candidate).area - metric(original).area
+    # Compare the same linear WGS84 edges in the metric CRS. Differently
+    # segmented long edges otherwise acquire different projected chords.
+    delta = (metric_linework(candidate, crs).area - metric_linework(original, crs).area
+             if crs == 'EPSG:4326' else candidate.area - original.area)
     checks['area_roundoff_only'] = abs(delta) <= max(1e-6, area * 1e-12)
     valid = {uid: g for uid, g in neighbours.items() if g is not None and not geometry_issue(g)}
     if partition_members is not None:
@@ -277,6 +335,106 @@ def within_corridor(geometry, boundary):
     return bool(nearby.buffer(MAX_MINOR_DISTANCE_M).covers(geometry))
 
 
+def retraced_segments(original):
+    """Exact out-and-back source edges; never infer this from small area."""
+    counts = Counter()
+    for part in polygon_parts(original):
+        for ring in [part.exterior, *part.interiors]:
+            coordinates = list(ring.coords)
+            for a, b in zip(coordinates, coordinates[1:]):
+                if a != b:
+                    counts[a, b] += 1
+    return shapely.union_all([shapely.LineString([a, b]) for (a, b), count in counts.items()
+                              if count == counts[b, a]])
+
+
+def source_face_proof(original, candidate):
+    """Independently classify noded source faces by the even/odd fill rule.
+
+    No neighbour is needed to invent ownership of an exclusion. Each bounded
+    face is classified against the original coordinate rings, and the complete
+    selected surface must exactly equal both independent repair methods.
+    """
+    if original.geom_type not in {'Polygon', 'MultiPolygon'}:
+        return {'verified': False}
+    if not candidate.equals(original.buffer(0)) or not candidate.equals(shapely.make_valid(original, method='structure')):
+        return {'verified': False}
+    from shapely.ops import polygonize
+    import numpy as np
+    rings = [list(r.coords) for p in polygon_parts(original) for r in [p.exterior, *p.interiors]]
+    edges = np.asarray([(a, b) for ring in rings for a, b in zip(ring, ring[1:])])
+    ax, ay, bx, by = edges[:, 0, 0], edges[:, 0, 1], edges[:, 1, 0], edges[:, 1, 1]
+    faces = list(polygonize(shapely.node(original.boundary)))
+    require(len(faces) <= 50000, 'Source face proof exceeds its face budget.')
+    selected = []
+    excluded = []
+    for face in faces:
+        point = face.representative_point(); x, y = point.x, point.y
+        crosses = (ay > y) != (by > y)
+        intersections = ax[crosses] + (y - ay[crosses]) * (bx[crosses] - ax[crosses]) / (by[crosses] - ay[crosses])
+        parity = int(np.count_nonzero(x < intersections)) % 2
+        (selected if parity else excluded).append(face)
+    surface = shapely.union_all(selected)
+    return {'verified': bool(surface.equals(candidate)), 'rule': 'original_ring_even_odd',
+            'selected_faces': len(selected), 'excluded_faces': len(excluded),
+            'surface_sha256': hashlib.sha256(surface.wkb).hexdigest()}
+
+
+def relationship_evidence(data, rows, directories, inventory):
+    """Measure each unresolved city relationship without inventing parentage."""
+    from .jurisdiction_refresh import checked_source
+    pending = {i['id']: i for i in inventory if i['table'] == 'city_area'
+               and i['status'] in {'unreviewed_parent', 'unreviewed_overlap'}}
+    for path in sorted(ROOT.glob('jurisdiction-*-2026-09.json')):
+        plan = read_json(path)
+        for layer in plan['city_layers']:
+            key = layer['source']
+            members = {u: r['record'] for u, r in rows.get('city_area', {}).items() if r['record'].get('source') == key}
+            if not pending.keys() & members.keys():
+                continue
+            spec = plan['sources'][key]
+            source = local_source(directories, key + '.geojson', spec['sha256'])
+            if source is None:
+                continue
+            shapes = checked_source(source, spec)
+            for uid in sorted(pending.keys() & members.keys()):
+                item = pending[uid]; record = members[uid]; geometry = shapes[record['source_id']]
+                require(not geometry_issue(geometry), 'Relationship source unexpectedly requires a topology repair.')
+                parent = data.geometries.get(data.areas[uid]['parent_id'])
+                require(parent is not None, 'Relationship review requires the verified parent geometry.')
+                outside = geometry.difference(parent)
+                others = []
+                for index in data.tree.query(outside, predicate='intersects'):
+                    other_id = data.geometry_ids[int(index)]
+                    if data.areas[other_id]['level'] != 'municipality':
+                        continue
+                    area = metric_wgs84_delta(outside.intersection(data.geometries[other_id])).area
+                    if area > 1:
+                        others.append({'id': other_id, 'area_m2': area})
+                peers = []
+                for other_id, other in sorted(members.items()):
+                    if other_id == uid:
+                        continue
+                    other_geometry = shapes[other['source_id']]
+                    if geometry_issue(other_geometry) or not geometry.intersects(other_geometry.envelope):
+                        continue
+                    area = metric_wgs84_delta(geometry.intersection(other_geometry)).area
+                    if area > 1:
+                        peers.append({'id': other_id, 'area_m2': area,
+                                      'contains_peer': bool(geometry.covers(other_geometry)),
+                                      'contained_by_peer': bool(other_geometry.covers(geometry))})
+                item['relationship_evidence'] = {'source': key, 'source_sha256': spec['sha256'],
+                    'geometry_sha256': hashlib.sha256(geometry.wkb).hexdigest(),
+                    'area_m2': metric_wgs84_delta(geometry).area,
+                    'parent_outside_m2': metric_wgs84_delta(outside).area,
+                    'other_municipalities': sorted(others, key=lambda i: i['id']), 'peer_overlaps': peers,
+                    'measurement_crs': 'EPSG:3347'}
+                item['reasons'] = (['parent_extent_crosses_other_municipalities' if others else
+                                   'parent_extent_unmatched_requires_source_reconciliation'] if item['status'] == 'unreviewed_parent'
+                                  else ['contained_peer_requires_semantic_hierarchy' if any(p['contains_peer'] or p['contained_by_peer'] for p in peers)
+                                        else 'peer_overlap_requires_ownership_evidence'])
+
+
 def current_overlap_correction(candidate, owners, prior_affected=0):
     """Resolve tiny serving-CRS slivers after the source repair has qualified."""
     fixed = candidate.difference(shapely.union_all([owners[uid] for uid in sorted(owners)]))
@@ -309,7 +467,10 @@ def minor_correction(original, candidate, neighbours, crs, evidence):
     Never adjust an already validated assignment or arbitrate two pending peers.
     """
     metric = (lambda g: g) if crs == 'EPSG:3347' else lambda g: transform(METRIC, g)
-    limit = min(MAX_MINOR_AREA_M2, metric(candidate).area * MAX_MINOR_AREA_FRACTION)
+    # Larger accumulated strips are admissible only with an independent exact
+    # source-surface proof. Width, relative area and valid-owner checks remain.
+    ceiling = MAX_PROVEN_SLIVER_AREA_M2 if evidence.get('source_faces', {}).get('verified') else MAX_MINOR_AREA_M2
+    limit = min(ceiling, metric(candidate).area * MAX_MINOR_AREA_FRACTION)
     checks = {'polygon_source': original.geom_type in {'Polygon', 'MultiPolygon'},
               'invalid_source': not original.is_valid, 'valid_polygon_candidate': not geometry_issue(candidate),
               'source_area_change_bounded': abs(evidence['area_change_m2']) <= limit}
@@ -333,28 +494,49 @@ def minor_correction(original, candidate, neighbours, crs, evidence):
                 continue
             pieces = [part for g in neighbours.values() if g is not None and not geometry_issue(g)
                       for part in polygon_parts(g) if hole.covers(part)]
-            if not pieces or not hole.equals(shapely.union_all(pieces)):
+            if (not evidence.get('source_faces', {}).get('verified')
+                    and (not pieces or not hole.equals(shapely.union_all(pieces)))):
                 unproven.append(metric(hole))
     small_holes = shapely.union_all(unproven)
     details['unproven_exclusion_area_m2'] = small_holes.area
     if small_holes.area > limit:
         checks['unproven_exclusions_minor'] = False
         return candidate, details
-    metric_original = metric(original); metric_fixed = metric(fixed)
     # Only buffer the boundary near a changed component, never a complete
     # northern municipality. Proof corridors are never output geometry.
-    missing_lines = metric(original.boundary.difference(fixed.boundary))
-    added_lines = metric(fixed.boundary.difference(original.boundary))
-    checks['movement_bounded'] = (within_corridor(added_lines, metric_original.boundary)
-                                  and within_corridor(missing_lines, metric_fixed.boundary))
+    missing = original.boundary.difference(fixed.boundary)
+    retraces = retraced_segments(original)
+    # Removing exactly balanced out-and-back edges changes no filled surface.
+    # The complete surface still undergoes method-disagreement, exclusion and
+    # affected-area checks below. Positive-area edits keep all old caps.
+    if not retraces.is_empty:
+        details['retraced_linework_sha256'] = hashlib.sha256(retraces.wkb).hexdigest()
+        missing = missing.difference(retraces)
+    original_boundary = metric_linework(original.boundary, crs)
+    fixed_boundary = metric_linework(fixed.boundary, crs)
+    missing_lines = metric_linework(missing, crs)
+    added_lines = metric_linework(fixed.boundary.difference(original.boundary), crs)
+    checks['movement_bounded'] = (within_corridor(added_lines, original_boundary)
+                                  and within_corridor(missing_lines, fixed_boundary))
     measure_change = (lambda g: g) if crs == 'EPSG:3347' else metric_wgs84_delta
     difference = measure_change(candidate.symmetric_difference(fixed))
-    checks['correction_area_bounded'] = difference.area <= limit and within_corridor(difference, metric_original.boundary)
+    # An isolated small source sliver may disappear completely when
+    # its already validated owner retains it. Its old perimeter is not a moved
+    # perimeter. Exempt only linework exactly inside that removed surface in
+    # the source CRS; projecting differently segmented edges first invents gaps.
+    removed = candidate.difference(fixed)
+    removed_area = sum(measure_change(p).area for p in polygon_parts(removed))
+    if overlaps and removed_area <= MAX_MINOR_AREA_M2 and within_corridor(difference, original_boundary):
+        remaining_lines = metric_linework(missing.difference(removed), crs)
+        if within_corridor(added_lines, original_boundary) and within_corridor(remaining_lines, fixed_boundary):
+            checks['movement_bounded'] = True
+            details['owned_sliver_m2'] = removed_area
+    checks['correction_area_bounded'] = difference.area <= limit and within_corridor(difference, original_boundary)
     alternatives = [original.buffer(0), shapely.make_valid(original, method='structure')]
     disagreements = [measure_change(fixed.symmetric_difference(g)) for g in alternatives]
     disagreement = shapely.union_all(disagreements)
-    checks['method_disagreement_bounded'] = disagreement.area <= limit and within_corridor(disagreement, metric_original.boundary)
-    checks['unproven_exclusions_minor'] = small_holes.area <= limit and within_corridor(small_holes, metric_original.boundary)
+    checks['method_disagreement_bounded'] = disagreement.area <= limit and within_corridor(disagreement, original_boundary)
+    checks['unproven_exclusions_minor'] = small_holes.area <= limit and within_corridor(small_holes, original_boundary)
     details.update(checks={k: bool(v) for k, v in checks.items()},
                    correction_area_m2=difference.area, method_disagreement_m2=disagreement.area,
                    unproven_exclusion_area_m2=small_holes.area)
@@ -364,8 +546,12 @@ def minor_correction(original, candidate, neighbours, crs, evidence):
     if disagreement.is_empty: checks['method_disagreement_bounded'] = True
     if small_holes.is_empty: checks['unproven_exclusions_minor'] = True
     affected = shapely.union_all([difference, disagreement, small_holes])
-    checks['total_affected_area_bounded'] = affected.area <= limit
-    details['total_affected_area_m2'] = affected.area
+    # Near-coincident overlay edges can give a symmetric difference slightly
+    # less area than the independently measured removed components. Retain the
+    # conservative component sum plus any affected surface outside that removal.
+    conservative_area = max(affected.area, removed_area + affected.difference(measure_change(removed)).area)
+    checks['total_affected_area_bounded'] = conservative_area <= limit
+    details['total_affected_area_m2'] = conservative_area
     return fixed, details
 
 
@@ -374,6 +560,7 @@ def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_o
     inventory = []
     by_key = {}
     candidates = {}
+    hierarchy_changes = {}
     for table, members in rows.items():
         for uid, row in members.items():
             record = row['record']
@@ -444,11 +631,54 @@ def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_o
             # neighbour intersecting the candidate envelope is considered.
             nearby = {other_id: g for other_id, g in shapes.items() if other_id != uid and g is not None
                       and candidate.envelope.intersects(g.envelope)}
-            evidence = surface_checks(original, candidate, nearby, crs=crs, partition_members=partition_members)
+            children = {}
+            child_union_repair = False
+            if table == 'municipal_electoral_area' and key == BOROUGH_SOURCE:
+                require(source_hash == BOROUGH_SHA256, 'Borough source declaration requires a new review.')
+                code = record['source_id']
+                if '.' not in code:
+                    children = {v: rows[table][v] for v in shapes if v != uid
+                                and rows[table][v]['record']['source_id'].startswith(code + '.')}
+                    union = shapely.union_all([shapes[v] for v in children])
+                    if (not children or any(r['geometry'] is None or r['geometry'] != shapes[v].wkb
+                                            for v, r in children.items()) or geometry_issue(union)
+                            or not union.equals(original.buffer(0))
+                            or not union.equals(shapely.union_all(polygon_parts(shapely.make_valid(original, method='structure'))))):
+                        children = {}
+                    elif not candidate.equals(union):
+                        candidate = union; full = union; child_union_repair = True
+                    nearby = {v: g for v, g in nearby.items() if v not in children}
+            review_original = original
+            assembly = None
+            if (table == 'municipal_electoral_area' and original.geom_type == 'GeometryCollection'
+                    and record.get('source_parts') == len(original.geoms)
+                    and all(g.geom_type in {'Polygon', 'MultiPolygon'} for g in original.geoms)):
+                review_original = shapely.MultiPolygon(polygon_parts(original))
+                assembly = {'method': 'polygon-only publisher multipart assembly; no coordinate changes',
+                            'parts': len(original.geoms),
+                            'geometry_sha256': hashlib.sha256(review_original.wkb).hexdigest()}
+            evidence = surface_checks(review_original, candidate, nearby, crs=crs, partition_members=partition_members)
+            if assembly:
+                evidence['source_assembly'] = assembly
+            if children:
+                evidence['source_child_partition'] = {'child_ids': sorted(children),
+                    'method': 'declared borough.district source codes; exact union of unchanged validated child polygons'}
+            if not csd_exclusions_only and table != 'csd':
+                proof = source_face_proof(review_original, candidate)
+                evidence['source_faces'] = proof
+                if proof['verified']:
+                    evidence['checks']['exclusions_corroborated'] = True
             reasons = [k for k, passed in evidence['checks'].items() if not passed]
             decision = 'approve_topology_only'
-            if reasons and not csd_exclusions_only:
-                corrected, minor = minor_correction(original, candidate, nearby, crs, evidence)
+            if child_union_repair:
+                checks = {k: evidence['checks'][k] for k in
+                          ('valid_polygon_candidate', 'buffer_zero_agrees', 'structure_agrees', 'neighbour_overlap_bounded')}
+                checks['exact_validated_child_union'] = full.equals(shapely.union_all([shapes[v] for v in children]))
+                evidence['child_union_checks'] = checks
+                reasons = [k for k, passed in checks.items() if not passed]
+                decision = 'approve_source_child_union'
+            elif reasons and not csd_exclusions_only:
+                corrected, minor = minor_correction(review_original, candidate, nearby, crs, evidence)
                 evidence['minor_correction'] = minor
                 if all(minor['checks'].values()):
                     full = transform(WGS84, corrected) if crs == 'EPSG:3347' else corrected
@@ -466,6 +696,8 @@ def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_o
             for index in data.tree.query(full, predicate='intersects'):
                 other_id = data.geometry_ids[int(index)]; other = data.areas[other_id]
                 if other_id == api_id or other['level'] != current.get('level'):
+                    continue
+                if other_id in children:
                     continue
                 if other.get('layer', 'administrative') != current.get('layer', 'administrative'):
                     continue
@@ -506,6 +738,10 @@ def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_o
                         evidence=evidence, decision='retain_unapproved' if reasons else decision, reasons=reasons)
             if not reasons:
                 candidates[table, uid] = full
+                for child_id, child in children.items():
+                    require(child_id not in hierarchy_changes, 'Conflicting reviewed parents.')
+                    hierarchy_changes[child_id] = {'parent_id': uid, 'previous_parent_id': child['record']['parent_id'],
+                        'record_sha256': digest(child['record']), 'geometry_sha256': hashlib.sha256(child['geometry']).hexdigest()}
     if csd_exclusions_only:
         # Mutual corroboration is a joint proof, not individual tentative
         # approvals: every member must independently pass all other checks.
@@ -520,16 +756,22 @@ def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_o
             area = by_key['csd', uid]['evidence']['candidate_area_m2']
             require(overlap <= min(MAX_OVERLAP_M2, area * MAX_OVERLAP_FRACTION),
                     'Joint municipal assignments overlap after projection.')
+    if not csd_exclusions_only:
+        relationship_evidence(data, rows, directories, inventory)
     result = {'contract': POLICY, 'dataset_version': data.version,
               'runtime': {'shapely': shapely.__version__, 'geos': shapely.geos_version_string},
               'policy': {'max_overlap_m2': MAX_OVERLAP_M2, 'max_overlap_fraction': MAX_OVERLAP_FRACTION,
                          'max_minor_distance_m': MAX_MINOR_DISTANCE_M, 'max_minor_area_m2': MAX_MINOR_AREA_M2,
                          'max_minor_area_fraction': MAX_MINOR_AREA_FRACTION,
+                         'max_proven_sliver_area_m2': MAX_PROVEN_SLIVER_AREA_M2,
                          'measurement_segment_degrees': MEASUREMENT_SEGMENT_DEGREES,
                          'scope': 'topology_only; source vintage, licensing and coverage qualifications remain'},
               'counts': dict(Counter(i['decision'] for i in inventory)), 'inventory': inventory}
     if partition is not None:
         result['csd_exclusion_partition'] = partition
+    if hierarchy_changes:
+        result['municipal_hierarchy'] = {'contract': 'source-borough-partition.v1',
+            'source': BOROUGH_SOURCE, 'source_sha256': BOROUGH_SHA256, 'changes': hierarchy_changes}
     return result, candidates
 
 
@@ -655,6 +897,10 @@ def apply_review(data, output, expected_audit, *, directories=(), statcan=None, 
     rows = load_rows(data)
     audit_hash = digest(result)
     approved = {(i['table'], i['id']): i for i in result['inventory'] if i['decision'] in APPROVALS}
+    hierarchy_changes = result.get('municipal_hierarchy', {}).get('changes', {})
+    for child_id, item in hierarchy_changes.items():
+        child = rows['municipal_electoral_area'][child_id]['record']
+        child.update(parent_id=item['parent_id'], parent_review={'audit_sha256': audit_hash})
     updated_population = copy.deepcopy(data.populations)
     fingerprint_data = copy.copy(data)
     fingerprint_data.areas = copy.deepcopy(data.areas)
@@ -737,7 +983,8 @@ def apply_review(data, output, expected_audit, *, directories=(), statcan=None, 
         with closing(sqlite3.connect(staging / 'catalogue.sqlite3')) as db, db:
             for table, members in rows.items():
                 for uid, row in members.items():
-                    if (table, uid) in candidates or table == 'region' and uid in regional_changes:
+                    if ((table, uid) in candidates or table == 'region' and uid in regional_changes
+                            or table == 'municipal_electoral_area' and uid in hierarchy_changes):
                         db.execute(f'UPDATE {table} SET record=?, geometry=? WHERE id=?',
                                    (json.dumps(row['record'], ensure_ascii=False), row['geometry'], uid))
             for uid in changed_ids & updated_population.keys():
@@ -754,6 +1001,14 @@ def apply_review(data, output, expected_audit, *, directories=(), statcan=None, 
                 uid = feature['properties']['id']
                 if uid in display_status:
                     feature['properties']['assignment_status'] = display_status[uid]; changed = True
+                    item = approved.get(('municipal_electoral_area', uid), {})
+                    if item.get('decision') == 'approve_source_child_union':
+                        full = candidates['municipal_electoral_area', uid]
+                        tolerance = report['municipal_elections']['display_tolerance_metres']
+                        display = transform(WGS84, transform(METRIC, full).simplify(tolerance, preserve_topology=True))
+                        if geometry_issue(display):
+                            display = full
+                        feature['geometry'] = shapely.geometry.mapping(display)
             if changed:
                 write_json(staging / name, document)
         report['catalogue_sha256'] = sha256(staging / 'catalogue.sqlite3')

@@ -224,6 +224,12 @@ comparison controls also work with this layer. See the
 [municipal data workflow](docs/DATA.md#municipal-elections) and
 [API coverage semantics](docs/API.md#municipal-electoral-geography).
 
+Offline [boundary review](docs/BOUNDARY_REPAIRS.md) can qualify pinned repairs
+without source downloads or deployment. The [remaining-record review](docs/research/remaining-boundaries-2026-10.md)
+records 38 further approvals, the corrected Montréal electoral hierarchy and
+the evidence needed for the 29 still unresolved cases. These results belong to
+the documented local reviewed release, not automatically to the published baseline.
+
 ## Prepared display bundles
 
 [Display packages](docs/DISPLAY_PACKAGES.md) provide ready-made municipality,

@@ -91,6 +91,11 @@ measurements and unresolved qualifications are retained in the release's
 `boundary_review` evidence. Small shared slivers may be assigned to existing
 validated neighbours; original source snapshots are not altered. See
 `docs/BOUNDARY_REPAIRS.md` for the approval policy and limits.
+The reviewed combined Montréal borough/electoral-district edition restores
+source-coded borough parentage and derives Lachine's repaired borough from the
+exact union of its unchanged source districts. That borough's display is
+regenerated from the reviewed union. Edition dates and source qualifications
+remain unchanged; this is not a claim of current legal electoral applicability.
 The data publishers do not endorse the project. Preserve attribution and source
 licences when distributing source data, derived datasets or map displays.
 
