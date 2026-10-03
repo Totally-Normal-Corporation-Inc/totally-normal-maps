@@ -1,5 +1,7 @@
 from contextlib import redirect_stderr, redirect_stdout
 import io
+import hashlib
+import json
 from pathlib import Path
 import subprocess
 import tempfile
@@ -84,6 +86,41 @@ class PublicationTests(unittest.TestCase):
             archive.writestr('totally_normal_maps/__init__.py', b'changed code')
         with self.assertRaisesRegex(ValueError, 'bytes differ'):
             check_archive(path, files)
+
+    def test_borough_checksum_exception_requires_matching_index_manifest(self):
+        package = self.root / 'totally_normal_maps'
+        package.mkdir()
+        checksum = hashlib.sha256(b'synthetic public geography').hexdigest()
+        source = package / 'boundary_review.py'
+        source.write_text(f"BOROUGH_SHA256 = '{checksum}'\n")
+        manifest = package / 'municipal-elections-2026-09.json'
+        def write_manifest(value):
+            manifest.write_text(json.dumps({'sources': {'rep-montreal-boroughs-and-districts':
+                {'sha256': value}}}, indent=2))
+        write_manifest(checksum)
+        self.git('add', '.')
+        self.assertEqual(self.run_check(check_secrets, '--staged')[0], 0)
+        write_manifest(hashlib.sha256(b'different source').hexdigest())
+        self.git('add', str(manifest))
+        write_manifest(checksum)  # A matching working file cannot hide the index mismatch.
+        result, output = self.run_check(check_secrets, '--staged')
+        self.assertEqual(result, 1)
+        self.assertIn('boundary_review.py:1:', output)
+        self.assertNotIn(checksum, output)
+
+    def test_borough_checksum_does_not_exempt_other_constants_or_files(self):
+        package = self.root / 'totally_normal_maps'
+        package.mkdir()
+        checksum = hashlib.sha256(b'synthetic public geography').hexdigest()
+        (package / 'municipal-elections-2026-09.json').write_text(json.dumps({'sources': {
+            'rep-montreal-boroughs-and-districts': {'sha256': checksum}}}, indent=2))
+        (package / 'boundary_review.py').write_text(f"OTHER_CHECKSUM = '{checksum}'\n")
+        (package / 'unrelated.py').write_text(f"BOROUGH_SHA256 = '{checksum}'\n")
+        self.git('add', '.')
+        result, output = self.run_check(check_secrets, '--staged')
+        self.assertEqual(result, 1)
+        self.assertIn('boundary_review.py:1:', output)
+        self.assertIn('unrelated.py:1:', output)
 
     def test_package_rejects_traversal_and_symlinks(self):
         path = self.root / 'test.whl'

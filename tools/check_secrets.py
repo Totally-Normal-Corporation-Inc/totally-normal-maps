@@ -34,6 +34,7 @@ MUNICIPAL_COMMIT_LINE = re.compile(r'\s*"represent_repository_commit": "[0-9a-f]
 LICENCE_CHECKSUM_LINE = re.compile(r'\s*"(?:retrieved_content_sha256|licence_text_sha256)": "[0-9a-f]{64}",?\s*')
 DATASET_CHECKSUM_LINE = re.compile(r'\s*"(?:archive_sha256|manifest_sha256)": "[0-9a-f]{64}",?\s*')
 SOURCE_CHECKSUM_LINE = re.compile(r'\s*"manifest_sha256": "[0-9a-f]{64}",?\s*')
+BOROUGH_CHECKSUM_LINE = re.compile(r"BOROUGH_SHA256 = '([0-9a-f]{64})'")
 
 
 def main():
@@ -65,9 +66,16 @@ def main():
         return 2
     payload = json.loads(result.stdout)
     findings, checksums = [], 0
+    borough_checksum = json.loads(files.get('totally_normal_maps/municipal-elections-2026-09.json', b'{}')).get(
+        'sources', {}).get('rep-montreal-boroughs-and-districts', {}).get('sha256')
     for name, rows in payload['results'].items():
         lines = files[name].decode().splitlines()
         for row in rows:
+            if name == 'totally_normal_maps/boundary_review.py' and row['type'] == 'Hex High Entropy String':
+                match = BOROUGH_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])
+                if match and match[1] == borough_checksum:
+                    checksums += 1
+                    continue
             if (name == 'totally_normal_maps/population-crosswalk-20260928.json' and row['type'] == 'Hex High Entropy String'
                     and POPULATION_CHECKSUM_LINE.fullmatch(lines[row['line_number'] - 1])):
                 checksums += 1
