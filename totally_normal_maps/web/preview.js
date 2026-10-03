@@ -287,7 +287,7 @@ function showDetails(row) {
     const evidence = document.createElement("a"); evidence.textContent = "Boundary source and edition evidence";
     if (new URL(edition.evidence_url).protocol === "https:") evidence.href = edition.evidence_url;
     evidence.target = "_blank"; evidence.rel = "noreferrer"; el("selection").append(evidence);
-    if (row.assignment_status !== "validated_source") el("selection").append(line(
+    if (!["validated_source", "validated_derived"].includes(row.assignment_status)) el("selection").append(line(
       row.assignment_status === "missing_geometry" ? "Boundary unavailable pending source review." :
       "Outline shown for review; this district is unavailable for point assignment.", "issue"));
   } else if (activeFamily() === "municipal" && municipalCoverage()[row.id]) {
@@ -331,8 +331,13 @@ function showDetails(row) {
     el("selection").append(line("Boundary shown for review only; unavailable for point assignment.", "issue"));
   }
   if (row.repair && Number.isFinite(row.repair.area_change_m2)) {
-    const reviewed = row.repair.status === "reviewed_topology";
-    el("selection").append(line(`${reviewed ? "Reviewed topology repair" : "Unreviewed repair"} · Area change ${row.repair.area_change_m2.toFixed(3)} m² · Parts ${row.repair.source_parts} → ${row.repair.candidate_parts} · Holes ${row.repair.source_holes} → ${row.repair.candidate_holes}`, reviewed ? "" : "issue"));
+    const reviewed = ["reviewed_topology", "reviewed_topology_batch"].includes(row.repair.status);
+    const minor = row.repair.review?.decision === "approve_minor_correction";
+    const legacyUnits = row.layer === "municipal" && !row.repair.review && !row.repair.method?.includes("area measurements");
+    const area = minor ? `Affected area ${row.repair.review.affected_area_m2.toFixed(3)} m²` :
+      legacyUnits ? "Legacy area measurement is not in square metres" :
+      `Area change ${(row.repair.review?.area_change_m2 ?? row.repair.area_change_m2).toFixed(3)} m²`;
+    el("selection").append(line(`${minor ? "Reviewed minor boundary correction" : reviewed ? "Reviewed topology repair" : "Unreviewed repair"} · ${area} · Parts ${row.repair.source_parts} → ${row.repair.candidate_parts} · Holes ${row.repair.source_holes} → ${row.repair.candidate_holes}`, reviewed ? "" : "issue"));
   }
 }
 async function openRow(id) {
@@ -437,7 +442,7 @@ function coverageNote() {
       return selected.flatMap(e => inventory[e.id]?.[p]?.status === "partial" || inventory[e.id]?.[p]?.status === "unavailable" ?
         [[p, inventory[e.id][p]]] : []);
     });
-    const pending = currentRows().filter(r => r.assignment_status !== "validated_source").length;
+    const pending = currentRows().filter(r => !["validated_source", "validated_derived"].includes(r.assignment_status)).length;
     el("coverage-note").textContent = `${scope} · ${countText(currentRows().length, "electoral district")} · ` +
       editions.map(e => `${e.label} (${e.status})`).join("; ") +
       (gaps.length ? ` · Coverage notes: ${gaps.map(([p, v]) => `${byId.get(p)?.name}: ${v.note}`).join("; ")}` : "") +

@@ -361,8 +361,15 @@ coverage measurements include unapproved candidates.
 Releases with municipal electoral data add `layer=municipal` to the existing
 area, children, boundary and lookup endpoints. Municipal wards are independent
 of administrative neighbourhoods, federal districts and provincial districts.
-Their `parent_id` and `authority_id` identify the municipality or regional
-browsing authority. `source_id` retains the publisher's district identity;
+Their `authority_id` identifies the municipality or regional browsing authority.
+`parent_id` identifies the immediate parent: usually that authority, or a
+source-proven borough in a combined borough/district edition. Both borough and
+district can have `level=electoral_district`; an ancestor and its own district
+are not an ambiguous sibling match. Use `authority_id` for authority grouping
+and `within_id`/recursive children for a complete subtree, rather than assuming
+all electoral records are direct authority children. The reviewed 2017 Montréal
+combined edition corrects 58 such parent relationships without changing district
+IDs, authority IDs or district geometry. `source_id` retains the publisher's district identity;
 `authority_name`, `scheme`, `edition` and `source_date` describe its context.
 
 `GET /v1/municipal-coverage?province=24&status=reference&limit=100` provides the

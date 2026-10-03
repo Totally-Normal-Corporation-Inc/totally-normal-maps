@@ -1,5 +1,6 @@
 """Explicit API acceptance for the checked Canada release; no network or writes."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import sqlite3
@@ -24,6 +25,15 @@ def main():
         jurisdictions = meta['coverage'].get('jurisdiction_refreshes', {})
         topology = meta['coverage'].get('topology_reviews', [])
         reviewed_ids = {'ca-csd-' + r['csd_id'] for r in topology}
+        batch_review = client.app.state.dataset.report.get('boundary_review', {})
+        from totally_normal_maps.boundary_review import APPROVALS, digest
+        batch_approved = {(r['table'], r['id']): r for r in batch_review.get('inventory', [])
+                          if r['decision'] in APPROVALS}
+        all_batch_approved = {(r['table'], r['id']): r for review in
+                              [*client.app.state.dataset.report.get('boundary_review_history', []), batch_review]
+                              for r in review.get('inventory', [])
+                              if r['decision'] in APPROVALS}
+        reviewed_ids.update(r['api_id'] for r in all_batch_approved.values() if r['api_id'].startswith('ca-csd-24'))
         administrative_counts = {k:v for k,v in meta['counts'].items() if k != 'electoral_district'}
         assert administrative_counts == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
                                   'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
@@ -144,7 +154,13 @@ def main():
                     assert areas[uid]['update_status'] == 'deferred'
                     assert areas[uid]['boundary_basis'] == 'retained_previous_boundary'
             for uid in ('ca-on-3506008-ons-3050','ca-on-3506008-ons-3051'):
-                assert uid not in dataset.geometries
+                if ('city_area', uid) in all_batch_approved:
+                    assert uid in dataset.geometries and uid not in dataset.pending_ids
+                    assert dataset.boundary(uid, 'full')['properties']['suitable_for_assignment']
+                    point = dataset.geometries[uid].representative_point()
+                    assert uid in dataset.lookup(point.x, point.y)['direct_match_ids']
+                else:
+                    assert uid not in dataset.geometries
                 assert not dataset.boundary(uid)['properties']['suitable_for_assignment']
         if refresh:
             dataset = client.app.state.dataset
@@ -183,7 +199,8 @@ def main():
         hull = client.post('/v1/lookup', json={'longitude': -75.72, 'latitude': 45.43}).json()
         names = [r['name'] for r in hull['matches']]
         assert {'Canada', 'Quebec', 'Outaouais', 'Gatineau', 'Hull'} <= set(names), names
-        assert client.get('/v1/areas/ca-csd-2423027/boundary?resolution=full').status_code == 409
+        assert client.get('/v1/areas/ca-csd-2423027/boundary?resolution=full').status_code == (
+            200 if 'ca-csd-2423027' in reviewed_ids else 409)
         assert client.get('/v1/areas/ca/children/boundaries').json()['type'] == 'FeatureCollection'
         coverage = meta['coverage']['city_areas']
         assert next(r for r in coverage if r['parent_csd_id'] == '2409048')['coverage_policy'] == 'partial'
@@ -209,14 +226,40 @@ def main():
             baseline = Dataset(args.baseline)
             with sqlite3.connect((baseline.root / 'catalogue.sqlite3').as_uri() + '?mode=ro', uri=True) as old, \
                     sqlite3.connect((client.app.state.dataset.root / 'catalogue.sqlite3').as_uri() + '?mode=ro', uri=True) as new:
-                for table in ('csd', 'city_area', 'region', 'csd_region'):
+                present = {r[0] for r in old.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+                for table in ('csd', 'city_area', 'region', 'csd_region', 'electoral_area', 'municipal_electoral_area'):
+                    if table not in present:
+                        continue
                     rows = old.execute(f'SELECT * FROM {table}').fetchall()
                     column = 'csd_id' if table == 'csd_region' else 'id'
                     exempt = {r['csd_id' if table == 'csd' else 'region_id'] for r in topology} if table in {'csd', 'region'} else set()
                     preserved = 0
                     for row in rows:
                         updated = new.execute(f'SELECT * FROM {table} WHERE {column}=?', (row[0],)).fetchone()
-                        if row[0] in exempt and baseline.version in {r['manifest_sha256'] for r in topology}:
+                        batch_change = (table, row[0]) in batch_approved or (table == 'region' and row[0] in
+                            dataset.report.get('boundary_review_effects', {}).get('regions', {}))
+                        hierarchy = batch_review.get('municipal_hierarchy', {}).get('changes', {})
+                        if (table == 'municipal_electoral_area' and row[0] in hierarchy
+                                and baseline.version == batch_review.get('dataset_version')):
+                            columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
+                            old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
+                            original = json.loads(old_row['record']); current = json.loads(new_row['record'])
+                            assert digest(original) == hierarchy[row[0]]['record_sha256']
+                            assert current.pop('parent_review') == {'audit_sha256': digest(batch_review)}
+                            assert current['parent_id'] == hierarchy[row[0]]['parent_id']
+                            current['parent_id'] = original['parent_id']
+                            assert current == original
+                            assert {k:v for k,v in old_row.items() if k != 'record'} == {k:v for k,v in new_row.items() if k != 'record'}
+                        elif batch_change and baseline.version == batch_review.get('dataset_version'):
+                            columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
+                            old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
+                            assert old_row['geometry'] is None
+                            if (table, row[0]) in batch_approved:
+                                assert hashlib.sha256(new_row['geometry']).hexdigest() == batch_approved[table, row[0]]['assignment_sha256']
+                            elif new_row['geometry'] is not None:
+                                assert new_row['geometry'] == old_row['repair_candidate']
+                            assert {k:v for k,v in old_row.items() if k not in {'record','geometry'}} == {k:v for k,v in new_row.items() if k not in {'record','geometry'}}
+                        elif row[0] in exempt and baseline.version in {r['manifest_sha256'] for r in topology}:
                             # Only record and full geometry may change; the prior
                             # candidate must become the exact assignment boundary.
                             columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
@@ -228,7 +271,17 @@ def main():
                             assert updated == row, (table, row[0])
                             preserved += 1
                     unchanged[table] = preserved
+        hierarchy_lookups = 0
+        for child_id, change in batch_review.get('municipal_hierarchy', {}).get('changes', {}).items():
+            child = dataset.areas[child_id]
+            point = dataset.geometries[child_id].representative_point()
+            result = dataset.lookup(point.x, point.y, layers=['municipal'], editions={'municipal': [child['edition']]})
+            assert {child_id, change['parent_id']} <= set(result['direct_match_ids'])
+            assert not result['ambiguous'], (child_id, result['direct_match_ids'])
+            assert child['parent_id'] == change['parent_id']
+            hierarchy_lookups += 1
         print(json.dumps({'status': 'passed', 'counts': meta['counts'], 'city_area_lookups': city_lookups,
+                          'reviewed_hierarchy_lookups': hierarchy_lookups,
                           'quebec_municipal_lookups': municipal_lookups,
                           'ontario_municipal_region_lookups': ontario_lookups,
                           'other_jurisdiction_municipal_region_lookups': jurisdiction_lookups,

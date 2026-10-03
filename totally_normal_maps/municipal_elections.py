@@ -88,7 +88,7 @@ def coverage_inventory(data, editions, rows, declarations=None):
     counts, missing = Counter(), Counter()
     for r in rows:
         counts[r['edition']] += 1
-        missing[r['edition']] += r['assignment_status'] != 'validated_source'
+        missing[r['edition']] += r['assignment_status'] not in {'validated_source', 'validated_derived'}
     output = {}
     for scope in sorted(scopes):
         spec = declarations.get(scope, {})
@@ -134,10 +134,14 @@ def load_municipal(data, db, present):
     by_id = {e['id']: e for e in editions}
     if by_id.keys() & data.editions.keys(): raise CatalogueError('Duplicate electoral edition namespace.')
     counts, records = Counter(), []
-    for raw in db.execute('SELECT * FROM municipal_electoral_area ORDER BY id'):
+    raw_records = list(db.execute('SELECT * FROM municipal_electoral_area ORDER BY id'))
+    identities = {raw['id']: json.loads(raw['record']) for raw in raw_records}
+    for raw in raw_records:
         row = json.loads(raw['record'])
         e = by_id.get(row.get('edition'))
-        if (not e or row.get('id') != raw['id'] or row.get('parent_id') != e['authority_id']
+        from .boundary_review import validated_parent_review
+        parent_reviewed = validated_parent_review(row, raw['geometry'], data.report, identities)
+        if (not e or row.get('id') != raw['id'] or not parent_reviewed and row.get('parent_id') != e['authority_id']
                 or row.get('authority_id') != e['authority_id'] or row.get('province') not in e['provinces']
                 or row.get('province_id') != data.areas[e['authority_id']]['province_id']
                 or row.get('layer') != 'municipal' or row.get('level') != 'electoral_district'
@@ -151,7 +155,9 @@ def load_municipal(data, db, present):
         data.source_ids[('electoral_district', row['id'])] = row['id']
         if raw['geometry'] is not None:
             geometry = shapely.from_wkb(raw['geometry'])
-            if geometry_issue(geometry) or row['assignment_status'] != 'validated_source' or row.get('source_geometry_issue') or row.get('repair'):
+            from .boundary_review import validated_review
+            reviewed = validated_review(row, geometry, data.report)
+            if geometry_issue(geometry) or not reviewed and (row['assignment_status'] != 'validated_source' or row.get('source_geometry_issue') or row.get('repair')):
                 raise CatalogueError('Invalid municipal assignment geometry.')
             data.geometries[row['id']] = geometry; data.required_displays.add(row['id'])
         else:
@@ -171,6 +177,14 @@ def load_municipal(data, db, present):
             else:
                 data.unknown_ids.append(row['id']); continue
             data.pending_ids.append(row['id']); data.pending_shapes.append(geometry)
+    for batch in [data.report.get('boundary_review', {}), *data.report.get('boundary_review_history', [])]:
+        changes = batch.get('municipal_hierarchy', {}).get('changes', {})
+        for parent_id in {item['parent_id'] for item in changes.values()}:
+            children = [uid for uid, item in changes.items() if item['parent_id'] == parent_id]
+            if (parent_id not in data.geometries or any(uid not in data.geometries
+                    or data.areas[uid]['parent_id'] != parent_id for uid in children)
+                    or not data.geometries[parent_id].equals(shapely.union_all([data.geometries[uid] for uid in children]))):
+                raise CatalogueError('Reviewed borough no longer equals its complete child partition.')
     if dict(counts) != {e['id']:e['expected_count'] for e in editions} or dict(counts) != part['edition_counts']:
         raise CatalogueError('Municipal district inventory differs from the release report.')
     data.municipal_coverage = coverage_inventory(data, editions, records, part['coverage'])
@@ -351,7 +365,14 @@ def build_municipal(dataset, source_dir, output, *, plan_path=None, tolerance=40
             if issue:
                 row['issues'].append(issue);row['assignment_status']='missing_geometry';unavailable+=1
                 if full is not None and issue.startswith('invalid_geometry:'):
-                    candidate,metrics=propose_repair(full);row['repair']=metrics
+                    candidate,metrics=propose_repair(full)
+                    if 'method' in metrics:
+                        metrics['method'] += ' in EPSG:4326; area measurements in EPSG:3347'
+                    metrics['source_area_m2'] = transform(projected.transform, full).area
+                    metrics['candidate_area_m2'] = transform(projected.transform, candidate).area if candidate is not None else None
+                    metrics['area_change_m2'] = (metrics['candidate_area_m2'] - metrics['source_area_m2']
+                                                 if candidate is not None else None)
+                    row['repair']=metrics
                     if candidate is not None and not geometry_issue(candidate):row['assignment_status']='unreviewed_repair'
                     else:candidate=None
                 full=None

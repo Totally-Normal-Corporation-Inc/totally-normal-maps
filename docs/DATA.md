@@ -4,6 +4,9 @@ Install the project as described in README.md. All commands use local files; non
 write a consumer application database. The original source snapshots and generated
 datasets belong in ignored `.local/` storage, not Git.
 
+For evidence-backed topology approvals and bounded minor corrections before
+package preparation, see [offline boundary review](BOUNDARY_REPAIRS.md).
+
 The current plan adds 23 familiar regional groupings to the original 121. No new
 geometry download is needed: all their outlines use the existing StatCan source.
 Thirteen groups have selected-community coverage rather than complete regional
