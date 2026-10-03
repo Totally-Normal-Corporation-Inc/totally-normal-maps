@@ -72,9 +72,25 @@ def validated_review(record, geometry, report):
     matching = [b for b in batches if b.get('contract') == POLICY and digest(b) == proof.get('audit_sha256')]
     require(len(matching) == 1, 'Missing or changed topology audit.')
     batch = matching[0]
+    partition = batch.get('csd_exclusion_partition')
+    if partition is not None:
+        members = partition.get('member_ids', [])
+        approvals = [r for r in batch['inventory'] if r['decision'] in APPROVALS]
+        require(partition.get('contract') == 'csd-exclusion-partition.v1'
+                and members and len(members) == len(set(members))
+                and {r['id'] for r in approvals} == set(members) and len(approvals) == len(members)
+                and all(r['table'] == 'csd' and r['decision'] == 'approve_topology_only'
+                        and r['source_sha256'] == partition.get('source_sha256')
+                        and r['candidate_sha256'] == partition.get('candidate_sha256', {}).get(r['id'])
+                        and not r['reasons'] and r['evidence']['checks']
+                        and all(v is True for v in r['evidence']['checks'].values()) for r in approvals),
+                'Incomplete or inconsistent joint municipal exclusion approval.')
     matches = [r for r in batch['inventory'] if r['id'] == record['id'] and r['decision'] in APPROVALS]
     require(len(matches) == 1, 'Reviewed assignment lacks a unique approval.')
     item = matches[0]
+    require(partition is not None or not any(p.get('basis') == 'same_source_partition'
+            for p in item['evidence'].get('exclusion_evidence', [])),
+            'Municipal partition evidence lacks its joint approval.')
     checks = item['evidence']['checks'] if item['decision'] == 'approve_topology_only' else item['evidence']['minor_correction']['checks']
     require(item['assignment_sha256'] == hashlib.sha256(geometry.wkb).hexdigest()
             and item['source_geometry_sha256'] == repair.get('source_sha256')
@@ -106,7 +122,7 @@ def local_source(directories, filename, checksum):
     return None
 
 
-def source_groups(data, rows, directories, statcan):
+def source_groups(data, rows, directories, statcan, *, csd_only=False):
     """Yield (table, source key, source checksum, CRS, id -> original geometry).
 
     Use the original importer identity rules; never guess names or feature order.
@@ -122,6 +138,8 @@ def source_groups(data, rows, directories, statcan):
             require(len(shapes) == len(geometries), 'Duplicate StatCan identity.')
             require(sha256(statcan) == spec['sha256'], 'StatCan source changed during review.')
             yield 'csd', 'statcan-2025', spec['sha256'], 'EPSG:3347', shapes
+    if csd_only:
+        return
     from .jurisdiction_refresh import checked_source
     plans = [ROOT / 'ontario-refresh-2026-09.json', *sorted(ROOT.glob('jurisdiction-*-2026-09.json'))]
     for plan_path in plans:
@@ -165,11 +183,12 @@ def source_groups(data, rows, directories, statcan):
                 yield table, key, spec['sha256'], 'EPSG:4326', shapes
 
 
-def surface_checks(original, candidate, neighbours, *, crs):
+def surface_checks(original, candidate, neighbours, *, crs, partition_members=None):
     """Conservative topology-only rule; no fixed buffers or coordinate rounding.
 
-    Neighbours are valid original polygons in the SAME source scheme. Unreviewed
-    neighbouring candidates may measure conflicts but cannot corroborate holes.
+    Neighbours are from the SAME source scheme. Pending neighbours corroborate
+    holes only in the explicit all-or-nothing municipal partition review; its
+    caller must verify every member before accepting any individual result.
     """
     metric = (lambda g: g) if crs == 'EPSG:3347' else lambda g: transform(METRIC, g)
     repaired = shapely.make_valid(original)
@@ -190,6 +209,8 @@ def surface_checks(original, candidate, neighbours, *, crs):
     delta = metric(candidate).area - metric(original).area
     checks['area_roundoff_only'] = abs(delta) <= max(1e-6, area * 1e-12)
     valid = {uid: g for uid, g in neighbours.items() if g is not None and not geometry_issue(g)}
+    if partition_members is not None:
+        valid.update({uid: g for uid, g in partition_members.items() if uid in neighbours})
     holes = [Polygon(ring) for p in polygon_parts(candidate) for ring in p.interiors]
     original_holes = [Polygon(ring) for p in polygon_parts(original) for ring in p.interiors
                       if Polygon(ring).is_valid]
@@ -205,11 +226,21 @@ def surface_checks(original, candidate, neighbours, *, crs):
             matches = {uid: [p for p in polygon_parts(g) if hole.covers(p)] for uid, g in valid.items()}
             matches = {uid: parts for uid, parts in matches.items() if parts}
             union = shapely.union_all([p for parts in matches.values() for p in parts])
-            if matches and hole.equals(union) and hole.boundary.equals(union.boundary):
-                corroboration.append({'basis': 'same_source_complete_components', 'ids': sorted(matches),
+            islands = shapely.union_all([p for p in polygon_parts(candidate) if hole.covers(p)]) if partition_members is not None else Polygon()
+            combined = shapely.union_all([union, islands])
+            if (matches and hole.equals(combined) and hole.boundary.equals(combined.boundary)
+                    and union.intersection(islands).area == 0):
+                proof = {'basis': 'same_source_complete_components', 'ids': sorted(matches),
                     'sha256': {uid: hashlib.sha256(valid[uid].wkb).hexdigest() for uid in sorted(matches)},
                     'component_sha256': {uid: sorted(hashlib.sha256(p.wkb).hexdigest() for p in parts)
-                                         for uid, parts in sorted(matches.items())}})
+                                         for uid, parts in sorted(matches.items())}}
+                if partition_members is not None:
+                    proof.update(basis='same_source_partition',
+                        reviewed_member_ids=sorted(set(matches) & partition_members.keys()),
+                        retained_island_area_m2=islands.area,
+                        retained_islands_sha256=hashlib.sha256(islands.wkb).hexdigest(),
+                        excluded_surface_sha256=hashlib.sha256(hole.difference(islands).wkb).hexdigest())
+                corroboration.append(proof)
         checks['exclusions_corroborated'] = bool(holes) and len(corroboration) == len(holes)
     else:
         checks['exclusions_corroborated'] = True
@@ -338,7 +369,7 @@ def minor_correction(original, candidate, neighbours, crs, evidence):
     return fixed, details
 
 
-def audit(data, *, directories=(), statcan=None, progress=None):
+def audit(data, *, directories=(), statcan=None, progress=None, csd_exclusions_only=False):
     rows = load_rows(data)
     inventory = []
     by_key = {}
@@ -359,8 +390,38 @@ def audit(data, *, directories=(), statcan=None, progress=None):
                                 'source_relationship_review_required' if record['assignment_status'].startswith('unreviewed') else
                                 'missing_source_geometry']}
             inventory.append(item); by_key[table, uid] = item
-    for table, key, source_hash, crs, shapes in source_groups(data, rows, directories, statcan):
+            if csd_exclusions_only and table not in {'csd', 'region'}:
+                item['reasons'] = ['outside_review_scope']
+    partition = None
+    for table, key, source_hash, crs, shapes in source_groups(data, rows, directories, statcan,
+                                                           csd_only=csd_exclusions_only):
+        if csd_exclusions_only and table != 'csd':
+            continue
         pending = [uid for uid in shapes if (table, uid) in by_key and by_key[table, uid]['status'] == 'unreviewed_repair']
+        partition_members = None
+        if csd_exclusions_only:
+            require(crs == 'EPSG:3347' and pending, 'Expected pending native StatCan municipal repairs.')
+            partition_members = {}
+            for uid, original in shapes.items():
+                if original is None or original.is_valid:
+                    continue
+                row = rows['csd'].get(uid)
+                if row is None or (uid not in pending and row['geometry'] is None):
+                    continue
+                native, ledger = propose_repair(original)
+                require(native is not None and not geometry_issue(native), 'Invalid partition member candidate.')
+                if uid not in pending:
+                    # Previously approved native candidates are evidence only
+                    # when they exactly reproduce the loaded assignment bytes.
+                    if transform(WGS84, native).wkb != row['geometry']:
+                        continue
+                    require(ledger['source_sha256'] == row['record'].get('repair', {}).get('source_sha256'),
+                            'Reviewed partition owner has different source evidence.')
+                partition_members[uid] = native
+            partition = {'contract': 'csd-exclusion-partition.v1', 'source_sha256': source_hash,
+                         'member_ids': sorted(pending),
+                         'previously_reviewed_ids': sorted(partition_members.keys() - set(pending)),
+                         'candidate_sha256': {u: hashlib.sha256(partition_members[u].wkb).hexdigest() for u in sorted(pending)}}
         for uid in pending:
             if progress:
                 progress(table, uid)
@@ -383,10 +444,10 @@ def audit(data, *, directories=(), statcan=None, progress=None):
             # neighbour intersecting the candidate envelope is considered.
             nearby = {other_id: g for other_id, g in shapes.items() if other_id != uid and g is not None
                       and candidate.envelope.intersects(g.envelope)}
-            evidence = surface_checks(original, candidate, nearby, crs=crs)
+            evidence = surface_checks(original, candidate, nearby, crs=crs, partition_members=partition_members)
             reasons = [k for k, passed in evidence['checks'].items() if not passed]
             decision = 'approve_topology_only'
-            if reasons:
+            if reasons and not csd_exclusions_only:
                 corrected, minor = minor_correction(original, candidate, nearby, crs, evidence)
                 evidence['minor_correction'] = minor
                 if all(minor['checks'].values()):
@@ -420,7 +481,7 @@ def audit(data, *, directories=(), statcan=None, progress=None):
             total_overlap = sum(r['area_m2'] for r in conflicts)
             if total_overlap > MAX_OVERLAP_M2 or total_overlap > evidence['candidate_area_m2'] * MAX_OVERLAP_FRACTION:
                 corrected = None
-                if not reasons and total_overlap <= min(MAX_MINOR_AREA_M2, evidence['candidate_area_m2'] * MAX_MINOR_AREA_FRACTION):
+                if not csd_exclusions_only and not reasons and total_overlap <= min(MAX_MINOR_AREA_M2, evidence['candidate_area_m2'] * MAX_MINOR_AREA_FRACTION):
                     previous = evidence.get('minor_correction')
                     corrected, correction = current_overlap_correction(full,
                         {r['id']: data.geometries[r['id']] for r in conflicts},
@@ -445,6 +506,20 @@ def audit(data, *, directories=(), statcan=None, progress=None):
                         evidence=evidence, decision='retain_unapproved' if reasons else decision, reasons=reasons)
             if not reasons:
                 candidates[table, uid] = full
+    if csd_exclusions_only:
+        # Mutual corroboration is a joint proof, not individual tentative
+        # approvals: every member must independently pass all other checks.
+        require(partition is not None and set(candidates) == {('csd', u) for u in partition['member_ids']},
+                'Municipal exclusion partition is incomplete; no joint approvals can be applied.')
+        # Native partition proofs must also remain compatible after projection
+        # into the serving CRS. Pending peers are absent from data.tree above.
+        for (_, uid), full in candidates.items():
+            overlap = sum(metric_wgs84_delta(full.intersection(other)).area
+                          for (_, other_id), other in candidates.items()
+                          if other_id != uid and full.envelope.intersects(other.envelope))
+            area = by_key['csd', uid]['evidence']['candidate_area_m2']
+            require(overlap <= min(MAX_OVERLAP_M2, area * MAX_OVERLAP_FRACTION),
+                    'Joint municipal assignments overlap after projection.')
     result = {'contract': POLICY, 'dataset_version': data.version,
               'runtime': {'shapely': shapely.__version__, 'geos': shapely.geos_version_string},
               'policy': {'max_overlap_m2': MAX_OVERLAP_M2, 'max_overlap_fraction': MAX_OVERLAP_FRACTION,
@@ -453,6 +528,8 @@ def audit(data, *, directories=(), statcan=None, progress=None):
                          'measurement_segment_degrees': MEASUREMENT_SEGMENT_DEGREES,
                          'scope': 'topology_only; source vintage, licensing and coverage qualifications remain'},
               'counts': dict(Counter(i['decision'] for i in inventory)), 'inventory': inventory}
+    if partition is not None:
+        result['csd_exclusion_partition'] = partition
     return result, candidates
 
 
@@ -564,14 +641,15 @@ def assignment_checks(before, after, approved_ids):
             'limitations': 'finite regression probes; independent territory proof is in the topology audit'}
 
 
-def apply_review(data, output, expected_audit, *, directories=(), statcan=None, progress=None):
+def apply_review(data, output, expected_audit, *, directories=(), statcan=None, progress=None, csd_exclusions_only=False):
     """Recompute the evidence and atomically derive a new pre-package release."""
     from .dataset import Dataset
     from .display_packages import require_unprepared
     from .population import territory_fingerprint, digest as population_digest
     require_unprepared(data)
     require(not Path(output).resolve().is_relative_to(data.root), 'Output must be outside the immutable input release.')
-    result, candidates = audit(data, directories=directories, statcan=statcan, progress=progress)
+    result, candidates = audit(data, directories=directories, statcan=statcan, progress=progress,
+                               csd_exclusions_only=csd_exclusions_only)
     require(result == expected_audit, 'Audit differs from the reviewed evidence; rerun review before applying.')
     require(candidates, 'No repairs satisfy the approval policy.')
     rows = load_rows(data)

@@ -7,10 +7,13 @@ from pathlib import Path
 import sqlite3
 import tempfile
 from unittest.mock import patch
+from types import SimpleNamespace
 
+import shapely
 from shapely.geometry import MultiPolygon, Polygon, box
+from shapely.ops import transform
 
-from totally_normal_maps.boundary_review import surface_checks, minor_correction, current_overlap_correction, audit, apply_review, update_reports
+from totally_normal_maps.boundary_review import surface_checks, minor_correction, current_overlap_correction, audit, apply_review, update_reports, WGS84, digest, validated_review
 from totally_normal_maps.catalogue import CatalogueError, propose_repair, read_json, write_json, sha256
 from totally_normal_maps.dataset import Dataset
 from tests.api_fixture import make_release
@@ -85,6 +88,29 @@ class SurfaceReviewTests(unittest.TestCase):
 
     def test_partial_neighbour_component_cannot_be_clipped_to_fit_a_hole(self):
         result = self.check({'oversized': box(1, 1, 5, 5)})
+        self.assertFalse(result['checks']['exclusions_corroborated'])
+
+    def test_partition_preserves_own_island_inside_an_exclusion(self):
+        island = box(2.5, 2.5, 3.5, 3.5)
+        original = MultiPolygon([self.original, island])
+        candidate, _ = propose_repair(original)
+        neighbours = {'a': self.neighbours['a'].difference(island), 'b': self.neighbours['b']}
+        old = surface_checks(original, candidate, neighbours, crs='EPSG:3347')
+        self.assertFalse(old['checks']['exclusions_corroborated'])
+        reviewed = surface_checks(original, candidate, neighbours, crs='EPSG:3347', partition_members={})
+        self.assertTrue(all(reviewed['checks'].values()))
+        self.assertEqual(sum(p.get('retained_island_area_m2', 0) for p in reviewed['exclusion_evidence']), 1)
+        self.assertTrue(candidate.covers(island))
+
+    def test_partition_still_rejects_clipping_a_neighbour_to_manufacture_proof(self):
+        result = surface_checks(self.original, self.candidate, {'oversized': box(1, 1, 5, 5)},
+                                crs='EPSG:3347', partition_members={})
+        self.assertFalse(result['checks']['exclusions_corroborated'])
+
+    def test_partition_rejects_an_unexplained_gap_even_when_other_checks_agree(self):
+        neighbours = {**self.neighbours, 'a': box(2, 2, 3.9, 4)}
+        result = surface_checks(self.original, self.candidate, neighbours,
+                                crs='EPSG:3347', partition_members={})
         self.assertFalse(result['checks']['exclusions_corroborated'])
 
     def test_old_narrative_unresolved_notes_survive_report_updates(self):
@@ -234,6 +260,55 @@ class ReleaseReviewTests(unittest.TestCase):
         report['boundary_review_history'] = [report.pop('boundary_review')]
         write_json(out / 'report.json', report); seal(out)
         self.assertIn(self.uid, Dataset(out).geometries)
+
+
+class JointMunicipalExclusionTests(unittest.TestCase):
+    def review(self, broken=False):
+        x, y = 5_000_000, 2_000_000
+        ring = [(x+2,y+2),(x+4,y+2),(x+4,y+4),(x+6,y+4),(x+6,y+6),
+                (x+4,y+6),(x+4,y+4),(x+2,y+4),(x+2,y+2)]
+        originals = {'1': Polygon(box(x,y,x+10,y+10).exterior,[ring]), '2': Polygon(ring)}
+        if broken:
+            originals['2'] = Polygon([*ring[:-1], (x-10,y+4), (x+2,y+4), ring[-1]])
+        rows = {'csd': {}}
+        for uid, original in originals.items():
+            candidate, ledger = propose_repair(original)
+            rows['csd'][uid] = {'id': uid, 'geometry': None, 'repair_candidate': transform(WGS84,candidate).wkb,
+                'record': {'id':uid,'name':uid,'assignment_status':'unreviewed_repair','repair':ledger}}
+        data = SimpleNamespace(version='a'*64, areas={'ca-csd-'+u: {'level':'municipality'} for u in originals},
+                               populations={}, geometries={}, tree=shapely.STRtree([]), geometry_ids=[])
+        sources = [('csd','synthetic','b'*64,'EPSG:3347',originals)]
+        with patch('totally_normal_maps.boundary_review.load_rows', return_value=rows), \
+                patch('totally_normal_maps.boundary_review.source_groups', return_value=iter(sources)):
+            result, candidates = audit(data,csd_exclusions_only=True)
+        return result,candidates,rows
+
+    def test_joint_review_qualifies_every_member_and_is_reproducible(self):
+        result,candidates,_ = self.review()
+        self.assertEqual(result['counts'], {'approve_topology_only':2})
+        self.assertEqual(result['csd_exclusion_partition']['member_ids'], ['1','2'])
+        self.assertEqual(set(candidates), {('csd','1'),('csd','2')})
+        self.assertEqual(result,self.review()[0])
+
+    def test_one_failed_member_rejects_the_entire_joint_approval(self):
+        with self.assertRaisesRegex(CatalogueError,'partition is incomplete'):
+            self.review(broken=True)
+
+    def test_startup_rejects_partial_joint_evidence_even_with_rebound_audit_hash(self):
+        result,candidates,rows = self.review()
+        def record():
+            row=copy.deepcopy(rows['csd']['1']['record']);row['assignment_status']='validated_derived'
+            row['repair'].update(status='reviewed_topology_batch',review={'audit_sha256':digest(result),
+                'original_record_sha256':result['inventory'][0]['record_sha256'],'decision':'approve_topology_only'})
+            return row
+        self.assertTrue(validated_review(record(),candidates['csd','1'],{'boundary_review':result}))
+        group = result.pop('csd_exclusion_partition')
+        with self.assertRaisesRegex(CatalogueError,'lacks its joint approval'):
+            validated_review(record(),candidates['csd','1'],{'boundary_review':result})
+        result['csd_exclusion_partition'] = group
+        result['inventory'][1]['decision']='retain_unapproved'
+        with self.assertRaisesRegex(CatalogueError,'joint municipal exclusion approval'):
+            validated_review(record(),candidates['csd','1'],{'boundary_review':result})
 
 
 class MinorCorrectionTests(unittest.TestCase):

@@ -28,7 +28,11 @@ def main():
         batch_review = client.app.state.dataset.report.get('boundary_review', {})
         batch_approved = {(r['table'], r['id']): r for r in batch_review.get('inventory', [])
                           if r['decision'] in {'approve_topology_only', 'approve_minor_correction'}}
-        reviewed_ids.update(r['api_id'] for r in batch_approved.values() if r['api_id'].startswith('ca-csd-24'))
+        all_batch_approved = {(r['table'], r['id']): r for review in
+                              [*client.app.state.dataset.report.get('boundary_review_history', []), batch_review]
+                              for r in review.get('inventory', [])
+                              if r['decision'] in {'approve_topology_only', 'approve_minor_correction'}}
+        reviewed_ids.update(r['api_id'] for r in all_batch_approved.values() if r['api_id'].startswith('ca-csd-24'))
         administrative_counts = {k:v for k,v in meta['counts'].items() if k != 'electoral_district'}
         assert administrative_counts == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
                                   'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
@@ -149,7 +153,7 @@ def main():
                     assert areas[uid]['update_status'] == 'deferred'
                     assert areas[uid]['boundary_basis'] == 'retained_previous_boundary'
             for uid in ('ca-on-3506008-ons-3050','ca-on-3506008-ons-3051'):
-                if ('city_area', uid) in batch_approved:
+                if ('city_area', uid) in all_batch_approved:
                     assert uid in dataset.geometries and uid not in dataset.pending_ids
                     assert dataset.boundary(uid, 'full')['properties']['suitable_for_assignment']
                     point = dataset.geometries[uid].representative_point()

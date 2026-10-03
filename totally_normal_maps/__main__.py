@@ -50,6 +50,8 @@ def main(argv=None):
         review.add_argument('--source-dir', action='append', default=[], type=Path,
                             help='Repeat for directories containing checksum-pinned source snapshots')
         review.add_argument('--statcan-source', type=Path)
+        review.add_argument('--csd-exclusions-only', action='store_true',
+                            help='Joint exact exclusion/island review of pending StatCan municipalities only')
         if command.startswith('audit'):
             review.add_argument('--report', required=True, type=Path)
         else:
@@ -204,6 +206,7 @@ def main(argv=None):
         from .dataset import Dataset
         data = Dataset(args.dataset, args.manifest_sha256)
         options = {'directories': args.source_dir, 'statcan': args.statcan_source,
+                   'csd_exclusions_only': args.csd_exclusions_only,
                    'progress': lambda table, uid: print(f'Reviewing {table}: {uid}', file=sys.stderr)}
         if args.command == 'audit-boundary-repairs':
             if args.report.exists() or args.report.is_symlink() or args.report.resolve().is_relative_to(data.root):

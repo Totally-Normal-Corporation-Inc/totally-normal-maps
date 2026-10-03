@@ -6,6 +6,8 @@ publish data, or deploy. The contract is `boundary-topology-review.v1`.
 
 The [2026-10-03 acceptance record](research/boundary-repairs-2026-10.md) reports
 the first batch, unresolved cases, immutable identities and measured build costs.
+The follow-up [municipal exclusion review](research/municipal-exclusions-2026-10.md)
+resolves the 13 municipal cases through exact source partitions.
 
 Topology approval qualifies a particular source geometry for assignment. It does
 not reconcile different source vintages, certify legal boundaries, approve source
@@ -61,6 +63,36 @@ This avoids apparent slivers caused by projecting different vertex sequences.
 Stored assignment coordinates are not densified. Current-overlap evidence records
 the pre-correction conflicts; `current_overlap_correction` records the remaining
 overlap after any final trim.
+
+## Joint municipal exclusion review
+
+The opt-in `--csd-exclusions-only` mode reviews the pending StatCan municipal
+repairs together. Other record families remain outside that batch's scope.
+It produces `csd-exclusion-partition.v1` evidence inside the existing audit
+contract and permits topology-only approvals, without clipping or minor corrections.
+
+A polygon hole can surround separate islands belonging to the same municipality.
+The review requires an exact partition of each newly represented hole into whole
+neighbouring polygon components and whole retained municipal island components.
+Their union and boundary must equal the hole exactly, and the islands must not
+overlap the neighbouring components. An unexplained gap, clipped neighbour or
+unaccounted-for overlap cannot pass. The island area is retained territory, not
+the size of a correction.
+
+Pending neighbours may corroborate each other only as one complete group. Every
+member must independently pass the unchanged-boundary, repair-method agreement,
+discarded-coordinate, area-roundoff, source-ledger, identity and neighbour checks.
+Projected assignment polygons are also checked against each other. Previously
+reviewed source candidates can contribute evidence only when they exactly
+reproduce the loaded assignment bytes and original source hash. A failed member
+rejects the joint audit; no tentative member is independently promoted. Startup
+checks the complete joint approval and rejects missing or inconsistent members.
+
+Run the audit and apply commands below with `--csd-exclusions-only`, using the
+previous reviewed **pre-package** release as input and a new audit/output path.
+Only `--statcan-source` is needed; the other source directories are unnecessary.
+The apply command must use the same mode as the audit. Previous audit evidence
+and approvals are preserved in release history.
 
 ## Reproduce an audit and release
 
