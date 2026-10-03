@@ -6,7 +6,6 @@ The only requests are to the supplied loopback preview; no application writes.
 import argparse
 import json
 from pathlib import Path
-import re
 from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 
 from playwright.sync_api import expect, sync_playwright
@@ -244,8 +243,21 @@ def check_preview(url, output):
             status('116 neighbourhood study areas');rows(100)
             page.locator('#search').fill('3050');rows(1)
             page.locator('#results .result').click()
-            expect(page.locator('#selection')).to_contain_text('Unapproved source repair')
+            east = next(r for r in city_areas if r['id'] == 'ca-on-3506008-ons-3050')
+            expect(page.locator('#selection')).to_contain_text(
+                'Reviewed topology repair' if east['assignment_status'] == 'validated_derived' else 'Unapproved source repair')
             page.screenshot(path=str(output/'ontario-ottawa-repair.png'),full_page=True)
+            page.locator('#search').fill('3051');rows(1)
+            page.locator('#results [data-area-id="ca-on-3506008-ons-3051"]').click()
+            west = next(r for r in city_areas if r['id'] == 'ca-on-3506008-ons-3051')
+            if west.get('repair', {}).get('review', {}).get('decision') == 'approve_minor_correction':
+                expect(page.locator('#selection')).to_contain_text('Reviewed minor boundary correction')
+                expect(page.locator('#selection')).to_contain_text(
+                    f"Affected area {west['repair']['review']['affected_area_m2']:.3f} m²")
+                expect(page.locator('#selection')).not_to_contain_text('Unapproved source repair')
+            else:
+                expect(page.locator('#selection')).to_contain_text('Unapproved source repair')
+            page.screenshot(path=str(output/'ontario-ottawa-west-repair.png'),full_page=True)
             page.locator('#province').select_option('35');status('40 regions · 17 municipalities')
         page.locator('#results [data-area-id="3520005"]').click()
         expect(page.locator("#selection h2")).to_have_text("Toronto")
@@ -269,8 +281,12 @@ def check_preview(url, output):
             page.screenshot(path=str(output/'ontario-hamilton-stoney-creek.png'),full_page=True)
             page.locator('#province').select_option('35');status('40 regions · 17 municipalities')
         page.locator("#issues-only").check()
-        expect(page.locator("#map-status")).to_have_text(re.compile(
-            r"^9 regions" if ontario and ontario.get('deferred_adjustments') else r"^10 regions" if ontario else r"^7 regions"))
+        issue_ids = {r['id'] for r in [*catalogue['regions'], *catalogue['areas']]
+                     if r['province'] == '35' and r.get('issues') and
+                     (r['level'] == 'region' or not r.get('region_id'))}
+        rows(len(issue_ids))
+        assert set(page.locator('#results .result').evaluate_all(
+            'nodes => nodes.map(node => node.dataset.areaId)')) == issue_ids
         page.locator("#province").select_option("48")
         status("2 regions · 392 municipalities")
         expect(page.locator("#issues-only")).not_to_be_checked()

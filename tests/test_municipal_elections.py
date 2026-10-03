@@ -131,6 +131,9 @@ class MunicipalTests(unittest.TestCase):
         build_municipal(self.base,self.root,release,plan_path=path);data=Dataset(release)
         self.assertNotIn('ca-mun-test-1',data.geometries)
         self.assertEqual(data.areas['ca-mun-test-1']['assignment_status'],'unreviewed_repair')
+        repair = data.areas['ca-mun-test-1']['repair']
+        self.assertIn('area measurements in EPSG:3347', repair['method'])
+        self.assertGreater(repair['candidate_area_m2'], 1_000_000)
         self.assertEqual(data.lookup(-110.5,50.8,layers=['municipal'])['status'],'review_required')
         with self.assertRaises(CatalogueError):data.boundary('ca-mun-test-1','full')
         self.assertEqual(data.lookup(0,0,layers=['municipal'])['status'],'review_required')

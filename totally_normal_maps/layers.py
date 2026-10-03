@@ -88,7 +88,7 @@ def derive_edition_coverage(editions, rows, declared=None):
     for row in rows:
         key = (row['edition'], row['province'])
         counts[key] += 1
-        unavailable[key] += row['assignment_status'] != 'validated_source'
+        unavailable[key] += row['assignment_status'] not in {'validated_source', 'validated_derived'}
     declared = declared or {}
     if not isinstance(declared, dict) or declared.keys() - editions.keys():
         raise CatalogueError('Coverage references an unknown electoral edition.')
@@ -159,8 +159,10 @@ def load_electoral(data, db, present):
         counts[edition['id']] += 1
         if source['geometry'] is not None:
             geometry = shapely.from_wkb(source['geometry'])
-            if (geometry_issue(geometry) or row['assignment_status'] != 'validated_source'
-                    or row.get('source_geometry_issue') or row.get('repair')):
+            from .boundary_review import validated_review
+            reviewed = validated_review(row, geometry, data.report)
+            if (geometry_issue(geometry) or not reviewed and (row['assignment_status'] != 'validated_source'
+                    or row.get('source_geometry_issue') or row.get('repair'))):
                 raise CatalogueError('Invalid electoral assignment geometry.')
             data.geometries[row['id']] = geometry
             data.required_displays.add(row['id'])

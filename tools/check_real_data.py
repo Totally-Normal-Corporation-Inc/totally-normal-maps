@@ -1,5 +1,6 @@
 """Explicit API acceptance for the checked Canada release; no network or writes."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import sqlite3
@@ -24,6 +25,10 @@ def main():
         jurisdictions = meta['coverage'].get('jurisdiction_refreshes', {})
         topology = meta['coverage'].get('topology_reviews', [])
         reviewed_ids = {'ca-csd-' + r['csd_id'] for r in topology}
+        batch_review = client.app.state.dataset.report.get('boundary_review', {})
+        batch_approved = {(r['table'], r['id']): r for r in batch_review.get('inventory', [])
+                          if r['decision'] in {'approve_topology_only', 'approve_minor_correction'}}
+        reviewed_ids.update(r['api_id'] for r in batch_approved.values() if r['api_id'].startswith('ca-csd-24'))
         administrative_counts = {k:v for k,v in meta['counts'].items() if k != 'electoral_district'}
         assert administrative_counts == {'country': 1, 'province': 13, 'municipality': 5050 if refresh else 5054,
                                   'region': 144, 'city_area': (137 if refresh else 46) + (520 if ontario else 0) +
@@ -144,7 +149,13 @@ def main():
                     assert areas[uid]['update_status'] == 'deferred'
                     assert areas[uid]['boundary_basis'] == 'retained_previous_boundary'
             for uid in ('ca-on-3506008-ons-3050','ca-on-3506008-ons-3051'):
-                assert uid not in dataset.geometries
+                if ('city_area', uid) in batch_approved:
+                    assert uid in dataset.geometries and uid not in dataset.pending_ids
+                    assert dataset.boundary(uid, 'full')['properties']['suitable_for_assignment']
+                    point = dataset.geometries[uid].representative_point()
+                    assert uid in dataset.lookup(point.x, point.y)['direct_match_ids']
+                else:
+                    assert uid not in dataset.geometries
                 assert not dataset.boundary(uid)['properties']['suitable_for_assignment']
         if refresh:
             dataset = client.app.state.dataset
@@ -183,7 +194,8 @@ def main():
         hull = client.post('/v1/lookup', json={'longitude': -75.72, 'latitude': 45.43}).json()
         names = [r['name'] for r in hull['matches']]
         assert {'Canada', 'Quebec', 'Outaouais', 'Gatineau', 'Hull'} <= set(names), names
-        assert client.get('/v1/areas/ca-csd-2423027/boundary?resolution=full').status_code == 409
+        assert client.get('/v1/areas/ca-csd-2423027/boundary?resolution=full').status_code == (
+            200 if 'ca-csd-2423027' in reviewed_ids else 409)
         assert client.get('/v1/areas/ca/children/boundaries').json()['type'] == 'FeatureCollection'
         coverage = meta['coverage']['city_areas']
         assert next(r for r in coverage if r['parent_csd_id'] == '2409048')['coverage_policy'] == 'partial'
@@ -216,7 +228,18 @@ def main():
                     preserved = 0
                     for row in rows:
                         updated = new.execute(f'SELECT * FROM {table} WHERE {column}=?', (row[0],)).fetchone()
-                        if row[0] in exempt and baseline.version in {r['manifest_sha256'] for r in topology}:
+                        batch_change = (table, row[0]) in batch_approved or (table == 'region' and row[0] in
+                            dataset.report.get('boundary_review_effects', {}).get('regions', {}))
+                        if batch_change and baseline.version == batch_review.get('dataset_version'):
+                            columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]
+                            old_row, new_row = dict(zip(columns, row)), dict(zip(columns, updated))
+                            assert old_row['geometry'] is None
+                            if (table, row[0]) in batch_approved:
+                                assert hashlib.sha256(new_row['geometry']).hexdigest() == batch_approved[table, row[0]]['assignment_sha256']
+                            elif new_row['geometry'] is not None:
+                                assert new_row['geometry'] == old_row['repair_candidate']
+                            assert {k:v for k,v in old_row.items() if k not in {'record','geometry'}} == {k:v for k,v in new_row.items() if k not in {'record','geometry'}}
+                        elif row[0] in exempt and baseline.version in {r['manifest_sha256'] for r in topology}:
                             # Only record and full geometry may change; the prior
                             # candidate must become the exact assignment boundary.
                             columns = [r[1] for r in old.execute(f'PRAGMA table_info({table})')]

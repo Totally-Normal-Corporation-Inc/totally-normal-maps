@@ -43,6 +43,18 @@ def save_report(path, report):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    for command in ('audit-boundary-repairs', 'apply-boundary-repairs'):
+        review = commands.add_parser(command, help='Offline evidence-backed topology review; no downloads or publication')
+        review.add_argument('--dataset', required=True, type=Path)
+        review.add_argument('--manifest-sha256', required=True)
+        review.add_argument('--source-dir', action='append', default=[], type=Path,
+                            help='Repeat for directories containing checksum-pinned source snapshots')
+        review.add_argument('--statcan-source', type=Path)
+        if command.startswith('audit'):
+            review.add_argument('--report', required=True, type=Path)
+        else:
+            review.add_argument('--audit', required=True, type=Path)
+            review.add_argument('--output', required=True, type=Path)
     packages = commands.add_parser('prepare-display-packages', help='Prepare immutable shared display bundles offline')
     packages.add_argument('--dataset', required=True, type=Path)
     packages.add_argument('--manifest-sha256', required=True)
@@ -187,7 +199,21 @@ def main(argv=None):
     bundled = commands.add_parser('verify-deployment', help='Verify a combined website/API deployment against the running code')
     bundled.add_argument('--bundle', required=True, type=Path)
     args = parser.parse_args(argv)
-    if args.command == "download":
+    if args.command in {'audit-boundary-repairs', 'apply-boundary-repairs'}:
+        from .boundary_review import audit, apply_review
+        from .dataset import Dataset
+        data = Dataset(args.dataset, args.manifest_sha256)
+        options = {'directories': args.source_dir, 'statcan': args.statcan_source,
+                   'progress': lambda table, uid: print(f'Reviewing {table}: {uid}', file=sys.stderr)}
+        if args.command == 'audit-boundary-repairs':
+            if args.report.exists() or args.report.is_symlink() or args.report.resolve().is_relative_to(data.root):
+                raise CatalogueError('Audit report must be new and outside the immutable release.')
+            result, _ = audit(data, **options)
+            save_report(args.report, result)
+            report = {'report': str(args.report), 'dataset_version': data.version, 'counts': result['counts']}
+        else:
+            report = apply_review(data, args.output, read_json(args.audit), **options)
+    elif args.command == "download":
         report = download(args.output)
     elif args.command == 'prepare-display-packages':
         from .display_packages import prepare, PLAN

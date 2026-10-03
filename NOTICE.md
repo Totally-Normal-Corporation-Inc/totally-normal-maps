@@ -85,6 +85,12 @@ These transformations and cross-source differences are described in docs/researc
 The separately reviewed La Romaine topology repair splits an invalid exclusion ring
 without changing its area or extent; exact same-source reserve geometry corroborates
 the exclusions. Its evidence and original repair ledger remain in the derived release.
+Batch-reviewed releases may also apply evidenced topology repairs and bounded
+minor boundary corrections. Per-area decisions, source and candidate checksums,
+measurements and unresolved qualifications are retained in the release's
+`boundary_review` evidence. Small shared slivers may be assigned to existing
+validated neighbours; original source snapshots are not altered. See
+`docs/BOUNDARY_REPAIRS.md` for the approval policy and limits.
 The data publishers do not endorse the project. Preserve attribution and source
 licences when distributing source data, derived datasets or map displays.
 

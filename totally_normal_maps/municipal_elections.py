@@ -88,7 +88,7 @@ def coverage_inventory(data, editions, rows, declarations=None):
     counts, missing = Counter(), Counter()
     for r in rows:
         counts[r['edition']] += 1
-        missing[r['edition']] += r['assignment_status'] != 'validated_source'
+        missing[r['edition']] += r['assignment_status'] not in {'validated_source', 'validated_derived'}
     output = {}
     for scope in sorted(scopes):
         spec = declarations.get(scope, {})
@@ -151,7 +151,9 @@ def load_municipal(data, db, present):
         data.source_ids[('electoral_district', row['id'])] = row['id']
         if raw['geometry'] is not None:
             geometry = shapely.from_wkb(raw['geometry'])
-            if geometry_issue(geometry) or row['assignment_status'] != 'validated_source' or row.get('source_geometry_issue') or row.get('repair'):
+            from .boundary_review import validated_review
+            reviewed = validated_review(row, geometry, data.report)
+            if geometry_issue(geometry) or not reviewed and (row['assignment_status'] != 'validated_source' or row.get('source_geometry_issue') or row.get('repair')):
                 raise CatalogueError('Invalid municipal assignment geometry.')
             data.geometries[row['id']] = geometry; data.required_displays.add(row['id'])
         else:
@@ -351,7 +353,14 @@ def build_municipal(dataset, source_dir, output, *, plan_path=None, tolerance=40
             if issue:
                 row['issues'].append(issue);row['assignment_status']='missing_geometry';unavailable+=1
                 if full is not None and issue.startswith('invalid_geometry:'):
-                    candidate,metrics=propose_repair(full);row['repair']=metrics
+                    candidate,metrics=propose_repair(full)
+                    if 'method' in metrics:
+                        metrics['method'] += ' in EPSG:4326; area measurements in EPSG:3347'
+                    metrics['source_area_m2'] = transform(projected.transform, full).area
+                    metrics['candidate_area_m2'] = transform(projected.transform, candidate).area if candidate is not None else None
+                    metrics['area_change_m2'] = (metrics['candidate_area_m2'] - metrics['source_area_m2']
+                                                 if candidate is not None else None)
+                    row['repair']=metrics
                     if candidate is not None and not geometry_issue(candidate):row['assignment_status']='unreviewed_repair'
                     else:candidate=None
                 full=None
