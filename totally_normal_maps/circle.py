@@ -12,14 +12,15 @@ import time
 from typing import Annotated, Literal
 
 import numpy as np
+import shapely
 from pydantic import BaseModel, ConfigDict, Field
 from pyproj import Geod
 from shapely.geometry import Point, box
 from shapely.strtree import STRtree
 
-from .catalogue import CatalogueError
+from .catalogue import CatalogueError, geometry_issue
 
-REVISION = 1
+REVISION = 2
 TOLERANCE_M = .01
 ROUNDING_M = .00001
 MAX_RESPONSE_BYTES = 128 * 1024
@@ -60,7 +61,7 @@ class CircleIdentity(Model):
 
 class CircleEnvelope(Model):
     dataset_version: str
-    representation_revision: Literal[1] = REVISION
+    representation_revision: Literal[2] = REVISION
     qualification: Literal['review_required'] = 'review_required'
     query: CircleQuery
     match_semantics: Literal['area_intersects_circle'] = 'area_intersects_circle'
@@ -254,6 +255,7 @@ class CircleIndex:
                    and row.get('lifecycle_status') != 'superseded'}
         self.population = len(current)
         self.components, self.uncertain, self.unlocated = [], [], []
+        self.stable_components = []
         pending = {}
         for uid, geom in zip(data.pending_ids, data.pending_shapes):
             if uid in current:
@@ -268,6 +270,17 @@ class CircleIndex:
                     # These are retained differences, not missing assignment
                     # shapes. Conservatively report a conflict if reached.
                     self.uncertain.extend(Component(uid, part, 'boundary_disagreement') for part in polygon_parts(review))
+                # Only explicit old/new difference evidence supports this proof.
+                # The current full shape outside ALL differences belongs to both
+                # versions. Reaching that common territory proves inclusion; it
+                # does not approve any disputed edge or repair. Build once, never
+                # perform overlays in an HTTP request.
+                if pending.get(uid) and row.get('uncertainty_basis') == 'old_new_boundary_difference':
+                    stable = full.difference(shapely.union_all(pending[uid]))
+                    if not stable.is_empty:
+                        if geometry_issue(stable):
+                            raise CatalogueError('Invalid undisputed municipal geometry.')
+                        self.stable_components.extend(Component(uid, part) for part in polygon_parts(stable))
             else:
                 envelope = repair_envelope(row, pending.get(uid, []))
                 if envelope is None:
@@ -276,6 +289,7 @@ class CircleIndex:
                     self.uncertain.append(Component(uid, envelope, 'municipal_geometry_unavailable'))
         self.tree = STRtree([c.geometry for c in self.components])
         self.uncertainty_tree = STRtree([c.geometry for c in self.uncertain])
+        self.stable_tree = STRtree([c.geometry for c in self.stable_components])
 
     @staticmethod
     def candidates(tree, predicate):
@@ -296,13 +310,20 @@ class CircleIndex:
             c = self.uncertain[i]
             if c.uid not in problems and predicate.intersects(c.geometry):
                 problems[c.uid] = c.reason
+        matches = set()
+        if problems:
+            for i in self.candidates(self.stable_tree, predicate):
+                c = self.stable_components[i]
+                if problems.get(c.uid) == 'boundary_disagreement' and predicate.intersects(c.geometry):
+                    del problems[c.uid]
+                    matches.add(c.uid)
+        predicate.budget.check()
         envelope = {'dataset_version': self.data.version, 'query': request.query()}
         if problems:
             counts = Counter(problems.values())
             ids = sorted(problems)
             return CircleIncomplete(**envelope, reasons=[{'code': k, 'count': v} for k, v in sorted(counts.items())],
                 affected_count=len(ids), sample_area_ids=ids[:20], sample_is_complete=len(ids) <= 20)
-        matches = set()
         for i in self.candidates(self.tree, predicate):
             c = self.components[i]
             if c.uid not in matches and predicate.intersects(c.geometry):

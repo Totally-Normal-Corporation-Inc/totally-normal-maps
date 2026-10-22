@@ -15,7 +15,7 @@ POST /v1/lookup/circle
 Authorization: Bearer <server-held-key>
 Content-Type: application/json
 If-Match: "<dataset_version>"
-If-Circle-Revision: 1
+If-Circle-Revision: 2
 ```
 
 ```json
@@ -52,7 +52,7 @@ The first page can discover the version without `If-Match`. Every continuation
 served, not a request to load a historical release. Keep the query and limit
 unchanged across pages. Changing offset alone is the intended continuation.
 
-`If-Circle-Revision: 1` is an optional calculation precondition. A different value
+`If-Circle-Revision: 2` is an optional calculation precondition. A different value
 returns 412, even when the dataset did not change. Consumers should send it on
 every page and validate `representation_revision`, query and dataset version on
 every response. Changes to the rules for eligible areas, uncertainty or numerical
@@ -61,6 +61,14 @@ circle membership; population-only data releases change the dataset version whil
 retaining the circle calculation revision. Representation revision belongs in consumer cache
 keys alongside the exact point, radius, dataset and local publication epoch.
 
+Revision 2 changes only how a known old/new municipal boundary disagreement affects
+discovery. It does not change distance, pagination, point assignment or source
+geometry. Revision-1 pins return 412. Consumers must explicitly adopt revision 2
+and invalidate their revision-1 circle caches; deploy the consumer/provider change
+in coordination. An unchanged dataset version does not identify this code change.
+See the [Casselman / The Nation review](research/casselman-nation-circle-2026-10.md)
+for source findings, the mathematical inclusion proof and offline reproduction.
+
 ## Successful response
 
 Every 200 response contains:
@@ -68,7 +76,7 @@ Every 200 response contains:
 | Field | Meaning |
 |---|---|
 | `dataset_version` | Actual immutable dataset manifest SHA-256; also in `X-Maps-Dataset-Version` |
-| `representation_revision` | `1` |
+| `representation_revision` | `2` |
 | `qualification` | `review_required`; complete discovery does not approve the geography |
 | `query` | The five semantic request fields, with defaults applied; coordinates are not rounded |
 | `status`, `coverage_complete` | `complete`, `true` |
@@ -176,9 +184,21 @@ The uncertainty rules are deliberately conservative:
   qualified extent evidence exists, even for a distant circle. A guessed bbox
   is not proof of complete emptiness.
 - `boundary_disagreement`: a circle reaching retained municipal boundary-difference
-  evidence returns 409. This is conservative even if both boundary versions would
-  include the same municipality. The discovery operation does not approve a
-  disputed extent.
+  evidence returns 409 unless inclusion of that municipality is independently
+  proved. For explicit `old_new_boundary_difference` evidence only, startup computes
+  the full assignment polygon minus the union of **all** retained differences.
+  A circle reaching this common territory necessarily includes the municipality
+  under either source boundary. Revision 2 can then return it in a complete set,
+  retaining `qualification: review_required`. No disputed territory is approved.
+  A circle reaching only disputed territory, an empty common polygon or unknown
+  disagreement provenance still fails. All other municipalities must independently
+  pass the existing completeness checks before any page is returned.
+
+This is a sufficient inclusion proof, not an exhaustive reconciliation of sources.
+Both boundary versions might intersect a circle in different disputed places;
+without a common-territory witness the operation still returns 409. The proof uses
+the same ellipsoidal predicate, numerical band and shared request budgets as normal
+discovery. Overlay construction occurs once at startup, never during HTTP reads.
 
 Missing optional neighbourhoods, unrelated regional/electoral gaps and the global
 `review_required` label do not block a complete municipal result.
