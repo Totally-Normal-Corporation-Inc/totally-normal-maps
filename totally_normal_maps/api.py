@@ -757,7 +757,7 @@ def create_app(settings=None):
                         parameters = method.setdefault('parameters', [])
                         for name, description in (
                             ('If-Match', 'Quoted dataset_version; required when offset > 0. Mismatch returns 412.'),
-                            ('If-Circle-Revision', 'Optional circle calculation revision precondition, currently 1. Mismatch returns 412.')):
+                            ('If-Circle-Revision', 'Optional circle calculation revision precondition, currently 2. Mismatch returns 412.')):
                             if not any(p['name'] == name and p['in'] == 'header' for p in parameters):
                                 parameters.append({'name': name, 'in': 'header', 'required': False,
                                     'schema': {'type': 'string'}, 'description': description})

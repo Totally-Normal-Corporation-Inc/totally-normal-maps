@@ -28,7 +28,7 @@ def page(body, headers, *, query, offset, limit, version):
     require(version is None or version == actual, 'Mixed or unexpected dataset versions.')
     require(headers.get('X-Maps-Dataset-Version') == actual, 'Circle header/body version disagreement.')
     require(headers.get('Cache-Control') == 'no-store' and not headers.get('ETag'), 'Circle cache policy changed.')
-    require(type(value.get('representation_revision')) is int and value['representation_revision'] == 1
+    require(type(value.get('representation_revision')) is int and value['representation_revision'] == 2
             and value.get('qualification') == 'review_required', 'Circle revision or qualification changed.')
     require(value.get('status') == 'complete' and value.get('coverage_complete') is True, 'Incomplete circle result.')
     require(value.get('match_semantics') == 'area_intersects_circle'
@@ -59,7 +59,7 @@ def check(client, expected_version=None):
     # Small pages deliberately exercise continuation; 20 requests is an
     # acceptance budget, not the API's result limit or the consumer's 500 cap.
     for _ in range(20):
-        pinned = {'If-Circle-Revision': '1'}
+        pinned = {'If-Circle-Revision': '2'}
         if version:
             pinned['If-Match'] = '"' + version + '"'
         body, headers = client.request(PATH, body={**QUERY, 'offset': offset, 'limit': 3},
@@ -77,7 +77,7 @@ def check(client, expected_version=None):
     else:
         raise CheckFailure('Public sample exceeded the acceptance request budget; result was not truncated into success.')
     require(len(ids) == total and len(sizes) > 1, 'Public sample did not exercise complete multi-page discovery.')
-    pinned = {'If-Match': '"' + version + '"', 'If-Circle-Revision': '1'}
+    pinned = {'If-Match': '"' + version + '"', 'If-Circle-Revision': '2'}
     outside = {**QUERY, 'latitude': 0, 'longitude': 0}
     body, headers = client.request(PATH, body=outside, headers=pinned, budget=BUDGET)
     empty = page(body, headers, query=outside, offset=0, limit=100, version=version)
@@ -87,7 +87,7 @@ def check(client, expected_version=None):
     client.request(PATH, body=QUERY, expected=412, headers={**pinned, 'If-Circle-Revision': '0'})
     client.request(PATH, body=QUERY, expected=401, authenticate=False, headers={'If-None-Match': '*'})
     client.request(PATH, body={**QUERY, 'offset': 1}, expected=428)
-    return {'dataset_version': version, 'representation_revision': 1, 'public_sample_total': total,
+    return {'dataset_version': version, 'representation_revision': 2, 'public_sample_total': total,
             'decoded_page_bytes': sizes, 'checks': ['direct_discovery_without_metadata', 'all_pinned_pages',
             'closed_circle_semantics', 'complete_empty', 'stale_dataset_412', 'revision_412', 'authentication', 'continuation_428']}
 

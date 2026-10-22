@@ -69,7 +69,7 @@ class CircleCheckerTests(unittest.TestCase):
             if value['offset']:
                 value['dataset_version'] = 'e' * 64
 
-        for mutate in (duplicate, short, mixed, lambda v: v.update(representation_revision=2),
+        for mutate in (duplicate, short, mixed, lambda v: v.update(representation_revision=1),
                        lambda v: v.update(representation_revision=True), lambda v: v.update(offset=False),
                        lambda v: v.update(coverage_complete=False), lambda v: v.pop('qualification')):
             with self.subTest(mutate=mutate), self.assertRaises(CheckFailure):

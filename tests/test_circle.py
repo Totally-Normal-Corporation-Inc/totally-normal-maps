@@ -161,6 +161,71 @@ class CircleGeometryTests(unittest.TestCase):
         result = CircleIndex(data).lookup(request(radius=10000))
         self.assertEqual([r.id for r in result.items], sorted(data.areas))
 
+    def test_disputed_municipal_pair_has_complete_invariant_reach(self):
+        # Synthetic transfer, not municipal source coordinates. The IDs guard
+        # the reported case without embedding private audience/place data.
+        nation, casselman = 'ca-csd-3502025', 'ca-csd-3502044'
+        delta = box(-75.05, 44.9, -74.95, 45.1)
+        data = synthetic({nation: box(-75.5, 44.9, -75.05, 45.1),
+                          casselman: box(-75.05, 44.9, -74.5, 45.1)},
+                         pending={nation: delta, casselman: delta})
+        for row in data.areas.values():
+            row['uncertainty_basis'] = 'old_new_boundary_difference'
+        index = CircleIndex(data)
+        ids, offset = [], 0
+        while offset is not None:
+            result = index.lookup(request(radius=80000, limit=1, offset=offset))
+            self.assertIsInstance(result, CircleResult)
+            self.assertEqual(result.representation_revision, 2)
+            self.assertTrue(result.coverage_complete)
+            self.assertEqual(result.total, 2)
+            ids.extend(item.id for item in result.items)
+            offset = result.next_offset
+        self.assertEqual(ids, sorted(data.areas))
+        self.assertEqual(data.pending_ids, [nation, casselman])
+        # Reach depending exclusively on the transfer is still unresolved.
+        disputed = index.lookup(request(radius=1000))
+        self.assertIsInstance(disputed, CircleIncomplete)
+        self.assertEqual(disputed.affected_count, 2)
+        self.assertEqual(disputed.reasons[0].code, 'boundary_disagreement')
+        self.assertNotIn('items', disputed.model_dump())
+        self.assertEqual(index.lookup(request(-75.4, 45, 1000)).total, 1)
+        self.assertEqual(index.lookup(request(0, 0, 1000)).total, 0)
+
+    def test_all_disagreements_must_be_excluded_from_inclusion_proof(self):
+        full = box(-75.2, 44.8, -74.8, 45.2)
+        data = synthetic({'a': full}, pending={'a': box(-75.2, 44.8, -75, 45.2)})
+        data.areas['a']['uncertainty_basis'] = 'old_new_boundary_difference'
+        data.pending_ids.append('a')
+        data.pending_shapes.append(box(-75, 44.8, -74.8, 45.2))
+        self.assertIsInstance(CircleIndex(data).lookup(request(radius=80000)), CircleIncomplete)
+
+    def test_opaque_disputes_and_missing_geometry_cannot_use_inclusion_proof(self):
+        full = box(-75.2, 44.8, -74.8, 45.2)
+        delta = box(-75.2, 44.8, -75.1, 45.2)
+        data = synthetic({'a': full}, pending={'a': delta})
+        for basis in (None, 'unapproved_repair'):
+            data.areas['a']['uncertainty_basis'] = basis
+            self.assertIsInstance(CircleIndex(data).lookup(request(radius=80000)), CircleIncomplete)
+        data.areas['a']['uncertainty_basis'] = 'old_new_boundary_difference'
+        data.areas['missing'] = {'id': 'missing', 'level': 'municipality'}
+        result = CircleIndex(data).lookup(request(radius=80000))
+        self.assertIsInstance(result, CircleIncomplete)
+        self.assertEqual(result.sample_area_ids, ['missing'])
+
+    def test_inclusion_proof_preserves_holes_and_runs_only_at_startup(self):
+        full = MultiPolygon([box(-76, 44, -74, 46).difference(box(-75.1, 44.9, -74.9, 45.1)),
+                             box(-73, 45, -72.9, 45.1)])
+        data = synthetic({'a': full}, pending={'a': box(-75.05, 44.95, -74.95, 45.05)})
+        data.areas['a']['uncertainty_basis'] = 'old_new_boundary_difference'
+        index = CircleIndex(data)
+        with patch('totally_normal_maps.circle.shapely.union_all', side_effect=AssertionError('request overlay')):
+            self.assertIsInstance(index.lookup(request(radius=1000)), CircleIncomplete)
+            self.assertEqual(index.lookup(request(radius=80000)).total, 1)
+        with patch('totally_normal_maps.circle.MAX_SECONDS', -1):
+            with self.assertRaises(CircleUnavailable):
+                index.lookup(request(radius=80000))
+
     def test_incomplete_evidence_is_bounded_as_missing_population_grows(self):
         missing = {f'ca-csd-{i:07}': {'level': 'municipality'} for i in range(2000)}
         result = CircleIndex(synthetic({}, missing=missing)).lookup(request())
@@ -234,7 +299,7 @@ class CircleAPITests(unittest.TestCase):
         self.assertEqual(value['items'], [{'id': 'ca-csd-2401001', 'level': 'municipality'}])
         self.assertEqual(value['query'], request(-109.5, 50.5, 1000).query())
         self.assertEqual(value['match_semantics'], 'area_intersects_circle')
-        self.assertEqual(value['representation_revision'], 1)
+        self.assertEqual(value['representation_revision'], 2)
         value = self.post(latitude=0, longitude=0).json()
         self.assertEqual((value['status'], value['coverage_complete'], value['total'], value['items'], value['next_offset']),
                          ('complete', True, 0, [], None))
@@ -270,8 +335,8 @@ class CircleAPITests(unittest.TestCase):
     def test_auth_dataset_revision_and_continuations(self):
         body = request(-109.5, 50.5, 1000).model_dump()
         for headers, status in (({'Authorization': ''}, 401), ({'Authorization': 'Bearer invalid'}, 401),
-            ({'If-Match': '"' + '0' * 64 + '"'}, 412), ({'If-Circle-Revision': '2'}, 412),
-            ({'If-Match': '"' + self.digest + '"', 'If-Circle-Revision': '1'}, 200), ({'If-None-Match': '*'}, 200)):
+            ({'If-Match': '"' + '0' * 64 + '"'}, 412), ({'If-Circle-Revision': '1'}, 412),
+            ({'If-Match': '"' + self.digest + '"', 'If-Circle-Revision': '2'}, 200), ({'If-None-Match': '*'}, 200)):
             self.assertEqual(self.client.post(self.path, json=body, headers=headers).status_code, status)
         self.assertEqual(self.post(offset=1).status_code, 428)
         body['offset'] = 1
@@ -283,6 +348,22 @@ class CircleAPITests(unittest.TestCase):
             self.assertEqual(self.client.post(self.path, json=body, headers={'If-Match': '"' + self.digest + '"'}).status_code, 412)
             response = self.client.post(self.path, json=body, headers={'If-Match': '"' + changed.version + '"'})
             self.assertEqual(response.json()['dataset_version'], changed.version)
+
+    def test_http_invariant_reach_and_disputed_only_failure(self):
+        uid = 'ca-csd-3502044'
+        data = synthetic({uid: box(-75.2, 44.8, -74.8, 45.2)},
+                         pending={uid: box(-75.05, 44.8, -74.8, 45.2)})
+        data.version = self.digest
+        data.areas[uid]['uncertainty_basis'] = 'old_new_boundary_difference'
+        with patch.object(self.client.app.state, 'circles', CircleIndex(data)):
+            headers = {'If-Match': '"' + self.digest + '"', 'If-Circle-Revision': '2'}
+            for radius, status in ((80000, 200), (1000, 409)):
+                response = self.client.post(self.path, json=request(radius=radius).model_dump(), headers=headers)
+                self.assertEqual(response.status_code, status)
+                self.assertEqual(response.json()['representation_revision'], 2)
+                self.assertEqual(response.headers['cache-control'], 'no-store')
+                self.assertEqual('items' in response.json(), status == 200)
+                self.assertEqual(response.json()['qualification'], 'review_required')
 
     def test_unavailability_and_rate_limit_do_not_become_empty_results(self):
         state = self.client.app.state
@@ -312,7 +393,7 @@ class CircleAPITests(unittest.TestCase):
             self.assertNotIn('items', response.json())
         body = request(-109.5, 50.5, 1000).model_dump()
         response = self.client.post(self.path, json=body,
-                                    headers=[('If-Circle-Revision', '1'), ('If-Circle-Revision', '1')])
+                                    headers=[('If-Circle-Revision', '2'), ('If-Circle-Revision', '2')])
         self.assertEqual(response.status_code, 422)
         for first in ('"' + self.digest + '"', '"' + 'f' * 64 + '"'):
             response = self.client.post(self.path, json=body,
